@@ -10,5 +10,4 @@ const { start, stop } = setupShader({
     canvas: <HTMLCanvasElement>canvasElem.get(0),
     sources: { vertex: shaderVert, fragment: shaderFrag },
 });
-
 start();
