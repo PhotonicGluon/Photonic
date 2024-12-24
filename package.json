@@ -11,9 +11,11 @@
     "dependencies": {
         "astro": "^5.1.1",
         "jquery": "^3.7.1",
+        "tweakpane": "^4.0.5",
         "twgl.js": "^5.5.4"
     },
     "devDependencies": {
+        "@tweakpane/core": "^2.0.5",
         "@types/jquery": "^3.5.32",
         "prettier": "^3.4.2",
         "prettier-plugin-astro": "^0.14.1",
