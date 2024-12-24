@@ -9,7 +9,7 @@
         "**/__pycache__": true
     },
     "editor.formatOnSave": true,
-    "cSpell.words": ["stylesheet", "tweakpane", "twgl"],
+    "cSpell.words": ["interpolator", "stylesheet", "tweakpane", "twgl"],
     "files.insertFinalNewline": true,
     "[glsl]": {
         "editor.defaultFormatter": "raczzalan.webgl-glsl-editor"

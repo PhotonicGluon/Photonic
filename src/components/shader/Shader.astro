@@ -1,4 +1,35 @@
-<canvas id="shader-canvas"></canvas>
+---
+// Set up properties that are sent to the component
+import seedrandom from "seedrandom";
+
+export interface Props {
+    id: string;
+    imageUrl?: string;
+}
+
+const { id, imageUrl } = Astro.props;
+
+let offset = [0, 0];
+let scale = 1;
+if (imageUrl) {
+    const random = seedrandom(id);
+    offset = [Math.floor(random() * 21) - 10, Math.floor(random() * 21) - 10];
+    scale = random() * 2 + 1;
+}
+
+// Import component style
+import "./style.css";
+---
+
+<div
+    class="shader-backdrop"
+    id={`backdrop-${id}`}
+    data-image-url={imageUrl}
+    data-offset={JSON.stringify(offset)}
+    data-warp-scale={JSON.stringify(scale)}
+>
+    <canvas class="shader-backdrop-canvas"></canvas>
+</div>
 <script>
     import "./script";
 </script>

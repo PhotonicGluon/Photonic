@@ -1,4 +1,3 @@
-// @ts-check
 import { defineConfig } from "astro/config";
 import glsl from "vite-plugin-glsl";
 
