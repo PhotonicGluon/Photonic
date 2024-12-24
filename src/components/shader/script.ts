@@ -1,7 +1,7 @@
 import $ from "jquery";
-import { setupShader } from "../../lib/shaders/setup";
-import shaderVert from "../../lib/shaders/2d.vert";
-import shaderFrag from "../../lib/shaders/balatro.frag";
+import { setupShader } from "../../../lib/shaders/setup";
+import shaderVert from "../../../lib/shaders/2d.vert";
+import shaderFrag from "../../../lib/shaders/balatro.frag";
 
 const canvasElem = $("#shader-canvas");
 canvasElem.width("100%");
