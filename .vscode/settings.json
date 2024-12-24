@@ -11,5 +11,8 @@
     "editor.formatOnSave": true,
     "cSpell.words": ["pyproject", "stylesheet", "twgl", "uvicorn"],
     "files.insertFinalNewline": true,
+    "[glsl]": {
+        "editor.defaultFormatter": "raczzalan.webgl-glsl-editor"
+    },
     "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

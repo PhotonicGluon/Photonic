@@ -80,22 +80,22 @@ export function setupShader(shader: Shader) {
     );
     observer.observe(canvas);
 
-    // // Create textures
-    // let textureUniforms = {};
-    // let texturesReady = true;
-    // if (options.textures && options.textures.length > 0) {
-    //     texturesReady = false;
-    //     textureUniforms = createTextures(
-    //         gl,
-    //         Object.fromEntries(
-    //             options.textures.map((init, i) => [`iChannel${i}`, init]),
-    //         ),
-    //         () => {
-    //             texturesReady = true;
-    //             options.onTexturesReady?.();
-    //         },
-    //     );
-    // }
+    // Create textures
+    let textureUniforms = {};
+    let texturesReady = true;
+    if (shader.textures && shader.textures.length > 0) {
+        texturesReady = false;
+        textureUniforms = twgl.createTextures(
+            gl,
+            Object.fromEntries(
+                shader.textures.map((init, i) => [`iChannel${i}`, init]),
+            ),
+            () => {
+                texturesReady = true;
+                shader.onTexturesReady?.();
+            },
+        );
+    }
 
     // Set up renderer
     let frameCount = 0;
@@ -105,23 +105,23 @@ export function setupShader(shader: Shader) {
             return;
         }
 
-        // if (!texturesReady) {
-        //     throw new Error(
-        //         "Shader has textures, but they have not been loaded yet.",
-        //     );
-        // }
+        if (!texturesReady) {
+            throw new Error(
+                "Shader has textures, but they have not been loaded yet.",
+            );
+        }
 
         twgl.resizeCanvasToDisplaySize(gl.canvas as HTMLCanvasElement);
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
-        // if (options.onFrame) {
-        //     options.onFrame(time);
-        // }
+        if (shader.onFrame) {
+            shader.onFrame(time);
+        }
 
         const lastFrameDelta = lastTime === undefined ? 0 : time - lastTime;
 
         const uniforms = {
-            // ...options.uniforms,
+            ...shader.uniforms,
             // Shadertoy's built-in uniforms
             // https://www.shadertoy.com/howto
             // uniform vec3 iResolution;
@@ -138,7 +138,7 @@ export function setupShader(shader: Shader) {
             iTime: time * 0.001,
             iTimeDelta: lastFrameDelta,
             iFrame: frameCount,
-            // ...textureUniforms,
+            ...textureUniforms,
         };
 
         gl.useProgram(programInfo.program);
