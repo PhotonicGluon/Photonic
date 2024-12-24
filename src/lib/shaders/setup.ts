@@ -154,4 +154,21 @@ export function setupShader(shader: Shader) {
     }
 
     requestAnimationFrame(render);
+
+    return {
+        gl,
+        start: () => {
+            hasBeenStarted = true;
+            if (isIntersecting) {
+                queueFrame();
+            }
+        },
+        stop: () => {
+            hasBeenStarted = false;
+            cancelFrame();
+        },
+        destroy: () => {
+            observer.disconnect();
+        },
+    };
 }

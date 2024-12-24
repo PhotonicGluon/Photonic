@@ -5,7 +5,9 @@ import shaderFrag from "../../lib/shaders/demo.frag";
 
 const canvas = <HTMLCanvasElement>$("#shader-canvas").get(0);
 
-setupShader({
+const { start, stop } = setupShader({
     canvas: canvas,
     sources: { vertex: shaderVert, fragment: shaderFrag },
 });
+
+start();
