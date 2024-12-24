@@ -1,4 +1,3 @@
-import $ from "jquery";
 import * as twgl from "twgl.js";
 
 /**
@@ -6,7 +5,7 @@ import * as twgl from "twgl.js";
  */
 export interface Shader {
     canvas: HTMLCanvasElement;
-    shaders: { vertex: string; fragment: string };
+    sources: { vertex: string; fragment: string };
     uniforms?: Record<string, any>;
     onFrame?: (time: DOMHighResTimeStamp) => void;
     textures?: twgl.TextureOptions[];
@@ -15,10 +14,14 @@ export interface Shader {
 
 /**
  * Sets up a shader.
+ *
+ * Taken and adapted from
+ *   https://github.com/s-thom/website-2023/blob/26d8a1abb60db1878840579c35bc2b462b9d124a/src/lib/shaders/setup.ts
+ *
  * @param shader Shader object to set up.
  */
 export function setupShader(shader: Shader) {
-    const { canvas, shaders } = shader;
+    const { canvas, sources } = shader;
     // Create WebGL2 context
     const gl = canvas.getContext("webgl2", { premultipliedAlpha: false });
     if (!gl) {
@@ -28,8 +31,8 @@ export function setupShader(shader: Shader) {
 
     // Get infos
     const programInfo = twgl.createProgramInfo(gl, [
-        shaders.vertex,
-        shaders.fragment,
+        sources.vertex,
+        sources.fragment,
     ]);
 
     const arrays = {
@@ -151,22 +154,4 @@ export function setupShader(shader: Shader) {
     }
 
     requestAnimationFrame(render);
-
-    // function render(time) {
-    //     twgl.resizeCanvasToDisplaySize(gl.canvas);
-    //     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-
-    //     const uniforms = {
-    //         time: time * 0.001,
-    //         resolution: [gl.canvas.width, gl.canvas.height],
-    //     };
-
-    //     gl.useProgram(programInfo.program);
-    //     twgl.setBuffersAndAttributes(gl, programInfo, bufferInfo);
-    //     twgl.setUniforms(programInfo, uniforms);
-    //     twgl.drawBufferInfo(gl, bufferInfo);
-
-    //     requestAnimationFrame(render);
-    // }
-    // requestAnimationFrame(render);
 }
