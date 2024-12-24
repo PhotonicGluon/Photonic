@@ -1,0 +1,32 @@
+{
+    "name": "Photonic",
+    "image": "mcr.microsoft.com/devcontainers/base:bullseye",
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": {
+            "nodeGypDependencies": true,
+            "installYarnUsingApt": true,
+            "version": "lts",
+            "pnpmVersion": "latest",
+            "nvmVersion": "latest"
+        },
+        "ghcr.io/devcontainers-extra/features/typescript:2": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    },
+    "postCreateCommand": [
+        "/bin/sh",
+        "-c",
+        "/bin/bash ./.devcontainer/postCreateCommand.sh"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "astro-build.astro-vscode",
+                "raczzalan.webgl-glsl-editor",
+                "streetsidesoftware.code-spell-checker",
+                "yzhang.markdown-all-in-one"
+            ]
+        }
+    }
+}
