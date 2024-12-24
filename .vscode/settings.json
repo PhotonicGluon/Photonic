@@ -9,11 +9,7 @@
         "**/__pycache__": true
     },
     "editor.formatOnSave": true,
-    "cSpell.words": [
-        "pyproject",
-        "stylesheet",
-        "twgl",
-        "uvicorn"
-    ],
-    "files.insertFinalNewline": true
+    "cSpell.words": ["pyproject", "stylesheet", "twgl", "uvicorn"],
+    "files.insertFinalNewline": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

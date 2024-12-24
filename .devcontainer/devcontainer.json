@@ -23,6 +23,7 @@
         "vscode": {
             "extensions": [
                 "astro-build.astro-vscode",
+                "esbenp.prettier-vscode",
                 "raczzalan.webgl-glsl-editor",
                 "streetsidesoftware.code-spell-checker",
                 "yzhang.markdown-all-in-one"
