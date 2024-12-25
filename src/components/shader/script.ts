@@ -24,9 +24,9 @@ $(".shader-backdrop").each((_index, backdropArea) => {
 
     // Define editable uniforms
     const editableUniforms: SlidersOptionsMap = {
-        uColor1: { type: "rgba", value: [0.85, 0.2, 0.2, 1] },
-        uColor2: { type: "rgba", value: [0, 0.61, 1, 1] },
-        uColor3: { type: "rgba", value: [0, 0, 0, 1] },
+        uColour1: { type: "rgba", value: [0.85, 0.2, 0.2, 1] },
+        uColour2: { type: "rgba", value: [0, 0.61, 1, 1] },
+        uColour3: { type: "rgba", value: [0, 0, 0, 1] },
     };
 
     window.addEventListener("sliders-initialised", ((event: InstanceType<typeof SlidersInitialisedEvent>) => {
@@ -36,7 +36,7 @@ $(".shader-backdrop").each((_index, backdropArea) => {
     // Define uniforms
     const uniforms: Record<string, any> = {};
 
-    uniforms.uUseColors = !hasBackground;
+    uniforms.uUseColours = !hasBackground;
     uniforms.uWarpIterations = hasBackground ? 4 : 9;
     uniforms.uOffset = backdropArea.dataset.offset ? JSON.parse(backdropArea.dataset.offset) : [0, 0];
     uniforms.uWarpScale = backdropArea.dataset.warpScale ? JSON.parse(backdropArea.dataset.warpScale) : 1;

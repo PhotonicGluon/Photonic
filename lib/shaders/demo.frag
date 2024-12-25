@@ -3,10 +3,10 @@ precision highp float;
 
 uniform vec3 iResolution;
 
-out vec4 outColor;
+out vec4 outColour;
 
 void main() {
     vec2 uv = gl_FragCoord.xy / iResolution.xy;
 
-    outColor = vec4(uv, 0, 1);
+    outColour = vec4(uv, 0, 1);
 }
