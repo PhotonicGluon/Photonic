@@ -48,8 +48,7 @@ export interface ColorRgbOption extends BaseOption<[number, number, number]> {
     type: "rgb";
 }
 
-export interface ColorRgbAOption
-    extends BaseOption<[number, number, number, number]> {
+export interface ColorRgbaOption extends BaseOption<[number, number, number, number]> {
     type: "rgba";
 }
 
@@ -61,7 +60,7 @@ export type AllOptions =
     | StringOption
     | Vec2Option
     | ColorRgbOption
-    | ColorRgbAOption;
+    | ColorRgbaOption;
 
 export interface SlidersOptionsMap {
     [id: string]: AllOptions;
@@ -72,16 +71,11 @@ export interface SlidersInitialisedEventData {
 }
 export const SlidersInitialisedEvent = CustomEvent<SlidersInitialisedEventData>;
 
-export function addOptionsToPanel(
-    container: Pane | FolderApi,
-    options: SlidersOptionsMap,
-) {
+export function addOptionsToPanel(container: Pane | FolderApi, options: SlidersOptionsMap) {
     for (const [key, option] of Object.entries(options)) {
         switch (option.type) {
             case "button":
-                container
-                    .addButton({ title: option.label ?? key })
-                    .on("click", option.onClick);
+                container.addButton({ title: option.label ?? key }).on("click", option.onClick);
                 break;
             case "boolean":
             case "string":
@@ -109,7 +103,6 @@ export function addOptionsToPanel(
                 });
                 break;
             case "rgb":
-                // eslint-disable-next-line no-case-declarations
                 const rgbContainer = {
                     rgb: {
                         r: option.value[0],
@@ -129,7 +122,6 @@ export function addOptionsToPanel(
                     });
                 break;
             case "rgba":
-                // eslint-disable-next-line no-case-declarations
                 const rgbaContainer = {
                     rgba: {
                         r: option.value[0],
@@ -146,12 +138,7 @@ export function addOptionsToPanel(
                         color: { type: "float" },
                     })
                     .on("change", (ev) => {
-                        option.value = [
-                            ev.value.r,
-                            ev.value.g,
-                            ev.value.b,
-                            ev.value.a,
-                        ];
+                        option.value = [ev.value.r, ev.value.g, ev.value.b, ev.value.a];
                     });
                 break;
             case "vec2":

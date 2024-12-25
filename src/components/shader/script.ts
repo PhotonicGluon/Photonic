@@ -7,36 +7,26 @@ import { setupShader } from "../../../lib/shaders/setup";
 import { Interpolate, easeInOutCubic } from "../../../lib/shaders/interpolate";
 import shaderVert from "../../../lib/shaders/2d.vert";
 import shaderFrag from "../../../lib/shaders/balatro-modifiable.frag";
-import type {
-    SlidersInitialisedEvent,
-    SlidersOptionsMap,
-} from "../../../lib/shaders/tweakpane";
+import type { SlidersInitialisedEvent, SlidersOptionsMap } from "../../../lib/shaders/tweakpane";
 
 // Process each canvas
 $(".shader-backdrop").each((_index, backdropArea) => {
     // Get the canvas associated with the backdrop
-    const canvas = backdropArea.querySelector<HTMLCanvasElement>(
-        "canvas.shader-backdrop-canvas",
-    );
+    const canvas = backdropArea.querySelector<HTMLCanvasElement>("canvas.shader-backdrop-canvas");
     if (!canvas) {
         return;
     }
 
     // Define editable uniforms
-    // FIXME: Changing slider values seems to reset these to 0...
     const editableUniforms: SlidersOptionsMap = {
         uColor1: { type: "rgba", value: [0.85, 0.2, 0.2, 1] },
         uColor2: { type: "rgba", value: [0, 0.61, 1, 1] },
         uColor3: { type: "rgba", value: [0, 0, 0, 1] },
     };
 
-    // FIXME: ...could it be due to this?
-    window.addEventListener(
-        "slidersinitialised",
-        (event: InstanceType<typeof SlidersInitialisedEvent>) => {
-            event.detail.registerSliders(backdropArea.id, editableUniforms);
-        },
-    );
+    window.addEventListener("sliders-initialised", ((event: InstanceType<typeof SlidersInitialisedEvent>) => {
+        event.detail.registerSliders(backdropArea.id, editableUniforms);
+    }) as (e: Event) => void);
 
     // Define uniforms
     const uniforms: Record<string, unknown> = {};
@@ -46,13 +36,8 @@ $(".shader-backdrop").each((_index, backdropArea) => {
 
     uniforms.uUseColors = !hasBackground;
     uniforms.uWarpIterations = hasBackground ? 4 : 9;
-    uniforms.uOffset = backdropArea.dataset.offset
-        ? JSON.parse(backdropArea.dataset.offset)
-        : [0, 0];
-    uniforms.uWarpScale = backdropArea.dataset.warpScale
-        ? JSON.parse(backdropArea.dataset.warpScale)
-        : 1;
-    uniforms.uColor1 = editableUniforms.uColor1.value;
+    uniforms.uOffset = backdropArea.dataset.offset ? JSON.parse(backdropArea.dataset.offset) : [0, 0];
+    uniforms.uWarpScale = backdropArea.dataset.warpScale ? JSON.parse(backdropArea.dataset.warpScale) : 1;
     // uniforms.uOffset = [0, 0];
     // uniforms.uWarpScale = 1;
 
