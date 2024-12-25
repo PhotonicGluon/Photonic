@@ -1,70 +1,5 @@
-/**
- * Copied from https://github.com/s-thom/website-2023/blob/26d8a1a/src/lib/shaders/sliders.ts
- */
-
 import type { FolderApi, Pane } from "tweakpane";
-
-export interface BaseOption<T> {
-    type: unknown;
-    value: T;
-    readonly?: boolean;
-}
-
-export interface ButtonOption extends BaseOption<any> {
-    type: "button";
-    label?: string;
-    onClick: () => void;
-}
-export interface BooleanOption extends BaseOption<boolean> {
-    type: "boolean";
-}
-
-export interface FloatOption extends BaseOption<number> {
-    type: "float";
-    min?: number;
-    max?: number;
-    step?: number;
-}
-
-export interface IntOption extends BaseOption<number> {
-    type: "int";
-    min?: number;
-    max?: number;
-}
-
-export interface StringOption extends BaseOption<string> {
-    type: "string";
-}
-
-export interface Vec2Option extends BaseOption<[number, number]> {
-    type: "vec2";
-    min?: number;
-    max?: number;
-    step?: number;
-    invertY?: boolean;
-}
-
-export interface ColorRgbOption extends BaseOption<[number, number, number]> {
-    type: "rgb";
-}
-
-export interface ColorRgbaOption extends BaseOption<[number, number, number, number]> {
-    type: "rgba";
-}
-
-export type AllOptions =
-    | ButtonOption
-    | BooleanOption
-    | FloatOption
-    | IntOption
-    | StringOption
-    | Vec2Option
-    | ColorRgbOption
-    | ColorRgbaOption;
-
-export interface SlidersOptionsMap {
-    [id: string]: AllOptions;
-}
+import type { SlidersOptionsMap } from "./options";
 
 export interface SlidersInitialisedEventData {
     registerSliders(id: string, options: SlidersOptionsMap): void;
@@ -142,7 +77,6 @@ export function addOptionsToPanel(container: Pane | FolderApi, options: SlidersO
                     });
                 break;
             case "vec2":
-                // eslint-disable-next-line no-case-declarations
                 const vec2Container = {
                     vec2: {
                         x: option.value[0],

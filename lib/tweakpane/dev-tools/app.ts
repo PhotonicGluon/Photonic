@@ -5,8 +5,8 @@
 import { type DevToolbarApp } from "astro";
 import { Pane } from "tweakpane";
 import { h } from "../../h";
-import { addOptionsToPanel, type SlidersInitialisedEventData } from "../../shaders/tweakpane";
 import { tweakpaneCSS } from "./css";
+import { addOptionsToPanel, type SlidersInitialisedEventData } from "../panel";
 
 const tweakpaneDevTools: DevToolbarApp = {
     init(canvas, app) {
