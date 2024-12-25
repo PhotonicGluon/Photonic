@@ -17,6 +17,10 @@ $(".shader-backdrop").each((_index, backdropArea) => {
         return;
     }
 
+    // Get background
+    const backgroundUrl = backdropArea.dataset.imageUrl;
+    const hasBackground = backgroundUrl !== undefined;
+
     // Define editable uniforms
     const editableUniforms: SlidersOptionsMap = {
         uColor1: { type: "rgba", value: [0.85, 0.2, 0.2, 1] },
@@ -29,10 +33,7 @@ $(".shader-backdrop").each((_index, backdropArea) => {
     }) as (e: Event) => void);
 
     // Define uniforms
-    const uniforms: Record<string, unknown> = {};
-
-    const backgroundUrl = backdropArea.dataset.imageUrl;
-    const hasBackground = backgroundUrl !== undefined;
+    const uniforms: Record<string, any> = {};
 
     uniforms.uUseColors = !hasBackground;
     uniforms.uWarpIterations = hasBackground ? 4 : 9;
@@ -71,7 +72,11 @@ $(".shader-backdrop").each((_index, backdropArea) => {
             //         (MAX_PAINT_FACTOR - MIN_PAINT_FACTOR) +
             //         MIN_PAINT_FACTOR) *
             //     interpolator.getValue();
+
+            // Update pixel density
             uniforms.uPixelDensity = window.devicePixelRatio;
+
+            // Update any editable uniforms
             for (const [key, value] of Object.entries(editableUniforms)) {
                 uniforms[key] = value.value;
             }
