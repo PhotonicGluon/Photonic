@@ -24,7 +24,10 @@ $(".shader-backdrop").each((_index, backdropArea) => {
 
     // Define editable uniforms
     const editableUniforms: SlidersOptionsMap = {
-        uMix: { type: "boolean", value: true },
+        uPixelated: { type: "boolean", value: false },
+        uMix: { type: "float", value: 0.1, min: 0.0, max: 1.0, step: 1e-3 },
+        uSwirlAmount: { type: "float", value: 0.7, min: 0.0, max: 1.0, step: 1e-3 },
+        uRotationSpeed: { type: "float", value: 1.0, min: 0.0, max: 5.0, step: 1e-2 },
     };
 
     window.addEventListener("sliders-initialised", ((event: InstanceType<typeof SlidersInitialisedEvent>) => {
