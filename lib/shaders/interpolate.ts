@@ -104,15 +104,11 @@ export class Interpolate {
         const t = Math.min(Math.max(deltaTime / this.goalDuration, 0), 1);
         const factor = this.fn(t);
 
-        const result =
-            (1 - factor) * this.initialValue + factor * this.goalValue;
+        const result = (1 - factor) * this.initialValue + factor * this.goalValue;
         return result;
     }
 
-    on<K extends keyof InterpolateEventListeners>(
-        name: K,
-        listener: InterpolateEventListeners[K],
-    ): () => void {
+    on<K extends keyof InterpolateEventListeners>(name: K, listener: InterpolateEventListeners[K]): () => void {
         const listeners = this.listeners[name];
         listeners.push(listener);
 

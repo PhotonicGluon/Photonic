@@ -19,15 +19,16 @@ uniform vec3 iResolution;     // Viewport resolution (width, height, pixel ratio
 uniform sampler2D iChannel1;  // Input texture
 
 // User-controllable parameters
-uniform bool uPixelated;       // Toggle for pixelation effect
+uniform bool uPixelated;        // Toggle for pixelation effect
+uniform float uAspectRatioFix;  // Aspect ratio fix factor
 
-uniform bool uApplyRotation;   // Whether to apply the rotation effect
-uniform float uSwirlAmount;    // Amount of swirling
-uniform float uRotationSpeed;  // Speed of rotation
+uniform bool uApplyRotation;    // Whether to apply the rotation effect
+uniform float uSwirlAmount;     // Amount of swirling
+uniform float uRotationSpeed;   // Speed of rotation
 
-uniform int uWarpIter;         // Number of iterations to apply the warping
+uniform int uWarpIter;          // Number of iterations to apply the warping
 
-uniform float uMix;            // Blend factor between normal and warped effect (0-1)
+uniform float uMix;             // Blend factor between normal and warped effect (0-1)
 
 // Output colour
 out vec4 outColour;
@@ -46,14 +47,18 @@ vec2 getInitialUV() {
     vec2 uv = scaledPx * texSizeRatio;
     vec2 uvScaled = uv / texSize;
 
+    // Mix with aspect ratio UV
+    vec2 basicUV = (gl_FragCoord.xy - center) / length(iResolution.xy);
+    vec2 mixedUV = mix(basicUV, uvScaled, uAspectRatioFix) + vec2(0.0f, 0.0f);  // TODO: Make this `uOffset`
+
     // Apply pixelation
-    float pixelSize = uPixelated ? length(texSize.xy) / PIXEL_SIZE_FAC : 1.0f;
-    uvScaled = (floor(uv.xy * (1.0f / pixelSize)) * pixelSize - 0.5f * texSize.xy) / length(texSize.xy);
+    if(uPixelated) {
+        mixedUV = floor((mixedUV * PIXEL_SIZE_FAC)) / PIXEL_SIZE_FAC;
+    }
 
     // Shift UV to middle and scale
-    // float midpointOffset = 0.5f * uAspectRatioFix;  // TODO: Enable
-    float midpointOffset = 0.5f * 0.0f;
-    return (uvScaled - midpointOffset) * 1.0f;  // TODO: make this `uScale`
+    float midpointOffset = 0.5f * uAspectRatioFix;
+    return (mixedUV - midpointOffset) * 1.0f;  // TODO: make this `uScale`
 }
 
 vec2 applySwirl(vec2 uv) {
@@ -89,7 +94,7 @@ vec2 applyWarp(vec2 uv) {
     // }
 
     // Mix between original and warped coordinates based on user parameter
-    return mix(uv, uvScaled, uMix);
+    return mix(uv, uvScaled, uMix);  // TODO: make this `uWarpAmount`
 }
 
 // MISC FUNCTIONS
@@ -117,7 +122,7 @@ void main() {
         uv = applyWarp(uv);
     }
 
-    vec2 finalUV = mix(initialUV, uv, uMix) + vec2(0.0f, 0.0f);  // TODO: Make this `uOffset`
+    vec2 finalUV = mix(initialUV, uv, uMix);
 
     // Get the colour to return
     outColour = sampleImage(finalUV);  // TODO: Allow the use of just colours
