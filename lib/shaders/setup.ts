@@ -58,10 +58,7 @@ export function setupShader(shader: Shader): ShaderControl {
     }
 
     // Create shader program from source code
-    const programInfo = twgl.createProgramInfo(gl, [
-        sources.vertex,
-        sources.fragment,
-    ]);
+    const programInfo = twgl.createProgramInfo(gl, [sources.vertex, sources.fragment]);
 
     // Create a full-screen quad for rendering
     const arrays = {
@@ -117,9 +114,7 @@ export function setupShader(shader: Shader): ShaderControl {
         texturesReady = false;
         textureUniforms = twgl.createTextures(
             gl,
-            Object.fromEntries(
-                shader.textures.map((init, i) => [`iChannel${i}`, init]),
-            ),
+            Object.fromEntries(shader.textures.map((init, i) => [`iChannel${i}`, init])),
             () => {
                 texturesReady = true;
                 shader.onTexturesReady?.();
@@ -136,9 +131,7 @@ export function setupShader(shader: Shader): ShaderControl {
         }
 
         if (!texturesReady) {
-            throw new Error(
-                "Shader has textures, but they have not been loaded yet.",
-            );
+            throw new Error("Shader has textures, but they have not been loaded yet.");
         }
 
         // Resize canvas and viewport to match display size
@@ -175,9 +168,6 @@ export function setupShader(shader: Shader): ShaderControl {
             animFrameHandle = requestAnimationFrame(render);
         }
     }
-
-    // Start initial render
-    requestAnimationFrame(render);
 
     // Return control interface
     return {

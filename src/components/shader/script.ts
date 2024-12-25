@@ -6,7 +6,7 @@ import $ from "jquery";
 import { setupShader } from "../../../lib/shaders/setup";
 import { Interpolate, easeInOutCubic } from "../../../lib/shaders/interpolate";
 import shaderVert from "../../../lib/shaders/2d.vert";
-import shaderFrag from "../../../lib/shaders/balatro-modifiable.frag";
+import shaderFrag from "../../../lib/shaders/ebbs-modifiable.frag";
 import type { SlidersInitialisedEvent } from "../../../lib/tweakpane/panel";
 import type { SlidersOptionsMap } from "../../../lib/tweakpane/options";
 
@@ -24,9 +24,7 @@ $(".shader-backdrop").each((_index, backdropArea) => {
 
     // Define editable uniforms
     const editableUniforms: SlidersOptionsMap = {
-        uColour1: { type: "rgba", value: [0.85, 0.2, 0.2, 1] },
-        uColour2: { type: "rgba", value: [0, 0.61, 1, 1] },
-        uColour3: { type: "rgba", value: [0, 0, 0, 1] },
+        uMix: { type: "boolean", value: true },
     };
 
     window.addEventListener("sliders-initialised", ((event: InstanceType<typeof SlidersInitialisedEvent>) => {
