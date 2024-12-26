@@ -11,7 +11,7 @@
     },
     "editor.formatOnSave": true,
     "cSpell.language": "en-GB",
-    "cSpell.words": ["frag", "highp", "interpolator", "rgba", "seedrandom", "stylesheet", "tweakpane", "twgl"],
+    "cSpell.words": ["frag", "highp", "interpolator", "rgba", "seedrandom", "stylesheet", "tweakpane", "twgl", "vite"],
     "files.insertFinalNewline": true,
     "[glsl]": {
         "editor.defaultFormatter": "raczzalan.webgl-glsl-editor"
