@@ -83,6 +83,19 @@ export interface Vec2Option extends BaseOption<[number, number]> {
 }
 
 /**
+ * Represents a 4D vector input.
+ */
+export interface Vec4Option extends BaseOption<[number, number, number, number]> {
+    type: "vec4";
+    /** Optional minimum value for all coordinates */
+    min?: number;
+    /** Optional maximum value for all coordinates */
+    max?: number;
+    /** Optional step size for increments/decrements */
+    step?: number;
+}
+
+/**
  * Represents an RGB color input.
  *
  * Stores value as a tuple of three numbers (red, green, blue).
@@ -110,6 +123,7 @@ export type AllOptions =
     | IntOption
     | StringOption
     | Vec2Option
+    | Vec4Option
     | ColorRgbOption
     | ColorRgbaOption;
 

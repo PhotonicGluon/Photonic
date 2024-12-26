@@ -33,6 +33,8 @@ uniform bool uWarpKeepImgScale;   // Whether to maintain the image scaling when 
 uniform float uWarpScale;         // Warp UV scaling factor
 uniform float uWarpAmount;        // Warping factor
 uniform float uWarpSpeed;         // Speed of the warp effect
+uniform vec4 uWarpUV2Coeff;       // Coefficients for the UV2 iteration in the warping loop
+uniform vec4 uWarpUV3Coeff;       // Coefficients for the UV3 iteration in the warping loop
 
 uniform bool uUseColour;          // Whether to use colour instead of an image
 uniform vec4 uColour1;            // Primary, outer colour
@@ -92,8 +94,7 @@ vec2 applySwirl(vec2 uv) {
 
     // Calculate rotation angle based on time and user parameters
     float speed = (iTime * SPIN_EASE * 0.1f * uSwirlSpeed) + SPEED_OFFSET;
-    float new_pixel_angle = (atan(uv.y, uv.x)) + speed -
-        SPIN_EASE * 20.0f * (1.0f * uSwirlAmount * uv_len + (1.0f - 1.0f * uSwirlAmount));
+    float new_pixel_angle = (atan(uv.y, uv.x)) + speed - SPIN_EASE * 20.0f * (uSwirlAmount * uv_len + (1.0f - uSwirlAmount));
 
     // Calculate center point and apply swirl transformation
     vec2 mid = (iResolution.xy / length(iResolution.xy)) / 2.0f;
@@ -116,11 +117,21 @@ vec2 applyWarp(vec2 uv) {
     vec2 uv2 = uv;
     vec2 uv3 = uv * uWarpScale;
 
+    // Get uv2 and uv3 coefficients
+    float uv2a = uWarpUV2Coeff.x;
+    float uv2b = uWarpUV2Coeff.y;
+    float uv2c = uWarpUV2Coeff.z;
+    float uv2d = uWarpUV2Coeff.w;
+    float uv3a = uWarpUV3Coeff.x;
+    float uv3b = uWarpUV3Coeff.y;
+    float uv3c = uWarpUV3Coeff.z;
+    float uv3d = uWarpUV3Coeff.w;
+
     // Iterative warping using trigonometric functions
     for(int i = 0; i < uWarpIter; i++) {
         uv1 += uv3 + cos(length(uv3));
-        uv2 += vec2(cos(uv1.y + speed), sin(uv1.x - speed));
-        uv3 -= cos(uv3.x + uv3.y) - sin(uv3.x - uv3.y);
+        uv2 += vec2(cos(uv2a * uv1.y + uv2b * speed), sin(uv2c * uv1.x + uv2d * speed));
+        uv3 -= cos(uv3a * uv3.x + uv3b * uv3.y) - sin(uv3c * uv3.x + uv3d * uv3.y);
     }
 
     // Adjust if image scale is to be preserved

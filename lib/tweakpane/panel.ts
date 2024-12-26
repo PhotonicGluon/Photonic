@@ -114,6 +114,43 @@ export function addOptionsToPanel(pane: Pane | FolderApi, options: SlidersOption
                     option.value = [ev.value.x, ev.value.y];
                 });
                 break;
+            case "vec4":
+                const vec4Container = {
+                    vec4: {
+                        x: option.value[0],
+                        y: option.value[1],
+                        z: option.value[2],
+                        w: option.value[3],
+                    },
+                };
+                pane.addBinding(vec4Container, "vec4", {
+                    label: key,
+                    readonly: option.readonly ?? (false as any),
+                    picker: "inline",
+                    x: {
+                        min: option.min ?? -100,
+                        max: option.max ?? 100,
+                        step: option.step ?? 0.01,
+                    },
+                    y: {
+                        min: option.min ?? -100,
+                        max: option.max ?? 100,
+                        step: option.step ?? 0.01,
+                    },
+                    z: {
+                        min: option.min ?? -100,
+                        max: option.max ?? 100,
+                        step: option.step ?? 0.01,
+                    },
+                    w: {
+                        min: option.min ?? -100,
+                        max: option.max ?? 100,
+                        step: option.step ?? 0.01,
+                    },
+                }).on("change", (ev) => {
+                    option.value = [ev.value.x, ev.value.y, ev.value.z, ev.value.w];
+                });
+                break;
             default:
                 throw new Error(`Unsupported option type for ${key}`);
         }

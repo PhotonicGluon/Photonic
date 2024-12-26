@@ -17,6 +17,8 @@ export const editableUniforms: SlidersOptionsMap = {
     uWarpScale: { type: "float", value: 30.0, min: 0.1, max: 50.0, step: 1e-2 },
     uWarpAmount: { type: "float", value: 0.7, min: 0.0, max: 1.0, step: 1e-3 },
     uWarpSpeed: { type: "float", value: 0.5, min: 0.0, max: 2.0, step: 1e-3 },
+    uWarpUV2Coeff: { type: "vec4", value: [0.3, 0.15, 1, -0.125], min: -2.0, max: 2.0, step: 1e-1 },
+    uWarpUV3Coeff: { type: "vec4", value: [1, 1, 0.7, -1], min: -2.0, max: 2.0, step: 1e-1 },
 
     uUseColour: { type: "boolean", value: true },
     uColour1: { type: "rgba", value: [0.85, 0.2, 0.2, 1] },
