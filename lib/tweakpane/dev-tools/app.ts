@@ -4,7 +4,7 @@
 
 import { type DevToolbarApp } from "astro";
 import { Pane } from "tweakpane";
-import { h } from "../../h";
+import { h } from "@lib/h";
 import { tweakpaneCSS } from "./css";
 import { addOptionsToPanel, type SlidersInitialisedEventData } from "../panel";
 

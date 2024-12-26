@@ -3,11 +3,11 @@
  */
 
 import $ from "jquery";
-import { setupShader } from "../../../lib/shaders/setup";
-import { Interpolate, easeInOutCubic } from "../../../lib/shaders/interpolate";
-import shaderVert from "../../../lib/shaders/2d.vert";
-import type { SlidersInitialisedEvent } from "../../../lib/tweakpane/panel";
-import type { SlidersOptionsMap } from "../../../lib/tweakpane/options";
+import { setupShader } from "@lib/shaders/setup";
+import { Interpolate, easeInOutCubic } from "@lib/shaders/interpolate";
+import shaderVert from "@lib/shaders/2d.vert";
+import type { SlidersInitialisedEvent } from "@lib/tweakpane/panel";
+import type { SlidersOptionsMap } from "@lib/tweakpane/options";
 
 // Process each canvas
 $(".shader-backdrop").each((_index, backdropArea) => {
