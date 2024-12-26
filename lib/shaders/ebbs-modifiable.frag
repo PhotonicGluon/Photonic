@@ -21,12 +21,18 @@ uniform sampler2D iChannel1;  // Input texture
 // User-controllable parameters
 uniform bool uPixelated;        // Toggle for pixelation effect
 uniform float uAspectRatioFix;  // Aspect ratio fix factor
+uniform vec2 uOffset;           // Initial UV offset vector
+uniform float uScale;           // UV scaling factor
 
-uniform bool uApplyRotation;    // Whether to apply the rotation effect
+uniform bool uApplySwirl;       // Whether to apply the rotation effect
 uniform float uSwirlAmount;     // Amount of swirling
-uniform float uRotationSpeed;   // Speed of rotation
+uniform float uSwirlSpeed;      // Speed of rotation
 
 uniform int uWarpIter;          // Number of iterations to apply the warping
+uniform bool uWarpKeepImgScale; // Whether to maintain the image scaling when applying the warp
+uniform float uWarpScale;       // Warp UV scaling factor
+uniform float uWarpAmount;      // Warping factor
+uniform float uWarpSpeed;       // Speed of the warp effect
 
 uniform float uMix;             // Blend factor between normal and warped effect (0-1)
 
@@ -49,7 +55,7 @@ vec2 getInitialUV() {
 
     // Mix with aspect ratio UV
     vec2 basicUV = (gl_FragCoord.xy - center) / length(iResolution.xy);
-    vec2 mixedUV = mix(basicUV, uvScaled, uAspectRatioFix) + vec2(0.0f, 0.0f);  // TODO: Make this `uOffset`
+    vec2 mixedUV = mix(basicUV, uvScaled, uAspectRatioFix) + uOffset;
 
     // Apply pixelation
     if(uPixelated) {
@@ -58,14 +64,14 @@ vec2 getInitialUV() {
 
     // Shift UV to middle and scale
     float midpointOffset = 0.5f * uAspectRatioFix;
-    return (mixedUV - midpointOffset) * 1.0f;  // TODO: make this `uScale`
+    return (mixedUV - midpointOffset) * uScale;
 }
 
 vec2 applySwirl(vec2 uv) {
     float uv_len = length(uv);  // Length of UV
 
     // Calculate rotation angle based on time and user parameters
-    float speed = (iTime * SPIN_EASE * 0.1f * uRotationSpeed) + SPEED_OFFSET;
+    float speed = (iTime * SPIN_EASE * 0.1f * uSwirlSpeed) + SPEED_OFFSET;
     float new_pixel_angle = (atan(uv.y, uv.x)) + speed -
         SPIN_EASE * 20.f * (1.0f * uSwirlAmount * uv_len + (1.f - 1.f * uSwirlAmount));
 
@@ -76,9 +82,9 @@ vec2 applySwirl(vec2 uv) {
 }
 
 vec2 applyWarp(vec2 uv) {
-    vec2 uvSummed = vec2(uv.x + uv.y);  // TODO: What is this?
-    vec2 uvScaled = uv * 30.0f;  // TODO: make this `uWarpScale`
-    float speed = iTime * 1.0f;  // TODO: make this `uSpeed`
+    vec2 uvSummed = vec2(uv.x + uv.y);  // For nicer effect
+    vec2 uvScaled = uv * uWarpScale;
+    float speed = iTime * uWarpSpeed;
 
     // Iterative warping using trigonometric functions
     // TODO: Remove magic constants
@@ -88,13 +94,13 @@ vec2 applyWarp(vec2 uv) {
         uvScaled -= 1.0f * cos(uvScaled.x + uvScaled.y) - 1.0f * sin(uvScaled.x * 0.711f - uvScaled.y);
     }
 
-    // if(uKeepImageScale) {
-    //     uvScaled /= uWarpScale;
-    //     uvScaled -= uOffset;
-    // }
+    if(uWarpKeepImgScale) {
+        uvScaled /= uWarpScale;
+        uvScaled -= uOffset;
+    }
 
     // Mix between original and warped coordinates based on user parameter
-    return mix(uv, uvScaled, uMix);  // TODO: make this `uWarpAmount`
+    return mix(uv, uvScaled, uWarpAmount);
 }
 
 // MISC FUNCTIONS
@@ -115,7 +121,7 @@ void main() {
     vec2 uv = vec2(initialUV);  // Copy of the initial UV for us to modify
 
     // Apply effects
-    if(uApplyRotation) {
+    if(uApplySwirl) {
         uv = applySwirl(uv);
     }
     if(uWarpIter > 0) {

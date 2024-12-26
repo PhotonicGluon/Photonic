@@ -9,6 +9,7 @@
         "**/__pycache__": true
     },
     "editor.formatOnSave": true,
+    "cSpell.language": "en-GB",
     "cSpell.words": ["frag", "highp", "interpolator", "stylesheet", "tweakpane", "twgl"],
     "files.insertFinalNewline": true,
     "[glsl]": {
