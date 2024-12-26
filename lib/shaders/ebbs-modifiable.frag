@@ -40,6 +40,11 @@ uniform float uMix;             // Blend factor between normal and warped effect
 out vec4 outColour;
 
 // UV FUNCTIONS
+/**
+ * Gets the initial UV for further modification.
+ *
+ * @return initial UV as a 2D vector
+ */
 vec2 getInitialUV() {
     vec2 center = iResolution.xy / 2.0f;
 
@@ -67,47 +72,65 @@ vec2 getInitialUV() {
     return (mixedUV - midpointOffset) * uScale;
 }
 
+/**
+ * Applies a swirl effect to the UV coordinate.
+ *
+ * @param uv UV coordinate to apply the swirl effect to
+ * @return modified UV coordinate
+ */
 vec2 applySwirl(vec2 uv) {
     float uv_len = length(uv);  // Length of UV
 
     // Calculate rotation angle based on time and user parameters
     float speed = (iTime * SPIN_EASE * 0.1f * uSwirlSpeed) + SPEED_OFFSET;
     float new_pixel_angle = (atan(uv.y, uv.x)) + speed -
-        SPIN_EASE * 20.f * (1.0f * uSwirlAmount * uv_len + (1.f - 1.f * uSwirlAmount));
+        SPIN_EASE * 20.0f * (1.0f * uSwirlAmount * uv_len + (1.0f - 1.0f * uSwirlAmount));
 
     // Calculate center point and apply swirl transformation
-    vec2 mid = (iResolution.xy / length(iResolution.xy)) / 2.f;
-    vec2 newUV = (vec2((uv_len * cos(new_pixel_angle) + mid.x), (uv_len * sin(new_pixel_angle) + mid.y)) - mid);
+    vec2 mid = (iResolution.xy / length(iResolution.xy)) / 2.0f;
+    vec2 newUV = vec2((uv_len * cos(new_pixel_angle) + mid.x), (uv_len * sin(new_pixel_angle) + mid.y)) - mid;
     return newUV;
 }
 
+/*
+ * Applies a warping effect to the given UV coordinate.
+ *
+ * @param uv UV coordinate to apply the warping effect to
+ * @return modified UV coordinate
+ * @note this warp effect was partially taken from https://www.playbalatro.com/
+ */
 vec2 applyWarp(vec2 uv) {
-    vec2 uvSummed = vec2(uv.x + uv.y);  // For nicer effect
-    vec2 uvScaled = uv * uWarpScale;
     float speed = iTime * uWarpSpeed;
 
+    // Define initial iteration values
+    vec2 uv1 = vec2(uv.x + uv.y);
+    vec2 uv2 = uv;
+    vec2 uv3 = uv * uWarpScale;
+
     // Iterative warping using trigonometric functions
-    // TODO: Remove magic constants
     for(int i = 0; i < uWarpIter; i++) {
-        uvSummed += uvScaled + cos(length(uvScaled));
-        uv += 0.5f * vec2(cos(5.1123314f + 0.353f * uvSummed.y + speed * 0.131121f), sin(uvSummed.x - 0.113f * speed));
-        uvScaled -= 1.0f * cos(uvScaled.x + uvScaled.y) - 1.0f * sin(uvScaled.x * 0.711f - uvScaled.y);
+        uv1 += uv3 + cos(length(uv3));
+        uv2 += vec2(cos(uv1.y + speed), sin(uv1.x - speed));
+        uv3 -= cos(uv3.x + uv3.y) - sin(uv3.x - uv3.y);
     }
 
+    // Adjust if image scale is to be preserved
     if(uWarpKeepImgScale) {
-        uvScaled /= uWarpScale;
-        uvScaled -= uOffset;
+        uv3 /= uWarpScale;
+        uv3 -= uOffset;
     }
 
     // Mix between original and warped coordinates based on user parameter
-    return mix(uv, uvScaled, uWarpAmount);
+    return mix(uv2, uv3, uWarpAmount);
 }
 
 // MISC FUNCTIONS
 /**
- * Apply the given UV to the image.
+ * Samples the image at the specified UV coordinate.
  * 
- * @param uv UV to apply to the image
+ * @param uv UV coordinate to sample
+ * @return RGBA value of the UV coordinate, based on the image provided. RGBA values are in the
+ *     interval [0, 1].
  */
 vec4 sampleImage(vec2 uv) {
     vec2 shiftedUv = uv + 0.5f;  // Center the UV coordinates
