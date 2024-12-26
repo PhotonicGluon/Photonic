@@ -6,7 +6,6 @@ import $ from "jquery";
 import { setupShader } from "../../../lib/shaders/setup";
 import { Interpolate, easeInOutCubic } from "../../../lib/shaders/interpolate";
 import shaderVert from "../../../lib/shaders/2d.vert";
-import shaderFrag from "../../../lib/shaders/ebbs-modifiable.frag";
 import type { SlidersInitialisedEvent } from "../../../lib/tweakpane/panel";
 import type { SlidersOptionsMap } from "../../../lib/tweakpane/options";
 
@@ -18,9 +17,16 @@ $(".shader-backdrop").each((_index, backdropArea) => {
         return;
     }
 
+    // Get fragment shader
+    const shaderFrag = backdropArea.dataset.shaderFrag;
+    if (!shaderFrag) {
+        throw Error("No fragment shader given");
+    }
+    delete backdropArea.dataset.shaderFrag; // No need to keep it now that we have it
+
     // Get background
-    const backgroundUrl = backdropArea.dataset.imageUrl;
-    const hasBackground = backgroundUrl !== undefined;
+    const backgroundURL = backdropArea.dataset.imageUrl;
+    const hasBackground = backgroundURL !== undefined;
 
     // Define editable uniforms
     const editableUniforms: SlidersOptionsMap = {
@@ -50,11 +56,10 @@ $(".shader-backdrop").each((_index, backdropArea) => {
     const uniforms: Record<string, any> = {};
 
     uniforms.uUseColours = !hasBackground;
-    uniforms.uWarpIterations = hasBackground ? 4 : 9;
-    uniforms.uOffset = backdropArea.dataset.offset ? JSON.parse(backdropArea.dataset.offset) : [0, 0];
-    uniforms.uWarpScale = backdropArea.dataset.warpScale ? JSON.parse(backdropArea.dataset.warpScale) : 1;
-    // uniforms.uOffset = [0, 0];
-    // uniforms.uWarpScale = 1;
+
+    // uniforms.uWarpIter = hasBackground ? 4 : 9;
+    // uniforms.uOffset = backdropArea.dataset.offset ? JSON.parse(backdropArea.dataset.offset) : [0, 0];
+    // uniforms.uWarpScale = backdropArea.dataset.warpScale ? JSON.parse(backdropArea.dataset.warpScale) : 1;
 
     // Define interpolator
     const interpolator = new Interpolate(easeInOutCubic, hasBackground ? 0 : 1);
@@ -95,7 +100,7 @@ $(".shader-backdrop").each((_index, backdropArea) => {
                 uniforms[key] = value.value;
             }
         },
-        textures: hasBackground ? [{ src: backgroundUrl }] : undefined,
+        textures: hasBackground ? [{ src: backgroundURL }] : undefined,
         onTexturesReady: () => {
             // interpolator.setTarget(prefersReducedMotion ? 0 : 1, 10_000);
             start();

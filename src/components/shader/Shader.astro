@@ -1,17 +1,26 @@
 ---
-// Set up properties that are sent to the component
+import { readFileSync } from "fs";
 import seedrandom from "seedrandom";
 
+// Set up properties of the component
 export interface Props {
+    /** ID of the element */
     id: string;
-    imageUrl?: string;
+    /** URL to the fragment shader */
+    fragURL: string;
+    /** Optional URL to the image that is used */
+    imageURL?: string;
 }
 
-const { id, imageUrl } = Astro.props;
+const { id, fragURL, imageURL } = Astro.props;
 
+// Get fragment shader code
+const shaderFrag: string = readFileSync(fragURL, "utf-8");
+
+// Define pseudo-random offset and scale of the image
 let offset = [0, 0];
 let scale = 1;
-if (imageUrl) {
+if (imageURL) {
     const random = seedrandom(id);
     offset = [Math.floor(random() * 21) - 10, Math.floor(random() * 21) - 10];
     scale = random() * 2 + 1;
@@ -24,7 +33,9 @@ import "./style.css";
 <div
     class="shader-backdrop"
     id={`backdrop-${id}`}
-    data-image-url={imageUrl}
+    data-image-url={imageURL}
+    data-shader-url={fragURL}
+    data-shader-frag={shaderFrag}
     data-offset={JSON.stringify(offset)}
     data-warp-scale={JSON.stringify(scale)}
 >

@@ -6,11 +6,12 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        "**/__pycache__": true
+        "node_modules": true,
+        ".astro": true
     },
     "editor.formatOnSave": true,
     "cSpell.language": "en-GB",
-    "cSpell.words": ["frag", "highp", "interpolator", "stylesheet", "rgba", "tweakpane", "twgl"],
+    "cSpell.words": ["frag", "highp", "interpolator", "rgba", "seedrandom", "stylesheet", "tweakpane", "twgl"],
     "files.insertFinalNewline": true,
     "[glsl]": {
         "editor.defaultFormatter": "raczzalan.webgl-glsl-editor"
