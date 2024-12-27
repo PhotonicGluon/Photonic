@@ -1,7 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Shader from "@components/shader/Shader.astro";
+import Layout from "@layouts/Layout.astro";
 ---
 
 <Layout>
-    <h1>Index Page</h1>
+    <Shader
+        id="hero-shader"
+        fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
+        editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
+        imageURL="/tunic-fox-wave.jpg"
+    />
 </Layout>

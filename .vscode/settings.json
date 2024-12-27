@@ -6,10 +6,26 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        "**/__pycache__": true
+        "node_modules": true,
+        ".astro": true
     },
     "editor.formatOnSave": true,
-    "cSpell.words": ["pyproject", "stylesheet", "twgl", "uvicorn"],
+    "cSpell.language": "en-GB",
+    "cSpell.words": [
+        "coeff",
+        "frag",
+        "highp",
+        "interpolator",
+        "rgba",
+        "seedrandom",
+        "stylesheet",
+        "tweakpane",
+        "twgl",
+        "vite"
+    ],
     "files.insertFinalNewline": true,
+    "[glsl]": {
+        "editor.defaultFormatter": "raczzalan.webgl-glsl-editor"
+    },
     "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
