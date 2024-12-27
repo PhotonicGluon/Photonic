@@ -1,10 +1,8 @@
 ---
-import { undefined } from "astro:schema";
+import Footer from "@components/footer/Footer.astro";
+import Header from "@components/header/Header.astro";
 
 let { title } = Astro.props;
-if (title === undefined) {
-    title = "Default Title";
-}
 ---
 
 <!doctype html>
@@ -14,10 +12,12 @@ if (title === undefined) {
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
-        <title>{title}</title>
+        <title>{title ? title : "Default Title"}</title>
     </head>
     <body>
+        <Header />
         <slot />
+        <Footer />
     </body>
 </html>
 
