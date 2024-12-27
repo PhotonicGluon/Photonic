@@ -9,8 +9,10 @@
         "astro": "astro"
     },
     "dependencies": {
+        "@astrojs/preact": "^4.0.1",
         "astro": "^5.1.1",
         "jquery": "^3.7.1",
+        "preact": "^10.25.3",
         "seedrandom": "^3.0.5",
         "tweakpane": "^4.0.5",
         "twgl.js": "^5.5.4"
