@@ -1,8 +1,6 @@
 ---
-import Footer from "@components/footer/Footer.astro";
-import Header from "@components/header/Header.astro";
-
-import "./style.scss";
+import Footer from "@components/Footer.astro";
+import Header from "@components/Header.astro";
 
 let { title } = Astro.props;
 ---
@@ -31,3 +29,18 @@ let { title } = Astro.props;
         <Footer />
     </body>
 </html>
+
+<style lang="scss" is:global>
+    @use "/src/styles/fonts.scss";
+
+    html,
+    body {
+        // Normalize page content
+        margin: 0;
+        width: 100%;
+        height: 100%;
+
+        // Set default font
+        font-family: fonts.$font-stack-sans-serif;
+    }
+</style>
