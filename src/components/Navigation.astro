@@ -1,32 +1,47 @@
-<div class="nav-links">
-    <a href="/">Home</a>
-    <a href="/about">About</a>
+<div class="nav">
+    <a href="/">
+        <!-- TODO: Replace icon -->
+        <img class="logo" src="/src/images/Icon.webp" alt="Logo" />
+    </a>
+    <div class="links">
+        <a href="/projects">Projects</a>
+        <a href="/about">About</a>
+    </div>
 </div>
 
 <style lang="scss">
     // TODO: Update
 
-    .nav-links {
+    .nav {
+        margin: 0 auto;
+    }
+
+    .logo {
+        border-radius: 15px;
+        height: 60px;
+        width: auto;
+        float: left;
+    }
+
+    .links {
         width: 100%;
-        top: 5rem;
-        left: 48px;
-        background-color: #ff9776;
         display: none;
         margin: 0;
+        float: right;
 
         a {
             display: block;
             text-align: center;
             padding: 10px 0;
             text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-size: 18pt;
             text-transform: uppercase;
+            color: gray; // TODO: Use a variable?
         }
 
         a:hover,
         a:focus {
-            background-color: #ff9776;
+            color: lightgray; // TODO: Use a variable?
         }
     }
 
@@ -34,8 +49,8 @@
         display: unset;
     }
 
-    @media screen and (min-width: 636px) {
-        .nav-links {
+    @media screen and (min-width: 768px) {
+        .links {
             margin-left: 5em;
             display: block;
             position: static;

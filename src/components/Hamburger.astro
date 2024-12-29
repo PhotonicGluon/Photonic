@@ -1,15 +1,13 @@
 <div class="hamburger">
-    <!-- Todo: surely there's a nicer way to do this... -->
-    <span class="line"></span>
-    <span class="line"></span>
-    <span class="line"></span>
+    <img src="/src/images/hamburger-menu.svg" alt="Open Menu" />
 </div>
 
 <style lang="scss">
     // TODO: Update
 
     .hamburger {
-        padding-right: 20px;
+        width: min-content;
+        float: right;
         cursor: pointer;
 
         .line {
@@ -17,11 +15,11 @@
             width: 40px;
             height: 5px;
             margin-bottom: 10px;
-            background-color: #ff9776;
+            background-color: white;
         }
     }
 
-    @media screen and (min-width: 636px) {
+    @media screen and (min-width: 768px) {
         .hamburger {
             display: none;
         }
@@ -33,6 +31,6 @@
 
     const hamburger = $(".hamburger");
     hamburger.on("click", () => {
-        $(".nav-links")[0].classList.toggle("expanded");
+        $(".links")[0].classList.toggle("expanded");
     });
 </script>
