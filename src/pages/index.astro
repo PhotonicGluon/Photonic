@@ -1,11 +1,12 @@
 ---
 // import Shader from "@components/Shader.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
+import HeroBox from "@components/HeroBox.astro";
 ---
 
 <!-- TODO: Change title and contents -->
 <BaseLayout title="Index">
-    <h1>Index Page</h1>
+    <HeroBox />
     <!-- <Shader
         id="hero-shader"
         fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
@@ -18,3 +19,11 @@ import BaseLayout from "@layouts/BaseLayout.astro";
         reiciendis nobis deserunt officia?
     </p>
 </BaseLayout>
+
+<style lang="scss">
+    html {
+        // TODO: Handle 'light mode'
+        background-color: black;
+        color: white;
+    }
+</style>
