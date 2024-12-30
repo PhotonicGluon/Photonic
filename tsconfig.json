@@ -7,7 +7,8 @@
         "paths": {
             "@lib/*": ["lib/*"],
             "@components/*": ["src/components/*"],
-            "@layouts/*": ["src/layouts/*"]
+            "@layouts/*": ["src/layouts/*"],
+            "@styles/*": ["src/styles/*"]
         },
         "types": ["vite-plugin-glsl/ext"],
         "jsx": "react-jsx",

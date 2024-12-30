@@ -1,11 +1,11 @@
 // TODO: Add more
-$font-stack-sans-serif: "DM Sans", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
-$font-stack-mono: "JetBrains Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
+$font-family-sans-serif: "DM Sans", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif;
+$font-family-mono: "JetBrains Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Courier New", monospace;
 
 .font-sans-serif {
-    font-family: $font-stack-sans-serif;
+    font-family: $font-family-sans-serif;
 }
 
 .font-mono {
-    font-family: $font-stack-mono;
+    font-family: $font-family-mono;
 }

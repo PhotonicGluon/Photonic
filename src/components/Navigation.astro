@@ -11,6 +11,8 @@
 
 <style lang="scss">
     // TODO: Update
+    @use "/src/styles/fonts.scss";
+    @use "/src/styles/themes.scss";
 
     .nav {
         margin: 0 auto;
@@ -34,14 +36,16 @@
             text-align: center;
             padding: 10px 0;
             text-decoration: none;
-            font-size: 18pt;
             text-transform: uppercase;
-            color: gray; // TODO: Use a variable?
+            font-family: fonts.$font-family-mono;
+            font-size: 18pt;
+            color: themes.$colour-white-1; // TODO: Maybe use an 'accent' identifier?
+            transition: all 0.2s;
         }
 
         a:hover,
         a:focus {
-            color: lightgray; // TODO: Use a variable?
+            color: themes.$colour-white-2;
         }
     }
 
