@@ -1,18 +1,20 @@
 ---
+import HeroBox from "@components/hero-box/HeroBox.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 export interface Props {
     /** Title of the page */
     title: string;
+    /** Subtitle of the page */
+    subtitle?: string;
     /** Title of the tab; defaults to the `title` with the website name */
     tabTitle?: string;
 }
 
-let { title, tabTitle } = Astro.props;
+const { title, subtitle, tabTitle } = Astro.props;
 ---
 
 <BaseLayout title={tabTitle ? tabTitle : `${title} - Photonic`}>
-    <!-- TODO: Do something nicer with the title -->
-    <h1>{title}</h1>
+    <HeroBox title={title} subtitle={subtitle} />
     <slot />
 </BaseLayout>

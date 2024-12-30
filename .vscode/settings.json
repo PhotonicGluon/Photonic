@@ -21,6 +21,7 @@
         "stylesheet",
         "tweakpane",
         "twgl",
+        "vars",
         "vite"
     ],
     "files.insertFinalNewline": true,

@@ -1,0 +1,76 @@
+---
+export interface Props {
+    // Typography
+    /** Title of the page */
+    title: string;
+    /** Optional font size of the title */
+    titleSize?: string;
+    /** Optional subtitle of the page */
+    subtitle?: string;
+    /** Optional font size of the subtitle */
+    subtitleSize?: string;
+
+    // Geometry
+    /** Optional specification string for the height of the hero box */
+    height?: string;
+}
+
+const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "max(300px, 35vh)" } = Astro.props;
+---
+
+<!-- TODO: Replace background with shader -->
+<div class=`hero-box-background`>
+    <div class="hero-box-overlay">
+        <div class="hero-box-text">
+            <h1>{title}</h1>
+            {subtitle && <h2>{subtitle}</h2>}
+        </div>
+    </div>
+</div>
+
+<style lang="scss" define:vars={{ height, titleSize, subtitleSize }}>
+    // Convert everybody to
+    $height: var(--height);
+
+    .hero-box-background {
+        background-image: url("/src/images/header-background-old.webp"); // TODO: Replace with shader
+        height: $height;
+    }
+
+    .hero-box-overlay {
+        // TODO: Handle 'light mode'
+        background: linear-gradient(
+                rgba(0, 0, 0, 0.6) 0%,
+                rgba(0, 0, 0, 0.7) 70%,
+                rgba(0, 0, 0, 0.75) 80%,
+                rgba(0, 0, 0, 1) 100%
+            )
+            center;
+        height: inherit;
+        width: 100%;
+    }
+
+    .hero-box-text {
+        position: absolute;
+        width: 100%;
+        top: calc(var(--height) / 2);
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        margin: 0 auto;
+
+        * {
+            color: white;
+        }
+
+        h1 {
+            font-size: var(--titleSize);
+            margin: 0;
+        }
+
+        h2 {
+            font-size: var(--subtitleSize);
+            margin: 0;
+        }
+    }
+</style>

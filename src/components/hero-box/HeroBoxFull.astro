@@ -1,0 +1,15 @@
+---
+import HeroBox from "./HeroBox.astro";
+
+export interface Props {
+    // Typography
+    /** Title of the page */
+    title: string;
+    /** Optional subtitle of the page */
+    subtitle?: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<HeroBox title={title} titleSize="64pt" subtitle={subtitle} subtitleSize="14pt" height="max(600px, 100vh)" />

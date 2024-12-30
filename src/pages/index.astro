@@ -1,12 +1,12 @@
 ---
 // import Shader from "@components/Shader.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
-import HeroBox from "@components/HeroBox.astro";
+import HeroBoxFull from "@components/hero-box/HeroBoxFull.astro";
 ---
 
 <!-- TODO: Change title and contents -->
 <BaseLayout title="Photonic">
-    <HeroBox />
+    <HeroBoxFull title="Photonic" subtitle="Making cool things." />
     <!-- <Shader
         id="hero-shader"
         fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
@@ -19,11 +19,3 @@ import HeroBox from "@components/HeroBox.astro";
         reiciendis nobis deserunt officia?
     </p>
 </BaseLayout>
-
-<style lang="scss">
-    html {
-        // TODO: Handle 'light mode'
-        background-color: black;
-        color: white;
-    }
-</style>
