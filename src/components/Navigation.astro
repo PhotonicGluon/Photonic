@@ -1,7 +1,11 @@
+---
+import { Image } from "astro:assets";
+import logoImage from "../images/Icon.jpg"; // TODO: Replace
+---
+
 <div class="nav">
     <a href="/">
-        <!-- TODO: Replace icon -->
-        <img class="logo" src="/src/images/Icon.webp" alt="Logo" />
+        <Image class="logo" src={logoImage} alt="Photonic Logo" loading="eager" />
     </a>
     <div class="links">
         <a href="/projects">Projects</a>
