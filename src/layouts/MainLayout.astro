@@ -1,0 +1,18 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+
+export interface Props {
+    /** Title of the page */
+    title: string;
+    /** Title of the tab; defaults to the `title` with the website name */
+    tabTitle?: string;
+}
+
+let { title, tabTitle } = Astro.props;
+---
+
+<BaseLayout title={tabTitle ? tabTitle : `${title} - Photonic`}>
+    <!-- TODO: Do something nicer with the title -->
+    <h1>{title}</h1>
+    <slot />
+</BaseLayout>
