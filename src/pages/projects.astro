@@ -1,5 +1,7 @@
 ---
 import MainLayout from "@layouts/MainLayout.astro";
+
+import { projects } from "@lib/projects/projects";
 ---
 
 <!-- TODO: Change title and contents-->
@@ -9,4 +11,8 @@ import MainLayout from "@layouts/MainLayout.astro";
         necessitatibus alias voluptatibus dolore. Aliquam ratione, omnis tempore inventore eveniet excepturi dolorem
         reiciendis nobis deserunt officia?
     </p>
+    <!-- TODO: Make this better -->
+    <ul>
+        {projects.map((project) => <li>{project.name}</li>)}
+    </ul>
 </MainLayout>
