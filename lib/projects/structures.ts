@@ -37,7 +37,7 @@ export interface Project {
      */
     banner?: string;
     /** URLs of the project */
-    urls: {
+    urls?: {
         bandcamp?: string;
         github?: string;
         website?: string;
