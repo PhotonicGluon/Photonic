@@ -38,7 +38,7 @@ export const projects: Project[] = [
             end: new Date("2023-09-09"),
         },
         banner: "https://raw.githubusercontent.com/AudiTranscribe/AudiTranscribe/main/Designs/banner/banner.webp",
-        summary: "An open-source music transcription application..",
+        summary: "An open-source music transcription application.",
         urls: {
             github: "https://github.com/PhotonicGluon/AudiTranscribe",
             website: "https://auditranscribe.app/",

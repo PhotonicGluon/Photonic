@@ -1,0 +1,37 @@
+---
+import { toDateString } from "@lib/misc/dates";
+import type { Project } from "@lib/projects/structures";
+
+export interface Props {
+    project: Project;
+}
+
+const { project } = Astro.props;
+---
+
+<div class="project-card">
+    <!-- TODO: Edit card contents -->
+    <!-- TODO: Make card intractable (i.e., flip card to see summary) -->
+    <h3>{project.name}</h3>
+    <span>
+        {toDateString(project.dates.start)} &mdash; {project.dates.end ? toDateString(project.dates.end) : "Present"}
+    </span>
+    <p>
+        {project.summary}
+    </p>
+</div>
+
+<style lang="scss">
+    .project-card {
+        // Design the card
+        // TODO: We can do better than this...
+        border: 1px solid white;
+        border-radius: 10px;
+        width: 90%;
+        padding: 10px;
+
+        // Align content to center
+        margin: 0 auto;
+        text-align: center;
+    }
+</style>

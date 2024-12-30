@@ -2,23 +2,21 @@
  * Adapted from https://github.com/s-thom/website-2023/blob/26d8a1a/src/lib/h.ts
  */
 
+// FIXME: Terrible name!!! Rename to something better (e.g., "elem-from-attrs")
+
 /** Regex to match event handler properties (e.g., `onClick`, `onMouseover`, `onClickCapture`) */
 const EVENT_NAME_REGEX = /^on(.*)(capture)?$/;
 
 /**
  * Type that helps map attribute names to their values.
  */
-type HTMLAttrMap<Tag extends keyof HTMLElementTagNameMap> = Omit<
-    HTMLElementTagNameMap[Tag],
-    "style"
-> & {
+type HTMLAttrMap<Tag extends keyof HTMLElementTagNameMap> = Omit<HTMLElementTagNameMap[Tag], "style"> & {
     /**
      * Style of the HTML element.
      *
      * Allows partial style properties and custom CSS variables (e.g., `--var: value`)
      */
-    style: Partial<Omit<HTMLElementTagNameMap[Tag]["style"], "setProperty">> &
-        Record<`--${string}`, string>;
+    style: Partial<Omit<HTMLElementTagNameMap[Tag]["style"], "setProperty">> & Record<`--${string}`, string>;
 };
 
 /**
@@ -52,9 +50,7 @@ export function h<Tag extends keyof HTMLElementTagNameMap>(
         // Handle style properties
         if (key === "style") {
             // Set each style property individually
-            for (const [prop, propValue] of Object.entries(
-                value as CSSStyleDeclaration,
-            )) {
+            for (const [prop, propValue] of Object.entries(value as CSSStyleDeclaration)) {
                 element.style.setProperty(prop, propValue);
             }
             continue;

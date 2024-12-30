@@ -1,4 +1,5 @@
 ---
+import ProjectCard from "@components/ProjectCard.astro";
 import MainLayout from "@layouts/MainLayout.astro";
 
 import { projects } from "@lib/projects/projects";
@@ -6,13 +7,16 @@ import { projects } from "@lib/projects/projects";
 
 <!-- TODO: Change title and contents-->
 <MainLayout title="Projects">
-    <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Et sequi praesentium voluptate delectus inventore
-        necessitatibus alias voluptatibus dolore. Aliquam ratione, omnis tempore inventore eveniet excepturi dolorem
-        reiciendis nobis deserunt officia?
-    </p>
-    <!-- TODO: Make this better -->
-    <ul>
-        {projects.map((project) => <li>{project.name}</li>)}
-    </ul>
+    <div class="projects">
+        {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
 </MainLayout>
+
+<style lang="scss">
+    .projects {
+        padding-top: 30px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 20px; // TODO: Make this configurable
+    }
+</style>
