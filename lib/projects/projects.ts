@@ -155,6 +155,17 @@ export const projects: Project[] = [
         },
     },
     {
+        id: "photonic",
+        name: "Photonic",
+        tags: [ProjectTag.Programming],
+        dates: {
+            start: new Date("2024-12-22"),
+        },
+        banner: "TODO: ADD",
+        summary: "PhotonicGluon's new portfolio site.",
+        // TODO: Add this site's URLs
+    },
+    {
         id: "python-core",
         name: "Python Core",
         tags: [ProjectTag.Programming, ProjectTag.Writing],
