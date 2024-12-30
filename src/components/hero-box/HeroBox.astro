@@ -29,12 +29,9 @@ const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "ma
 </div>
 
 <style lang="scss" define:vars={{ height, titleSize, subtitleSize }}>
-    // Convert everybody to
-    $height: var(--height);
-
     .hero-box-background {
         background-image: url("/src/images/header-background-old.webp"); // TODO: Replace with shader
-        height: $height;
+        height: var(--height);
     }
 
     .hero-box-overlay {
