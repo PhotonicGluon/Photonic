@@ -1,3 +1,5 @@
+// TODO: Deprecate this file
+
 import { ProjectTag, type Project } from "./structures";
 
 export const projects: Project[] = [

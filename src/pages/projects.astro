@@ -1,14 +1,25 @@
 ---
 import ProjectCard from "@components/ProjectCard.astro";
 import MainLayout from "@layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
 
-import { projects } from "@lib/projects/projects";
+const projects = await getCollection("projects");
 ---
 
 <!-- TODO: Change title and contents-->
 <MainLayout title="Projects">
     <div class="projects">
-        {projects.map((project) => <ProjectCard project={project} />)}
+        <!-- {projects.map((project) => <ProjectCard project={project} />)} -->
+        <!-- TODO: Remove -->
+        <ul class="list-disc pl-8">
+            {
+                projects.map((project) => (
+                    <li>
+                        {project.id}: {project.data.name}
+                    </li>
+                ))
+            }
+        </ul>
     </div>
 </MainLayout>
 
