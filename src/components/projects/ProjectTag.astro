@@ -7,37 +7,19 @@ export interface Props {
     /** Base hex colour of the tag */
     colour: string;
     /** Alpha of the tag's background */
-    alpha?: number;
+    alpha: number;
 }
 
-const { name, colour: hexColour, alpha } = Astro.props;
-const colour = hexToRGBA(hexColour);
-const adjustedColour = {
-    ...colour,
-    a: alpha ? alpha : 0.5, // TODO: Make this configurable
-};
+const { name, colour, alpha } = Astro.props;
 
-const baseColour = formatRGBA(colour);
-const backgroundColour = formatRGBA(adjustedColour);
+const baseColour = formatRGBA(hexToRGBA(colour));
+const backgroundColour = formatRGBA(hexToRGBA(colour, alpha));
 ---
 
 <span class="project-tag">{name}</span>
 
 <style define:vars={{ baseColour, backgroundColour }}>
-    /* TODO: Update CSS to use Tailwind */
     .project-tag {
-        position: relative;
-        transform: translate(0, -50%);
-        top: 50%;
-        font-size: 14pt;
-        padding: 10px;
-        margin-left: 5px;
-        height: 10px;
-        border-radius: 10px;
-        border: 1px solid var(--baseColour);
-        background-color: var(--backgroundColour);
-        display: inline-flex;
-        flex-wrap: wrap;
-        align-content: center;
+        @apply inline-flex h-3 flex-wrap content-center rounded-lg border border-solid border-[color:var(--baseColour)] bg-[color:var(--backgroundColour)] p-3 text-base;
     }
 </style>

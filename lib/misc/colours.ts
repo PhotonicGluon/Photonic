@@ -1,31 +1,47 @@
+/**
+ * Represents an RGBA colour.
+ */
 export interface Colour {
+    /** Red component (0-255) */
     r: number;
+    /** Green component (0-255) */
     g: number;
+    /** Blue component (0-255) */
     b: number;
+    /** Optional alpha component (0-255) */
     a?: number;
 }
 
 /**
- * Converts a given hex colour to an RGBA object.
+ * Parses a given hex string and returns its corresponding RGBA colour.
  *
- * The colour is assumed to be in the format "#RRGGBB" or "#RRGGBBAA", where the octothorpe is
- * optional.
- *
- * @param hex The hex colour to convert.
- * @returns The RGBA object equivalent to the given hex colour.
- *
- * @throws {Error} If the given hex colour is not a valid hex colour.
+ * @param hex The hex string to parse.
+ * @param alpha Overriding alpha value. If not specified, will use the alpha of the colour. If the
+ *     colour does not specify an alpha, will use 255 (fully opaque).
+ * @throws {Error} If the given hex string is not a valid hex colour.
+ * @returns The parsed RGBA colour.
  */
-export function hexToRGBA(hex: string): Colour {
+export function hexToRGBA(hex: string, alpha: number | null = null): Colour {
+    // Try parsing the given hex string
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(hex);
-    if (!result) throw Error(`${hex} is not a valid hex colour`);
+    if (!result) {
+        throw Error(`${hex} is not a valid hex colour`);
+    }
 
-    return {
+    // Define colour
+    let colour: Colour = {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
         b: parseInt(result[3], 16),
         a: parseInt(result[4] ? result[4] : "ff", 16),
     };
+
+    // Override the alpha if specified
+    if (alpha !== null) {
+        colour.a = alpha;
+    }
+
+    return colour;
 }
 
 /**

@@ -2,20 +2,28 @@
  * Properties of a project tag.
  */
 export interface ProjectTagProperties {
+    /** Tag name */
     name: string;
+    /** Hex code for the tag's colour */
     colour: string;
+    /**
+     * Alpha of the tag's background.
+     *
+     * Must be between 0 and 1 inclusive.
+     */
+    alpha: number;
 }
 
 /**
  * Enum of possible project tags.
  */
 export const ProjectTag: { [key: string]: ProjectTagProperties } = {
-    Mathematics: { name: "Mathematics", colour: "#6ba4f8" },
-    Music: { name: "Music", colour: "#9c6bdf" },
-    Programming: { name: "Programming", colour: "#64b75d" },
-    Writing: { name: "Writing", colour: "#cd733a" },
+    Mathematics: { name: "Mathematics", colour: "#6ba4f8", alpha: 0.5 },
+    Music: { name: "Music", colour: "#9c6bdf", alpha: 0.5 },
+    Programming: { name: "Programming", colour: "#64b75d", alpha: 0.5 },
+    Writing: { name: "Writing", colour: "#cd733a", alpha: 0.5 },
 } as const;
-export type ProjectTagType = (typeof ProjectTag)[keyof typeof ProjectTag];
+type ProjectTagType = (typeof ProjectTag)[keyof typeof ProjectTag];
 
 /**
  * Class that encapsulates project information.

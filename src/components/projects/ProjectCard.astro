@@ -13,12 +13,14 @@ const { project } = Astro.props;
 <div class="project-card">
     <!-- TODO: Edit card contents -->
     <!-- TODO: Make card intractable (i.e., flip card to see summary) -->
-    <h3>{project.name}</h3>
-    {project.tags.map((tag) => <ProjectTag name={tag.name} colour={tag.colour} />)}
-    <span>
+    <span class="name">{project.name}</span>
+    <div class="tags">
+        {project.tags.map((tag) => <ProjectTag name={tag.name} colour={tag.colour} alpha={tag.alpha} />)}
+    </div>
+    <span class="duration">
         {toDateString(project.dates.start)} &mdash; {project.dates.end ? toDateString(project.dates.end) : "Present"}
     </span>
-    <p>
+    <p class="summary">
         {project.summary}
     </p>
 </div>
@@ -31,5 +33,9 @@ const { project } = Astro.props;
 
         /* Align content to center */
         @apply mx-auto my-0 text-center;
+    }
+
+    .name {
+        @apply text-2xl font-bold;
     }
 </style>
