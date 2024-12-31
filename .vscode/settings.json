@@ -29,5 +29,8 @@
     "[glsl]": {
         "editor.defaultFormatter": "raczzalan.webgl-glsl-editor"
     },
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "tailwindCSS.includeLanguages": {
+        "astro": "html"
+    }
 }

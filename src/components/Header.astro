@@ -12,12 +12,10 @@ import Navigation from "@components/Navigation.astro";
 
 <style>
     header {
-        width: 100%;
-        position: absolute;
+        @apply absolute w-full;
     }
 
     nav {
-        width: 90%;
-        margin: 30px auto 0 auto;
+        @apply mx-auto mb-0 mt-[30px] w-[90%]; /* TODO: Use better constants */
     }
 </style>

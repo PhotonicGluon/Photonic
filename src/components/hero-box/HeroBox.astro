@@ -19,7 +19,7 @@ const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "ma
 ---
 
 <!-- TODO: Replace background with shader -->
-<div class=`hero-box-background`>
+<div class="hero-box-background">
     <div class="hero-box-overlay">
         <div class="hero-box-text">
             <h1>{title}</h1>
@@ -30,48 +30,28 @@ const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "ma
 
 <style define:vars={{ height, titleSize, subtitleSize }}>
     .hero-box-background {
-        /* TODO: Replace with shader */
-        background-image: url("/src/images/header-background-old.webp");
-        height: var(--height);
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
+        /* TODO: Replace background image with shader */
+        @apply h-[var(--height)] bg-[url("/src/images/header-background-old.webp")] bg-cover bg-fixed bg-center;
     }
 
     .hero-box-overlay {
         /* TODO: Handle 'light mode' */
-        background: linear-gradient(
-                rgba(0, 0, 0, 0.6) 0%,
-                rgba(0, 0, 0, 0.7) 70%,
-                rgba(0, 0, 0, 0.75) 80%,
-                rgba(0, 0, 0, 1) 100%
-            )
-            center;
-        height: inherit;
-        width: 100%;
+        @apply h-[inherit] w-full bg-gradient-to-b from-black/60 via-black/70 via-70% to-black;
     }
 
     .hero-box-text {
-        position: absolute;
-        width: 100%;
-        top: calc(var(--height) / 2);
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        margin: 0 auto;
+        @apply absolute left-1/2 top-[calc(var(--height)/2)] mx-0 my-auto w-full -translate-x-1/2 -translate-y-1/2 text-center;
+    }
 
-        * {
-            color: white;
-        }
+    .hero-box-text * {
+        @apply text-white;
+    }
 
-        h1 {
-            font-size: var(--titleSize);
-            margin: 0;
-        }
+    .hero-box-text h1 {
+        @apply m-0 text-[length:var(--titleSize)];
+    }
 
-        h2 {
-            font-size: var(--subtitleSize);
-            margin: 0;
-        }
+    .hero-box-text h2 {
+        @apply m-0 text-[length:var(--subtitleSize)];
     }
 </style>

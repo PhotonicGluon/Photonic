@@ -25,13 +25,9 @@ const { project } = Astro.props;
     .project-card {
         /* Design the card */
         /* TODO: We can do better than this... */
-        border: 1px solid white;
-        border-radius: 10px;
-        width: 90%;
-        padding: 10px;
+        @apply w-[90%] rounded-xl border border-solid border-white p-[10px]; /* TODO: Adjust width and padding */
 
         /* Align content to center */
-        margin: 0 auto;
-        text-align: center;
+        @apply mx-auto my-0 text-center;
     }
 </style>
