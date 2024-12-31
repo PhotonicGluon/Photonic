@@ -1,11 +1,12 @@
 /**
  * Enum of possible project tags.
  */
+// TODO: Can we add more properties to the enum? For example, tag colour?
 export enum ProjectTag {
-    Mathematics,
-    Music,
-    Programming,
-    Writing,
+    Mathematics = "Mathematics",
+    Music = "Music",
+    Programming = "Programming",
+    Writing = "Writing",
 }
 
 /**
