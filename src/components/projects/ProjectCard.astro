@@ -14,7 +14,7 @@ const { project } = Astro.props;
     <!-- TODO: Edit card contents -->
     <!-- TODO: Make card intractable (i.e., flip card to see summary) -->
     <h3>{project.name}</h3>
-    {project.tags.map((tag) => <ProjectTag name={tag.toString()} colour="#64B75D" />)}
+    {project.tags.map((tag) => <ProjectTag name={tag.name} colour={tag.colour} />)}
     <span>
         {toDateString(project.dates.start)} &mdash; {project.dates.end ? toDateString(project.dates.end) : "Present"}
     </span>

@@ -1,13 +1,21 @@
 /**
+ * Properties of a project tag.
+ */
+export interface ProjectTagProperties {
+    name: string;
+    colour: string;
+}
+
+/**
  * Enum of possible project tags.
  */
-// TODO: Can we add more properties to the enum? For example, tag colour?
-export enum ProjectTag {
-    Mathematics = "Mathematics",
-    Music = "Music",
-    Programming = "Programming",
-    Writing = "Writing",
-}
+export const ProjectTag: { [key: string]: ProjectTagProperties } = {
+    Mathematics: { name: "Mathematics", colour: "#6ba4f8" },
+    Music: { name: "Music", colour: "#9c6bdf" },
+    Programming: { name: "Programming", colour: "#64b75d" },
+    Writing: { name: "Writing", colour: "#cd733a" },
+} as const;
+export type ProjectTagType = (typeof ProjectTag)[keyof typeof ProjectTag];
 
 /**
  * Class that encapsulates project information.
@@ -30,7 +38,7 @@ export interface Project {
      */
     dates: { start: Date; end?: Date };
     /** List of project tags */
-    tags: ProjectTag[];
+    tags: ProjectTagType[];
     /**
      * Banner URL.
      *
