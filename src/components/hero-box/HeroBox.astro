@@ -28,9 +28,10 @@ const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "ma
     </div>
 </div>
 
-<style lang="scss" define:vars={{ height, titleSize, subtitleSize }}>
+<style define:vars={{ height, titleSize, subtitleSize }}>
     .hero-box-background {
-        background-image: url("/src/images/header-background-old.webp"); // TODO: Replace with shader
+        /* TODO: Replace with shader */
+        background-image: url("/src/images/header-background-old.webp");
         height: var(--height);
         background-size: cover;
         background-position: center;
@@ -38,7 +39,7 @@ const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "ma
     }
 
     .hero-box-overlay {
-        // TODO: Handle 'light mode'
+        /* TODO: Handle 'light mode' */
         background: linear-gradient(
                 rgba(0, 0, 0, 0.6) 0%,
                 rgba(0, 0, 0, 0.7) 70%,

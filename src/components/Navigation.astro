@@ -13,10 +13,8 @@ import logoImage from "../images/Icon.jpg"; // TODO: Replace
     </div>
 </div>
 
-<style lang="scss">
-    // TODO: Update
-    @use "/src/styles/fonts.scss";
-    @use "/src/styles/themes.scss";
+<style>
+    /* TODO: Update */
 
     .nav {
         margin: 0 auto;
@@ -34,23 +32,23 @@ import logoImage from "../images/Icon.jpg"; // TODO: Replace
         display: none;
         margin: 0;
         float: right;
+    }
 
-        a {
-            display: block;
-            text-align: center;
-            padding: 10px 0;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-family: fonts.$font-family-mono;
-            font-size: 18pt;
-            color: themes.$colour-white-1; // TODO: Maybe use an 'accent' identifier?
-            transition: all 0.2s;
-        }
+    .links a {
+        display: block;
+        text-align: center;
+        padding: 10px 0;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-family: "JetBrains Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Courier New", monospace; /* TODO: Use font constants */
+        font-size: 18pt;
+        color: rgba(220, 220, 220, 0.8); /* TODO: Use colour constants */
+        transition: all 0.2s;
+    }
 
-        a:hover,
-        a:focus {
-            color: themes.$colour-white-2;
-        }
+    .links a:hover,
+    .links a:focus {
+        color: rgb(240, 240, 240);
     }
 
     .expanded {
@@ -64,11 +62,11 @@ import logoImage from "../images/Icon.jpg"; // TODO: Replace
             position: static;
             width: auto;
             background: none;
+        }
 
-            a {
-                display: inline-block;
-                padding: 15px 20px;
-            }
+        .links a {
+            display: inline-block;
+            padding: 15px 20px;
         }
     }
 </style>

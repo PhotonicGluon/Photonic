@@ -31,22 +31,20 @@ let { title } = Astro.props;
     </body>
 </html>
 
-<style lang="scss" is:global>
-    @use "/src/styles/fonts.scss";
-
+<style is:global>
     html,
     body {
-        // Normalize page content
-        // TODO: Maybe add maximum width of content (e.g., 1080 px?)
+        /* Normalize page content*/
+        /* TODO: Maybe add maximum width of content (e.g., 1080 px?)*/
         margin: 0;
         width: 100%;
         height: 100%;
 
-        // Set default font
-        font-family: fonts.$font-family-sans-serif;
+        /* Set default font*/
+        font-family: "DM Sans", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", sans-serif; /* TODO: Use font constants */
 
-        // Set colours
-        // TODO: Handle 'light mode'
+        /* Set colours*/
+        /* TODO: Handle 'light mode'*/
         background-color: black;
         color: white;
     }
