@@ -14,7 +14,6 @@
         "astro": "^5.1.1",
         "jquery": "^3.7.1",
         "preact": "^10.25.3",
-        "sass": "^1.83.0",
         "seedrandom": "^3.0.5",
         "tailwindcss": "^3.4.17",
         "tweakpane": "^4.0.5",
