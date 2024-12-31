@@ -3,15 +3,12 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
-    "postCreateCommand": [
-        "/bin/sh",
-        "-c",
-        "/bin/bash ./.devcontainer/postCreateCommand.sh"
-    ],
+    "postCreateCommand": ["/bin/sh", "-c", "/bin/bash ./.devcontainer/postCreateCommand.sh"],
     "customizations": {
         "vscode": {
             "extensions": [
                 "astro-build.astro-vscode",
+                "bradlc.vscode-tailwindcss",
                 "esbenp.prettier-vscode",
                 "raczzalan.webgl-glsl-editor",
                 "streetsidesoftware.code-spell-checker",
