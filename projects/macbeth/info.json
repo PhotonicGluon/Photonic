@@ -9,6 +9,5 @@
     "summary": "Analyses malware based on its attributes, and helps classify malware based on reports generated in VirusTotal.",
     "urls": {
         "github": "https://github.com/PhotonicGluon/MACBETh"
-    },
-    "indexPage": "index.md"
+    }
 }

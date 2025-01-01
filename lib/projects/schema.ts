@@ -48,6 +48,6 @@ export default async function generateSchema(): Promise<ZodSchema> {
             website: z.string().optional(),
         }),
         /** Path to the file containing the project's index page */
-        indexPage: z.string(),
+        indexPage: z.string().optional(), // TODO: Make this mandatory once the "per-project page" feature is implemented
     });
 }

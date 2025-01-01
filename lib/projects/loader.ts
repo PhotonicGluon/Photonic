@@ -61,8 +61,13 @@ async function syncProjects(
         });
 
         // Get index page of the project
-        const indexPagePath = `${options.projectsRootPath}/${id}/${data.indexPage}`;
-        const indexPageContent = await generateHTMLOfFile(indexPagePath);
+        let indexPageContent;
+        if (data.indexPage) {
+            const indexPagePath = `${options.projectsRootPath}/${id}/${data.indexPage}`;
+            indexPageContent = await generateHTMLOfFile(indexPagePath);
+        } else {
+            indexPageContent = "No index page";
+        }
 
         // Compute digest
         const digest = context.generateDigest({
