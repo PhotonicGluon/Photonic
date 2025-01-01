@@ -1,0 +1,25 @@
+---
+import { formatRGBA, hexToRGBA } from "@lib/misc/colours";
+
+export interface Props {
+    /** Name of the tag */
+    name: string;
+    /** Base hex colour of the tag */
+    colour: string;
+    /** Alpha of the tag's background */
+    alpha: number;
+}
+
+const { name, colour, alpha } = Astro.props;
+
+const baseColour = formatRGBA(hexToRGBA(colour));
+const backgroundColour = formatRGBA(hexToRGBA(colour, alpha));
+---
+
+<span class="project-tag">{name}</span>
+
+<style define:vars={{ baseColour, backgroundColour }}>
+    .project-tag {
+        @apply inline-flex h-3 flex-wrap content-center rounded-lg border border-solid border-[color:var(--baseColour)] bg-[color:var(--backgroundColour)] p-3 text-base;
+    }
+</style>
