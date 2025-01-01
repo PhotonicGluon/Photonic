@@ -1,53 +1,94 @@
-import type { Loader } from "astro/loaders";
-import { z } from "astro:content";
+import type { Loader, LoaderContext } from "astro/loaders";
 import { readFileSync, readdirSync } from "fs";
+import { fileURLToPath } from "url";
+import generateSchema from "./schema";
 
-export function projectsLoader(options: { path: string }): Loader {
-    // Get projects' folders
-    const projectFolders = readdirSync(options.path);
+/**
+ * Options for the project loader.
+ */
+interface ProjectLoaderOptions {
+    /** Path to the projects' directory */
+    projectsRootPath: string;
+}
 
+/**
+ * Synchronizes the specified projects by loading their data from the file system and updating the store.
+ *
+ * @param projectIDs - An array of project IDs to be synchronized.
+ * @param options - Contains options for the project loader.
+ * @param context - The loader context.
+ * @param log - A boolean indicating whether to log the loading process; defaults to `true`.
+ */
+
+async function syncProjects(
+    projectIDs: string[],
+    options: ProjectLoaderOptions,
+    context: LoaderContext,
+    log: boolean = true,
+) {
+    for (const id of projectIDs) {
+        if (log) {
+            context.logger.info(`Loading '${id}'...`);
+        }
+
+        const projectInfo = JSON.parse(readFileSync(`${options.projectsRootPath}/${id}/info.json`, "utf-8"));
+        const data = await context.parseData({
+            id: id,
+            data: projectInfo,
+        });
+        context.store.set({
+            id: id,
+            data: data,
+            digest: context.generateDigest(data),
+        });
+    }
+
+    if (log) {
+        context.logger.info(`Done loading ${projectIDs.length} projects`);
+    }
+}
+
+/**
+ * Creates a loader for managing project data and synchronizing it with the store.
+ *
+ * @param options - Configuration options for the project loader.
+ * @returns A Loader object with methods to load and watch project data.
+ */
+
+export function projectsLoader(options: ProjectLoaderOptions): Loader {
     return {
         name: "photonic-projects-loader",
 
         // Called when updating the collection.
-        load: async ({ store, logger, parseData, meta, generateDigest }): Promise<void> => {
-            // TODO: Handle watching and updating of store
+        load: async (context: LoaderContext): Promise<void> => {
+            // Generate absolute file path
+            const url = new URL(options.projectsRootPath, context.config.root);
+            const projectsRootPathAbsolute = fileURLToPath(url);
 
-            store.clear();
+            // Clear the store for us to add new projects to
+            context.store.clear();
 
-            for (const folder of projectFolders) {
-                logger.info(`Loading '${folder}'...`);
-                const infoRaw = readFileSync(`${options.path}/${folder}/info.json`, "utf-8");
-                const infoJSON = JSON.parse(infoRaw);
-                const data = await parseData({
-                    id: folder,
-                    data: infoJSON,
-                });
-                const digest = generateDigest(data);
-                store.set({
-                    id: folder,
-                    data,
-                    digest,
-                });
-            }
+            // Sync all projects
+            const projectIDs = readdirSync(projectsRootPathAbsolute); // Directory names *are* the IDs
+            await syncProjects(projectIDs, options, context);
 
-            logger.info(`Done loading ${projectFolders.length} projects`);
+            // Watch for project file changes
+            context.watcher?.on("change", async (changedPath: string) => {
+                // Ignore non-project file changes
+                if (!changedPath.includes(projectsRootPathAbsolute)) {
+                    return;
+                }
+
+                // Get the project whose content was changed
+                let changedPathRelative = changedPath.replace(projectsRootPathAbsolute + "/", "");
+                let changedProjectID = changedPathRelative.split("/")[0];
+
+                // Resync
+                // context.store.delete(changedProjectID);
+                await syncProjects([changedProjectID], options, context, false);
+                context.logger.info(`Updated '${changedProjectID}'`);
+            });
         },
-        schema: async () =>
-            z.object({
-                name: z.string(),
-                summary: z.string(),
-                dates: z.object({
-                    start: z.coerce.date(),
-                    end: z.coerce.date().optional(),
-                }),
-                tags: z.array(z.enum(["mathematics", "music", "programming", "writing"])), // TODO: Use predefined tags
-                banner: z.string().optional(),
-                urls: z.object({
-                    bandcamp: z.string().optional(),
-                    github: z.string().optional(),
-                    website: z.string().optional(),
-                }),
-            }),
+        schema: async () => await generateSchema(),
     };
 }

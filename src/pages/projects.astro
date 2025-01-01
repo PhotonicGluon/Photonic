@@ -15,7 +15,7 @@ const projects = await getCollection("projects");
             {
                 projects.map((project) => (
                     <li>
-                        {project.id}: {project.data.name}
+                        {project.id}: {project.data.name} ({project.data.dates.start} &mdash; {project.data.dates.end})
                     </li>
                 ))
             }
