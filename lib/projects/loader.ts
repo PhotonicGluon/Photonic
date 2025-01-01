@@ -24,7 +24,7 @@ async function generateHTMLOfFile(file: string): Promise<string> {
         return readFileSync(file, "utf-8");
     }
     if (extension == ".md") {
-        const fileContent = await import(path.resolve(file));
+        const fileContent = await import(/* @vite-ignore */ path.resolve(file));
         return fileContent.compiledContent();
     }
 
