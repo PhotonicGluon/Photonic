@@ -2,6 +2,7 @@ import type { Loader, LoaderContext } from "astro/loaders";
 import { readFileSync, readdirSync } from "fs";
 import { fileURLToPath } from "url";
 import generateSchema from "./schema";
+import path from "path";
 
 /**
  * Options for the project loader.
@@ -9,6 +10,27 @@ import generateSchema from "./schema";
 interface ProjectLoaderOptions {
     /** Path to the projects' directory */
     projectsRootPath: string;
+}
+/**
+ * Given a file path, this async function returns the HTML content of the file.
+ *
+ * @param file - The path to the file to be converted to HTML.
+ * @returns The HTML content of the file.
+ * @throws {Error} If the file type is unsupported.
+ */
+async function generateHTMLOfFile(file: string): Promise<string> {
+    const extension = path.extname(file);
+    if (extension == ".html") {
+        return readFileSync(file, "utf-8");
+    }
+    if (extension == ".md") {
+        const fileContent = await import(path.resolve(file));
+        return fileContent.compiledContent();
+    }
+
+    // TODO: Handle ".astro" files?
+
+    throw Error(`Unsupported file type: ${extension}`);
 }
 
 /**
@@ -31,15 +53,31 @@ async function syncProjects(
             context.logger.info(`Loading '${id}'...`);
         }
 
+        // Get the info of the project
         const projectInfo = JSON.parse(readFileSync(`${options.projectsRootPath}/${id}/info.json`, "utf-8"));
         const data = await context.parseData({
             id: id,
             data: projectInfo,
         });
+
+        // Get index page of the project
+        const indexPagePath = `${options.projectsRootPath}/${id}/${data.indexPage}`;
+        const indexPageContent = await generateHTMLOfFile(indexPagePath);
+
+        // Compute digest
+        const digest = context.generateDigest({
+            data: data,
+            html: indexPageContent,
+        });
+
+        // Set the store
         context.store.set({
             id: id,
             data: data,
-            digest: context.generateDigest(data),
+            digest: digest,
+            rendered: {
+                html: indexPageContent,
+            },
         });
     }
 
