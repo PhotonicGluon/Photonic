@@ -2,7 +2,7 @@ import type { Loader, LoaderContext } from "astro/loaders";
 import { readFileSync, readdirSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
-import generateSchema from "./structures";
+import { PROJECT_SCHEMA } from "./project";
 
 /**
  * Options for the project loader.
@@ -130,6 +130,6 @@ export function projectsLoader(options: ProjectLoaderOptions): Loader {
                 context.logger.info(`Updated '${changedProjectID}'`);
             });
         },
-        schema: async () => await generateSchema(),
+        schema: async () => PROJECT_SCHEMA,
     };
 }
