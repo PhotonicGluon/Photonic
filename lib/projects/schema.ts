@@ -47,7 +47,12 @@ export default async function generateSchema(): Promise<ZodSchema> {
             github: z.string().optional(),
             website: z.string().optional(),
         }),
-        /** Path to the file containing the project's index page */
-        indexPage: z.string(),
+        /**
+         * Optional path to the file containing the project's index page.
+         *
+         * If not provided, expects an `.astro` file in the `src/pages/projects` folder with the
+         * same ID as the project.
+         */
+        indexPage: z.string().optional(),
     });
 }
