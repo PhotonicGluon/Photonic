@@ -1,0 +1,13 @@
+{
+    "name": "Abstract Algebra",
+    "tags": ["mathematics", "writing"],
+    "dates": {
+        "start": "2022-10-04",
+        "end": "2024-10-04"
+    },
+    "banner": "https://raw.githubusercontent.com/PhotonicGluon/Abstract-Algebra-Book/main/images/banner/banner.webp",
+    "summary": "A series of books about abstract algebra.",
+    "urls": {
+        "github": "https://github.com/PhotonicGluon/Abstract-Algebra-Book"
+    }
+}
