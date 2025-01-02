@@ -1,6 +1,8 @@
 import { z } from "astro:content";
 import type { ZodSchema } from "astro:schema";
 
+import { toTitleCase } from "@lib/misc/strings";
+
 /**
  * Properties of a project tag.
  */
@@ -89,6 +91,35 @@ export default async function generateSchema(): Promise<ZodSchema> {
 }
 
 /**
+ * Type that encapsulates project information, as inferred from the Zod schema.
+ */
+export type ProjectZod = z.infer<typeof SCHEMA>;
+
+/**
  * Type that encapsulates project information.
  */
-export type Project = Omit<z.infer<typeof SCHEMA>, "tags"> & { tags: ProjectTagType[] };
+export type Project = Omit<ProjectZod, "tags"> & { tags: ProjectTagType[] };
+
+/**
+ * Converts a project from the Zod schema representation to the actual type.
+ *
+ * @param project - Project data as inferred from the Zod schema.
+ * @returns Project data with the tags converted to the actual type.
+ */
+export function toProject(project: ProjectZod): Project {
+    // Only thing of concern is that the tags are wrong
+    let correctTags: ProjectTagType[] = [];
+    project.tags.forEach((tag) => {
+        let correctTag: ProjectTagType | undefined = ProjectTag[toTitleCase(tag)];
+        if (correctTag === undefined) {
+            throw Error(`Unknown tag ${tag}`);
+        }
+        correctTags.push(correctTag);
+    });
+
+    // We can now return the correct project
+    return {
+        ...project,
+        tags: correctTags,
+    };
+}
