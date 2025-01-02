@@ -1,7 +1,10 @@
+import { z } from "astro:content";
+import type { ZodSchema } from "astro:schema";
+
 /**
  * Properties of a project tag.
  */
-export interface ProjectTagProperties {
+export type ProjectTagProperties = {
     /** Tag name */
     name: string;
     /** Hex code for the tag's colour */
@@ -12,7 +15,7 @@ export interface ProjectTagProperties {
      * Must be between 0 and 1 inclusive.
      */
     alpha: number;
-}
+};
 
 /**
  * Enum of possible project tags.
@@ -23,40 +26,69 @@ export const ProjectTag: { [key: string]: ProjectTagProperties } = {
     Programming: { name: "Programming", colour: "#64b75d", alpha: 0.5 },
     Writing: { name: "Writing", colour: "#cd733a", alpha: 0.5 },
 } as const;
+
+/** Type of a project tag */
 type ProjectTagType = (typeof ProjectTag)[keyof typeof ProjectTag];
 
 /**
- * Class that encapsulates project information.
+ * Gets all project tags from the `ProjectTag` enum.
+ *
+ * @returns List of project tag IDs, in lowercase.
  */
-export interface Project {
-    /**
-     * Project ID.
-     *
-     * Will be used for the slug of the project page.
-     */
-    id: string;
+function getTags(): readonly [string, ...string[]] {
+    let tags = Object.keys(ProjectTag);
+    tags = tags.map((tag) => tag.toLowerCase());
+    return tags as [string, ...string[]];
+}
+
+/** Zod schema for project information */
+const SCHEMA = z.object({
     /** Project name */
-    name: string;
+    name: z.string(),
     /** Project summary */
-    summary: string;
+    summary: z.string(),
     /**
      * Start and end dates of the project.
      *
      * If `end` is unspecified, that means that the project is ongoing.
      */
-    dates: { start: Date; end?: Date };
+    dates: z.object({
+        start: z.coerce.date(),
+        end: z.coerce.date().optional(),
+    }),
     /** List of project tags */
-    tags: ProjectTagType[];
+    tags: z.array(z.enum(getTags())),
     /**
      * Banner URL.
      *
      * If empty, will not display a banner.
      */
-    banner?: string;
+    banner: z.string().optional(),
     /** URLs of the project */
-    urls?: {
-        bandcamp?: string;
-        github?: string;
-        website?: string;
-    };
+    urls: z.object({
+        bandcamp: z.string().optional(),
+        github: z.string().optional(),
+        website: z.string().optional(),
+    }),
+    /**
+     * Optional path to the file containing the project's index page.
+     *
+     * If not provided, expects an `.astro` file in the `src/pages/projects` folder with the
+     * same ID as the project.
+     */
+    indexPage: z.string().optional(),
+});
+
+/**
+ * Generates the Zod schema for project information.
+ *
+ * @returns Project data schema.
+ */
+export default async function generateSchema(): Promise<ZodSchema> {
+    return SCHEMA;
 }
+
+/**
+ * Type that encapsulates project information.
+ */
+export type Project = Omit<z.infer<typeof SCHEMA>, "tags"> & { tags: ProjectTagType[] };

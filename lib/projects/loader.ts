@@ -1,8 +1,8 @@
 import type { Loader, LoaderContext } from "astro/loaders";
 import { readFileSync, readdirSync } from "fs";
 import { fileURLToPath } from "url";
-import generateSchema from "./schema";
 import path from "path";
+import generateSchema from "./structures";
 
 /**
  * Options for the project loader.
