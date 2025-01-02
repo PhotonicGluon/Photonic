@@ -10,7 +10,7 @@ const projects = await getCollection("projects");
 <!-- TODO: Change title and contents-->
 <MainLayout title="Projects">
     <div class="projects">
-        {projects.map((rawProject) => <ProjectCard project={toProject(rawProject.data)} />)}
+        {projects.map((rawProject) => <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} />)}
     </div>
 </MainLayout>
 

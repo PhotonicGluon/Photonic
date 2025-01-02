@@ -4,13 +4,14 @@ import type { Project } from "@lib/projects/project";
 import ProjectTag from "@components/projects/ProjectTag.astro";
 
 export interface Props {
+    id: string;
     project: Project;
 }
 
-const { project } = Astro.props;
+const { id, project } = Astro.props;
 ---
 
-<div class="project-card">
+<project-card data-id={id}>
     <!-- TODO: Edit card contents -->
     <!-- TODO: Make card intractable (i.e., flip card to see summary) -->
     <span class="name">{project.name}</span>
@@ -23,13 +24,13 @@ const { project } = Astro.props;
     <p class="summary">
         {project.summary}
     </p>
-</div>
+</project-card>
 
 <style>
-    .project-card {
+    project-card {
         /* Design the card */
         /* TODO: We can do better than this... */
-        @apply w-[90%] rounded-xl border border-solid border-white p-[10px]; /* TODO: Adjust width and padding */
+        @apply w-[90%] cursor-pointer rounded-xl border border-solid border-white p-[10px]; /* TODO: Adjust width and padding */
 
         /* Align content to center */
         @apply mx-auto my-0 text-center;
@@ -39,3 +40,17 @@ const { project } = Astro.props;
         @apply text-2xl font-bold;
     }
 </style>
+
+<script>
+    class ProjectCard extends HTMLElement {
+        connectedCallback() {
+            // Go to associated project page on click
+            const id = this.dataset.id!;
+            this.addEventListener("click", () => {
+                window.location.href = `/projects/${id}`;
+            });
+        }
+    }
+
+    customElements.define("project-card", ProjectCard);
+</script>
