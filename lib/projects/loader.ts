@@ -14,23 +14,20 @@ interface ProjectLoaderOptions {
 /**
  * Given a file path, this async function returns the HTML content of the file.
  *
+ * Supports only markdown files.
+ *
  * @param file - The path to the file to be converted to HTML.
  * @returns The HTML content of the file.
  * @throws {Error} If the file type is unsupported.
  */
 async function generateHTMLOfFile(file: string): Promise<string> {
     const extension = path.extname(file);
-    if (extension == ".html") {
-        return readFileSync(file, "utf-8");
-    }
-    if (extension == ".md") {
-        const fileContent = await import(/* @vite-ignore */ path.resolve(file));
-        return fileContent.compiledContent();
+    if (extension !== ".md") {
+        throw Error(`Unsupported file type: ${extension}`);
     }
 
-    // TODO: Handle ".astro" files?
-
-    throw Error(`Unsupported file type: ${extension}`);
+    const fileContent = await import(/* @vite-ignore */ path.resolve(file));
+    return fileContent.compiledContent();
 }
 
 /**
@@ -61,29 +58,30 @@ async function syncProjects(
         });
 
         // Get index page of the project
-        let indexPageContent;
-        if (data.indexPage) {
+        let content;
+        if (data.indexPage !== undefined) {
             const indexPagePath = `${options.projectsRootPath}/${id}/${data.indexPage}`;
-            indexPageContent = await generateHTMLOfFile(indexPagePath);
+            content = await generateHTMLOfFile(indexPagePath);
         } else {
-            indexPageContent = "No index page";
+            content = null;
         }
 
         // Compute digest
         const digest = context.generateDigest({
             data: data,
-            html: indexPageContent,
+            html: content,
         });
 
         // Set the store
-        context.store.set({
-            id: id,
-            data: data,
-            digest: digest,
-            rendered: {
-                html: indexPageContent,
-            },
-        });
+        const mainStoreData = { id: id, data: data, digest: digest };
+        if (content !== null) {
+            context.store.set({
+                ...mainStoreData,
+                rendered: { html: content },
+            });
+        } else {
+            context.store.set(mainStoreData);
+        }
     }
 
     if (log) {
