@@ -10,8 +10,6 @@
             "@layouts/*": ["src/layouts/*"],
             "@styles/*": ["src/styles/*"]
         },
-        "types": ["vite-plugin-glsl/ext"],
-        "jsx": "react-jsx",
-        "jsxImportSource": "preact"
+        "types": ["vite-plugin-glsl/ext"]
     }
 }
