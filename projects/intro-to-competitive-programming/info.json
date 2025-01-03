@@ -9,5 +9,6 @@
     "summary": "Jupyter Notebooks for teaching Competitive Programming simply.",
     "urls": {
         "github": "https://github.com/PhotonicGluon/Intro-To-Competitive-Programming"
-    }
+    },
+    "indexPage": "index.md"
 }

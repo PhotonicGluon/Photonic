@@ -8,5 +8,6 @@
     "summary": "An n-Gram language model created from scratch in Python.",
     "urls": {
         "github": "https://github.com/PhotonicGluon/n-Gram-Language-Model-From-Scratch"
-    }
+    },
+    "indexPage": "index.md"
 }

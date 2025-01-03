@@ -9,5 +9,6 @@
     "summary": "An application that assists you in making a simple questions asking site.",
     "urls": {
         "github": "https://github.com/PhotonicGluon/Quaestiones"
-    }
+    },
+    "indexPage": "index.md"
 }

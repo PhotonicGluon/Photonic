@@ -8,5 +8,6 @@
     "summary": "A program that helps convert a video into a transcript with timestamps.",
     "urls": {
         "github": "https://github.com/PhotonicGluon/Video-To-Captions"
-    }
+    },
+    "indexPage": "index.md"
 }
