@@ -10,5 +10,6 @@
     "urls": {
         "github": "https://github.com/AudiTranscribe/AudiTranscribe",
         "website": "https://auditranscribe.app/"
-    }
+    },
+    "indexPage": "index.md"
 }

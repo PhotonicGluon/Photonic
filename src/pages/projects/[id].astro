@@ -1,4 +1,5 @@
 ---
+import ProjectLayout from "@layouts/ProjectLayout.astro";
 import { getCollection, render } from "astro:content";
 
 // Generate a new path for every collection entry
@@ -23,5 +24,6 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 ---
 
-<h1>{project.data.name}</h1>
-<Content />
+<ProjectLayout {...project.data}>
+    <Content />
+</ProjectLayout>

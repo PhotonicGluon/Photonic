@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from "astro:content";
+import MainLayout from "./MainLayout.astro";
+import { toProject } from "@lib/projects/project";
+
+type Props = CollectionEntry<"projects">["data"];
+const project = toProject(Astro.props);
+---
+
+<!-- TODO: Update -->
+<MainLayout title={project.name}>
+    <slot />
+</MainLayout>
