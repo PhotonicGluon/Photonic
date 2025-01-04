@@ -1,0 +1,496 @@
+---
+import ProjectLayout from "@layouts/ProjectLayout.astro";
+import { getEntry } from "astro:content";
+
+const project = (await getEntry("projects", "dreams"))!;
+---
+
+<ProjectLayout {...project.data}>
+    <p>
+        <em>Dreams</em> is an album exploring the thoughts that appear in the subconscious and the hidden truths revealed
+        within.
+    </p>
+    <p>
+        Since finishing <em>7125</em>, I've been learning how to use <a href="https://www.image-line.com/">FL Studio</a
+        >. I'm happy to say that this has led to a significant improvement in the music quality and allowed me to create
+        more emotional tracks along the way.
+    </p>
+    <p>
+        Similar to <em>7125</em>, secrets are hidden within these tracks. Similar to how literature may have subtextual
+        meaning to the words written on the page, I feel that music too should have a double meaning in what they
+        represent. Acute listeners can spot these double meanings and decipher these tunes.
+    </p>
+    <p>
+        The final album is primarily available on <a href="https://melodicgluon.bandcamp.com/album/dreams">Bandcamp</a>,
+        but it is also available on <a
+            href="https://open.spotify.com/album/1NiKJK9ntchJybVVAs1Hd3?si=mAX7WGbaT7OJ8ODIVHPANA">Spotify</a
+        >,
+        <a href="https://www.youtube.com/playlist?list=PLflyFtcWkjTPLtMaAcCr2bw1LKFgMQ8Fg">YouTube</a>, <a
+            href="https://music.youtube.com/playlist?list=OLAK5uy_kPSNtZ3KLuooExow44oG-4TsvPikJB1qU">YouTube Music</a
+        >, <a href="https://music.apple.com/sg/album/dreams/1704266760">Apple Music</a>, and <a
+            href="https://www.deezer.com/en/album/480241645">Deezer</a
+        >.
+    </p>
+    <h2>Tracks</h2>
+    <p>
+        The music tracks of <em>Dreams</em> can be split into two halves. The first half can be loosely called "Positive",
+        as tracks in this half are mainly bright and cheerful. The second half centres around the theme "Negative", with
+        darker tracks centred more on horror and terror.
+    </p>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Sleep</span>
+            <span class="music-duration">[04:00]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Sleep Banner" src="/projects/dreams/Sleep.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/sleep" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Slumber's embrace weaves whispered tales<br />
+            In long respite, tranquillity prevails
+        </p>
+        <div class="music-description">
+            <p>It's time to go to bed.</p>
+            <p>
+                <em>Sleep</em> imitates the way that we gradually fall asleep. It was purposefully composed to be simple
+                and lullaby-like, with as minimal changes to the core melody as possible while still creating a nice-sounding
+                track.
+            </p>
+            <p>
+                <em>Sleep</em> uses only a few instruments to create its core tune. The guitar and bass are the stars of
+                the track, with their use heavily inspired by that of <em>Awakening</em>. The core melody is the
+                'cool-down' melody of the second half of <em>Awakening</em>, allowing it to subtly reference Sleep in
+                its melody. The piano serves as the quiet backer for the melody, until right at the end, where it
+                imitates the ending of
+                <em>Awakening</em> to form a sense of completeness by the end of the album.
+            </p>
+            <p>
+                As the third track that was composed, the samples used are very similar to what was used in
+                <em>Awakening</em>, the second track to be composed. I'm quite pleased with how <em>Sleep</em> turned out,
+                although I could foresee future improvements that I could make to it when I feel like it.
+            </p>
+        </div>
+    </div>
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Memories</span>
+            <span class="music-duration">[04:32]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Memories Banner" src="/projects/dreams/Memories.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/memories" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Echoes of time, memories dance and fade<br />
+            Treasures of the past, a nostalgic serenade
+        </p>
+        <div class="music-description">
+            <p>Relive the good old days.</p>
+            <p>
+                The theme of nostalgia and carefree joy is the core of the melody of <em>Memories</em>. It aims to
+                remind the listener of a simpler time when things were straightforward, and when we didn't have to care
+                about so many things in life.
+            </p>
+            <p>
+                The carefree melody of <em>Memories</em> is complemented by the bright strings and choir, along with the
+                leading guitar and bass. The bright chords create a cheerful atmosphere and drive the melody forward. Although
+                the melody is simple, the layered instrumentation of the complementing instruments gradually makes
+                <em>Memories</em> into an orchestra of joy. Also, the main themes of <em>Dreams</em> are emphasised repeatedly
+                in Memories, with the core leitmotif of <em>Dreams</em> played on a loop at the end of the track to emphasise
+                that the memories we see in our dreams are in our past now.
+            </p>
+            <p>
+                Being the last track to be composed, <em>Memories</em> acts as a very nice 'farewell' track to this project,
+                with the best melodies from all other tracks incorporated within <em>Memories</em>. I feel that this
+                track does my time with <em>Dreams</em> justice, and gives a sense of closure to <em>Dreams</em> as a project.
+            </p>
+        </div>
+    </div>
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Gateway</span>
+            <span class="music-duration">[04:48]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Gateway Banner" src="/projects/dreams/Gateway.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/gateway" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Within arches, realms intertwine<br />
+            Through it, portals back in time
+        </p>
+        <div class="music-description">
+            <p>Entering a deeper state of the subconscious.</p>
+            <p>
+                As the last formal track of the first half of <em>Dreams</em>, this track is literally a gateway into
+                the next half of the album. I wanted to explore the feeling of digging deeper into a deeper state of the
+                subconscious, as we fall into a deeper state of sleep.
+            </p>
+            <p>
+                <em>Gateway</em> can be considered an appropriate follow-up to <em>Memories</em> (although it was composed
+                first), as similar techniques of composition were used in <em>Gateway</em>, as in <em>Memories</em>.
+                Specifically, a repeated chorus is constantly punctuated in the track. Also, similar instrumentation to
+                <em>Memories</em> makes it have a similar soundscape to it. But, as a melodic send-off for the first half,
+                it references parts of the melody in <em>Sleep</em> and <em>Memories</em> and has more reverb than the former
+                tracks.
+            </p>
+            <p>
+                <em>Gateway</em> was number six to be composed. As I had just finished composing both <em>Dark</em> and
+                <em>Inferno</em>, I challenged myself to compose a track that had an air of grandiose and epicness,
+                similar to<em>Awakening</em>, instead of creating a simple and bland track. The final revision of <em
+                    >Gateway</em
+                >
+                was my answer to this challenge, and I am proud of what I put out.
+            </p>
+        </div>
+    </div>
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Dark</span>
+            <span class="music-duration">[01:30]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Dark Banner" src="/projects/dreams/Dark.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/dark" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            While in daylight, hidden details aren't clear<br />
+            When night falls, ignorance replaced with fear
+        </p>
+        <div class="music-description">
+            <p>Something feels off...</p>
+            <p>
+                <em>Dark</em> imitates the feeling when the mind starts to wander off to a (literally and figuratively) darker
+                place. The feeling that something bad is about to occur lingers heavily within the track, as the melody progressively
+                gets darker and darker as time progresses.
+            </p>
+            <p>
+                <em>Dark</em> acts as a bridge between the first and second halves of the album. The core melody of the track
+                signals impending terror and horror, while not yet introducing too serious of a concern. The ending sting
+                serves as a hint of what is to come.
+            </p>
+            <p>
+                <em>Dark</em> was the fifth to be completed. The melody is nothing too remarkable, with my aim just to make
+                a song to bridge the two halves of the album together. Still, I believe I did a decent job of linking the
+                two halves together.
+            </p>
+        </div>
+    </div>
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Nightmare</span>
+            <span class="music-duration">[02:40]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Nightmare Banner" src="/projects/dreams/Nightmare.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/nightmare" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Residual memories linger forgotten<br />
+            Until in dreams, they reappear rotten
+        </p>
+        <div class="music-description">
+            <p>You can't escape that easily.</p>
+            <p>
+                <em>Nightmare</em> is, at its core, about the terror of nightmares. The feeling that things aren't right
+                and that you can't escape the terror is the central theme of the piece. As time progresses, the melody increases
+                in tempo to simulate the feeling of an increasing heart rate, and the unnerving atmosphere set by the song
+                keeps getting worse.
+            </p>
+            <p>
+                <em>Nightmare</em> is the most technically challenging piece of the album. The inception for this song began
+                right at the start of the project, but it was only recently that I was able to come up with the sounds needed
+                for the feel and atmosphere that I wanted to create. Making the backing "boom" sound just right took the
+                most time, followed by the rapidly adjusting static sounds.
+            </p>
+            <p>
+                <em>Nightmare</em> was composed right after <em>Gateway</em>. I originally wanted the start of
+                <em>Nightmare</em> to be the backing for <em>Gateway</em>, but eventually, I felt that the "boom" was
+                more suited for a horror-based track instead. And thus <em>Nightmare</em> was born.
+            </p>
+            <p>
+                The full experience of <em>Nightmare</em> is best experienced with high-quality headphones. I am very proud
+                of <em>Nightmare</em>, so much so that the <a href="https://youtu.be/hHR1V49jYXU"
+                    >bonus piece for
+                    <em>Dreams</em></a
+                > uses the backing of <em>Nightmare</em>.
+            </p>
+        </div>
+    </div>
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Inferno</span>
+            <span class="music-duration">[02:22]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Inferno Banner" src="/projects/dreams/Inferno.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/inferno" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            With a single spark, dreams run ablaze<br />
+            Chaos ignites the subconscious domain
+        </p>
+        <div class="music-description">
+            <p>Why does everything not make sense?</p>
+            <p>
+                <em>Inferno</em> asks the question about troubling dreams when one is almost awake. Dreamscapes stop making
+                sense, and it feels as though reality is burning around you. The unnerving feeling from <em
+                    >Nightmares</em
+                >
+                is gone, but it is replaced with a sense of urgency and a new form of terror &mdash; escape.
+            </p>
+            <p>
+                <em>Inferno</em> was my first experience in creating music with synthesizers. Using simple kicks, I created
+                a simple tune that just got stuck in my mind. After some messing about, the core of <em>Inferno</em> was
+                born. The added flames in the soundscape were meant to re-emphasise the name of the song (i.e.,
+                <em>Inferno</em>), and their increasing volume highlights how close to danger one is.
+            </p>
+            <p>
+                <em>Inferno</em> was the fourth to be completed, but I had to repeatedly update the mixing of it to better
+                fit in with the rest of the tracks. Being one of the two 'Electronic' tracks of the album (the other being
+                <em>Nightmare</em>), and being the first of the two to be created, it posed an interesting challenge and
+                experiment for me to see what kind of music I could make.
+            </p>
+        </div>
+    </div>
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Truth</span>
+            <span class="music-duration">[04:20]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Truth Banner" src="/projects/dreams/Truth.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/truth" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            A long-known truth, hidden away in day<br />
+            Revealed in full, amidst one's dreamscape
+        </p>
+        <div class="music-description">
+            <p>What if something that you knew all your life was hidden away in the subconscious?</p>
+            <p>
+                The primary soundscape for <em>Truth</em> is by the sea, by a departing ship. The song aims to recreate the
+                sombre feelings of a goodbye, to someone you will never see again. Of course, there's a deeper message behind
+                the tunes, which avid listeners can decipher. Regardless, <em>Truth</em> reflects a different kind of horror
+                than the previous two tracks &mdash; the horror of realisation about something so fundamental that you can't
+                take it back.
+            </p>
+            <p>
+                <em>Truth</em> was primarily composed as an experimental piece, with a focus more on the story being told
+                by the soundscape rather than actual music. Waves crashing against the shore are a constant undertone to
+                the sombre melody played by the strings and piano. Heavily modified chimes/tubular bells act as the ship's
+                bell and evoke a sense of sadness when coupled with the ship's horn that is being played by the tuba.
+            </p>
+            <p>
+                Unlike all the other tracks, and being the first, <em>Truth</em> was originally composed in <a
+                    href="https://musescore.org/">MuseScore</a
+                >. This was before I got FL Studio, so some of the tunes were lifted from the original project files
+                from there. Consequently, as the first track to be fully composed,
+                <em>Truth</em> set the direction for the types of music that appear in <em>Dreams</em>.
+            </p>
+        </div>
+    </div>
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Awakening</span>
+            <span class="music-duration">[08:31]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Awakening Banner" src="/projects/dreams/Awakening.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/awakening" target="_blank"
+                >Bandcamp</a
+            >
+            <a
+                class="button musescore-button"
+                href="https://musescore.com/user/23043611/scores/14917243"
+                target="_blank">MuseScore</a
+            >
+            <a class="button sheet-music-button" href="/projects/dreams/Awakening.pdf" download>Sheet Music</a>
+        </div>
+        <p class="music-caption">
+            Awakening from sleep, revelations shown in full<br />
+            From slumber's grasp, we embrace the truth
+        </p>
+        <div class="music-description">
+            <p>With the truth in hand, it's time to awaken.</p>
+            <p>
+                Honestly, <em>Awakening</em> could have been split into two tracks, since the two halves are quite different
+                from each other. But splitting <em>Awakening</em> in two would not do justice to the feeling that I want
+                to convey with this final track.
+            </p>
+            <p>
+                The first half of <em>Awakening</em> is a sort of melancholy feeling of hope when emerging from slumber.
+                It is sad for the nice dreams to end, and the sanctity of sleep to disappear. The knowledge gained from
+                <em>Truth</em>also dampens the mood, especially if one is still denying that fundamental fact.
+                Nevertheless, facts are unchangeable, and we must accept them as truth. The second half of <em
+                    >Awakening</em
+                > gives hope; some knowledge that everything will be fine. It lifts the melody out of the negativity brought
+                by the second half of the album, and back into the realm of positivity, albeit slightly affected by the revelations
+                in
+                <em>Truth</em>.
+            </p>
+            <p>
+                <em>Awakening</em> aims to be the most epic track in the album, especially in the second half. A healthy
+                mix of strings, guitars, pianos, choir, and SFX is used to create the atmosphere of hope and melody in
+                <em>Awakening</em>. The second half of the track, in particular, layers together many different
+                instruments to properly bring joy back to the surface.
+            </p>
+            <p>
+                <em>Awakening</em> was conceived very early on in the album's planning stages. I knew from the start that
+                <em>Awakening</em> had to be the last song on the album, and so it was composed right after I experimented
+                with <em>Truth</em>. Being the second song that I made in FL Studio, I am immensely proud of how the
+                track sounds.
+            </p>
+        </div>
+    </div>
+    <p>
+        Overall, I am happy with how <em>Dreams</em> turned out. I managed to create 8 tracks that I am happy to call my
+        own, and to evoke feelings through the music within the album.
+    </p>
+</ProjectLayout>
+
+<style>
+    /* TODO: Update */
+    /* MAIN STYLING */
+    .music-track:not(:last-of-type) {
+        margin-bottom: 10px;
+    }
+
+    .music-track:last-of-type {
+        margin-bottom: 40px;
+    }
+
+    .music-entry,
+    .music-buttons {
+        display: block;
+    }
+
+    .music-entry {
+        width: 200px;
+    }
+
+    .music-buttons,
+    .music-caption {
+        text-align: center;
+    }
+
+    .music-title {
+        font-weight: bold;
+        font-size: 1.17em;
+    }
+
+    .music-image {
+        width: 100%;
+    }
+
+    .music-image img {
+        display: block;
+        width: 50%;
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+        border-radius: 5px;
+    }
+
+    .music-caption {
+        font-style: italic;
+        color: var(--light-grey);
+    }
+
+    .bandcamp-button {
+        margin: 10px 0;
+        border: 1px solid var(--yellow);
+    }
+
+    .bandcamp-button:hover,
+    .bandcamp-button:visited:hover {
+        color: black;
+    }
+
+    .bandcamp-button:hover::after {
+        background-color: var(--yellow);
+    }
+
+    .sheet-music-button {
+        border: 1px solid var(--blue);
+    }
+
+    .sheet-music-button:hover::after {
+        background-color: var(--blue);
+    }
+
+    .musescore-button {
+        border: 1px solid var(--green);
+    }
+
+    .musescore-button:hover::after {
+        background-color: var(--green);
+    }
+
+    /* QUERIES */
+    @media (max-width: 768px) {
+        ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        .music-image img {
+            width: 95%;
+        }
+
+        .music-list li:not(:last-of-type) {
+            margin-bottom: 30px;
+        }
+
+        .bandcamp-button {
+            width: 125px;
+            margin-bottom: 5px;
+        }
+    }
+
+    @media (max-width: 425px) {
+        .bandcamp-button {
+            width: 200px;
+        }
+    }
+</style>
