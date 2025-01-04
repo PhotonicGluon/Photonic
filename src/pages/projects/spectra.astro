@@ -1,0 +1,595 @@
+---
+import ProjectLayout from "@layouts/ProjectLayout.astro";
+import { getEntry } from "astro:content";
+
+const project = (await getEntry("projects", "spectra"))!;
+---
+
+<ProjectLayout {...project.data}>
+    <!-- TODO: Re-enable the iframe bandcamp player -->
+    <!-- <div class="bandcamp-player">
+        <iframe
+            style="border: 0; width: 350px; height: 470px;"
+            src="https://bandcamp.com/EmbeddedPlayer/album=4146003043/size=large/bgcol=181a1b/linkcol=056cc4/tracklist=false/transparent=true/"
+            seamless
+        >
+            <a href="https://melodicgluon.bandcamp.com/album/spectra">Spectra by MelodicGluon</a>
+        </iframe>
+    </div> -->
+
+    <p>
+        <em>Spectra</em> is an album exploring the spectrum of joy that we feel. Mainly split into two parts, it is also
+        an experiment on marching-pace music as well as more band-based music. A mix of the old and new, <em>Spectra</em
+        >
+        remixes some familiar melodies from my previous works but also includes some new tunes.
+    </p>
+    <p>
+        Created over several months in FL Studio, I am proud to present this album as the best set of music that I have
+        made yet. I hope you'll like them.
+    </p>
+    <p>
+        The final album is primarily available on <a href="https://melodicgluon.bandcamp.com/album/spectra">Bandcamp</a
+        >.
+    </p>
+
+    <h2>Tracks</h2>
+    <p>
+        There are two parts to the tracks in <em>Spectra</em>. The first part is called "In The Open" and the second is
+        called "Behind Closed Doors". An intermission piece, <em>Lightning Alert</em>, separates the two parts.
+    </p>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">March of the Changing Winds</span>
+            <span class="music-duration">[01:40]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/March-of-the-Changing-Winds.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/march-of-the-changing-winds"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Together we stand<br />
+            Along with the changing winds<br />
+            United as one
+        </p>
+        <div class="music-description">
+            <p>
+                Serving as the introduction to the album, <em>March of the Changing Winds</em> is a military band inspired
+                piece that provides a powerful entrance with its melody and lyrics.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Our Common Dream</span>
+            <span class="music-duration">[04:12]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Our-Common-Dream.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/our-common-dream"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Join us in this song<br />
+            Championing this worthy cause<br />
+            Believing in dreams
+        </p>
+        <div class="music-description">
+            <p>
+                <em>Our Common Dream</em> is a nice follow-up to <em>March of the Changing Winds</em>, using the same
+                pacing of a marching band/military band song. A reimagining of <em>Gateway</em> from <em>Dreams</em>,
+                the addition of the marching percussion infuses it with more gusto and melody than done previously.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Drapeaux Flottants</span>
+            <span class="music-duration">[02:56]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Drapeaux-Flottants.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/drapeaux-flottants"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Symbols of our pride<br />
+            Flying high above the crowd<br />
+            For all our honour
+        </p>
+        <div class="music-description">
+            <p>
+                Representation matters when we seek to express ourselves. <em>Drapeaux Flottants</em>' cheerful melody
+                reminds us all to respect the symbols that represent us and our honour.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Pour Notre Bonheur</span>
+            <span class="music-duration">[03:16]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Pour-Notre-Bonheur.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/pour-notre-bonheur"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Sacrifice plenty<br />
+            To obtain our happiness<br />
+            A worthy trade?
+        </p>
+        <div class="music-description">
+            <p>
+                <em>Pour Notre Bonheur</em> serves as a reminder of our mission and our sacrifices; to carry on as who we
+                are and to embrace the truth. The purposeful backing of the track mixed with the melodic strings drives forward
+                the passion we have, while the ending is a stark reminder of those we lost.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Steganographic Sepulture</span>
+            <span class="music-duration">[01:32]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Steganographic-Sepulture.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/steganographic-sepulture"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            To bury in sound<br />
+            Evade any suspicion<br />
+            Your truth cannot show
+        </p>
+        <div class="music-description">
+            <p>
+                <em>Steganographic Septure</em> takes a step back from the positivity of the previous tracks and expresses
+                sorrow for those who have passed on. Its mournful melody masks messages meant mostly for those who can decipher
+                them.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Remembrance</span>
+            <span class="music-duration">[03:52]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Remembrance.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/remembrance" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Recollect their names<br />
+            With reverence and respect<br />
+            We lay them to rest
+        </p>
+        <div class="music-description">
+            <p>
+                Taking inspiration from the first half of <em>Awakening</em> in <em>Dreams</em>, <em>Rememberance</em>
+                follows up from <em>Steganographic Sepulture</em> with a slither of hope within its soundscape. Its more
+                cheery tunes as compared to <em>Rememberance</em> reflects the hope for the future as we lay the past to
+                rest.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Lightning Alert</span>
+            <span class="music-duration">[02:12]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Lightning-Alert.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/lightning-alert"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Seek any shelter!<br />
+            Get out of any danger!<br />
+            Hide safely inside!
+        </p>
+        <div class="music-description">
+            <p>
+                <em>Lightning Alert</em> serves as the experimental intermission piece between the two halves of the album.
+                With the thunderstorm fast approaching, it serves as a reminder to hide when danger approaches.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Mystères Sombres</span>
+            <span class="music-duration">[03:55]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Mysteres-Sombres.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/mysteres-sombres"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Some of our secrets<br />
+            Of which we are scared to show<br />
+            Shall remain hidden
+        </p>
+        <div class="music-description">
+            <p>
+                Leading the second half of the album, <em>Mystères Sombres</em> incorporates leitmotifs from Sergei Prokofiev's
+                <em>Dance of the Knights</em> to invoke vastness and grandeur while still leaving room for a sadder side
+                to take over.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Winds of Change</span>
+            <span class="music-duration">[02:06]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Winds-of-Change.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/winds-of-change"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            What was done outside<br />
+            Is when we hide our true selves<br />
+            Welcome, it begins
+        </p>
+        <div class="music-description">
+            <p>
+                <em>Winds of Change</em> explicitly calls back the melody of <em>March of the Changing Winds</em> to produce
+                a piano-led piece that references the feeling of being in the open in the first half. The simple instrumentation
+                also calls into question how much hope we should have for the future of the different spectra of joy.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Exordium</span>
+            <span class="music-duration">[03:00]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Exordium.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/exordium" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Foreshadowing<br />
+            Before the event begins<br />
+            A façade to show
+        </p>
+        <div class="music-description">
+            <p>
+                The waltz of <em>Exordium</em> prefaces the real event in <em>Chasing Maxima</em>. The slow dance
+                invoked by the tempo hints at the excitement that follows the melody of the waltz, while hiding its true
+                purpose from those unaware.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Chasing Maxima</span>
+            <span class="music-duration">[02:03]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Chasing-Maxima.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/chasing-maxima"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Seeking soaring heights<br />
+            Pursuing our ambitions<br />
+            Finding joy in life
+        </p>
+        <div class="music-description">
+            <!-- TODO: Perhaps automate the reversing of this text? -->
+            <p>
+                .enrob eb tsum secneuqesnoc tub ,elbayojne si tI .noitatpmet ot bmuccus ew nehw sgnileef eht ekove ot
+                <em>smaerD</em> ni <em>eramthgiN</em> fo saedi niam eht ni sllac <em>amixaM gnisahC</em>
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Ergebnisse</span>
+            <span class="music-duration">[03:56]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Ergebnisse.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/ergebnisse" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Everything we do<br />
+            Has consequences to bear<br />
+            Worth our happiness?
+        </p>
+        <div class="music-description">
+            <p>
+                A remastering of <em>Hidden Secrets</em> from <em>7125</em>, the melancholic melody of <em
+                    >Ergebnisse</em
+                >
+                serves as a stark reminder of the consequences one has when pursuing joy. Long lasting effects after the
+                short burst of elation linger in the back of our minds.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">We Exist</span>
+            <span class="music-duration">[03:40]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/We-Exist.png" />
+        </div>
+        <div class="music-buttons">
+            <a class="button bandcamp-button" href="https://melodicgluon.bandcamp.com/track/we-exist" target="_blank"
+                >Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Our kind, being shunned<br />
+            Overlooked, overshadowed<br />
+            But we are still there
+        </p>
+        <div class="music-description">
+            <p>
+                <em>We Exist</em> is a melancholic piece expressing the hope that an often shunned and forgotten part of
+                society still exists. It is an updating of <em>Gout Nimoc</em> from <em>7125</em> with the sounds and tools
+                available in FL Studio, and I am happy that <em>We Exist</em> has its intended soundscape.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Vers Notre Avenir</span>
+            <span class="music-duration">[03:10]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Vers-Notre-Avenir.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/vers-notre-avenir"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Those before helped us<br />
+            We work for those yet to come<br />
+            For our future peers!
+        </p>
+        <div class="music-description">
+            <p>
+                Again taking inspiration from <em>Awakening</em> in <em>Dreams</em>, the more band-based instrumentation
+                of
+                <em>Vers Notre Avenir</em>, along with its faster tempo, shines a light on how we should strive for our
+                future.
+            </p>
+        </div>
+    </div>
+
+    <div class="music-track">
+        <div class="music-entry">
+            <span class="music-title">Cette Fierté Cachée</span>
+            <span class="music-duration">[05:51]</span>
+        </div>
+        <div class="music-image">
+            <!-- TODO: Use image component -->
+            <img alt="Banner" src="/projects/spectra/Cette-Fierte-Cachee.png" />
+        </div>
+        <div class="music-buttons">
+            <a
+                class="button bandcamp-button"
+                href="https://melodicgluon.bandcamp.com/track/cette-fierte-cachee"
+                target="_blank">Bandcamp</a
+            >
+        </div>
+        <p class="music-caption">
+            Be proud of yourself<br />
+            Despite traits to be hidden<br />
+            Accept who you are
+        </p>
+        <div class="music-description">
+            <p>
+                <em>Cette Fierté Cachée</em> is the final track of <em>Spectra</em>. Featuring melodic guitar tunes with
+                tempered piano tunes, this track serves as a fitting farewell to the album with its slow pace and
+                calming melody.
+            </p>
+        </div>
+    </div>
+
+    <p>
+        All in all, finishing <em>Spectra</em> is one of my proudest moments. Creating 15 tracks in time for June is really
+        no easy feat for me, and I am just proud to be able to accomplish it in time and be able to create an opus that I
+        will look back fondly on.
+    </p>
+</ProjectLayout>
+
+<style>
+    /* TODO: Update */
+    /* MAIN STYLING */
+    .music-track:not(:last-of-type) {
+        margin-bottom: 10px;
+    }
+
+    .music-track:last-of-type {
+        margin-bottom: 40px;
+    }
+
+    .music-entry,
+    .music-buttons {
+        display: block;
+    }
+
+    .music-buttons,
+    .music-caption {
+        text-align: center;
+    }
+
+    .music-title {
+        font-weight: bold;
+        font-size: 1.17em;
+    }
+
+    .music-image {
+        width: 100%;
+    }
+
+    .music-image img {
+        display: block;
+        width: 50%;
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+        border-radius: 5px;
+    }
+
+    .music-caption {
+        font-style: italic;
+        color: var(--light-grey);
+    }
+
+    .bandcamp-player {
+        text-align: center;
+    }
+
+    .bandcamp-button {
+        margin: 10px 0;
+        border: 1px solid var(--yellow);
+    }
+
+    .bandcamp-button:hover,
+    .bandcamp-button:visited:hover {
+        color: black;
+    }
+
+    .bandcamp-button:hover::after {
+        background-color: var(--yellow);
+    }
+
+    .sheet-music-button {
+        border: 1px solid var(--blue);
+    }
+
+    .sheet-music-button:hover::after {
+        background-color: var(--blue);
+    }
+
+    .musescore-button {
+        border: 1px solid var(--green);
+    }
+
+    .musescore-button:hover::after {
+        background-color: var(--green);
+    }
+
+    /* QUERIES */
+    @media (max-width: 768px) {
+        ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        .music-image img {
+            width: 95%;
+        }
+
+        .music-list li:not(:last-of-type) {
+            margin-bottom: 30px;
+        }
+
+        .bandcamp-button {
+            width: 125px;
+            margin-bottom: 5px;
+        }
+    }
+
+    @media (max-width: 425px) {
+        .bandcamp-button {
+            width: 200px;
+        }
+    }
+</style>
