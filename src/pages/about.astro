@@ -18,4 +18,20 @@ import MainLayout from "@layouts/MainLayout.astro";
             me to showcase my problem-solving skillset and come up with a solution.
         </p>
     </section>
+    <section id="contact">
+        <span>Questions? Comments? Reach me via:</span>
+        <!-- TODO: Maybe use a nicer way to display contact info -->
+        <!-- TODO: Also change contact info -->
+        <!-- TODO: Also use actual buttons >:( -->
+        <ul>
+            <li>Email: <a href="mailto:contact@overwrite.site">contact@overwrite.site</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/kan-onn-kit">Onn Kit Kan</a></li>
+        </ul>
+    </section>
 </MainLayout>
+
+<style>
+    ul {
+        @apply list-inside list-disc;
+    }
+</style>
