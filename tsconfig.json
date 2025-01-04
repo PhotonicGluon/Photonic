@@ -8,7 +8,8 @@
             "@lib/*": ["lib/*"],
             "@components/*": ["src/components/*"],
             "@layouts/*": ["src/layouts/*"],
-            "@styles/*": ["src/styles/*"]
+            "@styles/*": ["src/styles/*"],
+            "@public/*": ["public/*"]
         },
         "types": ["vite-plugin-glsl/ext"]
     }

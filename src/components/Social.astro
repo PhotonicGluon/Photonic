@@ -1,6 +1,31 @@
 ---
-const { platform, username } = Astro.props;
+import { Image } from "astro:assets";
+
+export interface Props {
+    /** Name of the platform */
+    platform: string;
+    /** URL of the social media */
+    url: string;
+    /** Path to the icon file */
+    icon: ImageMetadata;
+}
+
+const { platform, url, icon } = Astro.props;
 ---
 
 <!-- TODO: Improve this -->
-<a href={`https://www.${platform}.com/${username}`}>{platform}</a>
+<li>
+    <a href={url} title=`Link to ${platform}`>
+        <Image src={icon} alt=`${platform} Logo` />
+    </a>
+</li>
+
+<style>
+    li:not(:last-of-type) {
+        @apply mr-5;
+    }
+
+    li img {
+        @apply h-auto w-10;
+    }
+</style>
