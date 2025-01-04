@@ -3,7 +3,7 @@ import { projectsLoader } from "@lib/projects/loader";
 
 // Define collections
 const projects = defineCollection({
-    loader: projectsLoader({ projectsRootPath: "./projects" }),
+    loader: projectsLoader({ projectsRootPath: "./public/projects" }),
 });
 
 // Export `collections` object to register collection(s)

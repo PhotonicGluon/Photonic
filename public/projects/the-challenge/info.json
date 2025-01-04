@@ -1,0 +1,14 @@
+{
+    "name": "The Challenge",
+    "tags": ["programming", "mathematics"],
+    "dates": {
+        "start": "2020-09-13",
+        "end": "2020-11-08"
+    },
+    "banner": "https://raw.githubusercontent.com/PhotonicGluon/The-Challenge/master/Banner.webp",
+    "summary": "A web project about solving mathematics problems.",
+    "urls": {
+        "github": "https://github.com/PhotonicGluon/The-Challenge"
+    },
+    "indexPage": "index.md"
+}

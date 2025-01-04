@@ -1,0 +1,19 @@
+---
+import type { CollectionEntry } from "astro:content";
+import MainLayout from "./MainLayout.astro";
+import { toProject } from "@lib/projects/project";
+import { toDateString } from "@lib/misc/dates";
+
+type Props = CollectionEntry<"projects">["data"];
+const project = toProject(Astro.props);
+---
+
+<!-- TODO: Update -->
+<MainLayout
+    title={project.name}
+    subtitle=`${toDateString(project.dates.start)} — ${project.dates.end ? toDateString(project.dates.end) : "Present"}`
+>
+    <slot name="head-fonts" slot="head-fonts" />
+    <slot name="head-scripts" slot="head-scripts" />
+    <slot />
+</MainLayout>

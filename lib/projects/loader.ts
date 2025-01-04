@@ -1,8 +1,26 @@
 import type { Loader, LoaderContext } from "astro/loaders";
+import { createMarkdownProcessor, parseFrontmatter, type MarkdownHeading } from "@astrojs/markdown-remark";
 import { readFileSync, readdirSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
 import { PROJECT_SCHEMA } from "./project";
+
+// Copied from astro's `data-store.ts` file
+//     https://github.com/withastro/astro/blob/a6a4a66/packages/astro/src/content/data-store.ts#L4
+interface RenderedContent {
+    /** Rendered HTML string. If present then `render(entry)` will return a component that renders this HTML. */
+    html: string;
+    metadata?: {
+        /** Any images that are present in this entry. Relative to the {@link DataEntry} filePath. */
+        imagePaths?: Array<string>;
+        /** Any headings that are present in this file. */
+        headings?: MarkdownHeading[];
+        /** Raw frontmatter, parsed parsed from the file. This may include data from remark plugins. */
+        frontmatter?: Record<string, any>;
+        /** Any other metadata that is present in this file. */
+        [key: string]: unknown;
+    };
+}
 
 /**
  * Options for the project loader.
@@ -11,23 +29,38 @@ interface ProjectLoaderOptions {
     /** Path to the projects' directory */
     projectsRootPath: string;
 }
+
 /**
- * Given a file path, this async function returns the HTML content of the file.
+ * Given a file path to a markdown file, this async function generates the rendered component.
  *
- * Supports only markdown files.
- *
- * @param file - The path to the file to be converted to HTML.
- * @returns The HTML content of the file.
+ * @param file Path to the markdown file.
+ * @returns Rendered component of the markdown file.
  * @throws {Error} If the file type is unsupported.
  */
-async function generateHTMLOfFile(file: string): Promise<string> {
+// Thanks to https://github.com/withastro/docs/issues/9543#issuecomment-2525573308
+async function renderMarkdown(file: string, context: LoaderContext): Promise<RenderedContent> {
+    // Read the file
     const extension = path.extname(file);
     if (extension !== ".md") {
         throw Error(`Unsupported file type: ${extension}`);
     }
 
-    const fileContent = await import(/* @vite-ignore */ path.resolve(file));
-    return fileContent.compiledContent();
+    const text = readFileSync(file, "utf-8");
+
+    // Parse markdown
+    const parsedFrontmatter = parseFrontmatter(text);
+    const frontmatter = parsedFrontmatter.frontmatter;
+    const processor = await createMarkdownProcessor(context.config.markdown);
+    const rendered = await processor.render(parsedFrontmatter.content ?? "");
+
+    // Return the content
+    return {
+        html: rendered.code,
+        metadata: {
+            headings: rendered.metadata.headings,
+            frontmatter: frontmatter,
+        },
+    };
 }
 
 /**
@@ -58,10 +91,10 @@ async function syncProjects(
         });
 
         // Get index page of the project
-        let content;
+        let content: RenderedContent | null;
         if (data.indexPage !== undefined) {
             const indexPagePath = `${options.projectsRootPath}/${id}/${data.indexPage}`;
-            content = await generateHTMLOfFile(indexPagePath);
+            content = await renderMarkdown(indexPagePath, context);
         } else {
             content = null;
         }
@@ -69,7 +102,8 @@ async function syncProjects(
         // Compute digest
         const digest = context.generateDigest({
             data: data,
-            html: content,
+            html: content?.html,
+            metadata: content?.metadata,
         });
 
         // Set the store
@@ -77,7 +111,7 @@ async function syncProjects(
         if (content !== null) {
             context.store.set({
                 ...mainStoreData,
-                rendered: { html: content },
+                rendered: content,
             });
         } else {
             context.store.set(mainStoreData);
