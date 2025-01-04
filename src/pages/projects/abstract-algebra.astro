@@ -1,0 +1,238 @@
+---
+import MainLayout from "@layouts/MainLayout.astro";
+---
+
+<MainLayout title="Abstract Algebra">
+    <Fragment slot="head-scripts">
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.19/dist/katex.min.js"
+            integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx"
+            crossorigin="anonymous"
+            is:inline></script>
+        <script
+            defer
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.19/dist/contrib/auto-render.min.js"
+            integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
+            crossorigin="anonymous"
+            is:inline></script>
+    </Fragment>
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/katex@0.16.19/dist/katex.min.css"
+        integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
+        crossorigin="anonymous"
+    />
+
+    <div class="abstract-algebra">
+        <p>
+            <em>A Complete Introduction to Abstract Algebra</em> is a textbook on abstract algebra.
+        </p>
+        <p>
+            The exploration of such structures is fundamental to the current underpinning of scientific inquiries. For
+            example, groups are important as they describe the symmetries which the laws of physics seem to obey. Finite
+            fields are also used in coding theory and combinatorics. I hope this book will inspire more people to learn
+            more about abstract algebra, beyond the simple introduction presented here.
+        </p>
+        <p style="padding-bottom: 0">This book serves to achieve several goals.</p>
+        <ul>
+            <li>
+                Provide a step-by-step explanation of core results from abstract algebra, without ambiguity of the
+                results discussed.
+            </li>
+            <li>
+                Demystify the core steps that many textbooks gloss over when proving results or when writing the
+                solutions to problems/exercises.
+            </li>
+            <li>
+                Ensure that results from abstract algebra are as accessible, as approachable, and as understandable for
+                as many people as possible.
+            </li>
+        </ul>
+        <p>I hope that this book can accomplish these goals and let readers enjoy the wonders of abstract algebra.</p>
+        <p>
+            This work is released under a <a href="https://creativecommons.org/licenses/by-sa/4.0/"
+                >Creative Commons Attribution-ShareAlike 4.0 International Licence</a
+            >.
+        </p>
+        <div class="book-container">
+            <div class="book">
+                <div class="book-cover">
+                    <!-- TODO: Use image component -->
+                    <img src="/projects/abstract-algebra/cover-mockup.webp" alt="Cover Mockup" />
+                </div>
+                <div class="book-download" id="book-download"></div>
+            </div>
+        </div>
+
+        <hr style="margin: 15px 0; border: 1px solid var(--dark-grey);" />
+        <h2>Latest Release Notes (<span id="latest-release"></span>)</h2>
+        <div id="changelog"></div>
+    </div>
+</MainLayout>
+
+<style>
+    @font-face {
+        font-family: "CMU Serif";
+        font-style: normal;
+        font-weight: 400;
+        src: url("/fonts/cmun-normal.ttf");
+    }
+
+    @font-face {
+        font-family: "CMU Serif";
+        font-style: normal;
+        font-weight: 700;
+        src: url("/fonts/cmun-bold.ttf");
+    }
+
+    @font-face {
+        font-family: "CMU Serif";
+        font-style: italic;
+        font-weight: 400;
+        src: url("/fonts/cmun-italic.ttf");
+    }
+
+    @font-face {
+        font-family: "CMU Serif";
+        font-style: italic;
+        font-weight: 700;
+        src: url("/fonts/cmun-bolditalic.ttf");
+    }
+</style>
+
+<style>
+    /* TODO: Update */
+    /* MAIN STYLING */
+    .abstract-algebra {
+        font-family: "CMU Serif", serif;
+    }
+
+    .abstract-algebra h2,
+    .abstract-algebra h3 {
+        font-weight: bold;
+    }
+
+    .book-container {
+        display: block;
+        text-align: center;
+    }
+
+    .book {
+        display: inline-block;
+        text-align: center;
+    }
+
+    .book-cover {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        max-height: 400px;
+        margin-bottom: 10px;
+    }
+
+    .book-cover img {
+        border-radius: 20px;
+        max-height: 400px;
+        max-width: 100%;
+    }
+
+    .book-download .button {
+        display: block;
+        margin-bottom: 10px;
+        border: 1px solid var(--blue);
+    }
+
+    .book-download .button:hover::after {
+        background-color: var(--blue);
+    }
+
+    /* QUERIES */
+    @media (max-width: 768px) {
+        .book-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    @media (max-width: 425px) {
+        .book-grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+</style>
+
+<script>
+    // TODO: Can we use astro's markdown converter for this?
+    // TODO: Also update script
+
+    import $ from "jquery";
+    import showdown from "showdown";
+
+    // Initialize Showdown converter
+    let converter = new showdown.Converter();
+
+    // Helper functions
+    function ordinal_suffix(num: number) {
+        // Adapted from https://stackoverflow.com/a/13627586
+        let tens = num % 10;
+        let hundreds = num % 100;
+
+        let suffix = "th";
+        if (tens === 1 && hundreds !== 11) {
+            suffix = "st";
+        }
+        if (tens === 2 && hundreds !== 12) {
+            suffix = "nd";
+        }
+        if (tens === 3 && hundreds !== 13) {
+            suffix = "rd";
+        }
+
+        return `${num}<sup>${suffix}</sup>`;
+    }
+
+    // Main code
+    $(document).ready(() => {
+        $.get("https://api.github.com/repos/PhotonicGluon/Abstract-Algebra-Book/releases", (releases) => {
+            let latestRelease = releases[0];
+            let assets = latestRelease["assets"];
+            let body = latestRelease["body"];
+
+            let asset = assets[0];
+            let name = asset["name"];
+            let downloadURL = asset["browser_download_url"];
+
+            let nameMatch = name.match(
+                /Abstract_Algebra_v(?<edition>[\d.]+)(?:-build\.(?<build>\d+))?(?:-post\.(?<post>\d+))?\.pdf/,
+            );
+            let edition = nameMatch.groups["edition"];
+            let build = nameMatch.groups["build"];
+            let post = nameMatch.groups["post"];
+
+            let downloadText = `Download ${ordinal_suffix(edition)} Edition`;
+            if (build !== undefined) {
+                downloadText += ` (Build ${build})`;
+            }
+            if (post !== undefined) {
+                downloadText += ` (Post ${post})`;
+            }
+
+            $(`#book-download`).html(`<a href="${downloadURL}" class="button" download>${downloadText}</a>`);
+
+            $("#latest-release").html(latestRelease["name"]);
+            $("#changelog").html(converter.makeHtml(body));
+            // @ts-ignore Cannot find name
+            renderMathInElement(document.getElementById("changelog"), {
+                delimiters: [
+                    { left: "$$", right: "$$", display: true },
+                    { left: "$", right: "$", display: false },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "\\[", right: "\\]", display: true },
+                ],
+                throwOnError: false,
+            });
+        });
+    });
+</script>

@@ -15,6 +15,9 @@ const { title, subtitle, tabTitle } = Astro.props;
 ---
 
 <BaseLayout title={tabTitle ? tabTitle : `${title} - Photonic`}>
+    <slot name="head-fonts" slot="head-fonts" />
+    <slot name="head-scripts" slot="head-scripts" />
+
     <HeroBox title={title} subtitle={subtitle} />
     <slot />
 </BaseLayout>

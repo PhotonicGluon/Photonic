@@ -9,5 +9,7 @@ const project = toProject(Astro.props);
 
 <!-- TODO: Update -->
 <MainLayout title={project.name}>
+    <slot name="head-fonts" slot="head-fonts" />
+    <slot name="head-scripts" slot="head-scripts" />
     <slot />
 </MainLayout>
