@@ -1,8 +1,11 @@
 ---
-import MainLayout from "@layouts/MainLayout.astro";
+import ProjectLayout from "@layouts/ProjectLayout.astro";
+import { getEntry } from "astro:content";
+
+const project = (await getEntry("projects", "7125"))!;
 ---
 
-<MainLayout title="7125">
+<ProjectLayout {...project.data}>
     <p>
         <em>7125</em> is an EP exploring themes of secrecy, identity, and revelations.
     </p>
@@ -115,7 +118,7 @@ import MainLayout from "@layouts/MainLayout.astro";
             >Creative Commons Attribution-NonCommercial 4.0 International Licence</a
         >.
     </p>
-</MainLayout>
+</ProjectLayout>
 
 <style>
     /* TODO: Replace */

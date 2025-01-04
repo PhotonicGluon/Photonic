@@ -1,8 +1,11 @@
 ---
-import MainLayout from "@layouts/MainLayout.astro";
+import ProjectLayout from "@layouts/ProjectLayout.astro";
+import { getEntry } from "astro:content";
+
+const project = (await getEntry("projects", "abstract-algebra"))!;
 ---
 
-<MainLayout title="Abstract Algebra">
+<ProjectLayout {...project.data}>
     <Fragment slot="head-scripts">
         <script
             defer
@@ -70,7 +73,7 @@ import MainLayout from "@layouts/MainLayout.astro";
         <h2>Latest Release Notes (<span id="latest-release"></span>)</h2>
         <div id="changelog"></div>
     </div>
-</MainLayout>
+</ProjectLayout>
 
 <style>
     @font-face {
