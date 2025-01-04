@@ -14,8 +14,4 @@ export default {
         },
     },
     plugins: [],
-    // TODO: Enable this while updating our own styles
-    corePlugins: {
-        preflight: false,
-    },
 };
