@@ -1,4 +1,4 @@
-import { getCollection, z } from "astro:content";
+import { getCollection, z, type DataEntryMap } from "astro:content";
 
 import { toTitleCase } from "@lib/misc/strings";
 import { getTags, ProjectTag, type ProjectTagType } from "./tag";
@@ -50,6 +50,8 @@ export const PROJECT_SCHEMA = z.object({
  */
 export type ProjectZod = z.infer<typeof PROJECT_SCHEMA>;
 
+type ProjectInCollection = DataEntryMap["projects"][0];
+
 /**
  * Type that encapsulates project information.
  */
@@ -84,15 +86,13 @@ export function toProject(project: ProjectZod): Project {
  *
  * @returns List of featured projects
  */
-export async function getFeaturedProjects(): Promise<Project[]> {
+export async function getFeaturedProjects(): Promise<ProjectInCollection[]> {
     // Get the featured projects
     const featuredProjects = await getCollection("projects", (project) => {
         return project.data.featured !== undefined;
     });
 
-    // Now sort them by the `featured` field
+    // Now sort them by the `featured` field and return
     const sorted = featuredProjects.sort((a, b) => a.data.featured! - b.data.featured!);
-
-    // Convert to the correct type and return
-    return sorted.map((rawProject) => toProject(rawProject.data));
+    return sorted;
 }

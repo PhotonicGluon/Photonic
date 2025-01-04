@@ -1,30 +1,34 @@
 ---
-// import Shader from "@components/Shader.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import HeroBoxFull from "@components/hero-box/HeroBoxFull.astro";
-import { getFeaturedProjects, type Project } from "@lib/projects/project";
+import ProjectCard from "@components/projects/ProjectCard.astro";
+import { getFeaturedProjects, toProject } from "@lib/projects/project";
 
 // Get featured projects
-const projects: Project[] = await getFeaturedProjects();
+const projects = await getFeaturedProjects();
 ---
 
 <!-- TODO: Change title and contents -->
 <BaseLayout title="Photonic">
     <HeroBoxFull title="Photonic" subtitle="Making cool things." />
-    <!-- <Shader
-        id="hero-shader"
-        fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
-        editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
-        imageURL="/checkerboard.png"
-    /> -->
-    <p class="font-mono">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Et sequi praesentium voluptate delectus inventore
-        necessitatibus alias voluptatibus dolore. Aliquam ratione, omnis tempore inventore eveniet excepturi dolorem
-        reiciendis nobis deserunt officia?
-    </p>
 
-    <!-- TODO: nicely arrange the featured projects -->
-    <ul>
-        {projects.map((project) => <li>{project.name}</li>)}
-    </ul>
+    <!-- TODO: Change styling -->
+    <section class="section" id="featured-projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects">
+            {projects.map((rawProject) => <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} />)}
+        </div>
+    </section>
 </BaseLayout>
+
+<style>
+    /* TODO: Change styling */
+
+    #featured-projects .section-title {
+        @apply text-center text-5xl font-bold underline;
+    }
+
+    .projects {
+        @apply grid grid-cols-3 gap-4 pt-8;
+    }
+</style>
