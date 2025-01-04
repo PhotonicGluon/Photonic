@@ -1,4 +1,4 @@
-import { z } from "astro:content";
+import { getCollection, z } from "astro:content";
 
 import { toTitleCase } from "@lib/misc/strings";
 import { getTags, ProjectTag, type ProjectTagType } from "./tag";
@@ -39,6 +39,10 @@ export const PROJECT_SCHEMA = z.object({
      * same ID as the project.
      */
     indexPage: z.string().optional(),
+    /**
+     * Optional number that indicates the position that this project should be featured on the main page.
+     */
+    featured: z.number().optional(),
 });
 
 /**
@@ -73,4 +77,22 @@ export function toProject(project: ProjectZod): Project {
         ...project,
         tags: correctTags,
     };
+}
+
+/**
+ * Gets a list of featured projects, sorted by the order that they are to be featured.
+ *
+ * @returns List of featured projects
+ */
+export async function getFeaturedProjects(): Promise<Project[]> {
+    // Get the featured projects
+    const featuredProjects = await getCollection("projects", (project) => {
+        return project.data.featured !== undefined;
+    });
+
+    // Now sort them by the `featured` field
+    const sorted = featuredProjects.sort((a, b) => a.data.featured! - b.data.featured!);
+
+    // Convert to the correct type and return
+    return sorted.map((rawProject) => toProject(rawProject.data));
 }

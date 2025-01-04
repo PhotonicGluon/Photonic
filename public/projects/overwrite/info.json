@@ -10,5 +10,6 @@
         "github": "https://github.com/PhotonicGluon/photonicgluon.github.io",
         "website": "https://overwrite.site/"
     },
-    "indexPage": "index.md"
+    "indexPage": "index.md",
+    "featured": 2
 }

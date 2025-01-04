@@ -2,6 +2,10 @@
 // import Shader from "@components/Shader.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 import HeroBoxFull from "@components/hero-box/HeroBoxFull.astro";
+import { getFeaturedProjects, type Project } from "@lib/projects/project";
+
+// Get featured projects
+const projects: Project[] = await getFeaturedProjects();
 ---
 
 <!-- TODO: Change title and contents -->
@@ -18,4 +22,9 @@ import HeroBoxFull from "@components/hero-box/HeroBoxFull.astro";
         necessitatibus alias voluptatibus dolore. Aliquam ratione, omnis tempore inventore eveniet excepturi dolorem
         reiciendis nobis deserunt officia?
     </p>
+
+    <!-- TODO: nicely arrange the featured projects -->
+    <ul>
+        {projects.map((project) => <li>{project.name}</li>)}
+    </ul>
 </BaseLayout>

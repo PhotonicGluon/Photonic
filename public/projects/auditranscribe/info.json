@@ -11,5 +11,6 @@
         "github": "https://github.com/AudiTranscribe/AudiTranscribe",
         "website": "https://auditranscribe.app/"
     },
-    "indexPage": "index.md"
+    "indexPage": "index.md",
+    "featured": 6
 }
