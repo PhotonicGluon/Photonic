@@ -12,6 +12,7 @@ const tweakpaneDevTools: DevToolbarApp = {
     init(canvas, app) {
         const container = h("astro-dev-overlay-window" as any, { style: { padding: "0px", borderRadius: "7px" } }, [
             h("style", {}, tweakpaneCSS),
+            h("style", {}, `:host {z-index: 9999;}`),
         ]);
         canvas.appendChild(container);
 

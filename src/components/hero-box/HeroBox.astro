@@ -1,4 +1,6 @@
 ---
+import Shader from "@components/Shader.astro";
+
 export interface Props {
     // Typography
     /** Title of the page */
@@ -20,6 +22,13 @@ const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "ma
 
 <!-- TODO: Replace background with shader -->
 <div class="hero-box-background">
+    <Shader
+        id="hero-shader"
+        fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
+        editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
+        imageURL="/checkerboard.png"
+    />
+
     <div class="hero-box-overlay">
         <div class="hero-box-text">
             <h1>{title}</h1>
@@ -29,6 +38,10 @@ const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "ma
 </div>
 
 <style define:vars={{ height, titleSize, subtitleSize }}>
+    #hero-shader {
+        @apply -z-10;
+    }
+
     .hero-box-background {
         /* TODO: Replace background image with shader */
         @apply h-[var(--height)] bg-[url("/src/images/header-background-old.webp")] bg-cover bg-fixed bg-center;
