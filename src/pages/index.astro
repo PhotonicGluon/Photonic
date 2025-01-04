@@ -13,7 +13,7 @@ const projects = await getFeaturedProjects();
     <HeroBoxFull title="Photonic" subtitle="Making cool things." />
 
     <!-- TODO: Change styling -->
-    <section class="section" id="featured-projects">
+    <section id="featured-projects">
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects">
             {projects.map((rawProject) => <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} />)}

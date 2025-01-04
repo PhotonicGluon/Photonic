@@ -36,15 +36,18 @@ let { title } = Astro.props;
 </html>
 
 <style is:global>
+    /* Page content normalization */
     html,
     body {
-        /* Normalize page content*/
         /* TODO: Maybe add maximum width of content (e.g., 1080 px?)*/
         @apply m-0 h-full w-full;
-
-        /* Set defaults */
         /* TODO: Handle 'light mode'*/
         @apply bg-black font-sans text-white;
+    }
+
+    /* Paragraph styling */
+    p {
+        @apply pb-3 text-justify;
     }
 
     /* Hyperlink styling */
