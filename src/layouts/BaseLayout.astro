@@ -46,4 +46,10 @@ let { title } = Astro.props;
         /* TODO: Handle 'light mode'*/
         @apply bg-black font-sans text-white;
     }
+
+    /* Hyperlink styling */
+    /* TODO: Use TailwindCSS palette to style this? */
+    a {
+        @apply text-[color:rgb(148,179,242)] transition-all duration-200 visited:text-[color:rgb(161,125,232)] hover:text-[color:rgb(82,129,224)] visited:hover:text-[color:rgb(129,82,224)];
+    }
 </style>
