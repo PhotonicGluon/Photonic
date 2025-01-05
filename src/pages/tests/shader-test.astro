@@ -1,0 +1,21 @@
+---
+import Shader from "@components/Shader.astro";
+
+// Disable this page on production
+if (import.meta.env.PROD) {
+    return Astro.rewrite("/404");
+}
+---
+
+<Shader
+    id="test-shader"
+    fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
+    editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
+    imageURL="/checkerboard.png"
+/>
+
+<style is:global>
+    #test-shader {
+        @apply h-screen;
+    }
+</style>
