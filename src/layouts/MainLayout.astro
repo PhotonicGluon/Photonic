@@ -18,6 +18,12 @@ const { title, subtitle, tabTitle } = Astro.props;
     <slot name="head-fonts" slot="head-fonts" />
     <slot name="head-scripts" slot="head-scripts" />
 
-    <HeroBox title={title} subtitle={subtitle} />
+    <HeroBox
+        title={title}
+        subtitle={subtitle}
+        fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
+        editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
+        imageURL="/checkerboard.png"
+    />
     <slot />
 </BaseLayout>

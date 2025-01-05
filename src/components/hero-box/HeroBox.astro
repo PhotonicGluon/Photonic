@@ -15,18 +15,34 @@ export interface Props {
     // Geometry
     /** Optional specification string for the height of the hero box */
     height?: string;
+
+    // Shader
+    /** URL to the fragment shader */
+    fragURL: string;
+    /**
+     * Optional URL to a typescript file containing editable uniforms.
+     *
+     * Do **not** include a leading slash (i.e., follow the format used by `fragURL`).
+     */
+    editableUniformsURL?: string;
+    /** Optional URL to the image that is used */
+    imageURL?: string;
 }
 
-const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "max(300px, 35vh)" } = Astro.props;
+const {
+    title,
+    titleSize = "48pt",
+    subtitle,
+    subtitleSize = "12pt",
+    height = "max(300px, 35vh)",
+    fragURL,
+    editableUniformsURL,
+    imageURL,
+} = Astro.props;
 ---
 
 <div class="hero-box">
-    <Shader
-        id="hero-shader"
-        fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
-        editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
-        imageURL="/checkerboard.png"
-    />
+    <Shader id="hero-shader" fragURL={fragURL} editableUniformsURL={editableUniformsURL} imageURL={imageURL} />
     <div class="overlay"></div>
     <div class="text">
         <h1>{title}</h1>
@@ -41,7 +57,7 @@ const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "ma
 
     .overlay {
         /* TODO: Handle 'light mode' */
-        @apply absolute top-0 h-[inherit] w-full bg-gradient-to-b from-black/60 via-black/70 via-70% to-black;
+        @apply absolute top-0 h-[inherit] w-full bg-gradient-to-b from-black/20 via-black/40 via-70% to-black;
     }
 
     .text {

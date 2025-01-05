@@ -7,9 +7,30 @@ export interface Props {
     title: string;
     /** Optional subtitle of the page */
     subtitle?: string;
+
+    // Shader
+    /** URL to the fragment shader */
+    fragURL: string;
+    /**
+     * Optional URL to a typescript file containing editable uniforms.
+     *
+     * Do **not** include a leading slash (i.e., follow the format used by `fragURL`).
+     */
+    editableUniformsURL?: string;
+    /** Optional URL to the image that is used */
+    imageURL?: string;
 }
 
-const { title, subtitle } = Astro.props;
+const { title, subtitle, fragURL, editableUniformsURL, imageURL } = Astro.props;
 ---
 
-<HeroBox title={title} titleSize="64pt" subtitle={subtitle} subtitleSize="14pt" height="max(600px, 100vh)" />
+<HeroBox
+    title={title}
+    titleSize="64pt"
+    subtitle={subtitle}
+    subtitleSize="14pt"
+    height="max(600px, 100vh)"
+    fragURL={fragURL}
+    editableUniformsURL={editableUniformsURL}
+    imageURL={imageURL}
+/>

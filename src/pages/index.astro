@@ -10,7 +10,13 @@ const projects = await getFeaturedProjects();
 
 <!-- TODO: Change title and contents -->
 <BaseLayout title="Photonic">
-    <HeroBoxFull title="Photonic" subtitle="Making cool things." />
+    <HeroBoxFull
+        title="Photonic"
+        subtitle="Making cool things."
+        fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
+        editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
+        imageURL="/checkerboard.png"
+    />
 
     <!-- TODO: Change styling -->
     <section id="featured-projects">
