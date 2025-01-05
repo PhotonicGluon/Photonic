@@ -1,23 +1,38 @@
 ---
-import HeroBox from "@components/hero-box/HeroBox.astro";
+import HeroBox from "@components/HeroBox.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 export interface Props {
+    // Typography
     /** Title of the page */
     title: string;
-    /** Subtitle of the page */
+    /** Optional font size of the title */
+    titleSize?: string;
+    /** Optional subtitle of the page */
     subtitle?: string;
+    /** Optional font size of the subtitle */
+    subtitleSize?: string;
     /** Title of the tab; defaults to the `title` with the website name */
     tabTitle?: string;
+
+    // Geometry
+    /** Optional specification string for the height of the hero box */
+    heroBoxHeight?: string;
 }
 
-const { title, subtitle, tabTitle } = Astro.props;
+const { title, titleSize, subtitle, subtitleSize, tabTitle, heroBoxHeight } = Astro.props;
 ---
 
 <BaseLayout title={tabTitle ? tabTitle : `${title} - Photonic`}>
     <slot name="head-fonts" slot="head-fonts" />
     <slot name="head-scripts" slot="head-scripts" />
 
-    <HeroBox title={title} subtitle={subtitle} />
+    <HeroBox
+        title={title}
+        titleSize={titleSize}
+        subtitle={subtitle}
+        subtitleSize={subtitleSize}
+        height={heroBoxHeight}
+    />
     <slot />
 </BaseLayout>

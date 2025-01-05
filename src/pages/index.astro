@@ -1,17 +1,22 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
-import HeroBoxFull from "@components/hero-box/HeroBoxFull.astro";
 import ProjectCard from "@components/projects/ProjectCard.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+
 import { getFeaturedProjects, toProject } from "@lib/projects/project";
 
 // Get featured projects
 const projects = await getFeaturedProjects();
 ---
 
-<!-- TODO: Change title and contents -->
-<BaseLayout title="Photonic">
-    <HeroBoxFull title="Photonic" subtitle="Making cool things." />
-
+<!-- TODO: Change title and contents, and use theme to change these styles -->
+<MainLayout
+    title="Photonic"
+    titleSize="64pt"
+    subtitle="Making cool things."
+    subtitleSize="14pt"
+    tabTitle="Photonic"
+    heroBoxHeight="max(600px, 100vh)"
+>
     <!-- TODO: Change styling -->
     <section id="featured-projects">
         <h2 class="section-title">Featured Projects</h2>
@@ -19,7 +24,7 @@ const projects = await getFeaturedProjects();
             {projects.map((rawProject) => <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} />)}
         </div>
     </section>
-</BaseLayout>
+</MainLayout>
 
 <style>
     /* TODO: Change styling */
