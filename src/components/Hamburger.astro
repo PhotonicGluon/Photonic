@@ -1,20 +1,20 @@
+---
+import { Image } from "astro:assets";
+
+import hamburgerIcon from "/src/images/hamburger-menu.svg";
+---
+
 <div class="hamburger">
-    <img src="/src/images/hamburger-menu.svg" alt="Open Menu" />
+    <Image src={hamburgerIcon} alt="Open Menu" />
 </div>
 
 <style>
-    /* TODO: Update */
-
     .hamburger {
-        @apply float-right w-min cursor-pointer md:hidden;
+        @apply float-right h-16 w-16 cursor-pointer md:hidden;
     }
 
     .hamburger img {
-        @apply w-[40px]; /* TODO: Change hamburger size */
-    }
-
-    .hamburger .line {
-        @apply mb-[10px] block h-[5px] w-[40px] bg-white; /* TODO: Change hamburger size */
+        @apply relative top-1/2 m-auto h-10 w-10 -translate-y-1/2;
     }
 </style>
 
