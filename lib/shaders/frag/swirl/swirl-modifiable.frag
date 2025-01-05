@@ -70,7 +70,7 @@ vec2 getInitialUV() {
 
     // Mix with aspect ratio UV
     vec2 basicUV = (gl_FragCoord.xy - center) / length(iResolution.xy);
-    vec2 mixedUV = mix(basicUV, uvScaled, uAspectRatioFix) + uOffset;
+    vec2 mixedUV = mix(basicUV, uvScaled, uAspectRatioFix) - uOffset;
 
     // Apply pixelation
     if(uPixelated) {
@@ -137,7 +137,7 @@ vec2 applyWarp(vec2 uv) {
     // Adjust if image scale is to be preserved
     if(uWarpKeepImgScale) {
         uv3 /= uWarpScale;
-        uv3 -= uOffset;
+        uv3 += uOffset;
     }
 
     // Mix between original and warped coordinates based on user parameter

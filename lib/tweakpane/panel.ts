@@ -107,7 +107,7 @@ export function addOptionsToPanel(pane: Pane | FolderApi, options: SlidersOption
                         min: option.min ?? -100,
                         max: option.max ?? 100,
                         step: option.step ?? 0.01,
-                        inverted: option.invertY,
+                        inverted: !(option.invertY ?? false), // For some reason y is already inverted??
                     },
                 }).on("change", (ev) => {
                     option.value = [ev.value.x, ev.value.y];
