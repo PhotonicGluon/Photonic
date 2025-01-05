@@ -1,4 +1,4 @@
-import type { FolderApi, Pane } from "tweakpane";
+import { ButtonApi, type BladeApi, type FolderApi, type Pane } from "tweakpane";
 import type { SlidersOptionsMap } from "./options";
 
 // Slider event
@@ -155,4 +155,40 @@ export function addOptionsToPanel(pane: Pane | FolderApi, options: SlidersOption
                 throw new Error(`Unsupported option type for ${key}`);
         }
     }
+}
+
+/**
+ * Adds a button to the pane that, when clicked, prints the raw state of the pane as well as the
+ * values of all the options to the console.
+ *
+ * @param pane The pane to add the button to.
+ */
+export function addExportSettingsButton(pane: Pane | FolderApi) {
+    const btn = pane.addButton({
+        title: "Export Settings",
+    });
+    btn.on("click", () => {
+        const rawState = pane.exportState();
+        console.log(`*** Raw state ***\n${JSON.stringify(rawState, null, 2)}`);
+
+        const paneChildren = rawState.children as BladeApi[];
+
+        // Get the values of each of the options
+        let valuesOutputString = "";
+        for (const child of paneChildren) {
+            // Skip the export settings button
+            try {
+                let childButton = child as ButtonApi;
+                if (childButton.title === "Export Settings") {
+                    continue;
+                }
+            } catch (e) {}
+            // @ts-ignore
+            valuesOutputString += `${child.label}: ${JSON.stringify(child.binding.value, null, 2)}\n`;
+        }
+
+        console.log(`*** Values ***\n${valuesOutputString}`);
+
+        alert("See console for output");
+    });
 }
