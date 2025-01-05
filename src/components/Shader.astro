@@ -25,7 +25,7 @@ const shaderFrag: string = readFileSync(fragURL, "utf-8");
 
 // Get editable uniforms
 let editableUniforms;
-if (editableUniformsURL) {
+if (editableUniformsURL && !import.meta.env.PROD) {
     editableUniforms = (await import(/* @vite-ignore */ "/" + editableUniformsURL)).editableUniforms;
 } else {
     editableUniforms = {};
