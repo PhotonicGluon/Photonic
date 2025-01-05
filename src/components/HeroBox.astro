@@ -31,7 +31,7 @@ const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "ma
 <style define:vars={{ height, titleSize, subtitleSize }}>
     .hero-box-background {
         /* TODO: Replace background image with shader */
-        @apply h-[var(--height)] bg-[url("/src/images/header-background-old.webp")] bg-cover bg-fixed bg-center;
+        @apply h-[var(--height)] w-screen bg-[url("/src/images/header-background-old.webp")] bg-cover bg-fixed bg-center;
     }
 
     .hero-box-overlay {
