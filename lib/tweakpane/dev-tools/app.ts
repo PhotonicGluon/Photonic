@@ -6,7 +6,12 @@ import { type DevToolbarApp } from "astro";
 import { Pane } from "tweakpane";
 import { h } from "@lib/misc/h";
 import { tweakpaneCSS } from "./css";
-import { addExportSettingsButton, addOptionsToPanel, type SlidersInitialisedEventData } from "../panel";
+import {
+    addExportSettingsButton,
+    addImportSettingsButton,
+    addOptionsToPanel,
+    type SlidersInitialisedEventData,
+} from "../panel";
 
 const tweakpaneDevTools: DevToolbarApp = {
     init(canvas, app) {
@@ -27,6 +32,7 @@ const tweakpaneDevTools: DevToolbarApp = {
                         registerSliders(id: string, options) {
                             const folder = pane.addFolder({ title: id });
                             addOptionsToPanel(folder, options);
+                            addImportSettingsButton(folder);
                             addExportSettingsButton(folder);
                         },
                     },

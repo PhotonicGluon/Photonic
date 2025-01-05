@@ -1,7 +1,7 @@
 import { ButtonApi, type BladeApi, type FolderApi, type Pane } from "tweakpane";
 import type { SlidersOptionsMap } from "./options";
+import type { BladeState } from "@tweakpane/core";
 
-// Slider event
 /**
  * Event data for the `sliders-initialised` event.
  */
@@ -15,7 +15,6 @@ export interface SlidersInitialisedEventData {
  */
 export const SlidersInitialisedEvent = CustomEvent<SlidersInitialisedEventData>;
 
-// Functions
 /**
  * Adds a new option to the panel.
  *
@@ -158,6 +157,26 @@ export function addOptionsToPanel(pane: Pane | FolderApi, options: SlidersOption
 }
 
 /**
+ * Adds a button to the pane that, when clicked, prompts the user to enter a raw state and then
+ * imports that state into the pane.
+ *
+ * @param pane The pane to add the button to.
+ */
+export function addImportSettingsButton(pane: Pane | FolderApi) {
+    const btn = pane.addButton({
+        title: "Import Settings",
+    });
+    btn.on("click", () => {
+        try {
+            const state = JSON.parse(prompt("Enter raw state")!) as BladeState;
+            pane.importState(state);
+        } catch (e) {
+            alert(e);
+        }
+    });
+}
+
+/**
  * Adds a button to the pane that, when clicked, prints the raw state of the pane as well as the
  * values of all the options to the console.
  *
@@ -169,17 +188,17 @@ export function addExportSettingsButton(pane: Pane | FolderApi) {
     });
     btn.on("click", () => {
         const rawState = pane.exportState();
-        console.log(`*** Raw state ***\n${JSON.stringify(rawState, null, 2)}`);
+        console.log(`*** Raw state ***\n${JSON.stringify(rawState)}`);
 
         const paneChildren = rawState.children as BladeApi[];
 
         // Get the values of each of the options
         let valuesOutputString = "";
         for (const child of paneChildren) {
-            // Skip the export settings button
+            // Skip the buttons
             try {
                 let childButton = child as ButtonApi;
-                if (childButton.title === "Export Settings") {
+                if (childButton.title === "Import Settings" || childButton.title === "Export Settings") {
                     continue;
                 }
             } catch (e) {}
