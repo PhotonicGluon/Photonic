@@ -20,51 +20,43 @@ export interface Props {
 const { title, titleSize = "48pt", subtitle, subtitleSize = "12pt", height = "max(300px, 35vh)" } = Astro.props;
 ---
 
-<!-- TODO: Replace background with shader -->
-<div class="hero-box-background">
+<div class="hero-box">
     <Shader
         id="hero-shader"
         fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
         editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
         imageURL="/checkerboard.png"
     />
-
-    <div class="hero-box-overlay">
-        <div class="hero-box-text">
-            <h1>{title}</h1>
-            {subtitle && <h2>{subtitle}</h2>}
-        </div>
+    <div class="overlay"></div>
+    <div class="text">
+        <h1>{title}</h1>
+        {subtitle && <h2>{subtitle}</h2>}
     </div>
 </div>
 
 <style define:vars={{ height, titleSize, subtitleSize }}>
-    #hero-shader {
-        @apply -z-10;
+    .hero-box {
+        @apply h-[var(--height)];
     }
 
-    .hero-box-background {
-        /* TODO: Replace background image with shader */
-        @apply h-[var(--height)] bg-[url("/src/images/header-background-old.webp")] bg-cover bg-fixed bg-center;
-    }
-
-    .hero-box-overlay {
+    .overlay {
         /* TODO: Handle 'light mode' */
-        @apply h-[inherit] w-full bg-gradient-to-b from-black/60 via-black/70 via-70% to-black;
+        @apply absolute top-0 h-[inherit] w-full bg-gradient-to-b from-black/60 via-black/70 via-70% to-black;
     }
 
-    .hero-box-text {
+    .text {
         @apply absolute left-1/2 top-[calc(var(--height)/2)] mx-0 my-auto w-full -translate-x-1/2 -translate-y-1/2 text-center;
     }
 
-    .hero-box-text * {
-        @apply text-white;
+    .text * {
+        @apply m-0 text-white;
     }
 
-    .hero-box-text h1 {
-        @apply m-0 text-[length:var(--titleSize)];
+    .text h1 {
+        @apply text-[length:var(--titleSize)];
     }
 
-    .hero-box-text h2 {
-        @apply m-0 text-[length:var(--subtitleSize)];
+    .text h2 {
+        @apply text-[length:var(--subtitleSize)];
     }
 </style>
