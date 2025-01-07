@@ -31,7 +31,7 @@ void main() {
 
     // Draw if it is close to a line
     float minDelta = INF;
-    for(int i = 0; i < 2 * uLineNum; i++) {  // *2 cos' we need hidden off-screen lines
+    for(int i = 0; i < 2 * uLineNum + 1; i++) {  // *2 cos' we need hidden off-screen lines
         float lineX = float(i - uLineNum) / float(uLineNum) + mod(time, 1.0f);
         float delta = abs(uv.x - lineX);
         minDelta = min(delta, minDelta);
