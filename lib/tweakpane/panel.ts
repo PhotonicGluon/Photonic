@@ -113,6 +113,37 @@ export function addOptionsToPanel(pane: Pane | FolderApi, options: SlidersOption
                     option.value = [ev.value.x, ev.value.y];
                 });
                 break;
+            case "vec3":
+                const vec3Container = {
+                    vec3: {
+                        x: option.value[0],
+                        y: option.value[1],
+                        z: option.value[2],
+                    },
+                };
+                pane.addBinding(vec3Container, "vec3", {
+                    label: key,
+                    readonly: option.readonly ?? (false as any),
+                    picker: "inline",
+                    x: {
+                        min: option.min ?? -100,
+                        max: option.max ?? 100,
+                        step: option.step ?? 0.01,
+                    },
+                    y: {
+                        min: option.min ?? -100,
+                        max: option.max ?? 100,
+                        step: option.step ?? 0.01,
+                    },
+                    z: {
+                        min: option.min ?? -100,
+                        max: option.max ?? 100,
+                        step: option.step ?? 0.01,
+                    },
+                }).on("change", (ev) => {
+                    option.value = [ev.value.x, ev.value.y, ev.value.z];
+                });
+                break;
             case "vec4":
                 const vec4Container = {
                     vec4: {
