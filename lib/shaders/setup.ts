@@ -89,17 +89,21 @@ export function setupShader(shader: Shader): ShaderControl {
     const observer = new IntersectionObserver(
         (entries) => {
             for (const entry of entries) {
-                if (entry.target === canvas) {
-                    const prevIntersecting = isIntersecting;
-                    isIntersecting = entry.intersectionRatio > 0;
+                if (entry.target !== canvas) {
+                    continue;
+                }
 
-                    if (hasStarted) {
-                        if (isIntersecting && !prevIntersecting) {
-                            queueFrame();
-                        } else {
-                            cancelFrame();
-                        }
-                    }
+                const prevIntersecting = isIntersecting;
+                isIntersecting = entry.intersectionRatio > 0;
+
+                if (!hasStarted) {
+                    continue;
+                }
+
+                if (isIntersecting && !prevIntersecting) {
+                    queueFrame();
+                } else {
+                    cancelFrame();
                 }
             }
         },

@@ -59,7 +59,8 @@ if (imageURL) {
 
 <script>
     /**
-     * Partially adapted from https://github.com/s-thom/website-2023/blob/26d8a1a/src/components/site/ShaderBackdrop.astro.
+     * Partially adapted from
+     * https://github.com/s-thom/website-2023/blob/26d8a1a/src/components/site/ShaderBackdrop.astro.
      */
 
     import { setupShader } from "@lib/shaders/setup";
@@ -144,6 +145,11 @@ if (imageURL) {
                 for (const [key, value] of Object.entries(editableUniforms)) {
                     uniforms[key] = value.value;
                 }
+
+                // TODO: Handle reduced motion
+                // if (time > 1) {
+                //     stop();
+                // }
             },
             textures: hasBackground ? [{ src: backgroundURL }] : undefined,
             onTexturesReady: () => {
