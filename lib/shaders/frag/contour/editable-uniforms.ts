@@ -5,6 +5,8 @@ export const editableUniforms: SlidersOptionsMap = {
     uRepeatInterval: { type: "float", value: 4.0, min: 0.0, max: 10.0, step: 5e-2 },
 
     uSpeed: { type: "float", value: 0.025, min: 0.0, max: 0.1, step: 1e-4 },
+    uColourBackground: { type: "rgb", value: [0, 0, 0] },
+    uColourLines: { type: "rgb", value: [1, 1, 1] },
 
     uNoiseFactor: { type: "float", value: 0.75, min: 0.0, max: 2.0, step: 1e-3 },
     uNoiseLinearDirection: { type: "vec2", value: [0.4, 0.264], min: -1.0, max: 1.0, step: 1e-3 },
@@ -16,6 +18,4 @@ export const editableUniforms: SlidersOptionsMap = {
     uLineSpacing: { type: "float", value: 0.02, min: 0.0, max: 0.05, step: 1e-4 },
     uLineWeight: { type: "float", value: 0.25, min: 0.0, max: 1.0, step: 1e-3 },
     uLineBaseSize: { type: "float", value: 3.0, min: 1.0, max: 5.0, step: 2.5e-1 },
-
-    uDarkMode: { type: "boolean", value: true },
 };

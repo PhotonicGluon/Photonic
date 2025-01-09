@@ -11,6 +11,8 @@ uniform float uScale;                // Scaling factor
 uniform float uRepeatInterval;       // Tetra noise repeat interval
 
 uniform float uSpeed;                // Speed of the effect
+uniform vec3 uColourBackground;      // Background colour
+uniform vec3 uColourLines;           // Lines' colour
 
 uniform float uNoiseFactor;          // 'Height' of the noise surface
 uniform vec2 uNoiseLinearDirection;  // Direction of the linear gradient 
@@ -22,8 +24,6 @@ uniform vec3 uNoiseCoeff3;           // Coefficients for the third set of noise 
 uniform float uLineSpacing;          // Spacing factor between lines
 uniform float uLineWeight;           // Weight of the lines
 uniform float uLineBaseSize;         // Base line size
-
-uniform bool uDarkMode;              // Whether to apply dark mode (i.e., white on black)
 
 // OUTPUT
 out vec4 outColour;
@@ -205,6 +205,12 @@ float noiseAsContour(float noise) {
     intensity -= weight;
     intensity += 1.0f;  // +1 to shift valid values to [0, 1]
 
+    // Subtract intensity from 1 to actually emphasise the lines
+    intensity = 1.0f - intensity;
+
+    // Clamp intensity to be in the interval [0, 1]
+    intensity = max(0.0f, min(1.0f, intensity));
+
     return intensity;
 }
 
@@ -215,12 +221,6 @@ void main() {
     float noise = generateNoise(uv);
     float intensity = noiseAsContour(noise);
 
-    // Toggle between light and dark mode
-    if(uDarkMode) {
-        intensity = 1.0f - intensity;  // White on black
-    }
-
     // Generate final colour
-    // TODO: Use theme colours?
-    outColour = vec4(vec3(intensity), 1);
+    outColour = vec4(uColourBackground + intensity * (uColourLines - uColourBackground), 1);
 }
