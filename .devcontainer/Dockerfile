@@ -50,6 +50,14 @@ RUN node -v && npm -v
 ENV TYPESCRIPT_VERSION=latest
 RUN npm install -g typescript@$TYPESCRIPT_VERSION
 
+# === PYTHON SETUP ===
+RUN apt-get install -y \
+    python3 \
+    python3-pip
+RUN python3 -m pip install -U \
+    pip \
+    setuptools
+
 # === MAIN SETUP ===
 # Bump npm version
 RUN echo "Upgrading npm to 11.0.0" && \

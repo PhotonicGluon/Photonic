@@ -1,0 +1,6 @@
+SHADERS_FOLDER = "lib/shaders"
+FRAG_SHADERS_FOLDER = f"{SHADERS_FOLDER}/frag"
+
+SHADER_NAME = "swirl"
+
+# TODO: Add

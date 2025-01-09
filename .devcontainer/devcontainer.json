@@ -10,6 +10,8 @@
                 "astro-build.astro-vscode",
                 "bradlc.vscode-tailwindcss",
                 "esbenp.prettier-vscode",
+                "-ms-python.autopep8",
+                "ms-python.python",
                 "raczzalan.webgl-glsl-editor",
                 "streetsidesoftware.code-spell-checker",
                 "yzhang.markdown-all-in-one"
