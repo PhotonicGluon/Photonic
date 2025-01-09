@@ -49,10 +49,15 @@ const {
         {subtitle && <h2>{subtitle}</h2>}
     </div>
 </div>
+<div class="hero-box-smooth-transition"></div>
 
 <style define:vars={{ height, titleSize, subtitleSize }}>
     .hero-box {
         @apply h-[var(--height)];
+    }
+
+    .hero-box-smooth-transition {
+        @apply absolute top-[var(--height)] -z-10 h-64 w-screen bg-gradient-to-b from-black via-black/40 via-30% to-transparent;
     }
 
     .overlay {
