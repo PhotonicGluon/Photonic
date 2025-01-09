@@ -1,6 +1,7 @@
 ---
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
+import Shader from "@components/Shader.astro";
 
 let { title } = Astro.props;
 ---
@@ -30,7 +31,14 @@ let { title } = Astro.props;
     </head>
     <body>
         <Header />
-        <slot />
+        <main>
+            <Shader
+                id="body-shader"
+                fragURL="lib/shaders/frag/contour/contour-modifiable.frag"
+                editableUniformsURL="lib/shaders/frag/contour/editable-uniforms.ts"
+            />
+            <slot />
+        </main>
         <Footer />
     </body>
 </html>
@@ -40,9 +48,9 @@ let { title } = Astro.props;
     html,
     body {
         /* TODO: Maybe add maximum width of content (e.g., 1080 px?)*/
-        @apply m-0 h-full w-full;
+        @apply m-0 min-h-screen w-full;
         /* TODO: Handle 'light mode'*/
-        @apply bg-black font-sans text-white;
+        @apply font-sans text-white;
     }
 
     /* Paragraph styling */
@@ -54,5 +62,10 @@ let { title } = Astro.props;
     /* TODO: Use TailwindCSS palette to style this? */
     a {
         @apply text-[color:rgb(148,179,242)] transition-all duration-200 visited:text-[color:rgb(161,125,232)] hover:text-[color:rgb(82,129,224)] visited:hover:text-[color:rgb(129,82,224)];
+    }
+
+    /* Body shader styling */
+    #body-shader {
+        @apply fixed top-0 -z-10 h-screen w-screen;
     }
 </style>

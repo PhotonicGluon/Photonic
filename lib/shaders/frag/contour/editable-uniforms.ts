@@ -6,7 +6,7 @@ export const editableUniforms: SlidersOptionsMap = {
 
     uSpeed: { type: "float", value: 0.025, min: 0.0, max: 0.1, step: 1e-4 },
     uColourBackground: { type: "rgb", value: [0, 0, 0] },
-    uColourLines: { type: "rgb", value: [1, 1, 1] },
+    uColourLines: { type: "rgb", value: [0.25, 0.25, 0.25] },
 
     uNoiseFactor: { type: "float", value: 0.75, min: 0.0, max: 2.0, step: 1e-3 },
     uNoiseLinearDirection: { type: "vec2", value: [0.4, 0.264], min: -1.0, max: 1.0, step: 1e-3 },
