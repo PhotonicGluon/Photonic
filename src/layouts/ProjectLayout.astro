@@ -15,5 +15,8 @@ const project = toProject(Astro.props);
 >
     <slot name="head-fonts" slot="head-fonts" />
     <slot name="head-scripts" slot="head-scripts" />
-    <slot />
+
+    <section id="project">
+        <slot />
+    </section>
 </MainLayout>

@@ -53,6 +53,11 @@ let { title } = Astro.props;
         @apply font-sans text-white;
     }
 
+    html {
+        /* TODO: Handle 'light mode'*/
+        @apply bg-black;
+    }
+
     /* Paragraph styling */
     p {
         @apply pb-3 text-justify;
@@ -62,6 +67,15 @@ let { title } = Astro.props;
     /* TODO: Use TailwindCSS palette to style this? */
     a {
         @apply text-[color:rgb(148,179,242)] transition-all duration-200 visited:text-[color:rgb(161,125,232)] hover:text-[color:rgb(82,129,224)] visited:hover:text-[color:rgb(129,82,224)];
+    }
+
+    /* Section styling */
+    section:first-of-type {
+        /* Add padding to top*/
+        @apply pt-8;
+
+        /* Add 'complementary' effect of the hero box overlay */
+        @apply bg-gradient-to-b from-black via-black/40 via-30% to-transparent;
     }
 
     /* Body shader styling */
