@@ -10,6 +10,12 @@ EDITABLE_UNIFORMS_PREFIX = "export const editableUniforms: SlidersOptionsMap = "
 
 SHADER_NAME = "swirl"
 
+RENAME_UNIFORMS_AS_CONSTS = True
+
+def camel_case_split(identifier):  # https://stackoverflow.com/a/29920015
+    matches = re.finditer(r'.+?(?:(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])|$)', identifier)
+    return [m.group(0) for m in matches]
+
 # Get the user-editable uniforms of the shader
 with open(os.path.join(FRAG_SHADERS_FOLDER, SHADER_NAME, f"{SHADER_NAME}-modifiable.frag"), "r") as f:
     shader_contents = f.read()
@@ -60,6 +66,12 @@ for i, line in enumerate(shader_lines):
     shader_lines[i] = line
 
 shader_contents = "\n".join(shader_lines)
+
+if RENAME_UNIFORMS_AS_CONSTS:
+    for uniform in uniforms:
+        new_uniform = "_".join([part.upper() for part in camel_case_split(uniform[1:])])
+        shader_contents = shader_contents.replace(uniform, new_uniform)
+        print(new_uniform)
 
 # Write to file
 with open(os.path.join(FRAG_SHADERS_FOLDER, SHADER_NAME, f"{SHADER_NAME}-fixed.frag"), "w") as f:
