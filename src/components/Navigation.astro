@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import logoImage from "../images/Icon.jpg"; // TODO: Replace
+import logoImage from "../images/Icon.jpg";
 ---
 
 <div class="nav">
@@ -14,8 +14,6 @@ import logoImage from "../images/Icon.jpg"; // TODO: Replace
 </div>
 
 <style>
-    /* TODO: Update */
-
     .nav {
         @apply mx-auto my-0;
     }
@@ -29,7 +27,7 @@ import logoImage from "../images/Icon.jpg"; // TODO: Replace
     }
 
     .links a {
-        @apply block px-0 py-[10px] text-center font-mono text-2xl uppercase text-gray-400 no-underline transition-all duration-200 hover:text-gray-300 focus:text-gray-300 md:inline-block md:px-4 md:py-5; /* TODO: Edit y padding values */
+        @apply block px-0 py-3 text-center font-mono text-2xl uppercase text-gray-400 no-underline transition-all duration-200 hover:text-gray-300 focus:text-gray-300 md:inline-block md:px-4 md:py-5;
     }
 
     .expanded {
