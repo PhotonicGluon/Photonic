@@ -1,17 +1,26 @@
 ---
-import HeroBox from "@components/hero-box/HeroBox.astro";
+import HeroBox from "@components/HeroBox.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 export interface Props {
+    // Typography
     /** Title of the page */
     title: string;
-    /** Subtitle of the page */
+    /** Optional font size of the title */
+    titleSize?: string;
+    /** Optional subtitle of the page */
     subtitle?: string;
+    /** Optional font size of the subtitle */
+    subtitleSize?: string;
     /** Title of the tab; defaults to the `title` with the website name */
     tabTitle?: string;
+
+    // Geometry
+    /** Optional specification string for the height of the hero box */
+    heroBoxHeight?: string;
 }
 
-const { title, subtitle, tabTitle } = Astro.props;
+const { title, titleSize, subtitle, subtitleSize, tabTitle, heroBoxHeight } = Astro.props;
 ---
 
 <BaseLayout title={tabTitle ? tabTitle : `${title} - Photonic`}>
@@ -20,10 +29,21 @@ const { title, subtitle, tabTitle } = Astro.props;
 
     <HeroBox
         title={title}
+        titleSize={titleSize}
         subtitle={subtitle}
-        fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
+        subtitleSize={subtitleSize}
+        height={heroBoxHeight}
+        fragURL="lib/shaders/frag/swirl/swirl-v1.frag"
         editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
         imageURL="/checkerboard.png"
     />
-    <slot />
+    <main>
+        <slot />
+    </main>
 </BaseLayout>
+
+<style>
+    main {
+        @apply mx-auto my-0 max-w-screen-xl px-10;
+    }
+</style>
