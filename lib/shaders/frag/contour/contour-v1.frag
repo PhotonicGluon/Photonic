@@ -6,26 +6,26 @@ precision highp float;
 uniform float iTime;       // Current time in seconds
 uniform vec3 iResolution;  // Viewport resolution (width, height, pixel ratio)
 
-// User-controllable parameters
-uniform float uScale;                // Scaling factor
-uniform float uRepeatInterval;       // Tetra noise repeat interval
-
-uniform float uSpeed;                // Speed of the effect
-uniform vec3 uColourBackground;      // Background colour
-uniform vec3 uColourLines;           // Lines' colour
-
-uniform float uNoiseFactor;          // 'Height' of the noise surface
-uniform vec2 uNoiseLinearDirection;  // Direction of the linear gradient 
-uniform float uNoiseLinearBlend;     // Blending factor of the noise with a linear gradient
-uniform vec3 uNoiseCoeff1;           // Coefficients for the first set of noise calculations
-uniform vec3 uNoiseCoeff2;           // Coefficients for the second set of noise calculations
-uniform vec3 uNoiseCoeff3;           // Coefficients for the third set of noise calculations
-
-uniform float uLineSpacing;          // Spacing factor between lines
-uniform float uLineWeight;           // Weight of the lines
-uniform float uLineBaseSize;         // Base line size
-
 // CONSTANTS
+// User-controllable parameters
+#define SCALE 1.0                // Scaling factor
+#define REPEAT_INTERVAL 7.0       // Tetra noise repeat interval
+
+#define SPEED 0.0125                // Speed of the effect
+#define COLOUR_BACKGROUND vec3(0, 0, 0)      // Background colour
+#define COLOUR_LINES vec3(0.25, 0.25, 0.25)           // Lines' colour
+
+#define NOISE_FACTOR 0.75          // 'Height' of the noise surface
+#define NOISE_LINEAR_DIRECTION vec2(0.373, 0.267)  // Direction of the linear gradient 
+#define NOISE_LINEAR_BLEND 0.5     // Blending factor of the noise with a linear gradient
+#define NOISE_COEFF1 vec3(6.5, 1.5, 0.3)           // Coefficients for the first set of noise calculations
+#define NOISE_COEFF2 vec3(1.0, 0.35, 1.75)           // Coefficients for the second set of noise calculations
+#define NOISE_COEFF3 vec3(9.0, 0.25, 5.0)           // Coefficients for the third set of noise calculations
+
+#define LINE_SPACING 0.08          // Spacing factor between lines
+#define LINE_WEIGHT 0.25           // Weight of the lines
+#define LINE_BASE_SIZE 3.5         // Base line size
+
 #define TAU 6.283185
 
 #define REFERENCE_RESOLUTION 256.0  // Reference resolution to use when scaling line weight by resolution
@@ -44,7 +44,7 @@ vec2 getInitialUV() {
     vec2 uv = (-iResolution.xy + 2.0f * gl_FragCoord.xy) / iResolution.y;
 
     // Zoom in
-    uv *= uScale;
+    uv *= SCALE;
 
     return uv;
 }
@@ -135,9 +135,9 @@ float tetraNoise(vec3 p) {
  */
 float generateNoise(vec2 uv) {
     // Get actual x and y coordinates based on time
-    float time = iTime * uSpeed;
+    float time = iTime * SPEED;
 
-    float x = uv.x + mod(time, uRepeatInterval);
+    float x = uv.x + mod(time, REPEAT_INTERVAL);
     float y = uv.y;
 
     // Blend noise at different frequencies, moving in different directions
@@ -146,26 +146,26 @@ float generateNoise(vec2 uv) {
     float noise;
     float noiseA, noiseB;
 
-    ab = smoothRepeatStart(x, uRepeatInterval);
-    noiseA = tetraNoise(uNoiseCoeff1.x + vec3(vec2(ab.x, uv.y) * uNoiseCoeff1.y, 0)) * uNoiseCoeff1.z;
-    noiseB = tetraNoise(uNoiseCoeff1.x + vec3(vec2(ab.y, uv.y) * uNoiseCoeff1.y, 0)) * uNoiseCoeff1.z;
-    noise = smoothRepeatEnd(noiseA, noiseB, x, uRepeatInterval);
+    ab = smoothRepeatStart(x, REPEAT_INTERVAL);
+    noiseA = tetraNoise(NOISE_COEFF1.x + vec3(vec2(ab.x, uv.y) * NOISE_COEFF1.y, 0)) * NOISE_COEFF1.z;
+    noiseB = tetraNoise(NOISE_COEFF1.x + vec3(vec2(ab.y, uv.y) * NOISE_COEFF1.y, 0)) * NOISE_COEFF1.z;
+    noise = smoothRepeatEnd(noiseA, noiseB, x, REPEAT_INTERVAL);
 
-    ab = smoothRepeatStart(y, uRepeatInterval / 2.0f);
-    noiseA = tetraNoise(uNoiseCoeff2.x + vec3(vec2(uv.x, ab.x) * uNoiseCoeff2.y, 0)) * uNoiseCoeff2.z;
-    noiseB = tetraNoise(uNoiseCoeff2.x + vec3(vec2(uv.x, ab.y) * uNoiseCoeff2.y, 0)) * uNoiseCoeff2.z;
-    noise *= smoothRepeatEnd(noiseA, noiseB, y, uRepeatInterval / 2.0f);
+    ab = smoothRepeatStart(y, REPEAT_INTERVAL / 2.0f);
+    noiseA = tetraNoise(NOISE_COEFF2.x + vec3(vec2(uv.x, ab.x) * NOISE_COEFF2.y, 0)) * NOISE_COEFF2.z;
+    noiseB = tetraNoise(NOISE_COEFF2.x + vec3(vec2(uv.x, ab.y) * NOISE_COEFF2.y, 0)) * NOISE_COEFF2.z;
+    noise *= smoothRepeatEnd(noiseA, noiseB, y, REPEAT_INTERVAL / 2.0f);
 
-    ab = smoothRepeatStart(x, uRepeatInterval);
-    noiseA = tetraNoise(uNoiseCoeff3.x + vec3(vec2(ab.x, uv.y) * uNoiseCoeff3.y, 0)) * uNoiseCoeff3.z;
-    noiseB = tetraNoise(uNoiseCoeff3.x + vec3(vec2(ab.y, uv.y) * uNoiseCoeff3.y, 0)) * uNoiseCoeff3.z;
-    noise *= smoothRepeatEnd(noiseA, noiseB, x, uRepeatInterval);
+    ab = smoothRepeatStart(x, REPEAT_INTERVAL);
+    noiseA = tetraNoise(NOISE_COEFF3.x + vec3(vec2(ab.x, uv.y) * NOISE_COEFF3.y, 0)) * NOISE_COEFF3.z;
+    noiseB = tetraNoise(NOISE_COEFF3.x + vec3(vec2(ab.y, uv.y) * NOISE_COEFF3.y, 0)) * NOISE_COEFF3.z;
+    noise *= smoothRepeatEnd(noiseA, noiseB, x, REPEAT_INTERVAL);
 
-    noise *= uNoiseFactor;
+    noise *= NOISE_FACTOR;
 
     // Blend with a linear gradient to give lines common direction
-    vec2 directionNormalVector = vec2(uNoiseLinearDirection.y, -uNoiseLinearDirection.x);
-    noise = mix(noise, dot(uv, directionNormalVector), uNoiseLinearBlend);
+    vec2 directionNormalVector = vec2(NOISE_LINEAR_DIRECTION.y, -NOISE_LINEAR_DIRECTION.x);
+    noise = mix(noise, dot(uv, directionNormalVector), NOISE_LINEAR_BLEND);
 
     return noise;
 }
@@ -179,7 +179,7 @@ float generateNoise(vec2 uv) {
  */
 float noiseAsContour(float noise) {
     // Get the base intensity that the noise should have
-    float intensity = mod(noise, uLineSpacing) / uLineSpacing;
+    float intensity = mod(noise, LINE_SPACING) / LINE_SPACING;
 
     // Convert jagged steps into bumps (i.e., sawtooth waves into triangle waves)
     intensity = min(intensity * 2.0f, 1.0f) - max(intensity * 2.0f - 1.0f, 0.0f);
@@ -191,14 +191,14 @@ float noiseAsContour(float noise) {
      * So dividing by this gradient makes lines appear sharper where the noise changes slowly (e.g., at the 'crests' of
      * the noise) and softer where it changes quickly, making the emphasis stronger on the 'crests'.
      */
-    intensity /= fwidth(noise / uLineSpacing);
+    intensity /= fwidth(noise / LINE_SPACING);
 
     // Adjust to the base line size
-    intensity /= uLineBaseSize;  // Divide to make more pixels fall within line boundary
+    intensity /= LINE_BASE_SIZE;  // Divide to make more pixels fall within line boundary
 
     // Scale the weight with resolution
     // TODO: Maybe not? Perhaps just keep it constant, and change the part of the shader that is visible?
-    float weight = uLineWeight;
+    float weight = LINE_WEIGHT;
     weight *= iResolution.y / REFERENCE_RESOLUTION;
 
     // Offset the line by the weight
@@ -222,5 +222,5 @@ void main() {
     float intensity = noiseAsContour(noise);
 
     // Generate final colour
-    outColour = vec4(uColourBackground + intensity * (uColourLines - uColourBackground), 1);
+    outColour = vec4(COLOUR_BACKGROUND + intensity * (COLOUR_LINES - COLOUR_BACKGROUND), 1);
 }

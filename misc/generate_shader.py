@@ -8,7 +8,7 @@ FRAG_SHADERS_FOLDER = f"{SHADERS_FOLDER}/frag"
 EDITABLE_UNIFORMS_FILE = "editable-uniforms.ts"
 EDITABLE_UNIFORMS_PREFIX = "export const editableUniforms: SlidersOptionsMap = "
 
-SHADER_NAME = "swirl"
+SHADER_NAME = "contour"
 
 RENAME_UNIFORMS_AS_CONSTS = True
 
@@ -71,7 +71,6 @@ if RENAME_UNIFORMS_AS_CONSTS:
     for uniform in uniforms:
         new_uniform = "_".join([part.upper() for part in camel_case_split(uniform[1:])])
         shader_contents = shader_contents.replace(uniform, new_uniform)
-        print(new_uniform)
 
 # Write to file
 with open(os.path.join(FRAG_SHADERS_FOLDER, SHADER_NAME, f"{SHADER_NAME}-fixed.frag"), "w") as f:
