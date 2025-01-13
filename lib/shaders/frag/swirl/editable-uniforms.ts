@@ -21,9 +21,9 @@ export const editableUniforms: SlidersOptionsMap = {
     uWarpUV3Coeff: { type: "vec4", value: [1, 0.8, 0.7, -0.5], min: -2.0, max: 2.0, step: 1e-1 },
 
     uUseColour: { type: "boolean", value: true },
-    uColour1: { type: "rgba", value: [0, 0, 0, 1] },
-    uColour2: { type: "rgba", value: [0, 0, 0, 1] },
-    uColour3: { type: "rgba", value: [0, 0, 0, 1] },
+    uColour1: { type: "rgba", value: [0.01, 0.03, 0.07, 1] },
+    uColour2: { type: "rgba", value: [0.01, 0.03, 0.07, 1] },
+    uColour3: { type: "rgba", value: [0.01, 0.03, 0.07, 1] },
     uColourContrast: { type: "float", value: 3.0, min: 0.0, max: 3.0, step: 1e-1 },
     uColourSpread: { type: "float", value: 0.9, min: 0.8, max: 1.0, step: 1e-3 },
     uColourShine: { type: "float", value: 5.0, min: 1, max: 10, step: 0.25 },

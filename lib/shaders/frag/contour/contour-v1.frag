@@ -12,7 +12,7 @@ uniform vec3 iResolution;  // Viewport resolution (width, height, pixel ratio)
 #define REPEAT_INTERVAL 7.0       // Tetra noise repeat interval
 
 #define SPEED 0.0125                // Speed of the effect
-#define COLOUR_BACKGROUND vec3(0, 0, 0)      // Background colour
+#define COLOUR_BACKGROUND vec3(0.01, 0.03, 0.07)      // Background colour
 #define COLOUR_LINES vec3(0.25, 0.25, 0.25)           // Lines' colour
 
 #define NOISE_FACTOR 0.75          // 'Height' of the noise surface

@@ -33,9 +33,9 @@ uniform sampler2D iChannel1;  // Input texture
 #define WARP_UV3_COEFF vec4(1.0,0.8,0.7,-0.5)       // Coefficients for the UV3 iteration in the warping loop
 
 #define USE_COLOUR true          // Whether to use colour instead of an image
-#define COLOUR_1 vec4(0.0,0.0,0.0,1.0)            // Primary, outer colour
-#define COLOUR_2 vec4(0.0,0.0,0.0,1.0)            // Secondary, inner colour
-#define COLOUR_3 vec4(0.0,0.0,0.0,1.0)            // Tertiary, highlights/shadows colour
+#define COLOUR_1 vec4(0.01,0.03,0.07,1.0)            // Primary, outer colour
+#define COLOUR_2 vec4(0.01,0.03,0.07,1.0)            // Secondary, inner colour
+#define COLOUR_3 vec4(0.01,0.03,0.07,1.0)            // Tertiary, highlights/shadows colour
 #define COLOUR_CONTRAST 3.0    // Contrast adjustment for pure colours
 #define COLOUR_SPREAD 0.9      // Factor adjusting the amount of space the inner colour takes
 #define COLOUR_SHINE 5.0       // Shine factor, lower = more shine
