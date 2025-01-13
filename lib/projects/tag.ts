@@ -18,10 +18,10 @@ export type ProjectTagProperties = {
  * Enum of possible project tags.
  */
 export const ProjectTag: { [key: string]: ProjectTagProperties } = {
-    Mathematics: { name: "Mathematics", colour: "#6ba4f8", alpha: 0.5 },
-    Music: { name: "Music", colour: "#9c6bdf", alpha: 0.5 },
-    Programming: { name: "Programming", colour: "#64b75d", alpha: 0.5 },
-    Writing: { name: "Writing", colour: "#cd733a", alpha: 0.5 },
+    Mathematics: { name: "Mathematics", colour: "#0ea5e9", alpha: 0.6 }, // Sky 500
+    Music: { name: "Music", colour: "#6366f1", alpha: 0.6 }, // Indigo 500
+    Programming: { name: "Programming", colour: "#10b981", alpha: 0.6 }, // Emerald 500
+    Writing: { name: "Writing", colour: "#8b5cf6", alpha: 0.6 }, // Violet 500
 } as const;
 
 /** Type of a project tag */
