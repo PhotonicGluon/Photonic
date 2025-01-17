@@ -6,6 +6,9 @@ precision highp float;
 uniform float iTime;       // Current time in seconds
 uniform vec3 iResolution;  // Viewport resolution (width, height, pixel ratio)
 
+// Constant uniforms
+uniform float cTimeOffset;  // Offset for starting time of the effect
+
 // User-controllable parameters
 uniform float uScale;                // Scaling factor
 uniform float uRepeatInterval;       // Tetra noise repeat interval
@@ -135,7 +138,7 @@ float tetraNoise(vec3 p) {
  */
 float generateNoise(vec2 uv) {
     // Get actual x and y coordinates based on time
-    float time = iTime * uSpeed;
+    float time = iTime * uSpeed + cTimeOffset;
 
     float x = uv.x - mod(time, uRepeatInterval);  // Makes noise go 'rightward'
     float y = uv.y;

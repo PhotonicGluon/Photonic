@@ -1,9 +1,15 @@
 ---
+import seedrandom from "seedrandom";
+
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
 import Shader from "@components/Shader.astro";
 
-let { title } = Astro.props;
+const { title } = Astro.props;
+
+// Define pseudo-random time offset for contour noise
+const random = seedrandom(title);
+const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50]
 ---
 
 <!doctype html>
@@ -36,6 +42,7 @@ let { title } = Astro.props;
                 id="body-shader"
                 fragURL="lib/shaders/frag/contour/contour-modifiable.frag"
                 editableUniformsURL="lib/shaders/frag/contour/editable-uniforms.ts"
+                constants={{ cTimeOffset: contourNoiseTimeOffset }}
             />
             <slot />
         </main>
