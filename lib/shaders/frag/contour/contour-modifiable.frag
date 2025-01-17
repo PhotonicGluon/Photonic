@@ -137,7 +137,7 @@ float generateNoise(vec2 uv) {
     // Get actual x and y coordinates based on time
     float time = iTime * uSpeed;
 
-    float x = uv.x + mod(time, uRepeatInterval);
+    float x = uv.x - mod(time, uRepeatInterval);  // Makes noise go 'rightward'
     float y = uv.y;
 
     // Blend noise at different frequencies, moving in different directions
