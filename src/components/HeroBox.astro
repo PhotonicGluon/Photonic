@@ -49,15 +49,15 @@ const {
     {
         fragURL && (
             <Shader id="hero-shader" fragURL={fragURL} editableUniformsURL={editableUniformsURL} imageURL={imageURL} />
+            <div class="overlay"></div>
         )
     }
-    <div class="overlay"></div>
     <div class="text">
         <h1>{title}</h1>
         {subtitle && <h2>{subtitle}</h2>}
     </div>
 </div>
-<div class="hero-box-smooth-transition"></div>
+{fragURL && <div class="hero-box-smooth-transition"></div>}
 
 <style define:vars={{ height, titleSize, subtitleSize }}>
     .hero-box {
