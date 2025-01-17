@@ -1,4 +1,5 @@
 ---
+import HeroBox from "@components/HeroBox.astro";
 import ProjectCard from "@components/projects/ProjectCard.astro";
 import MainLayout from "@layouts/MainLayout.astro";
 
@@ -8,15 +9,19 @@ import { getFeaturedProjects, toProject } from "@lib/projects/project";
 const projects = await getFeaturedProjects();
 ---
 
-<!-- TODO: Change title and contents, and use theme to change these styles -->
-<MainLayout
-    title="Photonic"
-    titleSize="64pt"
-    subtitle="Making cool things."
-    subtitleSize="14pt"
-    tabTitle="Photonic"
-    heroBoxHeight="max(600px, 100vh)"
->
+<MainLayout tabTitle="Photonic">
+    <HeroBox
+        title="Photonic"
+        titleSize="64pt"
+        subtitle="Making cool things."
+        subtitleSize="14pt"
+        height="max(600px, 100vh)"
+        fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
+        editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
+        imageURL="/checkerboard.png"
+        slot="hero-box"
+    />
+
     <!-- TODO: Change styling -->
     <section id="featured-projects">
         <h2 class="section-title">Featured Projects</h2>

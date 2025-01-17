@@ -17,8 +17,12 @@ export interface Props {
     height?: string;
 
     // Shader
-    /** URL to the fragment shader */
-    fragURL: string;
+    /**
+     * Optional URL to the fragment shader.
+     *
+     * If not provided, will not use a shader.
+     */
+    fragURL?: string;
     /**
      * Optional URL to a typescript file containing editable uniforms.
      *
@@ -42,7 +46,11 @@ const {
 ---
 
 <div class="hero-box">
-    <Shader id="hero-shader" fragURL={fragURL} editableUniformsURL={editableUniformsURL} imageURL={imageURL} />
+    {
+        fragURL && (
+            <Shader id="hero-shader" fragURL={fragURL} editableUniformsURL={editableUniformsURL} imageURL={imageURL} />
+        )
+    }
     <div class="overlay"></div>
     <div class="text">
         <h1>{title}</h1>

@@ -5,7 +5,7 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 export interface Props {
     // Typography
     /** Title of the page */
-    title: string;
+    title?: string;
     /** Optional font size of the title */
     titleSize?: string;
     /** Optional subtitle of the page */
@@ -18,25 +18,28 @@ export interface Props {
     // Geometry
     /** Optional specification string for the height of the hero box */
     heroBoxHeight?: string;
+
+    // Others
+    hasShader?: boolean;
 }
 
-const { title, titleSize, subtitle, subtitleSize, tabTitle, heroBoxHeight } = Astro.props;
+const { title = "Untitled", titleSize, subtitle, subtitleSize, tabTitle, heroBoxHeight } = Astro.props;
 ---
 
 <BaseLayout title={tabTitle ? tabTitle : `${title} - Photonic`}>
     <slot name="head-fonts" slot="head-fonts" />
     <slot name="head-scripts" slot="head-scripts" />
 
-    <HeroBox
-        title={title}
-        titleSize={titleSize}
-        subtitle={subtitle}
-        subtitleSize={subtitleSize}
-        height={heroBoxHeight}
-        fragURL="lib/shaders/frag/swirl/swirl-modifiable.frag"
-        editableUniformsURL="lib/shaders/frag/swirl/editable-uniforms.ts"
-        imageURL="/checkerboard.png"
-    />
+    <slot name="hero-box">
+        <HeroBox
+            title={title}
+            titleSize={titleSize}
+            subtitle={subtitle}
+            subtitleSize={subtitleSize}
+            height={heroBoxHeight}
+        />
+    </slot>
+
     <main>
         <slot />
     </main>
