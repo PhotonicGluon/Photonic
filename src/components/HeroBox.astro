@@ -29,8 +29,6 @@ export interface Props {
      * Do **not** include a leading slash (i.e., follow the format used by `fragURL`).
      */
     editableUniformsURL?: string;
-    /** Optional URL to the image that is used */
-    imageURL?: string;
 }
 
 const {
@@ -41,14 +39,13 @@ const {
     height = "max(300px, 35vh)",
     fragURL,
     editableUniformsURL,
-    imageURL,
 } = Astro.props;
 ---
 
 <div class="hero-box">
     {
         fragURL && (
-            <Shader id="hero-shader" fragURL={fragURL} editableUniformsURL={editableUniformsURL} imageURL={imageURL} />
+            <Shader id="hero-shader" fragURL={fragURL} editableUniformsURL={editableUniformsURL} />
             <div class="overlay"></div>
         )
     }

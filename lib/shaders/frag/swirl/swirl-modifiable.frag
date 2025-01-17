@@ -1,9 +1,6 @@
 #version 300 es
 precision highp float;
 
-// MACROS
-#define flipY(v2) vec2(v2.x, 1.0 - v2.y)  // Macro to flip texture coordinates vertically
-
 // UNIFORMS
 // Time-based and resolution uniforms passed from JavaScript
 uniform float iTime;          // Current time in seconds
@@ -31,15 +28,12 @@ uniform float uWarpSpeed;         // Speed of the warp effect
 uniform vec4 uWarpUV2Coeff;       // Coefficients for the UV2 iteration in the warping loop
 uniform vec4 uWarpUV3Coeff;       // Coefficients for the UV3 iteration in the warping loop
 
-uniform bool uUseColour;          // Whether to use colour instead of an image
 uniform vec4 uColour1;            // Primary, outer colour
 uniform vec4 uColour2;            // Secondary, inner colour
 uniform vec4 uColour3;            // Tertiary, highlights/shadows colour
 uniform float uColourContrast;    // Contrast adjustment for pure colours
 uniform float uColourSpread;      // Factor adjusting the amount of space the inner colour takes
 uniform float uColourShine;       // Shine factor, lower = more shine
-
-uniform float uMix;               // Blend factor between normal and warped effect (0-1)
 
 // CONSTANTS
 #define IMAGE_SCALE 1.0
@@ -146,18 +140,6 @@ vec2 applyWarp(vec2 uv) {
 
 // SAMPLING FUNCTIONS
 /**
- * Samples the image at the specified UV coordinate.
- * 
- * @param uv UV coordinate to sample
- * @return RGBA value of the UV coordinate, based on the image provided. RGBA values are in the
- *     interval [0, 1]
- */
-vec4 sampleImage(vec2 uv) {
-    vec2 shiftedUV = uv + 0.5f;  // Center the UV coordinates
-    return texture(iChannel1, flipY(shiftedUV));  // Sample texture with vertical flip
-}
-
-/**
  * Samples a colour at the specified UV coordinate.
  * 
  * @param uv UV coordinate to sample
@@ -207,5 +189,5 @@ void main() {
     }
 
     // Get the colour to return
-    outColour = uUseColour ? sampleColour(uv) : sampleImage(mix(initialUV, uv, uMix));
+    outColour = sampleColour(uv);
 }

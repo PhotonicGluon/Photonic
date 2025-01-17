@@ -1,6 +1,5 @@
 ---
 import { readFileSync } from "fs";
-import seedrandom from "seedrandom";
 
 // Set up properties of the component
 export interface Props {
@@ -14,11 +13,9 @@ export interface Props {
      * Do **not** include a leading slash (i.e., follow the format used by `fragURL`).
      */
     editableUniformsURL?: string;
-    /** Optional URL to the image that is used */
-    imageURL?: string;
 }
 
-const { id, fragURL, editableUniformsURL, imageURL } = Astro.props;
+const { id, fragURL, editableUniformsURL } = Astro.props;
 
 // Get fragment shader code
 const shaderFrag: string = readFileSync(fragURL, "utf-8");
@@ -30,26 +27,14 @@ if (editableUniformsURL && !import.meta.env.PROD) {
 } else {
     editableUniforms = {};
 }
-
-// Define pseudo-random offset and scale of the image
-let offset = [0, 0];
-let scale = 1;
-if (imageURL) {
-    const random = seedrandom(id);
-    offset = [Math.floor(random() * 21) - 10, Math.floor(random() * 21) - 10];
-    scale = random() * 2 + 1;
-}
 ---
 
 <canvas
     class="shader"
     id={id}
-    data-image-url={imageURL}
     data-shader-url={fragURL}
     data-shader-frag={shaderFrag}
-    data-editable-uniforms={JSON.stringify(editableUniforms)}
-    data-offset={JSON.stringify(offset)}
-    data-warp-scale={JSON.stringify(scale)}></canvas>
+    data-editable-uniforms={JSON.stringify(editableUniforms)}></canvas>
 
 <style>
     .shader {
@@ -81,10 +66,6 @@ if (imageURL) {
         }
         delete canvas.dataset.shaderFrag; // No need to keep it now that we have it
 
-        // Get background
-        const backgroundURL = canvas.dataset.imageUrl;
-        const hasBackground = backgroundURL !== undefined;
-
         // Define editable uniforms
         let editableUniforms: SlidersOptionsMap;
         if (canvas.dataset.editableUniforms) {
@@ -101,43 +82,12 @@ if (imageURL) {
         // Define uniforms
         const uniforms: Record<string, any> = {};
 
-        uniforms.uUseColours = !hasBackground;
-
-        uniforms.uWarpIter = hasBackground ? 4 : 9;
-        uniforms.uOffset = canvas.dataset.offset ? JSON.parse(canvas.dataset.offset) : [0, 0];
-        uniforms.uWarpScale = canvas.dataset.warpScale ? JSON.parse(canvas.dataset.warpScale) : 1;
-
-        // Define interpolator
-        const interpolator = new Interpolate(easeInOutCubic, hasBackground ? 0 : 1);
-
-        // // Intersection observer for changing multiplier during scroll
-        // let canvasIntersectionRatio = 1;
-        // const observer = new IntersectionObserver(
-        //     (entries) => {
-        //         for (const entry of entries) {
-        //             if (entry.target === canvas) {
-        //                 canvasIntersectionRatio = entry.intersectionRatio;
-        //             }
-        //         }
-        //     },
-        //     {
-        //         // Fire callback on many changes. 100 should be smooth enough.
-        //         threshold: range(101).map((n) => n / 100),
-        //     },
-        // );
-        // observer.observe(canvas);
-
+        // Set up shader
         const { start, stop } = setupShader({
             canvas,
             sources: { vertex: shaderVert, fragment: shaderFrag },
             uniforms,
             onFrame: (time) => {
-                // uniforms.uWarpAmount =
-                //     ((1 - canvasIntersectionRatio) *
-                //         (MAX_PAINT_FACTOR - MIN_PAINT_FACTOR) +
-                //         MIN_PAINT_FACTOR) *
-                //     interpolator.getValue();
-
                 // Update pixel density
                 uniforms.uPixelDensity = window.devicePixelRatio;
 
@@ -151,26 +101,13 @@ if (imageURL) {
                 //     stop();
                 // }
             },
-            textures: hasBackground ? [{ src: backgroundURL }] : undefined,
+            textures: undefined,
             onTexturesReady: () => {
                 // interpolator.setTarget(prefersReducedMotion ? 0 : 1, 10_000);
                 start();
             },
         });
 
-        interpolator.on("start", ({ current }) => {
-            if (current === 0) {
-                start();
-            }
-        });
-        interpolator.on("end", ({ current }) => {
-            if (current === 0) {
-                stop();
-            }
-        });
-
-        if (!hasBackground) {
-            start();
-        }
+        start();
     });
 </script>
