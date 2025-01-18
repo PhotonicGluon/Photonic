@@ -7,15 +7,27 @@ import { getCollection } from "astro:content";
 const projects = await getCollection("projects");
 ---
 
-<!-- TODO: Change title and contents-->
 <MainLayout title="Projects">
+    <section id="filters">
+        <p>Some filters go here...</p>
+    </section>
     <section id="projects">
         {projects.map((rawProject) => <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} />)}
     </section>
 </MainLayout>
 
+<style is:global>
+    main {
+        @apply grid grid-cols-5 divide-x-2 divide-solid divide-gray-500;
+    }
+</style>
+
 <style>
     #projects {
-        @apply grid grid-cols-3 gap-4;
+        @apply col-span-4 col-start-2 grid grid-cols-3 gap-4;
+    }
+
+    #filters {
+        @apply sticky top-3 col-span-1 col-start-1 self-start;
     }
 </style>
