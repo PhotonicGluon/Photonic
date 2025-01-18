@@ -1,44 +1,22 @@
 ---
 import ProjectCard from "@components/projects/ProjectCard.astro";
+import ProjectFilters from "@components/projects/ProjectFilters";
 import MainLayout from "@layouts/MainLayout.astro";
 import { toProject } from "@lib/projects/project";
-import { ProjectTag } from "@lib/projects/tag";
 import { getCollection } from "astro:content";
 
-const projects = await getCollection("projects");
-const tags = Object.values(ProjectTag);
+const rawProjects = await getCollection("projects");
+
+const projectIDs = rawProjects.map((rawProject) => rawProject.id);
+const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 ---
 
 <MainLayout title="Projects">
     <section id="filters" class="sticky top-3 col-span-1 col-start-1 self-start">
-        <span class="block font-bold">Search</span>
-        <div>(Future search box...)</div>
-        <span class="block pt-3 font-bold">Tags</span>
-        <div id="tags">
-            {
-                tags.map((tag) => {
-                    const checkboxID = "filter-tag-" + tag.name.toLowerCase();
-                    return (
-                        <div class="flex items-center">
-                            <input
-                                id={checkboxID}
-                                type="checkbox"
-                                class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-500 ring-offset-gray-800 focus:ring-2 focus:ring-blue-500"
-                                checked
-                            />
-                            <label for={checkboxID} class="ms-2 text-sm font-medium">
-                                {tag.name}
-                            </label>
-                        </div>
-                    );
-                })
-            }
-        </div>
-        <span class="block pt-3 font-bold">Sorting</span>
-        <div>List of sorting options...</div>
+        <ProjectFilters projectIDs={projectIDs} projects={projects} client:load />
     </section>
     <section id="projects" class="col-span-4 col-start-2 grid grid-cols-3 gap-4">
-        {projects.map((rawProject) => <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} />)}
+        {rawProjects.map((rawProject) => <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} />)}
     </section>
 </MainLayout>
 

@@ -11,7 +11,7 @@ export interface Props {
 const { id, project } = Astro.props;
 ---
 
-<project-card data-id={id}>
+<project-card id=`project-${id}` data-id={id}>
     <!-- TODO: Edit card contents -->
     <!-- TODO: Make card intractable (i.e., flip card to see summary) -->
     <span class="name">{project.name}</span>
