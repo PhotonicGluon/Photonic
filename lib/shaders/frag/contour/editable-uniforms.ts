@@ -16,6 +16,6 @@ export const editableUniforms: SlidersOptionsMap = {
     uNoiseCoeff3: { type: "vec3", value: [9.0, 0.25, 5.0], min: -10.0, max: 10.0, step: 2.5e-2 },
 
     uLineSpacing: { type: "float", value: 0.08, min: 0.0, max: 0.1, step: 1e-4 },
-    uLineWeight: { type: "float", value: 0.25, min: 0.0, max: 1.0, step: 1e-3 },
+    uLineWeight: { type: "float", value: 0.65, min: 0.0, max: 1.0, step: 1e-3 },
     uLineBaseSize: { type: "float", value: 3.5, min: 1.0, max: 5.0, step: 2.5e-1 },
 };

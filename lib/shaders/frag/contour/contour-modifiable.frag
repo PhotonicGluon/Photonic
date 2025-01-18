@@ -199,13 +199,8 @@ float noiseAsContour(float noise) {
     // Adjust to the base line size
     intensity /= uLineBaseSize;  // Divide to make more pixels fall within line boundary
 
-    // Scale the weight with resolution
-    // TODO: Maybe not? Perhaps just keep it constant, and change the part of the shader that is visible?
-    float weight = uLineWeight;
-    weight *= iResolution.y / REFERENCE_RESOLUTION;
-
-    // Offset the line by the weight
-    intensity -= weight;
+    // Offset by the line weight
+    intensity -= uLineWeight;
     intensity += 1.0f;  // +1 to shift valid values to [0, 1]
 
     // Subtract intensity from 1 to actually emphasise the lines
