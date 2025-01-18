@@ -5,12 +5,13 @@
     "scripts": {
         "dev": "astro dev",
         "build": "astro build && find dist -wholename **/info.json -delete",
+        "update": "npx npm-check-updates -u && npm install",
         "preview": "astro preview",
         "astro": "astro"
     },
     "dependencies": {
         "@astrojs/tailwind": "^5.1.4",
-        "astro": "^5.1.1",
+        "astro": "^5.1.7",
         "jquery": "^3.7.1",
         "seedrandom": "^3.0.5",
         "showdown": "^2.1.0",
@@ -21,12 +22,12 @@
     "devDependencies": {
         "@tweakpane/core": "^2.0.5",
         "@types/jquery": "^3.5.32",
-        "@types/node": "^22.10.2",
+        "@types/node": "^22.10.7",
         "@types/seedrandom": "^3.0.8",
         "@types/showdown": "^2.0.6",
         "prettier": "^3.4.2",
         "prettier-plugin-astro": "^0.14.1",
-        "prettier-plugin-tailwindcss": "^0.6.9",
+        "prettier-plugin-tailwindcss": "^0.6.10",
         "vite-plugin-glsl": "^1.3.1"
     }
 }
