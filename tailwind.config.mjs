@@ -13,5 +13,7 @@ export default {
             mono: ["JetBrains Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Courier New", "monospace"],
         },
     },
-    plugins: [],
+    plugins: [
+        require("@tailwindcss/forms"),
+    ],
 };
