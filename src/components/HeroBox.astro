@@ -45,8 +45,10 @@ const {
 <div class="hero-box">
     {
         fragURL && (
-            <Shader id="hero-shader" fragURL={fragURL} editableUniformsURL={editableUniformsURL} />
-            <div class="overlay"></div>
+            <>
+                <Shader id="hero-shader" fragURL={fragURL} editableUniformsURL={editableUniformsURL} />
+                <div class="overlay" />
+            </>
         )
     }
     <div class="text">
@@ -54,7 +56,7 @@ const {
         {subtitle && <h2>{subtitle}</h2>}
     </div>
 </div>
-{fragURL && <div class="hero-box-smooth-transition"></div>}
+{fragURL && <div class="hero-box-smooth-transition" />}
 
 <style define:vars={{ height, titleSize, subtitleSize }}>
     .hero-box {
@@ -79,7 +81,7 @@ const {
     }
 
     .text h1 {
-        @apply text-[length:var(--titleSize)];
+        @apply text-[length:var(--titleSize)] font-bold;
     }
 
     .text h2 {
