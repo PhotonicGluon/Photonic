@@ -12,6 +12,8 @@
             "@styles/*": ["src/styles/*"],
             "@public/*": ["public/*"]
         },
-        "types": ["vite-plugin-glsl/ext"]
+        "types": ["vite-plugin-glsl/ext"],
+        "jsx": "react-jsx",
+        "jsxImportSource": "preact"
     }
 }
