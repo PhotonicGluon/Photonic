@@ -1,6 +1,6 @@
 ---
 import HeroBox from "@components/HeroBox.astro";
-import ProjectCard from "@components/projects/ProjectCard.astro";
+import ProjectCard from "@components/projects/ProjectCard";
 import MainLayout from "@layouts/MainLayout.astro";
 
 import { getFeaturedProjects, toProject } from "@lib/projects/project";
@@ -25,7 +25,11 @@ const projects = await getFeaturedProjects();
     <section id="featured-projects">
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects">
-            {projects.map((rawProject) => <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} />)}
+            {
+                projects.map((rawProject) => (
+                    <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} client:visible />
+                ))
+            }
         </div>
     </section>
 </MainLayout>

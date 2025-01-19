@@ -18,7 +18,7 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
     <section id="projects" class="col-span-4 col-start-2 grid grid-cols-3 gap-4">
         {
             rawProjects.map((rawProject) => (
-                <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} client:load />
+                <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} client:visible />
             ))
         }
     </section>
