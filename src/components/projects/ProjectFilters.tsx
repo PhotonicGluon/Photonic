@@ -2,6 +2,7 @@ import $ from "jquery";
 import { Component } from "preact";
 
 import { ProjectTag, type ProjectTagType } from "@lib/projects/tag";
+import { projectItems } from "./projects_store";
 
 const tags = Object.values(ProjectTag);
 
@@ -12,7 +13,6 @@ interface Props {
 
 interface State {
     selectedTags: Set<string>;
-    displayedProjects: any[];
 }
 
 export default class ProjectFilters extends Component<Props, State> {
@@ -20,7 +20,6 @@ export default class ProjectFilters extends Component<Props, State> {
         super(props);
         this.state = {
             selectedTags: new Set(tags.map((tag) => tag.name)),
-            displayedProjects: props.projects,
         };
     }
 
@@ -46,25 +45,27 @@ export default class ProjectFilters extends Component<Props, State> {
     updateProjectList = (projectIDs: string[], projects: any[], state: State) => () => {
         // Get selected tags, showing the projects that match
         const selectedTags = this.getSelectedTags();
+        let newDisplayedProjects = [];
 
-        let displayedProjects: any[] = [];
         for (let i = 0; i < projectIDs.length; i++) {
+            const id = projectIDs[i];
             const project = projects[i];
+
             const projectTags = new Set(project.tags.map((tag: ProjectTagType) => tag.name));
 
-            const cardID = `#project-${projectIDs[i]}`;
+            const cardID = `#project-${id}`;
             if (selectedTags.intersection(projectTags).size == 0) {
                 $(cardID).hide();
             } else {
                 $(cardID).show();
-                displayedProjects.push(project);
+                newDisplayedProjects.push(id);
             }
         }
 
-        this.setState((prev) => ({ displayedProjects: displayedProjects }));
+        projectItems.setKey("displayed", newDisplayedProjects);
 
         // Check if any projects are left
-        if (displayedProjects.length == 0) {
+        if (newDisplayedProjects.length == 0) {
             // TODO: This is quite ugly... can we do better?
             $("#projects").append(
                 `<div id="no-projects-message" class="text-center text-2xl font-bold col-span-full">No projects match your filters.</div>`,
