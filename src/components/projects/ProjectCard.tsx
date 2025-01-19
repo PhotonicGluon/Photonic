@@ -17,13 +17,8 @@ interface Props {
 interface State {}
 
 export default class ProjectFilters extends Component<Props, State> {
-    id: string;
-    project: Project;
-
     constructor(props: Props) {
         super(props);
-        this.id = props.id;
-        this.project = props.project;
     }
 
     // Operation methods
@@ -36,23 +31,23 @@ export default class ProjectFilters extends Component<Props, State> {
         return (
             // TODO: We can do better with the card design... especially the 90% width...
             <div
-                id={`project-${this.id}`}
+                id={`project-${props.id}`}
                 class="mx-auto my-0 w-[90%] cursor-pointer rounded-xl border border-solid border-white p-[10px] text-center"
-                onClick={this.onClick(this.id)}
+                onClick={this.onClick(props.id)}
             >
                 {/* TODO: Edit card contents */}
                 {/* TODO: Make card intractable (i.e., flip card to see summary) */}
-                <span class="text-2xl font-bold">{this.project.name}</span>
+                <span class="text-2xl font-bold">{props.project.name}</span>
                 <div class="tags">
-                    {this.project.tags.map((tag: ProjectTagType) => (
+                    {props.project.tags.map((tag: ProjectTagType) => (
                         <ProjectTag name={tag.name} colour={tag.colour} alpha={tag.alpha} />
                     ))}
                 </div>
                 <span class="duration">
-                    {toDateString(this.project.dates.start)} &mdash;{" "}
-                    {this.project.dates.end ? toDateString(this.project.dates.end) : "Present"}
+                    {toDateString(props.project.dates.start)} &mdash;{" "}
+                    {props.project.dates.end ? toDateString(props.project.dates.end) : "Present"}
                 </span>
-                <p class="summary">{this.project.summary}</p>
+                <p class="summary">{props.project.summary}</p>
             </div>
         );
     }

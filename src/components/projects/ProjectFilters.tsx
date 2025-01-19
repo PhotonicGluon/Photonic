@@ -3,7 +3,7 @@ import { Component } from "preact";
 import { useStore } from "@nanostores/preact";
 
 import type { ProjectTagType } from "@lib/projects/tag";
-import { projectStore, tagsList, type ProjectInstance } from "./store";
+import { projectStore, tagNames, type ProjectInstance } from "./store";
 import type { Project } from "@lib/projects/project";
 
 interface Props {
@@ -25,8 +25,6 @@ export default class ProjectFilters extends Component<Props, State> {
             displayed.push({ id: props.ids[i], project: props.projects[i] });
         }
         projectStore.setKey("displayed", displayed);
-
-        // TODO: Use initial filter settings
     }
 
     // Helper methods
@@ -98,20 +96,20 @@ export default class ProjectFilters extends Component<Props, State> {
                 <div>(Future search box...)</div>
                 <span class="block pt-3 font-bold">Tags</span>
                 <div id="tags">
-                    {tagsList.map((tag) => {
-                        const checkboxID = "filter-tag-" + tag.name.toLowerCase();
+                    {tagNames.map((tagName) => {
+                        const checkboxID = "filter-tag-" + tagName.toLowerCase();
                         return (
                             <div class="flex items-center">
                                 <input
                                     id={checkboxID}
                                     type="checkbox"
-                                    value={tag.name}
+                                    value={tagName}
                                     class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-500 ring-offset-gray-800 focus:ring-2 focus:ring-blue-500"
-                                    onClick={this.onFilterClick(props.ids, props.projects)}
-                                    checked={$projectStore.tags.has(tag.name)}
+                                    onChange={this.onFilterClick(props.ids, props.projects)}
+                                    checked={$projectStore.tags.has(tagName)}
                                 />
                                 <label for={checkboxID} class="ms-2 text-sm font-medium">
-                                    {tag.name}
+                                    {tagName}
                                 </label>
                             </div>
                         );

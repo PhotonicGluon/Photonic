@@ -27,12 +27,10 @@ export default class ProjectTag extends Component<Props, State> {
 
     // Lifecycle methods
     render(props: Props, state: State) {
-        const tag = (
+        return (
             <span class="tag" style={{ "--baseColour": this.baseColour, "--backgroundColour": this.backgroundColour }}>
                 {props.name}
             </span>
         );
-
-        return tag;
     }
 }
