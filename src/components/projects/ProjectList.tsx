@@ -1,6 +1,6 @@
 import { Component } from "preact";
 import { useStore } from "@nanostores/preact";
-import { projectItems } from "./projects_store";
+import { projectStore } from "./store";
 
 import ProjectCard from "@components/projects/ProjectCard";
 
@@ -15,11 +15,10 @@ export default class ProjectList extends Component<Props, State> {
 
     // Lifecycle methods
     render(props: Props, state: State) {
-        const $projectItems = useStore(projectItems);
-        const listItems = $projectItems.displayed.map((projectInstance) => {
+        const $projectStore = useStore(projectStore);
+        const listItems = $projectStore.displayed.map((projectInstance) => {
             return <ProjectCard id={projectInstance.id} project={projectInstance.project} />;
         });
-
         return <>{listItems}</>;
     }
 }

@@ -1,11 +1,10 @@
 import $ from "jquery";
 import { Component } from "preact";
+import { useStore } from "@nanostores/preact";
 
-import { ProjectTag, type ProjectTagType } from "@lib/projects/tag";
-import { projectItems, type ProjectInstance } from "./projects_store";
+import type { ProjectTagType } from "@lib/projects/tag";
+import { projectStore, tagsList, type ProjectInstance } from "./store";
 import type { Project } from "@lib/projects/project";
-
-const tags = Object.values(ProjectTag);
 
 interface Props {
     /** IDs of the projects */
@@ -14,44 +13,43 @@ interface Props {
     projects: Project[];
 }
 
-interface State {
-    selectedTags: Set<string>;
-}
+interface State {}
 
 export default class ProjectFilters extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
-        this.state = {
-            selectedTags: new Set(tags.map((tag) => tag.name)),
-        };
+
+        // Update store to use initial projects
+        let displayed: any[] = [];
+        for (let i = 0; i < props.ids.length; i++) {
+            displayed.push({ id: props.ids[i], project: props.projects[i] });
+        }
+        projectStore.setKey("displayed", displayed);
+
+        // TODO: Use initial filter settings
     }
 
     // Helper methods
     /**
-     * @returns Set of selected tags
+     * Updates the list of selected tags.
      */
-    getSelectedTags(): Set<string> {
+    updateSelectedTags() {
         let selectedTagsArray: string[] = [];
-
         $("#tags input[type=checkbox]:checked").each((_, checkbox) => {
             selectedTagsArray.push((checkbox as HTMLInputElement).value);
         });
-
-        let selectedTags = new Set(selectedTagsArray);
-        this.setState((prev) => ({ selectedTags: selectedTags }));
-        return selectedTags;
+        projectStore.setKey("tags", new Set(selectedTagsArray));
     }
 
     /**
      * Function that handles updates to the project list on filter condition changes.
      */
-    updateProjectList = (projectIDs: string[], projects: any[], state: State) => () => {
-        // Get selected tags, showing the projects that match
-        const selectedTags = this.getSelectedTags();
+    updateProjectList(ids: string[], projects: any[], selectedTags: Set<string>) {
+        // Keep only the projects that match any one of the selected tags
         let newDisplayedProjects: ProjectInstance[] = [];
 
-        for (let i = 0; i < projectIDs.length; i++) {
-            const id = projectIDs[i];
+        for (let i = 0; i < ids.length; i++) {
+            const id = ids[i];
             const project = projects[i];
 
             const projectTags = new Set(project.tags.map((tag: ProjectTagType) => tag.name));
@@ -64,8 +62,7 @@ export default class ProjectFilters extends Component<Props, State> {
                 newDisplayedProjects.push({ id: id, project: project });
             }
         }
-
-        projectItems.setKey("displayed", newDisplayedProjects);
+        projectStore.setKey("displayed", newDisplayedProjects);
 
         // Check if any projects are left
         if (newDisplayedProjects.length == 0) {
@@ -76,18 +73,32 @@ export default class ProjectFilters extends Component<Props, State> {
         } else {
             $("#no-projects-message").remove();
         }
+    }
+
+    // Operational methods
+    onFilterClick = (ids: string[], projects: any[]) => () => {
+        this.updateSelectedTags();
+        const selectedTags = new Set(projectStore.get().tags);
+
+        // Update query in URL
+        const newURL = new URL(window.location.href);
+        newURL.searchParams.set("filter", Array.from(selectedTags).join(","));
+        window.history.pushState({}, "", newURL.toString());
+
+        // Update project list
+        this.updateProjectList(ids, projects, selectedTags);
     };
 
     // Lifecycle methods
     render(props: Props, state: State) {
-        // Render current component
+        const $projectStore = useStore(projectStore);
         return (
             <>
                 <span class="block font-bold">Search</span>
                 <div>(Future search box...)</div>
                 <span class="block pt-3 font-bold">Tags</span>
                 <div id="tags">
-                    {tags.map((tag) => {
+                    {tagsList.map((tag) => {
                         const checkboxID = "filter-tag-" + tag.name.toLowerCase();
                         return (
                             <div class="flex items-center">
@@ -96,8 +107,8 @@ export default class ProjectFilters extends Component<Props, State> {
                                     type="checkbox"
                                     value={tag.name}
                                     class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-500 ring-offset-gray-800 focus:ring-2 focus:ring-blue-500"
-                                    onClick={this.updateProjectList(props.ids, props.projects, state)}
-                                    checked={state.selectedTags.has(tag.name)}
+                                    onClick={this.onFilterClick(props.ids, props.projects)}
+                                    checked={$projectStore.tags.has(tag.name)}
                                 />
                                 <label for={checkboxID} class="ms-2 text-sm font-medium">
                                     {tag.name}
