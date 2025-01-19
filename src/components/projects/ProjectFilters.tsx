@@ -3,12 +3,15 @@ import { Component } from "preact";
 
 import { ProjectTag, type ProjectTagType } from "@lib/projects/tag";
 import { projectItems } from "./projects_store";
+import type { Project } from "@lib/projects/project";
 
 const tags = Object.values(ProjectTag);
 
 interface Props {
-    projectIDs: string[];
-    projects: any[]; // This is the best we can do... importing `Project` loads 'astro:content' which is not allowed
+    /** IDs of the projects */
+    ids: string[];
+    /** Projects' data */
+    projects: Project[];
 }
 
 interface State {
@@ -93,7 +96,7 @@ export default class ProjectFilters extends Component<Props, State> {
                                     type="checkbox"
                                     value={tag.name}
                                     class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-500 ring-offset-gray-800 focus:ring-2 focus:ring-blue-500"
-                                    onClick={this.updateProjectList(props.projectIDs, props.projects, state)}
+                                    onClick={this.updateProjectList(props.ids, props.projects, state)}
                                     checked={state.selectedTags.has(tag.name)}
                                 />
                                 <label for={checkboxID} class="ms-2 text-sm font-medium">

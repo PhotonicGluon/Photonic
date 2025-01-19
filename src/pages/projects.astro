@@ -1,6 +1,6 @@
 ---
-import ProjectCard from "@components/projects/ProjectCard";
 import ProjectFilters from "@components/projects/ProjectFilters";
+import ProjectList from "@components/projects/ProjectList";
 import MainLayout from "@layouts/MainLayout.astro";
 import { toProject } from "@lib/projects/project";
 import { getCollection } from "astro:content";
@@ -13,19 +13,15 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 
 <MainLayout title="Projects">
     <section id="filters" class="sticky top-3 col-span-1 col-start-1 self-start">
-        <ProjectFilters projectIDs={projectIDs} projects={projects} client:load />
+        <ProjectFilters ids={projectIDs} projects={projects} client:load />
     </section>
     <section id="projects" class="col-span-4 col-start-2 grid grid-cols-3 gap-4">
-        {
-            rawProjects.map((rawProject) => (
-                <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} client:visible />
-            ))
-        }
+        <ProjectList ids={projectIDs} projects={projects} client:load />
     </section>
-</MainLayout>
 
-<style is:global>
-    main {
-        @apply grid grid-cols-5 divide-x-2 divide-solid divide-gray-500;
-    }
-</style>
+    <style is:global>
+        main {
+            @apply grid grid-cols-5 divide-x-2 divide-solid divide-gray-500;
+        }
+    </style>
+</MainLayout>
