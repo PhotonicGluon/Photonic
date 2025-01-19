@@ -2,7 +2,7 @@ import $ from "jquery";
 import { Component } from "preact";
 
 import { ProjectTag, type ProjectTagType } from "@lib/projects/tag";
-import { projectItems } from "./projects_store";
+import { projectItems, type ProjectInstance } from "./projects_store";
 import type { Project } from "@lib/projects/project";
 
 const tags = Object.values(ProjectTag);
@@ -48,7 +48,7 @@ export default class ProjectFilters extends Component<Props, State> {
     updateProjectList = (projectIDs: string[], projects: any[], state: State) => () => {
         // Get selected tags, showing the projects that match
         const selectedTags = this.getSelectedTags();
-        let newDisplayedProjects = [];
+        let newDisplayedProjects: ProjectInstance[] = [];
 
         for (let i = 0; i < projectIDs.length; i++) {
             const id = projectIDs[i];
@@ -61,7 +61,7 @@ export default class ProjectFilters extends Component<Props, State> {
                 $(cardID).hide();
             } else {
                 $(cardID).show();
-                newDisplayedProjects.push(id);
+                newDisplayedProjects.push({ id: id, project: project });
             }
         }
 

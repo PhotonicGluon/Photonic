@@ -1,12 +1,21 @@
 ---
+import { getCollection } from "astro:content";
+import { toProject } from "@lib/projects/project";
+
 import ProjectFilters from "@components/projects/ProjectFilters";
 import ProjectList from "@components/projects/ProjectList";
+import { projectItems } from "@components/projects/projects_store";
+
 import MainLayout from "@layouts/MainLayout.astro";
-import { toProject } from "@lib/projects/project";
-import { getCollection } from "astro:content";
 
+// Update project items store
 const rawProjects = await getCollection("projects");
+projectItems.setKey(
+    "displayed",
+    rawProjects.map((rawProject) => ({ id: rawProject.id, project: toProject(rawProject.data) })),
+);
 
+// Separate raw data into project IDs and projects
 const projectIDs = rawProjects.map((rawProject) => rawProject.id);
 const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 ---
@@ -16,7 +25,7 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
         <ProjectFilters ids={projectIDs} projects={projects} client:load />
     </section>
     <section id="projects" class="col-span-4 col-start-2 grid grid-cols-3 gap-4">
-        <ProjectList ids={projectIDs} projects={projects} client:load />
+        <ProjectList client:load />
     </section>
 
     <style is:global>
