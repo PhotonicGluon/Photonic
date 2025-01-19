@@ -40,7 +40,11 @@ export default class ProjectFilters extends Component<Props, State> {
     }
 
     /**
-     * Function that handles updates to the project list on filter condition changes.
+     * Updates the list of projects according to the selected tags.
+     *
+     * @param ids - IDs of the projects
+     * @param projects - Projects' data
+     * @param selectedTags - Set of selected tags
      */
     updateProjectList(ids: string[], projects: any[], selectedTags: Set<string>) {
         // Keep only the projects that match any one of the selected tags
@@ -74,6 +78,15 @@ export default class ProjectFilters extends Component<Props, State> {
     }
 
     // Operational methods
+    /**
+     * Function that handles filter checkbox clicks.
+     *
+     * Updates the list of selected tags, updates the query in the URL, and updates the project list
+     * based on the selected tags.
+     *
+     * @param ids - An array of project IDs
+     * @param projects - An array of project objects
+     */
     onFilterClick = (ids: string[], projects: any[]) => () => {
         this.updateSelectedTags();
         const selectedTags = new Set(projectStore.get().tags);
@@ -91,7 +104,7 @@ export default class ProjectFilters extends Component<Props, State> {
     render(props: Props, state: State) {
         const $projectStore = useStore(projectStore);
         return (
-            <>
+            <div class="w-full pr-3">
                 <span class="block font-bold">Search</span>
                 <div>(Future search box...)</div>
                 <span class="block pt-3 font-bold">Tags</span>
@@ -116,8 +129,27 @@ export default class ProjectFilters extends Component<Props, State> {
                     })}
                 </div>
                 <span class="block pt-3 font-bold">Sorting</span>
-                <div>List of sorting options...</div>
-            </>
+                <div id="sorting">
+                    <select
+                        id="sort-date"
+                        class="mb-2 block w-full rounded-lg border border-gray-600 bg-gray-700 focus:border-blue-500 focus:ring-blue-500"
+                    >
+                        <option value="start-date">Start Date</option>
+                        <option value="end-date" selected>
+                            End Date
+                        </option>
+                    </select>
+                    <select
+                        id="sort-order"
+                        class="block w-full rounded-lg border border-gray-600 bg-gray-700 focus:border-blue-500 focus:ring-blue-500"
+                    >
+                        <option value="ascending">Chronological</option>
+                        <option value="descending" selected>
+                            Reversed
+                        </option>
+                    </select>
+                </div>
+            </div>
         );
     }
 }
