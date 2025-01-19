@@ -15,20 +15,20 @@ interface Props {
 interface State {}
 
 export default class ProjectTag extends Component<Props, State> {
-    baseColour: string;
-    backgroundColour: string;
-
     constructor(props: Props) {
         super(props);
-
-        this.baseColour = formatRGBA(hexToRGBA(props.colour));
-        this.backgroundColour = formatRGBA(hexToRGBA(props.colour, props.alpha));
     }
 
     // Lifecycle methods
     render(props: Props, state: State) {
         return (
-            <span class="tag" style={{ "--baseColour": this.baseColour, "--backgroundColour": this.backgroundColour }}>
+            <span
+                class="tag"
+                style={{
+                    "--baseColour": formatRGBA(hexToRGBA(props.colour)),
+                    "--backgroundColour": formatRGBA(hexToRGBA(props.colour, props.alpha)),
+                }}
+            >
                 {props.name}
             </span>
         );
