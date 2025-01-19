@@ -130,18 +130,24 @@ export default class ProjectFilters extends Component<Props, State> {
                 </div>
                 <span class="block pt-3 font-bold">Sorting</span>
                 <div id="sorting">
+                    <label for="sort-date" class="sr-only">
+                        Date
+                    </label>
                     <select
                         id="sort-date"
-                        class="mb-2 block w-full rounded-lg border border-gray-600 bg-gray-700 focus:border-blue-500 focus:ring-blue-500"
+                        class="mb-2 block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:outline-none focus:ring-0"
                     >
                         <option value="start-date">Start Date</option>
                         <option value="end-date" selected>
                             End Date
                         </option>
                     </select>
+                    <label for="sort-order" class="sr-only">
+                        Order
+                    </label>
                     <select
                         id="sort-order"
-                        class="block w-full rounded-lg border border-gray-600 bg-gray-700 focus:border-blue-500 focus:ring-blue-500"
+                        class="block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:outline-none focus:ring-0"
                     >
                         <option value="ascending">Chronological</option>
                         <option value="descending" selected>
