@@ -1,5 +1,5 @@
 ---
-import ProjectCard from "@components/projects/ProjectCard.astro";
+import ProjectCard from "@components/projects/ProjectCard";
 import ProjectFilters from "@components/projects/ProjectFilters";
 import MainLayout from "@layouts/MainLayout.astro";
 import { toProject } from "@lib/projects/project";
@@ -16,7 +16,11 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
         <ProjectFilters projectIDs={projectIDs} projects={projects} client:load />
     </section>
     <section id="projects" class="col-span-4 col-start-2 grid grid-cols-3 gap-4">
-        {rawProjects.map((rawProject) => <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} />)}
+        {
+            rawProjects.map((rawProject) => (
+                <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} client:load />
+            ))
+        }
     </section>
 </MainLayout>
 

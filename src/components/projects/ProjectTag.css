@@ -1,0 +1,7 @@
+.tag {
+    @apply inline-flex h-3 flex-wrap content-center rounded-lg border border-solid border-[color:var(--baseColour)] bg-[color:var(--backgroundColour)] p-3 text-base;
+}
+
+.tag:not(:last-of-type) {
+    @apply mr-1;
+}
