@@ -10,14 +10,14 @@ export type ProjectInstance = {
     project: Project;
 };
 
-export enum SortDate {
-    START,
-    END,
+export const enum SortDate {
+    START = 0,
+    END = 1,
 }
 
-export enum SortOrder {
-    CHRONOLOGICAL,
-    REVERSED,
+export const enum SortOrder {
+    CHRONOLOGICAL = 0,
+    REVERSED = 1,
 }
 
 type SortParameters = {

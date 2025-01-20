@@ -44,12 +44,13 @@ export default class ProjectFilters extends Component<Props, State> {
         projectStore.setKey("tags", new Set(selectedTagsArray));
     }
 
+    /**
+     * Updates the sort parameters.
+     */
     updateSortParams() {
-        console.log("Usp");
-        // TODO: Add
-        // let a = SortDate[$("#sort-date").find(":selected").val()];
-        // let b = $("#sort-order").find(":selected").val();
-        // console.log(a, b);
+        const sortDate: SortDate = parseInt($("#sort-date").find(":selected").val()! as string);
+        const sortOrder: SortOrder = parseInt($("#sort-order").find(":selected").val()! as string);
+        projectStore.setKey("sort", { date: sortDate, order: sortOrder });
     }
 
     /**
@@ -59,7 +60,26 @@ export default class ProjectFilters extends Component<Props, State> {
      * @returns sorted list of project instances
      */
     sortDisplayedProjects(displayed: ProjectInstance[]): ProjectInstance[] {
-        // TODO: Add
+        const sortParams = projectStore.get().sort;
+
+        displayed.sort((a, b) => {
+            const aProj = a.project;
+            const bProj = b.project;
+
+            let aDate, bDate;
+            if (sortParams.date == SortDate.START) {
+                aDate = aProj.dates.start.getTime();
+                bDate = bProj.dates.start.getTime();
+            } else {
+                // END
+                aDate = aProj.dates.end ? aProj.dates.end.getTime() : Date.now();
+                bDate = bProj.dates.end ? bProj.dates.end.getTime() : Date.now();
+            }
+
+            const dateDelta = aDate - bDate;
+            return sortParams.order == SortOrder.CHRONOLOGICAL ? dateDelta : -dateDelta;
+        });
+
         return displayed;
     }
 
