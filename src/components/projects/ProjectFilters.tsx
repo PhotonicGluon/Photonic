@@ -141,7 +141,18 @@ export default class ProjectFilters extends Component<Props, State> {
         return (
             <div class="w-full pr-3">
                 <span class="block font-bold">Search</span>
-                <div>(Future search box...)</div>
+                <div id="search">
+                    <label for="search-project" class="sr-only">
+                        Search
+                    </label>
+                    <input
+                        type="text"
+                        id="search-project"
+                        class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                        placeholder="Search for a project..."
+                        required
+                    />
+                </div>
                 <span class="block pt-3 font-bold">Tags</span>
                 <div id="tags">
                     {tagNames.map((tagName) => {
