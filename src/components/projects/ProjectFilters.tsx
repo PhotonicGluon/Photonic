@@ -32,7 +32,14 @@ export default class ProjectFilters extends Component<Props, State> {
         projectStore.setKey("displayed", displayed);
     }
 
-    // Helper methods
+    // Store methods
+    /**
+     * Updates the search query in the story.
+     */
+    updateSearch() {
+        projectStore.setKey("search", $("#search-project").val()! as string);
+    }
+
     /**
      * Updates the list of selected tags.
      */
@@ -53,6 +60,7 @@ export default class ProjectFilters extends Component<Props, State> {
         projectStore.setKey("sort", { date: sortDate, order: sortOrder });
     }
 
+    // Helper methods
     /**
      * Sorts the displayed projects.
      *
@@ -91,18 +99,37 @@ export default class ProjectFilters extends Component<Props, State> {
      * @param selectedTags - Set of selected tags
      */
     updateProjectList(ids: string[], projects: Project[], selectedTags: Set<string>) {
-        // Keep only the projects that match any one of the selected tags
-        let newDisplayedProjects: ProjectInstance[] = [];
-
+        // First fill in the displayed projects
+        let displayedProjects: ProjectInstance[] = [];
         for (let i = 0; i < ids.length; i++) {
-            const id = ids[i];
-            const project = projects[i];
+            displayedProjects.push({ id: ids[i], project: projects[i] });
+        }
+
+        // Filter by search
+        const search = projectStore.get().search;
+        if (search !== "") {
+            let newDisplayedProjects: ProjectInstance[] = [];
+            displayedProjects.forEach((projectInstance) => {
+                if (projectInstance.project.name.toLowerCase().includes(search.toLowerCase())) {
+                    newDisplayedProjects.push(projectInstance);
+                }
+            });
+            displayedProjects = newDisplayedProjects;
+        }
+
+        // Then keep only the projects that match any one of the selected tags
+        let newDisplayedProjects: ProjectInstance[] = [];
+        displayedProjects.forEach((projectInstance) => {
+            const id = projectInstance.id;
+            const project = projectInstance.project;
 
             const projectTags = new Set(project.tags.map((tag: ProjectTagType) => tag.name));
             if (selectedTags.intersection(projectTags).size != 0) {
                 newDisplayedProjects.push({ id: id, project: project });
             }
-        }
+        });
+
+        // Sort the projects
         newDisplayedProjects = this.sortDisplayedProjects(newDisplayedProjects);
         projectStore.setKey("displayed", newDisplayedProjects);
 
@@ -128,9 +155,12 @@ export default class ProjectFilters extends Component<Props, State> {
      * @param projects - An array of project objects
      */
     onFiltersChange = (ids: string[], projects: Project[]) => () => {
+        // Update store details
+        this.updateSearch();
         this.updateSelectedTags();
         this.updateSortParams();
 
+        // Update project list
         const selectedTags = new Set(projectStore.get().tags);
         this.updateProjectList(ids, projects, selectedTags);
     };
@@ -150,6 +180,7 @@ export default class ProjectFilters extends Component<Props, State> {
                         id="search-project"
                         class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
                         placeholder="Search for a project..."
+                        onInput={this.onFiltersChange(props.ids, props.projects)}
                         required
                     />
                 </div>
