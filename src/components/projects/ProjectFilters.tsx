@@ -99,12 +99,7 @@ export default class ProjectFilters extends Component<Props, State> {
             const project = projects[i];
 
             const projectTags = new Set(project.tags.map((tag: ProjectTagType) => tag.name));
-
-            const cardID = `#project-${id}`;
-            if (selectedTags.intersection(projectTags).size == 0) {
-                $(cardID).hide();
-            } else {
-                $(cardID).show();
+            if (selectedTags.intersection(projectTags).size != 0) {
                 newDisplayedProjects.push({ id: id, project: project });
             }
         }
