@@ -135,14 +135,8 @@ export default class ProjectFilters extends Component<Props, State> {
     onFiltersChange = (ids: string[], projects: Project[]) => () => {
         this.updateSelectedTags();
         this.updateSortParams();
+
         const selectedTags = new Set(projectStore.get().tags);
-
-        // Update query in URL
-        const newURL = new URL(window.location.href);
-        newURL.searchParams.set("filter", Array.from(selectedTags).join(","));
-        window.history.pushState({}, "", newURL.toString());
-
-        // Update project list
         this.updateProjectList(ids, projects, selectedTags);
     };
 
