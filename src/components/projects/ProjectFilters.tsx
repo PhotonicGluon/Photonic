@@ -3,7 +3,7 @@ import { Component } from "preact";
 import { useStore } from "@nanostores/preact";
 
 import type { ProjectTagType } from "@lib/projects/tag";
-import { projectStore, tagNames, type ProjectInstance } from "./store";
+import { projectStore, SortDate, SortOrder, tagNames, type ProjectInstance } from "./store";
 import type { Project } from "@lib/projects/project";
 
 interface Props {
@@ -24,6 +24,11 @@ export default class ProjectFilters extends Component<Props, State> {
         for (let i = 0; i < props.ids.length; i++) {
             displayed.push({ id: props.ids[i], project: props.projects[i] });
         }
+
+        // Sort the displayed projects
+        displayed = this.sortDisplayedProjects(displayed);
+
+        // Then set the project store
         projectStore.setKey("displayed", displayed);
     }
 
@@ -39,6 +44,25 @@ export default class ProjectFilters extends Component<Props, State> {
         projectStore.setKey("tags", new Set(selectedTagsArray));
     }
 
+    updateSortParams() {
+        console.log("Usp");
+        // TODO: Add
+        // let a = SortDate[$("#sort-date").find(":selected").val()];
+        // let b = $("#sort-order").find(":selected").val();
+        // console.log(a, b);
+    }
+
+    /**
+     * Sorts the displayed projects.
+     *
+     * @param displayed list of project instances
+     * @returns sorted list of project instances
+     */
+    sortDisplayedProjects(displayed: ProjectInstance[]): ProjectInstance[] {
+        // TODO: Add
+        return displayed;
+    }
+
     /**
      * Updates the list of projects according to the selected tags.
      *
@@ -46,7 +70,7 @@ export default class ProjectFilters extends Component<Props, State> {
      * @param projects - Projects' data
      * @param selectedTags - Set of selected tags
      */
-    updateProjectList(ids: string[], projects: any[], selectedTags: Set<string>) {
+    updateProjectList(ids: string[], projects: Project[], selectedTags: Set<string>) {
         // Keep only the projects that match any one of the selected tags
         let newDisplayedProjects: ProjectInstance[] = [];
 
@@ -64,6 +88,7 @@ export default class ProjectFilters extends Component<Props, State> {
                 newDisplayedProjects.push({ id: id, project: project });
             }
         }
+        newDisplayedProjects = this.sortDisplayedProjects(newDisplayedProjects);
         projectStore.setKey("displayed", newDisplayedProjects);
 
         // Check if any projects are left
@@ -79,7 +104,7 @@ export default class ProjectFilters extends Component<Props, State> {
 
     // Operational methods
     /**
-     * Function that handles filter checkbox clicks.
+     * Function that handles filter and sort option changes.
      *
      * Updates the list of selected tags, updates the query in the URL, and updates the project list
      * based on the selected tags.
@@ -87,8 +112,9 @@ export default class ProjectFilters extends Component<Props, State> {
      * @param ids - An array of project IDs
      * @param projects - An array of project objects
      */
-    onFilterClick = (ids: string[], projects: any[]) => () => {
+    onFiltersChange = (ids: string[], projects: Project[]) => () => {
         this.updateSelectedTags();
+        this.updateSortParams();
         const selectedTags = new Set(projectStore.get().tags);
 
         // Update query in URL
@@ -118,7 +144,7 @@ export default class ProjectFilters extends Component<Props, State> {
                                     type="checkbox"
                                     value={tagName}
                                     class="h-4 w-4 rounded border-gray-600 bg-gray-700 text-blue-500 ring-offset-gray-800 focus:ring-2 focus:ring-blue-500"
-                                    onChange={this.onFilterClick(props.ids, props.projects)}
+                                    onChange={this.onFiltersChange(props.ids, props.projects)}
                                     checked={$projectStore.tags.has(tagName)}
                                 />
                                 <label for={checkboxID} class="ms-2 text-sm font-medium">
@@ -136,9 +162,10 @@ export default class ProjectFilters extends Component<Props, State> {
                     <select
                         id="sort-date"
                         class="mb-2 block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:outline-none focus:ring-0"
+                        onChange={this.onFiltersChange(props.ids, props.projects)}
                     >
-                        <option value="start-date">Start Date</option>
-                        <option value="end-date" selected>
+                        <option value={SortDate.START}>Start Date</option>
+                        <option value={SortDate.END} selected>
                             End Date
                         </option>
                     </select>
@@ -148,9 +175,10 @@ export default class ProjectFilters extends Component<Props, State> {
                     <select
                         id="sort-order"
                         class="block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:outline-none focus:ring-0"
+                        onChange={this.onFiltersChange(props.ids, props.projects)}
                     >
-                        <option value="ascending">Chronological</option>
-                        <option value="descending" selected>
+                        <option value={SortOrder.CHRONOLOGICAL}>Chronological</option>
+                        <option value={SortOrder.REVERSED} selected>
                             Reversed
                         </option>
                     </select>
