@@ -29,10 +29,9 @@ export default class ProjectFilters extends Component<Props, State> {
     // Lifecycle methods
     render(props: Props, state: State) {
         return (
-            // TODO: We can do better with the card design... especially the 90% width...
             <div
                 id={`project-${props.id}`}
-                class="mx-auto my-0 w-[90%] cursor-pointer rounded-xl border border-solid border-white p-[10px] text-center"
+                class="mx-auto my-0 w-11/12 cursor-pointer rounded-lg border border-solid border-gray-500 bg-gray-800/75 p-3 text-center"
                 onClick={this.onClick(props.id)}
             >
                 {/* TODO: Edit card contents */}
