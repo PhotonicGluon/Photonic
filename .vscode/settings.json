@@ -38,8 +38,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "tailwindCSS.includeLanguages": {
         "astro": "html"
-    },
-    "files.associations": {
-        "*.css": "tailwindcss"
     }
 }
