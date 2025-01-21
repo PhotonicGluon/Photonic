@@ -31,13 +31,21 @@ export default class ProjectFilters extends Component<Props, State> {
     // Lifecycle methods
     render(props: Props, state: State) {
         const project = props.project;
+        const projectTags = project.tags.map((tag: ProjectTagType) => (
+            <ProjectTag name={tag.name} colour={tag.colour} alpha={tag.alpha} />
+        ));
+
         let topBlock = <span class="text-2xl font-bold">{project.name}</span>;
         if (project.banner) {
             topBlock = <img class="rounded-lg" src={project.banner} alt={`${project.name} banner`} loading="lazy" />;
         }
         const cardFront = (
             <>
-                <div class="flex h-full w-full items-center justify-center">{topBlock}</div>
+                <div class="flex h-full w-full flex-col items-center justify-center">
+                    <div>{topBlock}</div>
+                    <div class="mt-1">{projectTags}</div>
+                </div>
+
                 <span class="duration mt-auto">
                     {toDateString(project.dates.start)} &mdash;{" "}
                     {project.dates.end ? toDateString(project.dates.end) : "Present"}
@@ -45,13 +53,10 @@ export default class ProjectFilters extends Component<Props, State> {
             </>
         );
 
-        const projectTags = project.tags.map((tag: ProjectTagType) => (
-            <ProjectTag name={tag.name} colour={tag.colour} alpha={tag.alpha} />
-        ));
         const cardBack = (
             <div>
                 <span class="text-2xl font-bold">{project.name}</span>
-                <div class="tags">{projectTags}</div>
+
                 <p class="mt-4 text-center">{project.summary}</p>
             </div>
         );
@@ -60,10 +65,9 @@ export default class ProjectFilters extends Component<Props, State> {
             <div class="card h-96 w-full">
                 <div
                     id={`project-${props.id}`}
-                    class="card-content relative mx-auto my-0 h-full w-11/12 cursor-pointer rounded-lg border border-solid border-gray-500 bg-gray-800/75 p-3 text-center transition-transform duration-500"
+                    class="card-content relative mx-auto my-0 h-full w-11/12 cursor-pointer rounded-lg bg-gradient-to-tr from-gray-900 via-slate-700 via-75% to-gray-800 p-3 text-center transition-transform duration-500"
                     onClick={this.onClick(props.id)}
                 >
-                    {/* TODO: Edit card contents */}
                     <div class="card-front absolute bottom-0 left-0 right-0 top-0 flex flex-col items-center justify-center p-8">
                         {cardFront}
                     </div>
