@@ -19,7 +19,7 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
     <section id="filters" class="sticky top-3 col-span-1 col-start-1 self-start">
         <ProjectFilters ids={projectIDs} projects={projects} client:load />
     </section>
-    <section id="projects" class="col-span-4 col-start-2 grid grid-cols-3 gap-4">
+    <section id="projects" class="col-span-4 col-start-2 grid grid-cols-3 justify-items-center gap-4">
         <ProjectList client:load />
     </section>
 </MainLayout>

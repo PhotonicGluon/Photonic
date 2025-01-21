@@ -37,16 +37,18 @@ export default class ProjectFilters extends Component<Props, State> {
 
         let topBlock = <span class="text-2xl font-bold">{project.name}</span>;
         if (project.banner) {
-            topBlock = <img class="rounded-lg" src={project.banner} alt={`${project.name} banner`} loading="lazy" />;
+            topBlock = (
+                <img class="max-h-full rounded-lg" src={project.banner} alt={`${project.name} banner`} loading="lazy" />
+            );
         }
         const cardFront = (
             <>
                 <div class="flex h-full w-full flex-col items-center justify-center">
-                    <div>{topBlock}</div>
+                    <div class="max-h-full">{topBlock}</div>
                     <div class="mt-1 grid grid-flow-row grid-cols-1 gap-1 lg:flex">{projectTags}</div>
                 </div>
 
-                <span class="duration mt-auto">
+                <span class="mt-auto">
                     {toDateString(project.dates.start)} &mdash;{" "}
                     {project.dates.end ? toDateString(project.dates.end) : "Present"}
                 </span>
@@ -62,7 +64,7 @@ export default class ProjectFilters extends Component<Props, State> {
         );
 
         return (
-            <div class="card h-96 w-full">
+            <div class="card h-96 w-full max-w-96">
                 <div
                     id={`project-${props.id}`}
                     class="card-content relative mx-auto my-0 h-full w-11/12 cursor-pointer rounded-lg bg-gradient-to-tr from-gray-900 via-slate-700 via-75% to-gray-800 p-3 text-center transition-transform duration-500"

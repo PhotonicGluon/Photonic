@@ -24,7 +24,7 @@ const projects = await getFeaturedProjects();
     <!-- TODO: Change styling -->
     <section id="featured-projects">
         <h2 class="section-title">Featured Projects</h2>
-        <div class="projects">
+        <div class="grid grid-cols-3 justify-items-center gap-4 pt-8">
             {
                 projects.map((rawProject) => (
                     <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} client:visible />
@@ -43,9 +43,5 @@ const projects = await getFeaturedProjects();
 
     #featured-projects .section-title {
         @apply text-center text-5xl font-bold underline;
-    }
-
-    .projects {
-        @apply grid grid-cols-3 gap-4 pt-8;
     }
 </style>
