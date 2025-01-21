@@ -30,6 +30,32 @@ export default class ProjectFilters extends Component<Props, State> {
 
     // Lifecycle methods
     render(props: Props, state: State) {
+        const project = props.project;
+        let topBlock = <span class="text-2xl font-bold">{project.name}</span>;
+        if (project.banner) {
+            topBlock = <img class="rounded-lg" src={project.banner} alt={`${project.name} banner`} loading="lazy" />;
+        }
+        const cardFront = (
+            <>
+                <div class="flex h-full w-full items-center justify-center">{topBlock}</div>
+                <span class="duration mt-auto">
+                    {toDateString(project.dates.start)} &mdash;{" "}
+                    {project.dates.end ? toDateString(project.dates.end) : "Present"}
+                </span>
+            </>
+        );
+
+        const projectTags = project.tags.map((tag: ProjectTagType) => (
+            <ProjectTag name={tag.name} colour={tag.colour} alpha={tag.alpha} />
+        ));
+        const cardBack = (
+            <div>
+                <span class="text-2xl font-bold">{project.name}</span>
+                <div class="tags">{projectTags}</div>
+                <p class="mt-4 text-center">{project.summary}</p>
+            </div>
+        );
+
         return (
             <div class="card h-96 w-full">
                 <div
@@ -38,25 +64,11 @@ export default class ProjectFilters extends Component<Props, State> {
                     onClick={this.onClick(props.id)}
                 >
                     {/* TODO: Edit card contents */}
-                    <div class="card-front absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center p-8">
-                        <div>
-                            <span class="block text-2xl font-bold">{props.project.name}</span>
-                            <span class="duration block">
-                                {toDateString(props.project.dates.start)} &mdash;{" "}
-                                {props.project.dates.end ? toDateString(props.project.dates.end) : "Present"}
-                            </span>
-                        </div>
+                    <div class="card-front absolute bottom-0 left-0 right-0 top-0 flex flex-col items-center justify-center p-8">
+                        {cardFront}
                     </div>
-                    <div class="card-back absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center p-8">
-                        <div>
-                            <span class="text-2xl font-bold">{props.project.name}</span>
-                            <div class="tags">
-                                {props.project.tags.map((tag: ProjectTagType) => (
-                                    <ProjectTag name={tag.name} colour={tag.colour} alpha={tag.alpha} />
-                                ))}
-                            </div>
-                            <p class="text-center">{props.project.summary}</p>
-                        </div>
+                    <div class="card-back absolute bottom-0 left-0 right-0 top-0 flex flex-col items-center justify-center p-8">
+                        {cardBack}
                     </div>
                 </div>
             </div>
