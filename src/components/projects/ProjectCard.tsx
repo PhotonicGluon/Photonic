@@ -43,7 +43,7 @@ export default class ProjectFilters extends Component<Props, State> {
             <>
                 <div class="flex h-full w-full flex-col items-center justify-center">
                     <div>{topBlock}</div>
-                    <div class="mt-1">{projectTags}</div>
+                    <div class="mt-1 grid grid-flow-row grid-cols-1 gap-1 lg:flex">{projectTags}</div>
                 </div>
 
                 <span class="duration mt-auto">
