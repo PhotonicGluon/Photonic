@@ -1,14 +1,23 @@
 ---
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import MainLayout from "./MainLayout.astro";
+
 import { toProject } from "@lib/projects/project";
 import { toDateString } from "@lib/misc/dates";
 
+import MainLayout from "@layouts/MainLayout.astro";
+
 type Props = CollectionEntry<"projects">["data"];
 const project = toProject(Astro.props);
+
+// Check if we can eagerly load the image
+let bannerImage = null;
+if (project.banner && !project.banner.startsWith("http")) {
+    bannerImage = (await import(/* @vite-ignore */ project.banner)) as ImageMetadata;
+}
 ---
 
-<!-- TODO: Update -->
+{/* TODO: Update */}
 <MainLayout
     title={project.name}
     subtitle=`${toDateString(project.dates.start)} — ${project.dates.end ? toDateString(project.dates.end) : "Present"}`
@@ -16,7 +25,19 @@ const project = toProject(Astro.props);
     <slot name="head-fonts" slot="head-fonts" />
     <slot name="head-scripts" slot="head-scripts" />
 
-    <section id="project">
+    {/* Handle banner image */}
+    <div class="w-full">
+        {bannerImage && <Image src={bannerImage} alt={`${project.name} Banner`} class="banner-image" />}
+        {/* TODO: Can we use <Image> for remote images? */}
+        {
+            !bannerImage && project.banner && (
+                <img src={project.banner} alt={`${project.name} Banner`} class="banner-image" />
+            )
+        }
+    </div>
+
+    {/* Actual project contents */}
+    <section id="project" class="mt-4">
         <slot />
     </section>
 </MainLayout>
@@ -30,5 +51,11 @@ const project = toProject(Astro.props);
     /* Hero box specific styling */
     .text h1 {
         @apply pt-0 leading-normal;
+    }
+</style>
+
+<style>
+    .banner-image {
+        @apply mx-auto max-w-screen-sm rounded;
     }
 </style>
