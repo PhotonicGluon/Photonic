@@ -8,7 +8,7 @@ type Props = CollectionEntry<"projects">["data"];
 const project = toProject(Astro.props);
 ---
 
-<!-- TODO: Update -->
+{/* TODO: Update */}
 <MainLayout
     title={project.name}
     subtitle=`${toDateString(project.dates.start)} — ${project.dates.end ? toDateString(project.dates.end) : "Present"}`
