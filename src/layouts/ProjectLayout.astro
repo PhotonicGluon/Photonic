@@ -5,6 +5,8 @@ import type { CollectionEntry } from "astro:content";
 import { toProject } from "@lib/projects/project";
 import { toDateString } from "@lib/misc/dates";
 
+import ProjectTags from "@components/projects/ProjectTags";
+
 import MainLayout from "@layouts/MainLayout.astro";
 
 type Props = CollectionEntry<"projects">["data"];
@@ -35,6 +37,9 @@ if (project.banner && !project.banner.startsWith("http")) {
             )
         }
     </div>
+
+    {/* Add tags */}
+    <ProjectTags tags={project.tags} />
 
     {/* Actual project contents */}
     <section id="project" class="mt-4">
