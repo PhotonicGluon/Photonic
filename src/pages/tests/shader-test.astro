@@ -7,11 +7,7 @@ if (import.meta.env.PROD) {
 }
 ---
 
-<Shader
-    id="test-shader"
-    fragURL="lib/shaders/frag/contour/contour-modifiable.frag"
-    editableUniformsURL="lib/shaders/frag/contour/editable-uniforms.ts"
-/>
+<Shader id="test-shader" basePath="lib/shaders/frag/contour" />
 
 <style is:global>
     #test-shader {

@@ -1,18 +1,13 @@
 ---
 import { readFileSync } from "fs";
+import path from "path";
 
 // Set up properties of the component
 export interface Props {
     /** ID of the element */
     id: string;
-    /** URL to the fragment shader */
-    fragURL: string;
-    /**
-     * Optional URL to a typescript file containing editable uniforms.
-     *
-     * Do **not** include a leading slash (i.e., follow the format used by `fragURL`).
-     */
-    editableUniformsURL?: string;
+    /** Base path to the fragment shader's folder */
+    basePath: string;
     /**
      * Optional shader constants.
      *
@@ -21,15 +16,24 @@ export interface Props {
     constants?: { [name: string]: any };
 }
 
-const { id, fragURL, editableUniformsURL, constants } = Astro.props;
+const { id, basePath, constants } = Astro.props;
+
+// Determine which fragment shader to use
+let fragPath = path.join(basePath, "modifiable.frag");
+let editableUniformsPath: string | null = path.join(basePath, "editable-uniforms.ts");
+if (import.meta.env.PROD) {
+    const latestShader = readFileSync(path.join(basePath, "latest.txt"), "utf-8").trimEnd();
+    fragPath = path.join(basePath, `${latestShader}.frag`);
+    editableUniformsPath = null;
+}
 
 // Get fragment shader code
-const shaderFrag: string = readFileSync(fragURL, "utf-8");
+const shaderFrag: string = readFileSync(fragPath, "utf-8");
 
 // Get editable uniforms
 let editableUniforms;
-if (editableUniformsURL && !import.meta.env.PROD) {
-    editableUniforms = (await import(/* @vite-ignore */ "/" + editableUniformsURL)).editableUniforms;
+if (editableUniformsPath) {
+    editableUniforms = (await import(/* @vite-ignore */ "/" + editableUniformsPath)).editableUniforms;
 } else {
     editableUniforms = {};
 }
@@ -38,7 +42,7 @@ if (editableUniformsURL && !import.meta.env.PROD) {
 <canvas
     class="shader"
     id={id}
-    data-shader-url={fragURL}
+    data-shader-url={fragPath}
     data-shader-frag={shaderFrag}
     data-constants={JSON.stringify(constants)}
     data-editable-uniforms={JSON.stringify(editableUniforms)}></canvas>

@@ -39,8 +39,7 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         <Header />
         <Shader
             id="body-shader"
-            fragURL="lib/shaders/frag/contour/contour-modifiable.frag"
-            editableUniformsURL="lib/shaders/frag/contour/editable-uniforms.ts"
+            basePath="lib/shaders/frag/contour"
             constants={{ cTimeOffset: contourNoiseTimeOffset }}
         />
         <slot />
@@ -61,7 +60,7 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
 
     html {
         /* TODO: Handle 'light mode'*/
-        @apply bg-black;
+        @apply bg-gray-950;
     }
 
     /* Paragraph styling */
