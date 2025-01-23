@@ -9,31 +9,35 @@ uniform vec3 iResolution;     // Viewport resolution (width, height, pixel ratio
 uniform sampler2D iChannel1;  // Input texture
 
 // User-controllable parameters
-uniform bool uPixelated;          // Toggle for pixelation effect
-uniform float uPixelationFactor;  // Factor to use for the pixelation effect, larger means more pixelated
+uniform bool uPixelated;            // Toggle for pixelation effect
+uniform float uPixelationFactor;    // Factor to use for the pixelation effect, larger means more pixelated
 
-uniform float uAspectRatioFix;    // Aspect ratio fix factor
-uniform vec2 uOffset;             // Initial UV offset vector
-uniform float uScale;             // UV scaling factor
+uniform float uAspectRatioFix;      // Aspect ratio fix factor
+uniform vec2 uOffset;               // Initial UV offset vector
+uniform float uScale;               // UV scaling factor
 
-uniform bool uApplySwirl;         // Whether to apply the rotation effect
-uniform float uSwirlAmount;       // Amount of swirling
-uniform float uSwirlSpeed;        // Speed of rotation
+uniform bool uApplySwirl;           // Whether to apply the rotation effect
+uniform float uSwirlAmount;         // Amount of swirling
+uniform float uSwirlSpeed;          // Speed of rotation
 
-uniform int uWarpIter;            // Number of iterations to apply the warping
-uniform bool uWarpKeepImgScale;   // Whether to maintain the image scaling when applying the warp
-uniform float uWarpScale;         // Warp UV scaling factor
-uniform float uWarpAmount;        // Warping factor
-uniform float uWarpSpeed;         // Speed of the warp effect
-uniform vec4 uWarpUV2Coeff;       // Coefficients for the UV2 iteration in the warping loop
-uniform vec4 uWarpUV3Coeff;       // Coefficients for the UV3 iteration in the warping loop
+uniform int uWarpIter;              // Number of iterations to apply the warping
+uniform bool uWarpKeepImgScale;     // Whether to maintain the image scaling when applying the warp
+uniform float uWarpScale;           // Warp UV scaling factor
+uniform float uWarpAmount;          // Warping factor
+uniform float uWarpSpeed;           // Speed of the warp effect
+uniform vec4 uWarpUV2Coeff;         // Coefficients for the UV2 iteration in the warping loop
+uniform vec4 uWarpUV3Coeff;         // Coefficients for the UV3 iteration in the warping loop
 
-uniform vec4 uColour1;            // Primary, outer colour
-uniform vec4 uColour2;            // Secondary, inner colour
-uniform vec4 uColour3;            // Tertiary, highlights/shadows colour
-uniform float uColourContrast;    // Contrast adjustment for pure colours
-uniform float uColourSpread;      // Factor adjusting the amount of space the inner colour takes
-uniform float uColourShine;       // Shine factor, lower = more shine
+uniform vec4 uColour1;              // Primary, outer colour
+uniform vec4 uColour2;              // Secondary, inner colour
+uniform vec4 uColour3;              // Tertiary, highlights/shadows colour
+uniform float uColourContrast;      // Contrast adjustment for pure colours
+uniform float uColourSpread;        // Factor adjusting the amount of space the inner colour takes
+uniform float uColourShine;         // Shine factor, lower = more shine
+
+uniform bool uAntialiasing;         // Toggle for antialiasing
+uniform float uAntialiasingLevel;   // Level of antialiasing to apply
+uniform float uAntialiasingRadius;  // Radius to sample points for antialiasing
 
 // CONSTANTS
 #define IMAGE_SCALE 1.0
@@ -47,9 +51,10 @@ out vec4 outColour;
 /**
  * Gets the initial UV for further modification.
  *
+ * @param fragCoord Fragment coordinates
  * @return initial UV as a 2D vector
  */
-vec2 getInitialUV() {
+vec2 getInitialUV(vec2 fragCoord) {
     vec2 center = iResolution.xy / 2.0f;
 
     // Calculate texture scaling to maintain aspect ratio
@@ -58,12 +63,12 @@ vec2 getInitialUV() {
     float minTexSizeRatio = min(texSizeRatio.x, texSizeRatio.y);
 
     // Scale pixel coordinates to match texture size while maintaining aspect ratio
-    vec2 scaledPx = (((gl_FragCoord.xy - center) * minTexSizeRatio) / (texSizeRatio * IMAGE_SCALE)) + center;
+    vec2 scaledPx = (((fragCoord - center) * minTexSizeRatio) / (texSizeRatio * IMAGE_SCALE)) + center;
     vec2 uv = scaledPx * texSizeRatio;
     vec2 uvScaled = uv / texSize;
 
     // Mix with aspect ratio UV
-    vec2 basicUV = (gl_FragCoord.xy - center) / length(iResolution.xy);
+    vec2 basicUV = (fragCoord - center) / length(iResolution.xy);
     vec2 mixedUV = mix(basicUV, uvScaled, uAspectRatioFix) - uOffset;
 
     // Apply pixelation
@@ -175,9 +180,9 @@ vec4 sampleColour(vec2 uv) {
 }
 
 // MAIN
-void main() {
+vec4 getFinalColour(vec2 fragCoord) {
     // Get the initial UV
-    vec2 initialUV = getInitialUV();
+    vec2 initialUV = getInitialUV(fragCoord);
     vec2 uv = vec2(initialUV);  // Copy of the initial UV for us to modify
 
     // Apply effects
@@ -188,6 +193,26 @@ void main() {
         uv = applyWarp(uv);
     }
 
-    // Get the colour to return
-    outColour = sampleColour(uv);
+    // Sample colour and return
+    return sampleColour(uv);
+}
+
+void main() {
+    if(!uAntialiasing) {
+        outColour = getFinalColour(gl_FragCoord.xy);
+        return;
+    }
+
+    // Apply antialiasing
+    // (Adapted from https://www.shadertoy.com/view/wtjfRV by Greg Rostami)
+    float step = 1.0f / uAntialiasingLevel;
+
+    vec4 finalColour = vec4(0);
+    for(float x = -uAntialiasingRadius; x < uAntialiasingRadius; x += step) {
+        for(float y = -uAntialiasingRadius; y < uAntialiasingRadius; y += step) {
+            finalColour += min(getFinalColour(gl_FragCoord.xy + vec2(x, y)), 1.0f);
+        }
+    }
+    finalColour /= (4.0f * uAntialiasingRadius * uAntialiasingRadius) * (uAntialiasingLevel * uAntialiasingLevel);
+    outColour = finalColour;
 }
