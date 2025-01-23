@@ -1,10 +1,8 @@
 import { Component } from "preact";
 
-import ProjectTag from "@components/projects/ProjectTag";
+import ProjectTags from "@components/projects/ProjectTags";
 
-import type { ProjectTagType } from "@lib/projects/tag";
 import type { Project } from "@lib/projects/project";
-
 import { toDateString } from "@lib/misc/dates";
 
 import "./ProjectCard.css";
@@ -31,9 +29,6 @@ export default class ProjectFilters extends Component<Props, State> {
     // Lifecycle methods
     render(props: Props, state: State) {
         const project = props.project;
-        const projectTags = project.tags.map((tag: ProjectTagType) => (
-            <ProjectTag name={tag.name} colour={tag.colour} alpha={tag.alpha} />
-        ));
 
         let topBlock = <span class="text-2xl font-bold">{project.name}</span>;
         if (project.banner) {
@@ -45,7 +40,7 @@ export default class ProjectFilters extends Component<Props, State> {
             <>
                 <div class="flex h-full w-full flex-col items-center justify-center">
                     <div class="max-h-full">{topBlock}</div>
-                    <div class="mt-1 grid grid-flow-row grid-cols-1 gap-1 lg:flex">{projectTags}</div>
+                    <ProjectTags tags={project.tags}></ProjectTags>
                 </div>
 
                 <span class="mt-auto">
