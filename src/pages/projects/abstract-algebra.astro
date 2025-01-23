@@ -1,6 +1,9 @@
 ---
 import ProjectLayout from "@layouts/ProjectLayout.astro";
+import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
+
+import bookCoverMockup from "@public/projects/abstract-algebra/cover-mockup.webp";
 
 const project = (await getEntry("projects", "abstract-algebra"))!;
 ---
@@ -28,7 +31,7 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
         crossorigin="anonymous"
     />
 
-    <div class="abstract-algebra">
+    <div class="text-[14pt]">
         <p>
             <em>A Complete Introduction to Abstract Algebra</em> is a textbook on abstract algebra.
         </p>
@@ -38,7 +41,7 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
             fields are also used in coding theory and combinatorics. I hope this book will inspire more people to learn
             more about abstract algebra, beyond the simple introduction presented here.
         </p>
-        <p style="padding-bottom: 0">This book serves to achieve several goals.</p>
+        <p class="pb-0">This book serves to achieve several goals.</p>
         <ul>
             <li>
                 Provide a step-by-step explanation of core results from abstract algebra, without ambiguity of the
@@ -59,22 +62,27 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
                 >Creative Commons Attribution-ShareAlike 4.0 International Licence</a
             >.
         </p>
-        <div class="book-container">
-            <div class="book">
-                <div class="book-cover">
-                    {/* TODO: Use image component */}
-                    <img src="/projects/abstract-algebra/cover-mockup.webp" alt="Cover Mockup" />
-                </div>
-                <div class="book-download" id="book-download"></div>
+    </div>
+    <div class="block text-center">
+        <div class="inline-block">
+            <Image class="mb-3 max-w-64 rounded-3xl" src={bookCoverMockup} alt="Cover Mockup" />
+            <div>
+                <a
+                    class="mb-2 rounded-lg bg-sky-700 px-5 py-2.5 text-white hover:bg-sky-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-sky-900"
+                    id="book-download"
+                    href="#"
+                    download>Loading Download...</a
+                >
             </div>
         </div>
-
-        <hr style="margin: 15px 0; border: 1px solid var(--dark-grey);" />
-        <h2>Latest Release Notes (<span id="latest-release"></span>)</h2>
-        <div id="changelog"></div>
     </div>
+
+    <hr class="my-4 border border-gray-700" />
+    <h2>Latest Release Notes (<span id="latest-release" class="text-2xl">Loading...</span>)</h2>
+    <div id="changelog"></div>
 </ProjectLayout>
 
+{/* Fonts */}
 <style>
     @font-face {
         font-family: "CMU Serif";
@@ -105,70 +113,16 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
     }
 </style>
 
+{/* Main Styling */}
 <style>
-    /* TODO: Update */
-    /* MAIN STYLING */
-    .abstract-algebra {
+    * {
         font-family: "CMU Serif", serif;
-    }
-
-    .abstract-algebra h2,
-    .abstract-algebra h3 {
-        font-weight: bold;
-    }
-
-    .book-container {
-        display: block;
-        text-align: center;
-    }
-
-    .book {
-        display: inline-block;
-        text-align: center;
-    }
-
-    .book-cover {
-        display: flex;
-        flex-wrap: wrap;
-        align-content: center;
-        justify-content: center;
-        max-height: 400px;
-        margin-bottom: 10px;
-    }
-
-    .book-cover img {
-        border-radius: 20px;
-        max-height: 400px;
-        max-width: 100%;
-    }
-
-    .book-download .button {
-        display: block;
-        margin-bottom: 10px;
-        border: 1px solid var(--blue);
-    }
-
-    .book-download .button:hover::after {
-        background-color: var(--blue);
-    }
-
-    /* QUERIES */
-    @media (max-width: 768px) {
-        .book-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-    }
-
-    @media (max-width: 425px) {
-        .book-grid {
-            grid-template-columns: minmax(0, 1fr);
-        }
     }
 </style>
 
 <script>
     // TODO: Can we use astro's markdown converter for this?
-    // TODO: Also update script
+    // TODO: Also update script; latex converter seems to not work anymore...
 
     import $ from "jquery";
     import showdown from "showdown";
@@ -222,7 +176,8 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
                 downloadText += ` (Post ${post})`;
             }
 
-            $(`#book-download`).html(`<a href="${downloadURL}" class="button" download>${downloadText}</a>`);
+            $(`#book-download`).attr("href", downloadURL);
+            $(`#book-download`).html(downloadText);
 
             $("#latest-release").html(latestRelease["name"]);
             $("#changelog").html(converter.makeHtml(body));
