@@ -1,4 +1,6 @@
 ---
+import path from "path";
+
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
@@ -15,7 +17,11 @@ const project = toProject(Astro.props);
 // Check if we can eagerly load the image
 let bannerImage = null;
 if (project.banner && !project.banner.startsWith("http")) {
-    bannerImage = (await import(/* @vite-ignore */ project.banner)) as ImageMetadata;
+    // Form correct absolute path to the banner
+    const bannerPath = path.join(path.relative(import.meta.dirname, process.cwd()), "public", project.banner);
+
+    // Import local image
+    bannerImage = (await import(/* @vite-ignore */ bannerPath)).default;
 }
 ---
 
