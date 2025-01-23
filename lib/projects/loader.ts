@@ -145,6 +145,10 @@ export function projectsLoader(options: ProjectLoaderOptions): Loader {
 
             // Sync all projects
             const projectIDs = readdirSync(projectsRootPathAbsolute); // Directory names *are* the IDs
+            if (projectIDs.includes(".DS_Store")) {
+                projectIDs.splice(projectIDs.indexOf(".DS_Store"), 1);
+            }
+
             await syncProjects(projectIDs, options, context);
 
             // Watch for project file changes
