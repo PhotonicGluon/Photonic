@@ -26,4 +26,8 @@ export const editableUniforms: SlidersOptionsMap = {
     uColourContrast: { type: "float", value: 3.0, min: 0.0, max: 3.0, step: 1e-1 },
     uColourSpread: { type: "float", value: 0.9, min: 0.8, max: 1.0, step: 1e-3 },
     uColourShine: { type: "float", value: 5.0, min: 1, max: 10, step: 0.25 },
+
+    uAntialiasing: { type: "boolean", value: true },
+    uAntialiasingLevel: { type: "float", value: 3.0, min: 1.0, max: 16.0, step: 1.0 },
+    uAntialiasingRadius: { type: "float", value: 1.25, min: 0.1, max: 3.0, step: 1e-2 },
 };
