@@ -12,6 +12,7 @@
 
 .card-front,
 .card-back {
+    transform: rotateX(0); /* Needed for the card flip to properly work on Firefox */
     backface-visibility: hidden;
 }
 
