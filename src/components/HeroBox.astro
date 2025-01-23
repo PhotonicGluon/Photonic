@@ -18,17 +18,11 @@ export interface Props {
 
     // Shader
     /**
-     * Optional URL to the fragment shader.
+     * Optional base path to the fragment shader's folder.
      *
      * If not provided, will not use a shader.
      */
-    fragURL?: string;
-    /**
-     * Optional URL to a typescript file containing editable uniforms.
-     *
-     * Do **not** include a leading slash (i.e., follow the format used by `fragURL`).
-     */
-    editableUniformsURL?: string;
+    basePath?: string;
 }
 
 const {
@@ -37,16 +31,15 @@ const {
     subtitle,
     subtitleSize = "12pt",
     height = "max(300px, 35vh)",
-    fragURL,
-    editableUniformsURL,
+    basePath,
 } = Astro.props;
 ---
 
 <div class="hero-box">
     {
-        fragURL && (
+        basePath && (
             <>
-                <Shader id="hero-shader" fragURL={fragURL} editableUniformsURL={editableUniformsURL} />
+                <Shader id="hero-shader" basePath={basePath} />
                 <div class="overlay" />
             </>
         )
@@ -56,7 +49,7 @@ const {
         {subtitle && <h2>{subtitle}</h2>}
     </div>
 </div>
-{fragURL && <div class="hero-box-smooth-transition" />}
+{basePath && <div class="hero-box-smooth-transition" />}
 
 <style define:vars={{ height, titleSize, subtitleSize }}>
     .hero-box {
