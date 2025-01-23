@@ -54,14 +54,31 @@ if (project.banner && !project.banner.startsWith("http")) {
 </MainLayout>
 
 <style is:global>
-    /* General styling */
-    h1 {
-        @apply pt-4 text-3xl font-bold;
-    }
-
     /* Hero box specific styling */
     .text h1 {
         @apply pt-0 leading-normal;
+    }
+
+    /* Project content specific styling */
+    #project h1 {
+        @apply pt-4 text-3xl font-bold;
+    }
+
+    #project h2 {
+        @apply pt-3 text-2xl font-bold;
+    }
+
+    #project h3 {
+        @apply pt-2 text-xl font-bold;
+    }
+
+    #project img {
+        @apply mx-auto block rounded;
+    }
+
+    #project ol,
+    #project ul {
+        @apply list-inside list-disc;
     }
 </style>
 
