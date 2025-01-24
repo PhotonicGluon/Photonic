@@ -3,6 +3,8 @@ import ProjectLayout from "@layouts/ProjectLayout.astro";
 import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 
+import ButtonLink from "@components/generic/ButtonLink.astro";
+
 import bookCoverMockup from "@public/projects/abstract-algebra/cover-mockup.webp";
 
 const project = (await getEntry("projects", "abstract-algebra"))!;
@@ -67,12 +69,9 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
         <div class="inline-block">
             <Image class="mb-3 max-w-64 rounded-3xl" src={bookCoverMockup} alt="Cover Mockup" />
             <div>
-                <a
-                    class="mb-2 rounded-lg bg-sky-700 px-5 py-2.5 text-white hover:bg-sky-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-sky-900"
-                    id="book-download"
-                    href="#"
-                    download>Loading Download...</a
-                >
+                <ButtonLink class="bg-sky-700 hover:bg-sky-800" id="book-download" href="#" download>
+                    Loading Download...
+                </ButtonLink>
             </div>
         </div>
     </div>
