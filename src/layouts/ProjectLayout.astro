@@ -1,7 +1,7 @@
 ---
-import path from "path";
+import sizeOf from "image-size";
 
-import { Image } from "astro:assets";
+import { Image, inferRemoteSize } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 import { toProject } from "@lib/projects/project";
@@ -14,14 +14,17 @@ import MainLayout from "@layouts/MainLayout.astro";
 type Props = CollectionEntry<"projects">["data"];
 const project = toProject(Astro.props);
 
-// Check if we can eagerly load the image
-let bannerImage = null;
-if (project.banner && !project.banner.startsWith("http")) {
-    // Form correct absolute path to the banner
-    const bannerPath = path.join(path.relative(import.meta.dirname, process.cwd()), "public", project.banner);
+let width, height;
+if (project.banner) {
+    let dimensions;
+    if (project.banner.startsWith("http")) {
+        dimensions = await inferRemoteSize(project.banner);
+    } else {
+        dimensions = sizeOf(`public${project.banner}`);
+    }
 
-    // Import local image
-    bannerImage = (await import(/* @vite-ignore */ bannerPath)).default;
+    width = dimensions.width;
+    height = dimensions.height;
 }
 ---
 
@@ -35,11 +38,16 @@ if (project.banner && !project.banner.startsWith("http")) {
 
     {/* Handle banner image */}
     <div class="w-full">
-        {bannerImage && <Image src={bannerImage} alt={`${project.name} Banner`} class="banner-image" />}
-        {/* TODO: Can we use <Image> for remote images? */}
         {
-            !bannerImage && project.banner && (
-                <img src={project.banner} alt={`${project.name} Banner`} class="banner-image" />
+            project.banner && (
+                <Image
+                    src={project.banner}
+                    alt={`${project.name} Banner`}
+                    class="mx-auto max-w-screen-sm rounded"
+                    width={width!}
+                    height={height!}
+                    loading="eager"
+                />
             )
         }
     </div>
@@ -79,11 +87,5 @@ if (project.banner && !project.banner.startsWith("http")) {
     #project ol,
     #project ul {
         @apply list-inside list-disc;
-    }
-</style>
-
-<style>
-    .banner-image {
-        @apply mx-auto max-w-screen-sm rounded;
     }
 </style>
