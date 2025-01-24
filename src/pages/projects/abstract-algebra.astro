@@ -13,23 +13,23 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
 <ProjectLayout {...project.data}>
     <Fragment slot="head-scripts">
         <script
+            is:inline
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.19/dist/katex.min.js"
-            integrity="sha384-cpW21h6RZv/phavutF+AuVYrr+dA8xD9zs6FwLpaCct6O9ctzYFfFr4dgmgccOTx"
-            crossorigin="anonymous"
-            is:inline></script>
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"
+            integrity="sha384-Rma6DA2IPUwhNxmrB/7S3Tno0YY7sFu9WSYMCuulLhIqYSGZ2gKCJWIqhBWqMQfh"
+            crossorigin="anonymous"></script>
         <script
+            is:inline
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.19/dist/contrib/auto-render.min.js"
-            integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05"
-            crossorigin="anonymous"
-            is:inline></script>
+            src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"
+            integrity="sha384-hCXGrW6PitJEwbkoStFjeJxv+fSOOQKOPbJxSfM6G5sWZjAyWhXiTIIAmQqnlLlh"
+            crossorigin="anonymous"></script>
     </Fragment>
 
     <link
         rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/katex@0.16.19/dist/katex.min.css"
-        integrity="sha384-GvrOXuhMATgEsSwCs4smul74iXGOixntILdUW9XmUC6+HX0sLNAK3q71HotJqlAn"
+        href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"
+        integrity="sha384-zh0CIslj+VczCZtlzBcjt5ppRcsAmDnRem7ESsYwWwg3m/OaJ2l4x7YBZl9Kxxib"
         crossorigin="anonymous"
     />
 
@@ -120,20 +120,24 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
 </style>
 
 <script>
-    // TODO: Can we use astro's markdown converter for this?
-    // TODO: Also update script; latex converter seems to not work anymore...
-
     import $ from "jquery";
     import showdown from "showdown";
 
     // Initialize Showdown converter
-    let converter = new showdown.Converter();
+    // (Can't use Astro's markdown-remark cos' its only on server-side)
+    const converter = new showdown.Converter();
 
     // Helper functions
-    function ordinal_suffix(num: number) {
-        // Adapted from https://stackoverflow.com/a/13627586
-        let tens = num % 10;
-        let hundreds = num % 100;
+    /**
+     * Computes the ordinal suffix of a number.
+     *
+     * Adapted from https://stackoverflow.com/a/13627586.
+     *
+     * @param num The number to get the ordinal suffix for
+     */
+    function ordinalSuffix(num: number) {
+        const tens = num % 10;
+        const hundreds = num % 100;
 
         let suffix = "th";
         if (tens === 1 && hundreds !== 11) {
@@ -150,24 +154,24 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
     }
 
     // Main code
-    $(document).ready(() => {
+    $(() => {
         $.get("https://api.github.com/repos/PhotonicGluon/Abstract-Algebra-Book/releases", (releases) => {
-            let latestRelease = releases[0];
-            let assets = latestRelease["assets"];
-            let body = latestRelease["body"];
+            const latestRelease = releases[0];
+            const assets = latestRelease["assets"];
+            const body = latestRelease["body"];
 
-            let asset = assets[0];
-            let name = asset["name"];
-            let downloadURL = asset["browser_download_url"];
+            const asset = assets[0];
+            const name = asset["name"];
+            const downloadURL = asset["browser_download_url"];
 
-            let nameMatch = name.match(
+            const nameMatch = name.match(
                 /Abstract_Algebra_v(?<edition>[\d.]+)(?:-build\.(?<build>\d+))?(?:-post\.(?<post>\d+))?\.pdf/,
             );
-            let edition = nameMatch.groups["edition"];
-            let build = nameMatch.groups["build"];
-            let post = nameMatch.groups["post"];
+            const edition = nameMatch.groups["edition"];
+            const build = nameMatch.groups["build"];
+            const post = nameMatch.groups["post"];
 
-            let downloadText = `Download ${ordinal_suffix(edition)} Edition`;
+            let downloadText = `Download ${ordinalSuffix(edition)} Edition`;
             if (build !== undefined) {
                 downloadText += ` (Build ${build})`;
             }
@@ -180,6 +184,7 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
 
             $("#latest-release").html(latestRelease["name"]);
             $("#changelog").html(converter.makeHtml(body));
+
             // @ts-ignore Cannot find name
             renderMathInElement(document.getElementById("changelog"), {
                 delimiters: [
