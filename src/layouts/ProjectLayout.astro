@@ -84,8 +84,11 @@ if (project.banner) {
         @apply mx-auto block rounded;
     }
 
-    #project ol,
     #project ul {
-        @apply list-inside list-disc;
+        @apply list-outside list-disc pl-4;
+    }
+
+    #project ol {
+        @apply list-outside list-decimal pl-4;
     }
 </style>

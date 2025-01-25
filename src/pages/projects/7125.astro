@@ -1,6 +1,9 @@
 ---
-import ProjectLayout from "@layouts/ProjectLayout.astro";
 import { getEntry } from "astro:content";
+
+import ButtonLink from "@components/generic/ButtonLink.astro";
+
+import ProjectLayout from "@layouts/ProjectLayout.astro";
 
 const project = (await getEntry("projects", "7125"))!;
 ---
@@ -10,15 +13,16 @@ const project = (await getEntry("projects", "7125"))!;
         <em>7125</em> is an EP exploring themes of secrecy, identity, and revelations.
     </p>
     <p>
-        This is my first 'real' attempt at making my own compositions in <a href="https://musescore.org/">MuseScore</a>,
-        a free and open-source notation application. Created over 4 months, I am proud of how the five tracks turned
-        out. They are experimental pieces as I try out new music techniques and notation styles for the first time.
+        This is my first 'real' attempt at making my own compositions in
+        <a href="https://musescore.org/">MuseScore</a>, a free and open-source notation application. Created
+        over 4 months, I am proud of how the five tracks turned out. They are experimental pieces as I try out
+        new music techniques and notation styles for the first time.
     </p>
     <p>
-        The final EP is available on <a href="https://melodicgluon.bandcamp.com/album/7125">Bandcamp</a>. Sheet music
-        and MuseScore links are listed below:
+        The final EP is available on <a href="https://melodicgluon.bandcamp.com/album/7125">Bandcamp</a>.
+        Sheet music and MuseScore links are listed below:
     </p>
-    <ol class="music-list">
+    <ol class="pb-4">
         <li>
             <div class="music-entry">
                 <span class="music-title">Unorthodox Identity</span><span class="bracket"> [</span><span
@@ -26,29 +30,39 @@ const project = (await getEntry("projects", "7125"))!;
                 ><span class="bracket">]:</span>
             </div>
             <div class="music-buttons">
-                <a class="button sheet-music-button" href="/projects/7125/Unorthodox%20Identity.pdf" download
-                    >Sheet Music</a
-                >
-                <a
+                <ButtonLink
                     class="button musescore-button"
                     href="https://musescore.com/user/23043611/scores/9860671/s/yMiWHZ"
-                    target="_blank">MuseScore</a
+                    target="_blank"
                 >
+                    MuseScore
+                </ButtonLink>
+                <ButtonLink
+                    class="button sheet-music-button"
+                    href="/projects/7125/Unorthodox%20Identity.pdf"
+                    download
+                >
+                    Sheet Music
+                </ButtonLink>
             </div>
         </li>
         <li>
             <div class="music-entry">
-                <span class="music-title">Revealed</span><span class="bracket"> [</span><span class="music-duration"
-                    >03:42</span
+                <span class="music-title">Revealed</span><span class="bracket"> [</span><span
+                    class="music-duration">03:42</span
                 ><span class="bracket">]:</span>
             </div>
             <div class="music-buttons">
-                <a class="button sheet-music-button" href="/projects/7125/Revealed.pdf" download>Sheet Music</a>
-                <a
+                <ButtonLink
                     class="button musescore-button"
                     href="https://musescore.com/user/23043611/scores/9860719/s/AlMpBi"
-                    target="_blank">MuseScore</a
+                    target="_blank"
                 >
+                    MuseScore
+                </ButtonLink>
+                <ButtonLink class="button sheet-music-button" href="/projects/7125/Revealed.pdf" download>
+                    Sheet Music
+                </ButtonLink>
             </div>
         </li>
         <li>
@@ -58,12 +72,20 @@ const project = (await getEntry("projects", "7125"))!;
                 ><span class="bracket">]:</span>
             </div>
             <div class="music-buttons">
-                <a class="button sheet-music-button" href="/projects/7125/Hidden%20Secrets.pdf" download>Sheet Music</a>
-                <a
+                <ButtonLink
                     class="button musescore-button"
                     href="https://musescore.com/user/23043611/scores/9860737/s/4P4j7_"
-                    target="_blank">MuseScore</a
+                    target="_blank"
                 >
+                    MuseScore
+                </ButtonLink>
+                <ButtonLink
+                    class="button sheet-music-button"
+                    href="/projects/7125/Hidden%20Secrets.pdf"
+                    download
+                >
+                    Sheet Music
+                </ButtonLink>
             </div>
         </li>
         <li>
@@ -73,28 +95,39 @@ const project = (await getEntry("projects", "7125"))!;
                 ><span class="bracket">]:</span>
             </div>
             <div class="music-buttons">
-                <a class="button sheet-music-button" href="/projects/7125/Melancholy%20Hope.pdf" download>Sheet Music</a
-                >
-                <a
+                <ButtonLink
                     class="button musescore-button"
                     href="https://musescore.com/user/23043611/scores/9860752/s/8GU4ZZ"
-                    target="_blank">MuseScore</a
+                    target="_blank"
                 >
+                    MuseScore
+                </ButtonLink>
+                <ButtonLink
+                    class="button sheet-music-button"
+                    href="/projects/7125/Melancholy%20Hope.pdf"
+                    download
+                >
+                    Sheet Music
+                </ButtonLink>
             </div>
         </li>
         <li>
             <div class="music-entry">
-                <span class="music-title">Gout Nimoc</span><span class="bracket"> [</span><span class="music-duration"
-                    >03:18</span
+                <span class="music-title">Gout Nimoc</span><span class="bracket"> [</span><span
+                    class="music-duration">03:18</span
                 ><span class="bracket">]:</span>
             </div>
             <div class="music-buttons">
-                <a class="button sheet-music-button" href="/projects/7125/Gout%20Nimoc.pdf" download>Sheet Music</a>
-                <a
+                <ButtonLink
                     class="button musescore-button"
-                    href="https://musescore.com/user/23043611/scores/9860764/s/F5wTNU"
-                    target="_blank">MuseScore</a
+                    href="https://musescore.com/user/23043611/scores/9860764"
+                    target="_blank"
                 >
+                    MuseScore
+                </ButtonLink>
+                <ButtonLink class="button sheet-music-button" href="/projects/7125/Gout%20Nimoc.pdf" download>
+                    Sheet Music
+                </ButtonLink>
             </div>
         </li>
         <li>
@@ -104,105 +137,47 @@ const project = (await getEntry("projects", "7125"))!;
                 ><span class="bracket">]:</span>
             </div>
             <div class="music-buttons">
-                <a class="button sheet-music-button" href="/projects/7125/Unshackled.pdf" download>Sheet Music</a>
-                <a
+                <ButtonLink
                     class="button musescore-button"
                     href="https://musescore.com/user/23043611/scores/9980317"
-                    target="_blank">MuseScore</a
+                    target="_blank"
                 >
+                    MuseScore
+                </ButtonLink>
+                <ButtonLink class="button sheet-music-button" href="/projects/7125/Unshackled.pdf" download>
+                    Sheet Music
+                </ButtonLink>
             </div>
         </li>
     </ol>
     <p>
-        This EP is released under a <a href="https://creativecommons.org/licenses/by-nc/4.0/"
-            >Creative Commons Attribution-NonCommercial 4.0 International Licence</a
-        >.
+        This EP is released under a
+        <a href="https://creativecommons.org/licenses/by-nc/4.0/">
+            Creative Commons Attribution-NonCommercial 4.0 International Licence
+        </a>.
     </p>
 </ProjectLayout>
 
 <style>
-    /* TODO: Replace */
-    /* MAIN STYLING */
-    .music-list {
-        padding-bottom: 15px;
+    /* General styling */
+    li {
+        @apply mb-3 last:mb-0;
     }
 
-    .music-list li:not(:last-of-type) {
-        margin-bottom: 10px;
-    }
-
-    .music-entry,
-    .music-buttons {
-        display: inline-block;
-    }
-
-    .music-entry {
-        width: 260px;
-    }
-
-    .sheet-music-button {
-        border: 1px solid var(--blue);
-    }
-
-    .sheet-music-button:hover::after {
-        background-color: var(--blue);
+    li div {
+        @apply inline-block font-bold;
     }
 
     .musescore-button {
-        border: 1px solid var(--green);
+        @apply bg-indigo-700 hover:bg-indigo-800;
     }
 
-    .musescore-button:hover::after {
-        background-color: var(--green);
+    .sheet-music-button {
+        @apply bg-violet-700 hover:bg-violet-800;
     }
 
-    /* QUERIES */
-    @media (max-width: 768px) {
-        ol {
-            list-style: none;
-            padding: 0;
-        }
-
-        .music-entry,
-        .music-title,
-        .music-duration,
-        .music-buttons {
-            display: block;
-            width: 100%;
-            text-align: center;
-        }
-
-        .music-title {
-            font-size: 24pt;
-            font-weight: bold;
-        }
-
-        .music-duration {
-            color: var(--white-secondary);
-        }
-
-        .bracket {
-            display: none;
-        }
-
-        .music-list li:not(:last-of-type) {
-            margin-bottom: 30px;
-        }
-
-        .sheet-music-button,
-        .musescore-button {
-            width: 125px;
-        }
-    }
-
-    @media (max-width: 425px) {
-        .sheet-music-button,
-        .musescore-button {
-            width: 200px;
-        }
-
-        .sheet-music-button {
-            margin-bottom: 5px;
-        }
+    /* Music pieces' styling */
+    .music-entry {
+        @apply w-96;
     }
 </style>
