@@ -4,25 +4,14 @@ import { Image } from "astro:assets";
 import hamburgerIcon from "@images/icons/hamburger-menu.svg";
 ---
 
-<div class="hamburger">
-    <Image src={hamburgerIcon} alt="Open Menu" />
+<div class="float-right h-16 w-16 cursor-pointer md:hidden" id="hamburger">
+    <Image class="relative top-1/2 m-auto h-10 w-10 -translate-y-1/2" src={hamburgerIcon} alt="Open Menu" />
 </div>
-
-<style>
-    .hamburger {
-        @apply float-right h-16 w-16 cursor-pointer md:hidden;
-    }
-
-    .hamburger img {
-        @apply relative top-1/2 m-auto h-10 w-10 -translate-y-1/2;
-    }
-</style>
 
 <script>
     import $ from "jquery";
 
-    const hamburger = $(".hamburger");
-    hamburger.on("click", () => {
-        $(".links")[0].classList.toggle("expanded");
+    $("#hamburger").on("click", () => {
+        $("#links")[0].classList.toggle("expanded");
     });
 </script>

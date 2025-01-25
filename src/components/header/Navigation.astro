@@ -3,34 +3,22 @@ import { Image } from "astro:assets";
 import logoImage from "@images/Icon.jpg";
 ---
 
-<div class="nav">
+<div class="mx-auto my-0">
     <a href="/">
-        <Image class="logo" src={logoImage} alt="Photonic Logo" loading="eager" />
+        <Image class="float-left h-16 w-auto rounded-2xl" src={logoImage} alt="Photonic Logo" loading="eager" />
     </a>
-    <div class="links">
+    <div class="float-right m-0 hidden w-full md:static md:ml-20 md:block md:w-auto md:bg-none" id="links">
         <a href="/projects">Projects</a>
         <a href="/about">About</a>
     </div>
 </div>
 
 <style>
-    .nav {
-        @apply mx-auto my-0;
-    }
-
-    .logo {
-        @apply float-left h-16 w-auto rounded-2xl;
-    }
-
-    .links {
-        @apply float-right m-0 hidden w-full md:static md:ml-20 md:block md:w-auto md:bg-none;
-    }
-
-    .links a {
-        @apply block px-0 py-3 text-center font-mono text-2xl uppercase text-gray-400 no-underline transition-all duration-200 hover:text-gray-300 focus:text-gray-300 md:inline-block md:px-4 md:py-5;
-    }
-
     .expanded {
         display: unset;
+    }
+
+    #links a {
+        @apply block px-0 py-3 text-center font-mono text-2xl uppercase text-gray-400 no-underline transition-all duration-200 hover:text-gray-300 focus:text-gray-300 md:inline-block md:px-4 md:py-5;
     }
 </style>
