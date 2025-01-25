@@ -5,8 +5,7 @@ import MainLayout from "@layouts/MainLayout.astro";
 
 import { getFeaturedProjects, toProject } from "@lib/projects/project";
 
-// Get featured projects
-const projects = await getFeaturedProjects();
+const featuredProjects = await getFeaturedProjects();
 ---
 
 <MainLayout tabTitle="Photonic">
@@ -20,27 +19,14 @@ const projects = await getFeaturedProjects();
         slot="hero-box"
     />
 
-    {/* TODO: Change styling */}
-    <section id="featured-projects">
-        <h2 class="section-title">Featured Projects</h2>
+    <section class="pt-8">
+        <h2 class="text-center text-5xl font-bold underline">Featured Projects</h2>
         <div class="grid grid-cols-3 justify-items-center gap-4 pt-8">
             {
-                projects.map((rawProject) => (
+                featuredProjects.map((rawProject) => (
                     <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} client:visible />
                 ))
             }
         </div>
     </section>
 </MainLayout>
-
-<style>
-    /* TODO: Change styling */
-
-    #featured-projects {
-        @apply pt-8;
-    }
-
-    #featured-projects .section-title {
-        @apply text-center text-5xl font-bold underline;
-    }
-</style>

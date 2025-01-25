@@ -4,7 +4,8 @@ import MainLayout from "@layouts/MainLayout.astro";
 
 <!-- TODO: Change contents-->
 <MainLayout title="About Me">
-    <section id="about-me">
+    {/* About me */}
+    <section>
         <p>Hello! Welcome to my site! I hope you like it!</p>
         <p>
             I am <b>Kan Onn Kit</b> (Ryan Kan), a Singaporean. I am known as <code>PhotonicGluon</code> online. I am a programmer
@@ -18,20 +19,16 @@ import MainLayout from "@layouts/MainLayout.astro";
             me to showcase my problem-solving skillset and come up with a solution.
         </p>
     </section>
-    <section id="contact">
+
+    {/* Contact */}
+    <section>
         <span>Questions? Comments? Reach me via:</span>
         {/* TODO: Maybe use a nicer way to display contact info */}
         {/* TODO: Also change contact info */}
         {/* TODO: Also use actual buttons >:( */}
-        <ul>
+        <ul class="list-inside list-disc">
             <li>Email: <a href="mailto:contact@overwrite.site">contact@overwrite.site</a></li>
             <li>LinkedIn: <a href="https://www.linkedin.com/in/kan-onn-kit">Onn Kit Kan</a></li>
         </ul>
     </section>
 </MainLayout>
-
-<style>
-    ul {
-        @apply list-inside list-disc;
-    }
-</style>

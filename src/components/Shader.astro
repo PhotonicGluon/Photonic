@@ -4,6 +4,8 @@ import path from "path";
 
 // Set up properties of the component
 export interface Props {
+    /** Optional class(es) to apply */
+    class?: string;
     /** ID of the element */
     id: string;
     /** Base path to the fragment shader's folder */
@@ -16,7 +18,7 @@ export interface Props {
     constants?: { [name: string]: any };
 }
 
-const { id, basePath, constants } = Astro.props;
+const { class: className, id, basePath, constants } = Astro.props;
 
 // Determine which fragment shader to use
 let fragPath = path.join(basePath, "modifiable.frag");
@@ -40,18 +42,12 @@ if (editableUniformsPath) {
 ---
 
 <canvas
-    class="shader"
+    class={"shader h-[inherit] w-full" + ` ${className}`}
     id={id}
     data-shader-url={fragPath}
     data-shader-frag={shaderFrag}
     data-constants={JSON.stringify(constants)}
     data-editable-uniforms={JSON.stringify(editableUniforms)}></canvas>
-
-<style>
-    .shader {
-        @apply h-[inherit] w-full;
-    }
-</style>
 
 <script>
     /**
