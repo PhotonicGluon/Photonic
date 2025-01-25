@@ -8,12 +8,20 @@ import { toProject } from "@lib/projects/project";
 import { toDateString } from "@lib/misc/dates";
 
 import ProjectTags from "@components/projects/ProjectTags";
+import IconLink from "@components/generic/IconLink.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
+// Import social icons
+import githubLogo from "@images/icons/github-mark-white.svg";
+import bandcampLogo from "@images/icons/bandcamp-button-circle-line-white-256.png";
+import webLogo from "@images/icons/internet.svg";
+
+// Get the project
 type Props = CollectionEntry<"projects">["data"];
 const project = toProject(Astro.props);
 
+// Handle banner
 let width, height;
 if (project.banner) {
     let dimensions;
@@ -36,7 +44,7 @@ if (project.banner) {
     <slot name="head-fonts" slot="head-fonts" />
     <slot name="head-scripts" slot="head-scripts" />
 
-    {/* Handle banner image */}
+    {/* Banner image */}
     <div class="w-full">
         {
             project.banner && (
@@ -54,6 +62,17 @@ if (project.banner) {
 
     {/* Add tags */}
     <ProjectTags tags={project.tags} />
+
+    {/* Icons for URLs */}
+    <ul class="mt-2 flex justify-center p-0">
+        {project.urls.github && <IconLink platform="GitHub" url={project.urls.github} icon={githubLogo} />}
+        {
+            project.urls.bandcamp && (
+                <IconLink platform="Bandcamp" url={project.urls.bandcamp} icon={bandcampLogo} />
+            )
+        }
+        {project.urls.website && <IconLink platform="Website" url={project.urls.website} icon={webLogo} />}
+    </ul>
 
     {/* Actual project contents */}
     <section id="project" class="mt-4">
