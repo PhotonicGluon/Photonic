@@ -13,19 +13,8 @@ export interface Props {
 const { platform, url, icon } = Astro.props;
 ---
 
-{/* TODO: Improve this */}
-<li>
-    <a href={url} title=`Link to ${platform}`>
-        <Image src={icon} alt=`${platform} Logo` />
+<li class="mr-5 last:mr-0">
+    <a href={url} title={platform}>
+        <Image class="h-10 w-auto" src={icon} alt=`${platform} Logo` />
     </a>
 </li>
-
-<style>
-    li:not(:last-of-type) {
-        @apply mr-5;
-    }
-
-    li img {
-        @apply h-10 w-auto;
-    }
-</style>

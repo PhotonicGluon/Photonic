@@ -35,49 +35,39 @@ const {
 } = Astro.props;
 ---
 
-<div class="hero-box">
+<div class="h-[var(--height)]" style={{ "--height": height }}>
     {
         basePath && (
             <>
                 <Shader id="hero-shader" basePath={basePath} />
-                <div class="overlay" />
+                <div class="absolute top-0 h-[inherit] w-full bg-gradient-to-b from-transparent via-gray-950/40 via-70% to-gray-950" />
             </>
         )
     }
-    <div class="text">
-        <h1>{title}</h1>
-        {subtitle && <h2>{subtitle}</h2>}
+    <div
+        class="absolute left-1/2 top-[calc(var(--height)/2)] mx-0 my-auto w-full -translate-x-1/2 -translate-y-1/2 text-center"
+        style={{ "--height": height }}
+    >
+        <h1
+            class="m-0 text-[length:var(--titleSize)] font-bold leading-normal text-white"
+            style={{ "--titleSize": titleSize }}
+        >
+            {title}
+        </h1>
+        {
+            subtitle && (
+                <h2 class="m-0 text-[length:var(--subtitleSize)] text-white" style={{ "--subtitleSize": subtitleSize }}>
+                    {subtitle}
+                </h2>
+            )
+        }
     </div>
 </div>
-{basePath && <div class="hero-box-smooth-transition" />}
-
-<style define:vars={{ height, titleSize, subtitleSize }}>
-    .hero-box {
-        @apply h-[var(--height)];
-    }
-
-    .hero-box-smooth-transition {
-        @apply absolute top-[var(--height)] -z-10 h-64 w-full bg-gradient-to-b from-gray-950 via-gray-950/40 via-30% to-transparent;
-    }
-
-    .overlay {
-        /* TODO: Handle 'light mode' */
-        @apply absolute top-0 h-[inherit] w-full bg-gradient-to-b from-transparent via-gray-950/40 via-70% to-gray-950;
-    }
-
-    .text {
-        @apply absolute left-1/2 top-[calc(var(--height)/2)] mx-0 my-auto w-full -translate-x-1/2 -translate-y-1/2 text-center;
-    }
-
-    .text * {
-        @apply m-0 text-white;
-    }
-
-    .text h1 {
-        @apply text-[length:var(--titleSize)] font-bold;
-    }
-
-    .text h2 {
-        @apply text-[length:var(--subtitleSize)];
-    }
-</style>
+{
+    basePath && (
+        <div
+            class="absolute top-[var(--height)] -z-10 h-64 w-full bg-gradient-to-b from-gray-950 via-gray-950/40 via-30% to-transparent"
+            style={{ "--height": height }}
+        />
+    )
+}

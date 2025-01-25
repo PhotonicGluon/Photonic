@@ -15,7 +15,7 @@ const projectIDs = rawProjects.map((rawProject) => rawProject.id);
 const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 ---
 
-<MainLayout title="Projects">
+<MainLayout class="grid grid-cols-5 divide-x-2 divide-solid divide-gray-500" title="Projects">
     <section id="filters" class="sticky top-3 col-span-1 col-start-1 self-start">
         <ProjectFilters ids={projectIDs} projects={projects} client:load />
     </section>
@@ -23,9 +23,3 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
         <ProjectList client:load />
     </section>
 </MainLayout>
-
-<style is:global>
-    main {
-        @apply grid grid-cols-5 divide-x-2 divide-solid divide-gray-500;
-    }
-</style>
