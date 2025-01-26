@@ -5,6 +5,8 @@ import ProjectTag from "@components/projects/ProjectTag";
 import type { ProjectTagType } from "@lib/projects/tag";
 
 interface Props {
+    /** Optional CSS class(es) to apply */
+    class?: string;
     /** List of project tags */
     tags: ProjectTagType[];
 }
@@ -19,7 +21,7 @@ export default class ProjectTags extends Component<Props, State> {
     // Lifecycle methods
     render(props: Props, state: State) {
         return (
-            <div class="mt-1 grid grid-flow-row grid-cols-1 justify-center gap-1 lg:flex">
+            <div class={"mt-1 grid grid-flow-row grid-cols-1 justify-center gap-1 lg:flex" + ` ${props.class}`}>
                 {props.tags.map((tag: ProjectTagType) => (
                     <ProjectTag name={tag.name} colour={tag.colour} alpha={tag.alpha} />
                 ))}

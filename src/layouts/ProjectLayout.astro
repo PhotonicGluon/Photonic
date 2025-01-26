@@ -36,7 +36,6 @@ if (project.banner) {
 }
 ---
 
-{/* TODO: Update */}
 <MainLayout
     title={project.name}
     subtitle=`${toDateString(project.dates.start)} — ${project.dates.end ? toDateString(project.dates.end) : "Present"}`
@@ -45,9 +44,9 @@ if (project.banner) {
     <slot name="head-scripts" slot="head-scripts" />
 
     {/* Banner image */}
-    <div class="w-full">
-        {
-            project.banner && (
+    {
+        project.banner && (
+            <div class="w-full motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-4 motion-safe:fill-mode-backwards">
                 <Image
                     src={project.banner}
                     alt={`${project.name} Banner`}
@@ -56,26 +55,30 @@ if (project.banner) {
                     height={height!}
                     loading="eager"
                 />
-            )
-        }
-    </div>
+            </div>
+        )
+    }
 
     {/* Add tags */}
-    <ProjectTags tags={project.tags} />
+    <ProjectTags
+        class="motion-safe:delay-300 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards"
+        tags={project.tags}
+    />
 
     {/* Icons for URLs */}
-    <ul class="mt-2 flex justify-center p-0">
+    <ul
+        class="mt-2 flex justify-center p-0 motion-safe:delay-400 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards"
+    >
         {project.urls.github && <IconLink platform="GitHub" url={project.urls.github} icon={githubLogo} />}
-        {
-            project.urls.bandcamp && (
-                <IconLink platform="Bandcamp" url={project.urls.bandcamp} icon={bandcampLogo} />
-            )
-        }
+        {project.urls.bandcamp && <IconLink platform="Bandcamp" url={project.urls.bandcamp} icon={bandcampLogo} />}
         {project.urls.website && <IconLink platform="Website" url={project.urls.website} icon={webLogo} />}
     </ul>
 
     {/* Actual project contents */}
-    <section id="project" class="mt-4">
+    <section
+        id="project"
+        class="mt-4 motion-safe:delay-500 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards"
+    >
         <slot />
     </section>
 </MainLayout>

@@ -12,10 +12,15 @@ export default {
             sans: ["DM Sans", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif"],
             mono: ["JetBrains Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Courier New", "monospace"],
         },
+        extend: {
+            transitionDelay: {
+                400: "400ms",
+                600: "600ms",
+                700: "700ms",
+                800: "800ms",
+                900: "900ms",
+            },
+        },
     },
-    plugins: [
-        require("@tailwindcss/forms"),
-        require("tailwindcss-animate"),
-        require("tailwindcss-intersect")
-    ],
+    plugins: [require("@tailwindcss/forms"), require("tailwindcss-animate"), require("tailwindcss-intersect")],
 };
