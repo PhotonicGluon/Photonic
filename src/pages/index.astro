@@ -9,16 +9,23 @@ const featuredProjects = await getFeaturedProjects();
 ---
 
 <MainLayout tabTitle="Photonic">
-    <HeroBox
-        title="Photonic"
-        titleClass="text-8xl"
-        subtitle="Making cool things."
-        subtitleClass="text-lg"
-        height="max(600px, 100vh)"
-        basePath="lib/shaders/frag/swirl"
-        slot="hero-box"
-    />
+    {/* Hero box */}
+    <Fragment slot="hero-box">
+        <HeroBox
+            title="Photonic"
+            titleClass="text-8xl"
+            subtitle="Making cool things."
+            subtitleClass="text-lg"
+            height="max(600px, 100vh)"
+            basePath="lib/shaders/frag/swirl"
+        />
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-500 *:mx-auto *:block *:w-fit">
+            <span class="italic">Scroll down to read more</span>
+            <span>&#9660 {/* Downward caret */}</span>
+        </div>
+    </Fragment>
 
+    {/* Featured projects */}
     <section class="pt-8">
         <h2 class="text-center text-5xl font-bold underline">Featured Projects</h2>
         <div class="grid grid-cols-3 justify-items-center gap-4 pt-8">
