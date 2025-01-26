@@ -11,6 +11,8 @@ export interface Props {
      * Defaults to `"text-6xl"`.
      * */
     titleClass?: string;
+    /** Animation override for the title text */
+    titleAnimation?: string;
     /** Optional CSS inline styles to apply to the title text */
     titleStyle?: string;
     /** Optional subtitle of the page */
@@ -21,6 +23,8 @@ export interface Props {
      * Defaults to `"text-base"`.
      * */
     subtitleClass?: string;
+    /** Animation override for the subtitle text */
+    subtitleAnimation?: string;
     /** Optional CSS inline styles to apply to the subtitle text */
     subtitleStyle?: string;
 
@@ -40,9 +44,11 @@ export interface Props {
 const {
     title,
     titleClass = "text-6xl",
+    titleAnimation = "motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-top-3",
     titleStyle,
     subtitle,
     subtitleClass = "text-base",
+    subtitleAnimation = "motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-bottom-2",
     subtitleStyle,
     height = "max(300px, 35vh)",
     basePath,
@@ -62,12 +68,15 @@ const {
         class="absolute left-1/2 top-[calc(var(--height)/2)] mx-0 my-auto w-full -translate-x-1/2 -translate-y-1/2 text-center"
         style={{ "--height": height }}
     >
-        <h1 class={"m-0 font-bold leading-normal text-white" + ` ${titleClass}`} style={titleStyle}>
+        <h1
+            class={"m-0 font-bold leading-normal text-white" + ` ${titleClass} ${titleAnimation}`}
+            style={titleStyle}
+        >
             {title}
         </h1>
         {
             subtitle && (
-                <h2 class={"m-0 text-white" + ` ${subtitleClass}`} style={subtitleStyle}>
+                <h2 class={"m-0 text-white" + ` ${subtitleClass} ${subtitleAnimation}`} style={subtitleStyle}>
                     {subtitle}
                 </h2>
             )

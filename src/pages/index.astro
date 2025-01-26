@@ -13,9 +13,11 @@ const featuredProjects = await getFeaturedProjects();
     <Fragment slot="hero-box">
         <HeroBox
             title="Photonic"
-            titleClass="text-8xl motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-top-4"
+            titleClass="text-8xl"
+            titleAnimation="motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-top-4"
             subtitle="Making cool things."
-            subtitleClass="text-lg motion-safe:duration-1000 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-bottom-2"
+            subtitleClass="text-lg"
+            subtitleAnimation="motion-safe:duration-1000 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-bottom-2"
             height="max(600px, 100vh)"
             basePath="lib/shaders/frag/swirl"
         />
