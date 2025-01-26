@@ -13,21 +13,27 @@ const featuredProjects = await getFeaturedProjects();
     <Fragment slot="hero-box">
         <HeroBox
             title="Photonic"
-            titleClass="text-8xl"
+            titleClass="text-8xl motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-top-4"
             subtitle="Making cool things."
-            subtitleClass="text-lg"
+            subtitleClass="text-lg motion-safe:duration-1000 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-bottom-2"
             height="max(600px, 100vh)"
             basePath="lib/shaders/frag/swirl"
         />
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-gray-500 *:mx-auto *:block *:w-fit">
-            <span class="italic">Scroll down to read more</span>
-            <span>&#9660 {/* Downward caret */}</span>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+            <div class="text-gray-500 *:mx-auto *:block *:w-fit motion-safe:animate-bounce">
+                <span class="italic">Scroll down to read more</span>
+                <span>&#9660 {/* Downward caret */}</span>
+            </div>
         </div>
     </Fragment>
 
     {/* Featured projects */}
     <section class="pt-8">
-        <h2 class="text-center text-5xl font-bold underline">Featured Projects</h2>
+        <h2
+            class="intersect-once text-center text-5xl font-bold underline motion-safe:opacity-0 motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:paused motion-safe:repeat-1 motion-safe:intersect:opacity-100 motion-safe:intersect:slide-in-from-bottom-4 motion-safe:intersect:running"
+        >
+            Featured Projects
+        </h2>
         <div class="grid grid-cols-3 justify-items-center gap-4 pt-8">
             {
                 featuredProjects.map((rawProject) => (
