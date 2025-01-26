@@ -33,6 +33,10 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         <slot name="head-fonts" />
 
         {/* Scripts */}
+        <script>
+            import { Observer } from "tailwindcss-intersect";
+            Observer.start();
+        </script>
         <slot name="head-scripts" />
     </head>
     <body>
