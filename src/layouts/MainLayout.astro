@@ -52,13 +52,7 @@ const {
         />
     </slot>
 
-    <main class={className}>
+    <main class={"mx-auto my-0 max-w-screen-xl px-10" + ` ${className}`}>
         <slot />
     </main>
 </BaseLayout>
-
-<style>
-    main {
-        @apply mx-auto my-0 max-w-screen-xl px-10;
-    }
-</style>
