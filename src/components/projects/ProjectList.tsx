@@ -4,7 +4,10 @@ import { projectStore } from "./store";
 
 import ProjectCard from "@components/projects/ProjectCard";
 
-interface Props {}
+interface Props {
+    /** Optional CSS class(es) to apply */
+    class?: string;
+}
 
 interface State {}
 
@@ -19,6 +22,6 @@ export default class ProjectList extends Component<Props, State> {
         const listItems = $projectStore.displayed.map((projectInstance) => {
             return <ProjectCard id={projectInstance.id} project={projectInstance.project} />;
         });
-        return <>{listItems}</>;
+        return <div class={"grid grid-cols-3 justify-items-center gap-4" + ` ${props.class}`}>{listItems}</div>;
     }
 }

@@ -33,7 +33,12 @@ export default class ProjectFilters extends Component<Props, State> {
         let topBlock = <span class="text-2xl font-bold">{project.name}</span>;
         if (project.banner) {
             topBlock = (
-                <img class="max-h-full rounded-lg" src={project.banner} alt={`${project.name} banner`} loading="lazy" />
+                <img
+                    class="max-h-full rounded-lg"
+                    src={project.banner}
+                    alt={`${project.name} banner`}
+                    loading="lazy"
+                />
             );
         }
         const cardFront = (
