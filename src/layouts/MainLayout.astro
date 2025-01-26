@@ -7,12 +7,16 @@ export interface Props {
     class?: string;
     /** Title of the page */
     title?: string;
-    /** Optional font size of the title */
-    titleSize?: string;
+    /** Optional CSS class(es) to apply to the title text */
+    titleClass?: string;
+    /** Optional CSS inline styles to apply to the title text */
+    titleStyle?: string;
     /** Optional subtitle of the page */
     subtitle?: string;
-    /** Optional font size of the subtitle */
-    subtitleSize?: string;
+    /** Optional CSS class(es) to apply to the subtitle text */
+    subtitleClass?: string;
+    /** Optional CSS inline styles to apply to the subtitle text */
+    subtitleStyle?: string;
     /** Title of the tab; defaults to the `title` with the website name */
     tabTitle?: string;
     /** Optional specification string for the height of the hero box */
@@ -22,9 +26,11 @@ export interface Props {
 const {
     class: className,
     title = "Untitled",
-    titleSize,
+    titleClass,
+    titleStyle,
     subtitle,
-    subtitleSize,
+    subtitleClass,
+    subtitleStyle,
     tabTitle,
     heroBoxHeight,
 } = Astro.props;
@@ -37,9 +43,11 @@ const {
     <slot name="hero-box">
         <HeroBox
             title={title}
-            titleSize={titleSize}
+            titleClass={titleClass}
+            titleStyle={titleStyle}
             subtitle={subtitle}
-            subtitleSize={subtitleSize}
+            subtitleClass={subtitleClass}
+            subtitleStyle={subtitleStyle}
             height={heroBoxHeight}
         />
     </slot>

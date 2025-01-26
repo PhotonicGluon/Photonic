@@ -5,12 +5,24 @@ export interface Props {
     // Typography
     /** Title of the page */
     title: string;
-    /** Optional font size of the title */
-    titleSize?: string;
+    /**
+     * Optional CSS class(es) to apply to the title text.
+     *
+     * Defaults to `"text-6xl"`.
+     * */
+    titleClass?: string;
+    /** Optional CSS inline styles to apply to the title text */
+    titleStyle?: string;
     /** Optional subtitle of the page */
     subtitle?: string;
-    /** Optional font size of the subtitle */
-    subtitleSize?: string;
+    /**
+     * Optional CSS class(es) to apply to the subtitle text.
+     *
+     * Defaults to `"text-base"`.
+     * */
+    subtitleClass?: string;
+    /** Optional CSS inline styles to apply to the subtitle text */
+    subtitleStyle?: string;
 
     // Geometry
     /** Optional specification string for the height of the hero box */
@@ -27,9 +39,11 @@ export interface Props {
 
 const {
     title,
-    titleSize = "48pt",
+    titleClass = "text-6xl",
+    titleStyle,
     subtitle,
-    subtitleSize = "12pt",
+    subtitleClass = "text-base",
+    subtitleStyle,
     height = "max(300px, 35vh)",
     basePath,
 } = Astro.props;
@@ -48,15 +62,12 @@ const {
         class="absolute left-1/2 top-[calc(var(--height)/2)] mx-0 my-auto w-full -translate-x-1/2 -translate-y-1/2 text-center"
         style={{ "--height": height }}
     >
-        <h1
-            class="m-0 text-[length:var(--titleSize)] font-bold leading-normal text-white"
-            style={{ "--titleSize": titleSize }}
-        >
+        <h1 class={"m-0 font-bold leading-normal text-white" + ` ${titleClass}`} style={titleStyle}>
             {title}
         </h1>
         {
             subtitle && (
-                <h2 class="m-0 text-[length:var(--subtitleSize)] text-white" style={{ "--subtitleSize": subtitleSize }}>
+                <h2 class={"m-0 text-white" + ` ${subtitleClass}`} style={subtitleStyle}>
                     {subtitle}
                 </h2>
             )

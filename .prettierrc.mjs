@@ -2,7 +2,7 @@
 export default {
     plugins: ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
     tabWidth: 4,
-    printWidth: 110,
+    printWidth: 115,
     overrides: [
         {
             files: "*.astro",
