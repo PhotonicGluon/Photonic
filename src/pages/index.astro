@@ -1,6 +1,9 @@
 ---
+import ButtonLink from "@components/generic/ButtonLink.astro";
 import HeroBox from "@components/HeroBox.astro";
-import ProjectCard from "@components/projects/ProjectCard";
+import ProjectBanner from "@components/projects/ProjectBanner.astro";
+import ProjectTags from "@components/projects/ProjectTags";
+import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 import Shader from "@components/Shader.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
@@ -59,7 +62,7 @@ const featuredProjects = await getFeaturedProjects([
     </div>
 
     {/* Featured projects */}
-    <div class="pt-32">
+    <section class="pt-32">
         {/* TODO: Enable once we are ready to introduce scroll-based animations */}
         {/* <div class="h-screen"> */}
         <div>
@@ -77,70 +80,49 @@ const featuredProjects = await getFeaturedProjects([
             >
                 Featured Projects
             </h1>
-            <div class="flex flex-col gap-4">
+            <div class="mx-auto flex max-w-4xl flex-col gap-4 pt-4">
                 {
-                    featuredProjects.map((rawProject, index) => {
+                    featuredProjects.map((rawProject) => {
                         const project = toProject(rawProject.data);
 
                         return (
-                            <a
-                                href={"/projects/" + rawProject.id}
-                                class="flex w-full max-w-2xl flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800 hover:bg-gray-700"
-                            >
-                                <img
-                                    class="h-auto w-64 rounded-none rounded-s-lg object-cover"
-                                    src={project.banner}
+                            <div class="grid w-full grid-cols-2 flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800">
+                                <div class="grid w-4/5 gap-2 place-self-center py-8 text-left">
+                                    <div class="flex">
+                                        <div class="grow">
+                                            <h2 class="text-3xl font-bold tracking-tight text-white">
+                                                {project.name}
+                                            </h2>
+                                            <ProjectTags class="w-min text-white" tags={project.tags} />
+                                        </div>
+                                        <div class="flex items-center">
+                                            <ProjectURLsIcons urls={project.urls} />
+                                        </div>
+                                    </div>
+
+                                    <p class="mt-2 p-0 font-normal text-gray-400">{project.summary}</p>
+
+                                    <div class="mt-2">
+                                        <ButtonLink
+                                            class="bg-sky-700 hover:bg-sky-800"
+                                            href={"/projects/" + rawProject.id}
+                                        >
+                                            Read More
+                                        </ButtonLink>
+                                    </div>
+                                </div>
+
+                                {/* TODO: Use Image component? */}
+                                <ProjectBanner
+                                    class="h-full w-full rounded-none rounded-r-lg object-contain"
+                                    src={project.banner!}
                                     alt={project.name + " Banner"}
                                 />
-                                <div class="flex flex-col justify-between p-4 leading-normal">
-                                    <h2 class="mb-2 text-3xl font-bold tracking-tight text-white">
-                                        {project.name}
-                                    </h2>
-                                    <p class="font-normal text-gray-400">{project.summary}</p>
-                                </div>
-                            </a>
+                            </div>
                         );
                     })
                 }
             </div>
-
-            <!-- <section class="relative z-20 grid grid-cols-2 gap-x-8 pt-4">
-                <div class="col-span-2 grid grid-cols-1 gap-y-16">
-                    {
-                        featuredProjects.map((rawProject, index) => {
-                            const project = toProject(rawProject.data);
-
-                            const main = (
-                                <>
-                                    {/* TODO: Use Image component */}
-                                    <img
-                                        class="max-h-96 max-w-96 rounded-xl"
-                                        src={project.banner}
-                                        alt={`${project.name} Banner`}
-                                    />
-                                </>
-                            );
-                            const aux = (
-                                <>
-                                    <h2 class="text-left text-2xl font-bold italic">{project.name}</h2>
-                                    <p>{project.summary}</p>
-                                </>
-                            );
-
-                            return (
-                                <div class="grid grid-cols-2 content-center gap-x-8 self-center">
-                                    <div class="intersect-once motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running">
-                                        {index % 2 == 0 ? main : aux}
-                                    </div>
-                                    <div class="intersect-once motion-safe:delay-300 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running">
-                                        {index % 2 == 1 ? main : aux}
-                                    </div>
-                                </div>
-                            );
-                        })
-                    }
-                </div>
-            </section> -->
         </div>
-    </div>
+    </section>
 </MainLayout>
