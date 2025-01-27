@@ -1,9 +1,6 @@
 import { map } from "nanostores";
 
-export enum PrefersReducedMotion {
-    NORMAL = 0,
-    REDUCE = 1,
-}
+import { PrefersReducedMotion } from "./types";
 
 export interface Options {
     motion: PrefersReducedMotion;
