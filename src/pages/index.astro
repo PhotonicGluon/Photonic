@@ -32,10 +32,6 @@ const featuredProjects = await getFeaturedProjects();
                 </div>
             </Fragment>
         </HeroBox>
-        <div
-            class="absolute top-[max(600px,100vh)] -z-10 h-64 w-full bg-gradient-to-b from-gray-950 via-gray-950/40 via-30% to-transparent"
-        >
-        </div>
 
         {/* Add hint to scroll down */}
         <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
@@ -48,19 +44,36 @@ const featuredProjects = await getFeaturedProjects();
         </div>
     </Fragment>
 
+    <div
+        class="absolute top-[max(600px,100vh)] z-10 h-64 w-full bg-gradient-to-b from-gray-950 via-gray-950/40 via-30% to-transparent"
+    >
+    </div>
+
     {/* Featured projects */}
-    <section class="pt-8">
-        <h2
-            class="intersect-once intersect-half text-center text-5xl font-bold underline motion-safe:opacity-0 motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:opacity-100 motion-safe:intersect:slide-in-from-bottom-4 motion-safe:intersect:running"
-        >
-            Featured Projects
-        </h2>
-        <div class="grid grid-cols-3 justify-items-center gap-4 pt-8">
-            {
-                featuredProjects.map((rawProject) => (
-                    <ProjectCard id={rawProject.id} project={toProject(rawProject.data)} client:visible />
-                ))
-            }
+    <div>
+        <div class="bg-slate-800/75 bg-[size:100%_100%] pt-16">
+            <section class="relative z-20">
+                <div>
+                    <h2
+                        class="intersect-once intersect-half text-center text-5xl font-bold underline motion-safe:opacity-0 motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:opacity-100 motion-safe:intersect:slide-in-from-bottom-4 motion-safe:intersect:running"
+                    >
+                        Featured Projects
+                    </h2>
+                    <div class="grid grid-cols-3 justify-items-center gap-4 pt-8">
+                        {
+                            featuredProjects.map((rawProject) => (
+                                <ProjectCard
+                                    id={rawProject.id}
+                                    project={toProject(rawProject.data)}
+                                    client:visible
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+            </section>
         </div>
-    </section>
+        <div class="z-10 h-32 w-full bg-gradient-to-b from-slate-800/75 via-gray-950/40 via-80% to-transparent">
+        </div>
+    </div>
 </MainLayout>
