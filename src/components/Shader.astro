@@ -59,6 +59,9 @@ if (editableUniformsPath) {
     import shaderVert from "@lib/shaders/2d.vert";
     import type { SlidersInitialisedEvent } from "@lib/tweakpane/panel";
     import type { SlidersOptionsMap } from "@lib/tweakpane/options";
+    import options from "@lib/options";
+    import WATCHED_MEDIA from "@lib/options/media";
+    import { MotionPreference } from "@lib/options/types";
 
     // Process each canvas
     document.querySelectorAll(".shader").forEach((element) => {
@@ -115,16 +118,18 @@ if (editableUniformsPath) {
                     uniforms[key] = value.value;
                 }
 
-                // TODO: Handle reduced motion
-                // if (time > 1) {
-                //     stop();
-                // }
+                // Handle reduced motion
+                if (options.get().motion === MotionPreference.REDUCE && time > 1) {
+                    stop();
+                }
             },
             textures: undefined,
             onTexturesReady: () => {
                 start();
             },
         });
+
+        WATCHED_MEDIA.motion.addEventListener("change", (_) => start());
 
         start();
     });
