@@ -13,7 +13,7 @@ export interface Props {
 const { platform, url, icon } = Astro.props;
 ---
 
-<li class="mr-5 last:mr-0">
+<li>
     <a href={url} title={platform}>
         <Image class="h-10 w-auto" src={icon} alt=`${platform} Logo` />
     </a>

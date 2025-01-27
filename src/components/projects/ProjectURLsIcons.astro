@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+import IconLink from "@components/generic/IconLink.astro";
+
+// Import social icons
+import githubLogo from "@images/icons/github-mark-white.svg";
+import bandcampLogo from "@images/icons/bandcamp-button-circle-line-white-256.png";
+import webLogo from "@images/icons/internet.svg";
+
+// Get the URLs
+export interface Props {
+    urls: CollectionEntry<"projects">["data"]["urls"];
+}
+
+const { urls } = Astro.props;
+---
+
+<ul class="flex justify-center gap-5 p-0">
+    {urls.github && <IconLink platform="GitHub" url={urls.github} icon={githubLogo} />}
+    {urls.bandcamp && <IconLink platform="Bandcamp" url={urls.bandcamp} icon={bandcampLogo} />}
+    {urls.website && <IconLink platform="Website" url={urls.website} icon={webLogo} />}
+</ul>

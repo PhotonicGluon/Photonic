@@ -11,11 +11,7 @@ import ProjectTags from "@components/projects/ProjectTags";
 import IconLink from "@components/generic/IconLink.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
-
-// Import social icons
-import githubLogo from "@images/icons/github-mark-white.svg";
-import bandcampLogo from "@images/icons/bandcamp-button-circle-line-white-256.png";
-import webLogo from "@images/icons/internet.svg";
+import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 
 // Get the project
 type Props = CollectionEntry<"projects">["data"];
@@ -66,13 +62,11 @@ if (project.banner) {
     />
 
     {/* Icons for URLs */}
-    <ul
-        class="mt-2 flex justify-center p-0 motion-safe:delay-400 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards"
+    <div
+        class="mt-2 motion-safe:delay-400 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards"
     >
-        {project.urls.github && <IconLink platform="GitHub" url={project.urls.github} icon={githubLogo} />}
-        {project.urls.bandcamp && <IconLink platform="Bandcamp" url={project.urls.bandcamp} icon={bandcampLogo} />}
-        {project.urls.website && <IconLink platform="Website" url={project.urls.website} icon={webLogo} />}
-    </ul>
+        <ProjectURLsIcons urls={project.urls} />
+    </div>
 
     {/* Actual project contents */}
     <section
