@@ -1,6 +1,4 @@
 ---
-import Shader from "@components/Shader.astro";
-
 export interface Props {
     // Typography
     /** Title of the page */
@@ -9,7 +7,7 @@ export interface Props {
      * Optional CSS class(es) to apply to the title text.
      *
      * Defaults to `"text-6xl"`.
-     * */
+     */
     titleClass?: string;
     /** Animation override for the title text */
     titleAnimation?: string;
@@ -21,7 +19,7 @@ export interface Props {
      * Optional CSS class(es) to apply to the subtitle text.
      *
      * Defaults to `"text-base"`.
-     * */
+     */
     subtitleClass?: string;
     /** Animation override for the subtitle text */
     subtitleAnimation?: string;
@@ -31,14 +29,6 @@ export interface Props {
     // Geometry
     /** Optional specification string for the height of the hero box */
     height?: string;
-
-    // Shader
-    /**
-     * Optional base path to the fragment shader's folder.
-     *
-     * If not provided, will not use a shader.
-     */
-    basePath?: string;
 }
 
 const {
@@ -51,19 +41,11 @@ const {
     subtitleAnimation = "motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-bottom-2 motion-safe:fill-mode-backwards",
     subtitleStyle,
     height = "max(300px, 35vh)",
-    basePath,
 } = Astro.props;
 ---
 
 <div class="h-[var(--height)]" style={{ "--height": height }}>
-    {
-        basePath && (
-            <>
-                <Shader id="hero-shader" basePath={basePath} />
-                <div class="absolute top-0 h-[inherit] w-full bg-gradient-to-b from-transparent via-gray-950/40 via-70% to-gray-950" />
-            </>
-        )
-    }
+    <slot name="shader" />
     <div
         class="absolute left-1/2 top-[calc(var(--height)/2)] mx-0 my-auto w-full -translate-x-1/2 -translate-y-1/2 text-center"
         style={{ "--height": height }}
@@ -83,11 +65,3 @@ const {
         }
     </div>
 </div>
-{
-    basePath && (
-        <div
-            class="absolute top-[var(--height)] -z-10 h-64 w-full bg-gradient-to-b from-gray-950 via-gray-950/40 via-30% to-transparent"
-            style={{ "--height": height }}
-        />
-    )
-}
