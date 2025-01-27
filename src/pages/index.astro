@@ -7,7 +7,16 @@ import MainLayout from "@layouts/MainLayout.astro";
 
 import { getFeaturedProjects, toProject } from "@lib/projects/project";
 
-const featuredProjects = await getFeaturedProjects();
+const featuredProjects = await getFeaturedProjects([
+    "abstract-algebra",
+    "overwrite",
+    "spectra",
+    "dreams",
+    "7125",
+    "auditranscribe",
+    "chess-clock-trivia",
+    "the-challenge",
+]);
 ---
 
 <MainLayout tabTitle="Photonic">
