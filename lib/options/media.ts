@@ -1,19 +1,27 @@
 import { options } from "./store";
 import { MotionPreference } from "./types";
 
-function reducedMotionSetter(matches: boolean) {
-    options.setKey("motion", matches ? MotionPreference.REDUCE : MotionPreference.NORMAL);
-}
+/** List of media to watch */
+const WATCHED_MEDIA: { [key: string]: MediaQueryList } = {
+    motion: window.matchMedia("(prefers-reduced-motion: reduce)"),
+};
 
-function subscribeToMedia(query: string, mediaSetter: (matches: boolean) => any) {
-    // Get the match media
-    const match = window.matchMedia(query);
-
+/**
+ * Subscribes to a media.
+ *
+ * @param media media to subscribe to
+ * @param mediaSetter function that is called on change/setting of the media value
+ */
+function subscribeToMedia(media: MediaQueryList, mediaSetter: (matches: boolean) => any) {
     // Set initial value
-    mediaSetter(match.matches);
+    mediaSetter(media.matches);
 
     // Watch for changes
-    match.addEventListener("change", (event) => mediaSetter(event.matches));
+    media.addEventListener("change", (event) => mediaSetter(event.matches));
 }
 
-subscribeToMedia("(prefers-reduced-motion: reduce)", reducedMotionSetter);
+subscribeToMedia(WATCHED_MEDIA.motion, (matches) =>
+    options.setKey("motion", matches ? MotionPreference.REDUCE : MotionPreference.NORMAL),
+);
+
+export default WATCHED_MEDIA;
