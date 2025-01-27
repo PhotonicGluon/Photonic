@@ -15,17 +15,21 @@ const projectIDs = rawProjects.map((rawProject) => rawProject.id);
 const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 ---
 
-<MainLayout class="grid grid-cols-5 divide-x-2 divide-solid divide-gray-500" title="Projects">
-    <section
-        id="filters"
-        class="sticky top-3 col-span-1 col-start-1 self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-left-4 motion-safe:fill-mode-backwards"
-    >
-        <ProjectFilters ids={projectIDs} projects={projects} client:load />
-    </section>
-    <section id="projects" class="col-span-4 col-start-2">
-        <ProjectList
-            class="motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-4 motion-safe:fill-mode-backwards"
-            client:load
-        />
+<MainLayout title="Projects">
+    <section class="grid grid-cols-5 divide-x-2 divide-solid divide-gray-500">
+        {/* Project search/filters */}
+        <div
+            class="sticky top-3 col-span-1 col-start-1 self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-left-4 motion-safe:fill-mode-backwards"
+        >
+            <ProjectFilters ids={projectIDs} projects={projects} client:load />
+        </div>
+
+        {/* Project list */}
+        <div class="col-span-4 col-start-2">
+            <ProjectList
+                class="motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-4 motion-safe:fill-mode-backwards"
+                client:load
+            />
+        </div>
     </section>
 </MainLayout>
