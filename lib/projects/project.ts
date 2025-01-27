@@ -60,7 +60,7 @@ export type Project = Omit<ProjectZod, "tags"> & { tags: ProjectTagType[] };
 /**
  * Converts a project from the Zod schema representation to the actual type.
  *
- * @param project - Project data as inferred from the Zod schema.
+ * @param project Project data as inferred from the Zod schema.
  * @returns Project data with the tags converted to the actual type.
  */
 export function toProject(project: ProjectZod): Project {
@@ -84,15 +84,16 @@ export function toProject(project: ProjectZod): Project {
 /**
  * Gets a list of featured projects, sorted by the order that they are to be featured.
  *
+ * @param ids List of featured projects' IDs
  * @returns List of featured projects
  */
-export async function getFeaturedProjects(): Promise<ProjectInCollection[]> {
+export async function getFeaturedProjects(ids: string[]): Promise<ProjectInCollection[]> {
     // Get the featured projects
     const featuredProjects = await getCollection("projects", (project) => {
-        return project.data.featured !== undefined;
+        return ids.includes(project.id);
     });
 
     // Now sort them by the `featured` field and return
-    const sorted = featuredProjects.sort((a, b) => a.data.featured! - b.data.featured!);
+    const sorted = featuredProjects.sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
     return sorted;
 }
