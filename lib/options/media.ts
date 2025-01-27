@@ -1,8 +1,8 @@
 import { options } from "./store";
-import { PrefersReducedMotion } from "./types";
+import { MotionPreference } from "./types";
 
 function reducedMotionSetter(matches: boolean) {
-    options.setKey("motion", matches ? PrefersReducedMotion.REDUCE : PrefersReducedMotion.NORMAL);
+    options.setKey("motion", matches ? MotionPreference.REDUCE : MotionPreference.NORMAL);
 }
 
 function subscribeToMedia(query: string, mediaSetter: (matches: boolean) => any) {

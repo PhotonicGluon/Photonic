@@ -1,11 +1,11 @@
 import { map } from "nanostores";
 
-import { PrefersReducedMotion } from "./types";
+import { MotionPreference } from "./types";
 
 export interface Options {
-    motion: PrefersReducedMotion;
+    motion: MotionPreference;
 }
 
 export const options = map<Options>({
-    motion: PrefersReducedMotion.NORMAL,
+    motion: MotionPreference.NORMAL,
 });
