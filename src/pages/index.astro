@@ -54,20 +54,57 @@ const featuredProjects = await getFeaturedProjects([
     </Fragment>
 
     <div
-        class="absolute top-[max(600px,100vh)] z-10 h-64 w-full bg-gradient-to-b from-gray-950 via-gray-950/40 via-30% to-transparent"
+        class="absolute top-[max(600px,100vh)] z-10 h-32 w-full bg-gradient-to-b from-gray-950 via-gray-950/40 via-30% to-transparent"
     >
     </div>
 
     {/* Featured projects */}
-    <div>
-        <div class="bg-slate-800/75 bg-[size:100%_100%] pt-16">
+    <div class="pt-32">
+        {/* TODO: Enable once we are ready to introduce scroll-based animations */}
+        {/* <div class="h-screen"> */}
+        <div>
+            <!-- <div class="flex h-screen justify-center">
+                <div class="content-center">
+                    <h1
+                        class="intersect-once intersect-half relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
+                    >
+                        Featured Projects
+                    </h1>
+                </div>
+            </div> -->
             <h1
                 class="intersect-once intersect-half relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
             >
                 Featured Projects
             </h1>
+            <div class="flex flex-col gap-4">
+                {
+                    featuredProjects.map((rawProject, index) => {
+                        const project = toProject(rawProject.data);
 
-            <section class="relative z-20 grid grid-cols-2 gap-x-8 pt-4">
+                        return (
+                            <a
+                                href={"/projects/" + rawProject.id}
+                                class="flex w-full max-w-2xl flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800 hover:bg-gray-700"
+                            >
+                                <img
+                                    class="h-auto w-64 rounded-none rounded-s-lg object-cover"
+                                    src={project.banner}
+                                    alt={project.name + " Banner"}
+                                />
+                                <div class="flex flex-col justify-between p-4 leading-normal">
+                                    <h2 class="mb-2 text-3xl font-bold tracking-tight text-white">
+                                        {project.name}
+                                    </h2>
+                                    <p class="font-normal text-gray-400">{project.summary}</p>
+                                </div>
+                            </a>
+                        );
+                    })
+                }
+            </div>
+
+            <!-- <section class="relative z-20 grid grid-cols-2 gap-x-8 pt-4">
                 <div class="col-span-2 grid grid-cols-1 gap-y-16">
                     {
                         featuredProjects.map((rawProject, index) => {
@@ -103,9 +140,7 @@ const featuredProjects = await getFeaturedProjects([
                         })
                     }
                 </div>
-            </section>
-        </div>
-        <div class="z-10 h-32 w-full bg-gradient-to-b from-slate-800/75 via-gray-950/40 via-80% to-transparent">
+            </section> -->
         </div>
     </div>
 </MainLayout>
