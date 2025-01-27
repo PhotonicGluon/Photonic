@@ -10,6 +10,5 @@
     "urls": {
         "github": "https://github.com/PhotonicGluon/The-Challenge"
     },
-    "indexPage": "index.md",
-    "featured": 8
+    "indexPage": "index.md"
 }

@@ -39,10 +39,6 @@ export const PROJECT_SCHEMA = z.object({
      * same ID as the project.
      */
     indexPage: z.string().optional(),
-    /**
-     * Optional number that indicates the position that this project should be featured on the main page.
-     */
-    featured: z.number().optional(),
 });
 
 /**

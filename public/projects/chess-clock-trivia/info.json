@@ -10,6 +10,5 @@
     "urls": {
         "github": "https://github.com/PhotonicGluon/Chess-Clock-Trivia"
     },
-    "indexPage": "index.md",
-    "featured": 7
+    "indexPage": "index.md"
 }
