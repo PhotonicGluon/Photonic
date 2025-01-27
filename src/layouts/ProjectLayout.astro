@@ -1,35 +1,18 @@
 ---
-import sizeOf from "image-size";
-
-import { Image, inferRemoteSize } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 import { toProject } from "@lib/projects/project";
 import { toDateString } from "@lib/misc/dates";
 
+import ProjectBanner from "@components/projects/ProjectBanner.astro";
 import ProjectTags from "@components/projects/ProjectTags";
-import IconLink from "@components/generic/IconLink.astro";
+import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
-import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 
 // Get the project
 type Props = CollectionEntry<"projects">["data"];
 const project = toProject(Astro.props);
-
-// Handle banner
-let width, height;
-if (project.banner) {
-    let dimensions;
-    if (project.banner.startsWith("http")) {
-        dimensions = await inferRemoteSize(project.banner);
-    } else {
-        dimensions = sizeOf(`public${project.banner}`);
-    }
-
-    width = dimensions.width;
-    height = dimensions.height;
-}
 ---
 
 <MainLayout
@@ -43,12 +26,10 @@ if (project.banner) {
     {
         project.banner && (
             <div class="w-full motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-4 motion-safe:fill-mode-backwards">
-                <Image
+                <ProjectBanner
                     src={project.banner}
                     alt={`${project.name} Banner`}
                     class="mx-auto max-w-screen-sm rounded"
-                    width={width!}
-                    height={height!}
                     loading="eager"
                 />
             </div>

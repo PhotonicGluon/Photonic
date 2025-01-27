@@ -1,0 +1,31 @@
+---
+import sizeOf from "image-size";
+
+import { Image, inferRemoteSize } from "astro:assets";
+import type { HTMLAttributes } from "astro/types";
+
+// Define props
+interface RequiredProps {
+    /** Source of the image; can be a (local) path or a URL */
+    src: string;
+    /** Alternative text */
+    alt: string;
+}
+
+type Props = Omit<HTMLAttributes<"img">, "width" | "height"> & RequiredProps;
+
+const { src, alt, ...attributes } = Astro.props;
+
+// Determine dimensions
+let dimensions;
+if (src!.startsWith("http")) {
+    dimensions = await inferRemoteSize(src!);
+} else {
+    dimensions = sizeOf(`public${src}`);
+}
+
+const width = dimensions.width!;
+const height = dimensions.height!;
+---
+
+<Image src={src} width={width} height={height} alt={alt} {...attributes} />

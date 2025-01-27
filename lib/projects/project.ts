@@ -21,7 +21,7 @@ export const PROJECT_SCHEMA = z.object({
     /** List of project tags */
     tags: z.array(z.enum(getTags())),
     /**
-     * Banner URL.
+     * Banner path or URL.
      *
      * If empty, will not display a banner.
      */
