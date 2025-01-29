@@ -8,13 +8,15 @@ export interface Props {
     url: string;
     /** Path to the icon file */
     icon: ImageMetadata;
+    /** Indicates how the browser should load the image */
+    loading?: "eager" | "lazy" | null;
 }
 
-const { platform, url, icon } = Astro.props;
+const { platform, url, icon, loading } = Astro.props;
 ---
 
 <li>
     <a href={url} title={platform}>
-        <Image class="h-10 w-auto" src={icon} alt=`${platform} Logo` />
+        <Image class="h-10 w-auto" src={icon} alt=`${platform} Logo` loading={loading} />
     </a>
 </li>

@@ -11,13 +11,15 @@ import webLogo from "@images/icons/internet.svg";
 // Get the URLs
 export interface Props {
     urls: CollectionEntry<"projects">["data"]["urls"];
+    /** Indicates how the browser should load the icons */
+    loading?: "lazy" | "eager" | null;
 }
 
-const { urls } = Astro.props;
+const { urls, loading } = Astro.props;
 ---
 
 <ul class="flex justify-center gap-5 p-0">
-    {urls.github && <IconLink platform="GitHub" url={urls.github} icon={githubLogo} />}
-    {urls.bandcamp && <IconLink platform="Bandcamp" url={urls.bandcamp} icon={bandcampLogo} />}
-    {urls.website && <IconLink platform="Website" url={urls.website} icon={webLogo} />}
+    {urls.github && <IconLink platform="GitHub" url={urls.github} icon={githubLogo} loading={loading} />}
+    {urls.bandcamp && <IconLink platform="Bandcamp" url={urls.bandcamp} icon={bandcampLogo} loading={loading} />}
+    {urls.website && <IconLink platform="Website" url={urls.website} icon={webLogo} loading={loading} />}
 </ul>

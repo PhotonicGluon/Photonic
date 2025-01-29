@@ -46,7 +46,7 @@ const project = toProject(Astro.props);
     <div
         class="mt-2 motion-safe:delay-400 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards"
     >
-        <ProjectURLsIcons urls={project.urls} />
+        <ProjectURLsIcons urls={project.urls} loading="eager" />
     </div>
 
     {/* Actual project contents */}
