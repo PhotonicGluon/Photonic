@@ -64,9 +64,12 @@ const featuredProjects = await getFeaturedProjects([
     {/* Featured projects */}
     <section class="pt-32">
         <div class="h-auto">
-            <div class="sticky top-0 content-center pt-4">
+            <div
+                class="sticky top-4 mb-44 h-96 pb-[var(--stack-height)]"
+                style={{ "--stack-height": `${featuredProjects.length}em` }}
+            >
                 <h1
-                    class="intersect-once intersect-half relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
+                    class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
                 >
                     Featured Projects
                 </h1>
