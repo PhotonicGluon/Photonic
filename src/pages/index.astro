@@ -28,33 +28,35 @@ const CARD_TOP_PADDING = 0.75; // In rem
 <MainLayout tabTitle="Photonic">
     {/* Hero box */}
     <Fragment slot="hero-box">
-        {/* Main hero box content */}
-        <HeroBox
-            title="Photonic"
-            titleClass="text-8xl"
-            titleAnimation="motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-top-4"
-            subtitle="Making cool things."
-            subtitleClass="text-lg"
-            subtitleAnimation="motion-safe:delay-100 motion-safe:duration-1000 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-bottom-2 motion-safe:fill-mode-backwards"
-            height="max(600px, 100vh)"
-        >
-            {/* Add the special swirl shader for the index page */}
-            <Fragment slot="shader">
-                <Shader id="hero-shader" basePath="lib/shaders/frag/swirl" />
-                <div
-                    class="absolute top-0 h-[inherit] w-full bg-gradient-to-b from-transparent via-gray-950/40 via-70% to-gray-950"
-                >
-                </div>
-            </Fragment>
-        </HeroBox>
-
-        {/* Add hint to scroll down */}
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
-            <div
-                class="text-gray-500 *:mx-auto *:block *:w-fit motion-safe:animate-bounce motion-safe:delay-1000 motion-safe:fill-mode-backwards"
+        <div class="relative">
+            {/* Main hero box content */}
+            <HeroBox
+                title="Photonic"
+                titleClass="text-8xl"
+                titleAnimation="motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-top-4"
+                subtitle="Making cool things."
+                subtitleClass="text-lg"
+                subtitleAnimation="motion-safe:delay-100 motion-safe:duration-1000 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-bottom-2 motion-safe:fill-mode-backwards"
+                height="max(600px, 100vh)"
             >
-                <span class="italic">Scroll down to read more</span>
-                <span>&#9660 {/* Downward caret */}</span>
+                {/* Add the special swirl shader for the index page */}
+                <Fragment slot="shader">
+                    <Shader id="hero-shader" basePath="lib/shaders/frag/swirl" />
+                    <div
+                        class="absolute top-0 h-[inherit] w-full bg-gradient-to-b from-transparent via-gray-950/40 via-70% to-gray-950"
+                    >
+                    </div>
+                </Fragment>
+            </HeroBox>
+
+            {/* Add hint to scroll down */}
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+                <div
+                    class="text-gray-500 *:mx-auto *:block *:w-fit motion-safe:animate-bounce motion-safe:delay-1000 motion-safe:fill-mode-backwards"
+                >
+                    <span class="italic">Scroll down to read more</span>
+                    <span>&#9660 {/* Downward caret */}</span>
+                </div>
             </div>
         </div>
     </Fragment>

@@ -1,6 +1,13 @@
 ---
 import IconLink from "@components/generic/IconLink.astro";
 
+export interface Props {
+    /** Optional CSS class(es) to apply to the footer */
+    class?: string;
+}
+
+const { class: className } = Astro.props;
+
 // Import social icons
 import githubLogo from "@images/icons/github-mark-white.svg";
 import bandcampLogo from "@images/icons/bandcamp-button-circle-line-white-256.png";
@@ -10,16 +17,18 @@ import linkedinLogo from "@images/icons/LI-In-Bug.png";
 const year = new Date().getFullYear().toString();
 ---
 
-<footer class="mx-0 mb-0 mt-8 pb-4 text-center" role="contentinfo">
-    <ul class="mb-2 flex justify-center gap-5 p-0">
-        <IconLink platform="GitHub" url="https://github.com/PhotonicGluon" icon={githubLogo} />
-        <IconLink platform="Bandcamp" url="https://melodicgluon.bandcamp.com/" icon={bandcampLogo} />
-        <IconLink platform="LinkedIn" url="https://www.linkedin.com/in/kan-onn-kit" icon={linkedinLogo} />
-    </ul>
-    <span class="block text-sm">
-        Copyright &copy; {year} PhotonicGluon
-    </span>
-    <span class="block text-xs text-gray-400">
-        Photonic's source code is available on <a href="TODO: ADD">GitHub</a>.
-    </span>
+<footer class={"absolute bottom-0 w-full" + ` ${className ? className : ""}`} role="contentinfo">
+    <div class="mx-0 mb-0 mt-8 pb-4 text-center">
+        <ul class="mb-2 flex justify-center gap-5 p-0">
+            <IconLink platform="GitHub" url="https://github.com/PhotonicGluon" icon={githubLogo} />
+            <IconLink platform="Bandcamp" url="https://melodicgluon.bandcamp.com/" icon={bandcampLogo} />
+            <IconLink platform="LinkedIn" url="https://www.linkedin.com/in/kan-onn-kit" icon={linkedinLogo} />
+        </ul>
+        <span class="block text-sm">
+            Copyright &copy; {year} PhotonicGluon
+        </span>
+        <span class="block text-xs text-gray-400">
+            Photonic's source code is available on <a href="TODO: ADD">GitHub</a>.
+        </span>
+    </div>
 </footer>

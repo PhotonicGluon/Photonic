@@ -39,16 +39,18 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         </script>
         <slot name="head-scripts" />
     </head>
-    <body>
-        <Header />
-        <Shader
-            class="fixed top-0 -z-10 h-screen w-screen"
-            id="body-shader"
-            basePath="lib/shaders/frag/contour"
-            constants={{ cTimeOffset: contourNoiseTimeOffset }}
-        />
-        <slot />
-        <Footer />
+    <body class="relative min-h-screen">
+        <div class="pb-36">
+            <Header />
+            <Shader
+                class="fixed top-0 -z-10 h-screen w-screen"
+                id="body-shader"
+                basePath="lib/shaders/frag/contour"
+                constants={{ cTimeOffset: contourNoiseTimeOffset }}
+            />
+            <slot />
+        </div>
+        <Footer class="h-36" />
     </body>
 </html>
 
