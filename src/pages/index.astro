@@ -150,10 +150,12 @@ const CARD_TOP_PADDING = 0.75; // In rem
                     }
                 }
 
-                .card-content {
-                    animation: linear scale forwards;
-                    animation-timeline: --cards-element-scrolls-in-body;
-                    animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+                @media (prefers-reduced-motion: no-preference) {
+                    .card-content {
+                        animation: linear scale forwards;
+                        animation-timeline: --cards-element-scrolls-in-body;
+                        animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+                    }
                 }
             </style>
         </div>
