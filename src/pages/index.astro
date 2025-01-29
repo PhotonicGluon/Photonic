@@ -10,6 +10,7 @@ import MainLayout from "@layouts/MainLayout.astro";
 
 import { getFeaturedProjects, toProject } from "@lib/projects/project";
 
+// Featured projects settings
 const featuredProjects = await getFeaturedProjects([
     "abstract-algebra",
     "overwrite",
@@ -20,6 +21,8 @@ const featuredProjects = await getFeaturedProjects([
     "chess-clock-trivia",
     "the-challenge",
 ]);
+const CARD_MIN_SCALE = 0.65;
+const CARD_TOP_PADDING = 0.75; // In rem
 ---
 
 <MainLayout tabTitle="Photonic">
@@ -64,8 +67,7 @@ const featuredProjects = await getFeaturedProjects([
     {/* Featured projects */}
     <section class="pt-32">
         <div class="h-auto">
-            {/* TODO: Maybe change the `top-4`? */}
-            <div class="sticky top-4 mb-96">
+            <div class="sticky top-16 mb-96">
                 <h1
                     class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
                 >
@@ -88,19 +90,15 @@ const featuredProjects = await getFeaturedProjects([
 
                         return (
                             <div
-                                class="sticky top-16 h-96"
+                                class="intersect-once intersect-half sticky top-28 h-96 motion-safe:delay-0 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
                                 style={{
-                                    "--scale-to": 0.5 + (1 - 0.5) * nextPercent,
-                                    "padding-top": `${index + 1}rem`,
+                                    "--scale-to": CARD_MIN_SCALE + (1 - CARD_MIN_SCALE) * nextPercent,
+                                    "--start-range": `${currPercent * 100}%`,
+                                    "--end-range": `${nextPercent * 100}%`,
+                                    "padding-top": `${(index + 1) * CARD_TOP_PADDING}rem`,
                                 }}
                             >
-                                <div
-                                    class="card-content flex h-full w-full origin-[50%_0%] flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform"
-                                    style={{
-                                        "--start-range": `${currPercent * 100}%`,
-                                        "--end-range": `${nextPercent * 100}%`,
-                                    }}
-                                >
+                                <div class="card-content flex h-full w-full origin-[50%_0%] flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform">
                                     <div class="w-1/2 py-8">
                                         <div class="grid w-4/5 gap-2 place-self-center text-left">
                                             <div class="flex">
