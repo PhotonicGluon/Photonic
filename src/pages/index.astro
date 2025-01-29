@@ -64,10 +64,8 @@ const featuredProjects = await getFeaturedProjects([
     {/* Featured projects */}
     <section class="pt-32">
         <div class="h-auto">
-            <div
-                class="sticky top-4 mb-44 h-96 pb-[var(--stack-height)]"
-                style={{ "--stack-height": `${featuredProjects.length}em` }}
-            >
+            {/* TODO: Maybe change the `top-4`? */}
+            <div class="sticky top-4 mb-96">
                 <h1
                     class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
                 >
@@ -75,7 +73,7 @@ const featuredProjects = await getFeaturedProjects([
                 </h1>
             </div>
             <div
-                class="mx-auto grid h-auto max-w-4xl grid-cols-1 grid-rows-[repeat(var(--num-projects),minmax(0,1fr))] gap-8 pt-4"
+                class="mx-auto -mt-96 grid h-auto max-w-4xl grid-cols-1 grid-rows-[repeat(var(--num-projects),minmax(0,1fr))] gap-8"
                 style={{
                     "--num-projects": featuredProjects.length,
                     "view-timeline-name": "--cards-element-scrolls-in-body",
@@ -90,14 +88,14 @@ const featuredProjects = await getFeaturedProjects([
 
                         return (
                             <div
-                                class="sticky top-16"
+                                class="sticky top-16 h-96"
                                 style={{
                                     "--scale-to": 0.5 + (1 - 0.5) * nextPercent,
-                                    "padding-top": `${index + 1}em`,
+                                    "padding-top": `${index + 1}rem`,
                                 }}
                             >
                                 <div
-                                    class="card-content flex h-96 w-full origin-[50%_0%] flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform"
+                                    class="card-content flex h-full w-full origin-[50%_0%] flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform"
                                     style={{
                                         "--start-range": `${currPercent * 100}%`,
                                         "--end-range": `${nextPercent * 100}%`,
