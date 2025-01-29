@@ -1,21 +1,24 @@
-.card {
-    perspective: 2000px;
-}
+/* TODO: Port this to TailwindCSS V4 when ready */
+@media (prefers-reduced-motion: no-preference) {
+    .card {
+        perspective: 2000px;
+    }
 
-.card-content {
-    transform-style: preserve-3d;
-}
+    .card-content {
+        transform-style: preserve-3d;
+    }
 
-.card:hover .card-content {
-    transform: rotateY(0.5turn);
-}
+    .card:hover .card-content {
+        transform: rotateY(0.5turn);
+    }
 
-.card-front,
-.card-back {
-    transform: rotateX(0); /* Needed for the card flip to properly work on Firefox */
-    backface-visibility: hidden;
-}
+    .card-front,
+    .card-back {
+        transform: rotateX(0); /* Needed for the card flip to properly work on Firefox */
+        backface-visibility: hidden;
+    }
 
-.card-back {
-    transform: rotateY(0.5turn);
+    .card-back {
+        transform: rotateY(0.5turn);
+    }
 }
