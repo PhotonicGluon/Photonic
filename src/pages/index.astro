@@ -63,66 +63,95 @@ const featuredProjects = await getFeaturedProjects([
 
     {/* Featured projects */}
     <section class="pt-32">
-        {/* TODO: Enable once we are ready to introduce scroll-based animations */}
-        {/* <div class="h-screen"> */}
-        <div>
-            <!-- <div class="flex h-screen justify-center">
-                <div class="content-center">
-                    <h1
-                        class="intersect-once intersect-half relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
-                    >
-                        Featured Projects
-                    </h1>
-                </div>
-            </div> -->
-            <h1
-                class="intersect-once intersect-half relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
+        <div class="h-auto">
+            <div class="sticky top-0 content-center pt-4">
+                <h1
+                    class="intersect-once intersect-half relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running"
+                >
+                    Featured Projects
+                </h1>
+            </div>
+            <div
+                class="mx-auto grid h-auto max-w-4xl grid-cols-1 grid-rows-[repeat(var(--num-projects),minmax(0,1fr))] gap-8 pt-4"
+                style={{
+                    "--num-projects": featuredProjects.length,
+                    "view-timeline-name": "--cards-element-scrolls-in-body",
+                }}
             >
-                Featured Projects
-            </h1>
-            <div class="mx-auto flex max-w-4xl flex-col gap-4 pt-4">
                 {
-                    featuredProjects.map((rawProject) => {
+                    featuredProjects.map((rawProject, index) => {
                         const project = toProject(rawProject.data);
 
+                        const currPercent = index / featuredProjects.length;
+                        const nextPercent = (index + 1) / featuredProjects.length;
+
                         return (
-                            <div class="grid w-full grid-cols-2 flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800">
-                                <div class="grid w-4/5 gap-2 place-self-center py-8 text-left">
-                                    <div class="flex">
-                                        <div class="grow">
-                                            <h2 class="text-3xl font-bold tracking-tight text-white">
-                                                {project.name}
-                                            </h2>
-                                            <ProjectTags class="w-min text-white" tags={project.tags} />
-                                        </div>
-                                        <div class="flex items-center">
-                                            <ProjectURLsIcons urls={project.urls} />
+                            <div
+                                class="sticky top-16"
+                                style={{
+                                    "--scale-to": 0.5 + (1 - 0.5) * nextPercent,
+                                    "padding-top": `${index + 1}em`,
+                                }}
+                            >
+                                <div
+                                    class="card-content flex h-96 w-full origin-[50%_0%] flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform"
+                                    style={{
+                                        "--start-range": `${currPercent * 100}%`,
+                                        "--end-range": `${nextPercent * 100}%`,
+                                    }}
+                                >
+                                    <div class="w-1/2 py-8">
+                                        <div class="grid w-4/5 gap-2 place-self-center text-left">
+                                            <div class="flex">
+                                                <div class="grow">
+                                                    <h2 class="text-3xl font-bold tracking-tight text-white">
+                                                        {project.name}
+                                                    </h2>
+                                                    <ProjectTags class="w-min text-white" tags={project.tags} />
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <ProjectURLsIcons urls={project.urls} />
+                                                </div>
+                                            </div>
+                                            <p class="mt-2 p-0 font-normal text-gray-400">{project.summary}</p>
+                                            <div class="mt-2">
+                                                <ButtonLink
+                                                    class="bg-sky-700 hover:bg-sky-800"
+                                                    href={"/projects/" + rawProject.id}
+                                                >
+                                                    Read More
+                                                </ButtonLink>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <p class="mt-2 p-0 font-normal text-gray-400">{project.summary}</p>
-
-                                    <div class="mt-2">
-                                        <ButtonLink
-                                            class="bg-sky-700 hover:bg-sky-800"
-                                            href={"/projects/" + rawProject.id}
-                                        >
-                                            Read More
-                                        </ButtonLink>
+                                    <div class="flex h-full w-1/2">
+                                        <ProjectBanner
+                                            class="my-auto ml-auto h-min max-h-full w-min max-w-full rounded-none rounded-r-lg object-contain"
+                                            src={project.banner!}
+                                            alt={project.name + " Banner"}
+                                        />
                                     </div>
                                 </div>
-
-                                {/* TODO: Use Image component? */}
-                                <ProjectBanner
-                                    class="h-full w-full rounded-none rounded-r-lg object-contain"
-                                    src={project.banner!}
-                                    alt={project.name + " Banner"}
-                                />
                             </div>
                         );
                     })
                 }
             </div>
+            <style>
+                @keyframes scale {
+                    to {
+                        transform: scale(var(--scale-to));
+                    }
+                }
+
+                .card-content {
+                    animation: linear scale forwards;
+                    animation-timeline: --cards-element-scrolls-in-body;
+                    animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+                }
+            </style>
         </div>
+        <div class="h-[50vh]">Blah</div>
     </section>
 </MainLayout>
