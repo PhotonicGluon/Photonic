@@ -3,6 +3,11 @@ import { Image } from "astro:assets";
 
 import logoImage from "@images/Icon.jpg";
 import hamburgerIcon from "@images/icons/hamburger-menu.svg";
+
+const NAV_ITEMS: { text: string; href: string }[] = [
+    { text: "Projects", href: "/projects" },
+    { text: "About", href: "/about" },
+];
 ---
 
 {/* Hamburger icon */}
@@ -27,11 +32,11 @@ import hamburgerIcon from "@images/icons/hamburger-menu.svg";
     </a>
     <div class="invisible float-right m-0 w-full md:visible md:flex md:h-12 md:w-auto" id="slideover-wrapper">
         <div
-            class="absolute inset-0 h-screen w-screen translate-x-full bg-gray-950 transition-all duration-300 ease-in-out md:static md:flex md:h-12 md:w-auto md:translate-x-0 md:items-center md:gap-8 md:bg-transparent"
+            class="absolute inset-0 h-screen w-screen translate-x-full bg-gray-950 transition-all duration-300 ease-in-out md:static md:h-auto md:w-auto md:translate-x-0 md:bg-transparent"
             id="slideover"
         >
             <div
-                class="toggle-slideover absolute right-0 top-0 mr-8 mt-8 flex h-10 w-10 cursor-pointer items-center justify-center text-gray-400 md:hidden"
+                class="toggle-slideover absolute right-0 top-0 mr-8 mt-8 flex h-12 w-12 cursor-pointer items-center justify-center text-gray-400 hover:text-gray-300 focus:text-gray-300 md:hidden"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -39,22 +44,28 @@ import hamburgerIcon from "@images/icons/hamburger-menu.svg";
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class="size-8"
+                    class="size-10"
                 >
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
                 </svg>
             </div>
-            <a href="/projects">Projects</a>
-            <a href="/about">About</a>
+            <div
+                class="mr-11 mt-24 grid grid-cols-1 place-items-end gap-4 md:mr-0 md:mt-0 md:flex md:h-12 md:w-auto md:items-center md:gap-8"
+            >
+                {
+                    NAV_ITEMS.map(({ text, href }) => (
+                        <a
+                            class="w-min font-mono text-2xl uppercase text-gray-400 no-underline transition-all duration-200 visited:text-gray-400 hover:text-gray-300 visited:hover:text-gray-300 focus:text-gray-300 md:inline-block md:py-0 md:text-xl md:last:px-0 xl:text-2xl"
+                            href={href}
+                        >
+                            {text}
+                        </a>
+                    ))
+                }
+            </div>
         </div>
     </div>
 </div>
-
-<style>
-    #slideover a {
-        @apply block px-0 py-3 text-center font-mono text-xl uppercase text-gray-400 no-underline transition-all duration-200 hover:text-gray-300 focus:text-gray-300 md:inline-block md:py-0 md:last:px-0 xl:text-2xl;
-    }
-</style>
 
 <script>
     import $ from "jquery";
