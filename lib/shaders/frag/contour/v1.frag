@@ -6,7 +6,9 @@ precision highp float;
 uniform float iTime;       // Current time in seconds
 uniform vec3 iResolution;  // Viewport resolution (width, height, pixel ratio)
 
-// CONSTANTS
+// Constant uniforms
+uniform float cTimeOffset;  // Offset for starting time of the effect
+
 // User-controllable parameters
 #define SCALE 1.0                // Scaling factor
 #define REPEAT_INTERVAL 7.0       // Tetra noise repeat interval
@@ -23,9 +25,10 @@ uniform vec3 iResolution;  // Viewport resolution (width, height, pixel ratio)
 #define NOISE_COEFF3 vec3(9.0, 0.25, 5.0)           // Coefficients for the third set of noise calculations
 
 #define LINE_SPACING 0.08          // Spacing factor between lines
-#define LINE_WEIGHT 0.25           // Weight of the lines
+#define LINE_WEIGHT 0.65           // Weight of the lines
 #define LINE_BASE_SIZE 3.5         // Base line size
 
+// CONSTANTS
 #define TAU 6.283185
 
 #define REFERENCE_RESOLUTION 256.0  // Reference resolution to use when scaling line weight by resolution
@@ -135,9 +138,9 @@ float tetraNoise(vec3 p) {
  */
 float generateNoise(vec2 uv) {
     // Get actual x and y coordinates based on time
-    float time = iTime * SPEED;
+    float time = iTime * SPEED + cTimeOffset;
 
-    float x = uv.x + mod(time, REPEAT_INTERVAL);
+    float x = uv.x - mod(time, REPEAT_INTERVAL);  // Makes noise go 'rightward'
     float y = uv.y;
 
     // Blend noise at different frequencies, moving in different directions
@@ -196,13 +199,8 @@ float noiseAsContour(float noise) {
     // Adjust to the base line size
     intensity /= LINE_BASE_SIZE;  // Divide to make more pixels fall within line boundary
 
-    // Scale the weight with resolution
-    // TODO: Maybe not? Perhaps just keep it constant, and change the part of the shader that is visible?
-    float weight = LINE_WEIGHT;
-    weight *= iResolution.y / REFERENCE_RESOLUTION;
-
-    // Offset the line by the weight
-    intensity -= weight;
+    // Offset by the line weight
+    intensity -= LINE_WEIGHT;
     intensity += 1.0f;  // +1 to shift valid values to [0, 1]
 
     // Subtract intensity from 1 to actually emphasise the lines

@@ -8,7 +8,7 @@ FRAG_SHADERS_FOLDER = f"{SHADERS_FOLDER}/frag"
 EDITABLE_UNIFORMS_FILE = "editable-uniforms.ts"
 EDITABLE_UNIFORMS_PREFIX = "export const editableUniforms: SlidersOptionsMap = "
 
-SHADER_NAME = "contour"
+SHADER_NAME = input("Enter the shader name: ").lower()
 
 RENAME_UNIFORMS_AS_CONSTS = True
 
@@ -17,7 +17,7 @@ def camel_case_split(identifier):  # https://stackoverflow.com/a/29920015
     return [m.group(0) for m in matches]
 
 # Get the user-editable uniforms of the shader
-with open(os.path.join(FRAG_SHADERS_FOLDER, SHADER_NAME, f"{SHADER_NAME}-modifiable.frag"), "r") as f:
+with open(os.path.join(FRAG_SHADERS_FOLDER, SHADER_NAME, "modifiable.frag"), "r") as f:
     shader_contents = f.read()
     uniform_matches = list(re.finditer(r"uniform\s\w+\s(?P<uniform_name>u\w+);", shader_contents))
 
@@ -73,5 +73,5 @@ if RENAME_UNIFORMS_AS_CONSTS:
         shader_contents = shader_contents.replace(uniform, new_uniform)
 
 # Write to file
-with open(os.path.join(FRAG_SHADERS_FOLDER, SHADER_NAME, f"{SHADER_NAME}-fixed.frag"), "w") as f:
+with open(os.path.join(FRAG_SHADERS_FOLDER, SHADER_NAME, "fixed.frag"), "w") as f:
     f.write(shader_contents)
