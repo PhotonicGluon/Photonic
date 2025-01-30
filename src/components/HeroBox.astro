@@ -33,11 +33,11 @@ export interface Props {
 
 const {
     title,
-    titleClass = "text-6xl",
+    titleClass = "text-4xl md:text-5xl xl:text-6xl",
     titleAnimation = "motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-top-3",
     titleStyle,
     subtitle,
-    subtitleClass = "text-base",
+    subtitleClass = "text-sm xl:text-base",
     subtitleAnimation = "motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-bottom-2 motion-safe:fill-mode-backwards",
     subtitleStyle,
     height = "max(300px, 35vh)",
@@ -47,18 +47,21 @@ const {
 <div class="h-[var(--height)]" style={{ "--height": height }}>
     <slot name="shader" />
     <div
-        class="absolute left-1/2 top-[calc(var(--height)/2)] mx-0 my-auto w-full -translate-x-1/2 -translate-y-1/2 text-center"
+        class="absolute left-1/2 top-[calc(var(--height)/2)] mx-0 my-auto mt-8 w-full max-w-screen-xl -translate-x-1/2 -translate-y-1/2 px-10 text-center xl:mt-0"
         style={{ "--height": height }}
     >
         <h1
-            class={"m-0 font-bold leading-normal text-white" + ` ${titleClass} ${titleAnimation}`}
+            class={"m-0 font-bold leading-none md:leading-tight text-white" + ` ${titleClass} ${titleAnimation}`}
             style={titleStyle}
         >
             {title}
         </h1>
         {
             subtitle && (
-                <h2 class={"m-0 text-white" + ` ${subtitleClass} ${subtitleAnimation}`} style={subtitleStyle}>
+                <h2
+                    class={"m-0 pt-2 text-white md:pt-0" + ` ${subtitleClass} ${subtitleAnimation}`}
+                    style={subtitleStyle}
+                >
                     {subtitle}
                 </h2>
             )
