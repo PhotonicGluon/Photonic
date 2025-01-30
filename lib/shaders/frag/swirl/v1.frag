@@ -36,8 +36,8 @@ uniform sampler2D iChannel1;  // Input texture
 #define COLOUR_SHINE 5.0         // Shine factor, lower = more shine
 
 #define ANTIALIASING true         // Toggle for antialiasing
-#define ANTIALIASINGLevel 3.0   // Level of antialiasing to apply
-#define ANTIALIASINGRadius 0.75  // Radius to sample points for antialiasing
+#define ANTIALIASING_LEVEL 3.0   // Level of antialiasing to apply
+#define ANTIALIASING_RADIUS 0.75  // Radius to sample points for antialiasing
 
 // CONSTANTS
 #define IMAGE_SCALE 1.0
@@ -205,14 +205,14 @@ void main() {
 
     // Apply antialiasing
     // (Adapted from https://www.shadertoy.com/view/wtjfRV by Greg Rostami)
-    float step = 1.0f / ANTIALIASINGLevel;
+    float step = 1.0f / ANTIALIASING_LEVEL;
 
     vec4 finalColour = vec4(0);
-    for(float x = -ANTIALIASINGRadius; x < ANTIALIASINGRadius; x += step) {
-        for(float y = -ANTIALIASINGRadius; y < ANTIALIASINGRadius; y += step) {
+    for(float x = -ANTIALIASING_RADIUS; x < ANTIALIASING_RADIUS; x += step) {
+        for(float y = -ANTIALIASING_RADIUS; y < ANTIALIASING_RADIUS; y += step) {
             finalColour += min(getFinalColour(gl_FragCoord.xy + vec2(x, y)), 1.0f);
         }
     }
-    finalColour /= (4.0f * ANTIALIASINGRadius * ANTIALIASINGRadius) * (ANTIALIASINGLevel * ANTIALIASINGLevel);
+    finalColour /= (4.0f * ANTIALIASING_RADIUS * ANTIALIASING_RADIUS) * (ANTIALIASING_LEVEL * ANTIALIASING_LEVEL);
     outColour = finalColour;
 }

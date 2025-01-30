@@ -22,6 +22,7 @@ with open(os.path.join(FRAG_SHADERS_FOLDER, SHADER_NAME, "modifiable.frag"), "r"
     uniform_matches = list(re.finditer(r"uniform\s\w+\s(?P<uniform_name>u\w+);", shader_contents))
 
     uniforms = [match.group("uniform_name") for match in uniform_matches]
+    uniforms = sorted(uniforms, key=lambda x: -len(x))
 
 
 # Get all editable uniforms' values
