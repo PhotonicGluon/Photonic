@@ -4,8 +4,13 @@ import { Image } from "astro:assets";
 import hamburgerIcon from "@images/icons/hamburger-menu.svg";
 ---
 
-<div class="float-right h-16 w-16 cursor-pointer md:hidden" id="hamburger">
-    <Image class="relative top-1/2 m-auto h-10 w-10 -translate-y-1/2" src={hamburgerIcon} alt="Open Menu" />
+<div class="float-right h-12 w-12 cursor-pointer md:hidden" id="hamburger">
+    <Image
+        class="relative top-1/2 ml-auto h-10 w-auto -translate-y-1/2"
+        src={hamburgerIcon}
+        alt="Open Menu"
+        loading="eager"
+    />
 </div>
 
 <script>
