@@ -1,8 +1,21 @@
 ---
 import { Image } from "astro:assets";
+
 import logoImage from "@images/Icon.jpg";
+import hamburgerIcon from "@images/icons/hamburger-menu.svg";
 ---
 
+{/* Hamburger icon */}
+<div class="float-right h-12 w-12 cursor-pointer md:hidden" id="hamburger">
+    <Image
+        class="relative top-1/2 ml-auto h-10 w-auto -translate-y-1/2"
+        src={hamburgerIcon}
+        alt="Open Menu"
+        loading="eager"
+    />
+</div>
+
+{/* Main navigation */}
 <div class="mx-auto my-0">
     <a href="/">
         <Image
@@ -30,3 +43,11 @@ import logoImage from "@images/Icon.jpg";
         @apply block px-0 py-3 text-center font-mono text-xl uppercase text-gray-400 no-underline transition-all duration-200 hover:text-gray-300 focus:text-gray-300 md:inline-block md:py-0 md:last:px-0 xl:text-2xl;
     }
 </style>
+
+<script>
+    import $ from "jquery";
+
+    $("#hamburger").on("click", () => {
+        $("#links")[0].classList.toggle("expanded");
+    });
+</script>
