@@ -54,25 +54,25 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         </div>
         <Footer class="h-36" />
     </body>
+
+    <style is:global>
+        @import "@styles/global.css";
+
+        /* Page content normalization */
+        section {
+            @apply mx-auto my-0 max-w-screen-xl px-10;
+        }
+
+        /* Text styling */
+        p,
+        ul,
+        ol {
+            @apply pb-3 text-justify;
+        }
+
+        /* Hyperlink styling */
+        a {
+            @apply text-blue-400 transition-all duration-200 visited:text-indigo-400 hover:text-blue-500 visited:hover:text-indigo-500;
+        }
+    </style>
 </html>
-
-<style is:global>
-    @import "@styles/global.css";
-
-    /* Page content normalization */
-    section {
-        @apply mx-auto my-0 max-w-screen-xl px-10;
-    }
-
-    /* Text styling */
-    p,
-    ul,
-    ol {
-        @apply pb-3 text-justify;
-    }
-
-    /* Hyperlink styling */
-    a {
-        @apply text-blue-400 transition-all duration-200 visited:text-indigo-400 hover:text-blue-500 visited:hover:text-indigo-500;
-    }
-</style>
