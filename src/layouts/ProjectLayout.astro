@@ -10,6 +10,8 @@ import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
+import "@styles/global.css";
+
 // Get the project
 type Props = CollectionEntry<"projects">["data"];
 const project = toProject(Astro.props);
@@ -25,7 +27,7 @@ const project = toProject(Astro.props);
     {/* Banner image */}
     {
         project.banner && (
-            <div class="w-full motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-4 motion-safe:fill-mode-backwards">
+            <div class="motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-4 motion-safe:fill-mode-backwards w-full motion-safe:delay-200 motion-safe:duration-500">
                 <ProjectBanner
                     src={project.banner}
                     alt={`${project.name} Banner`}
@@ -38,13 +40,13 @@ const project = toProject(Astro.props);
 
     {/* Add tags */}
     <ProjectTags
-        class="motion-safe:delay-300 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards"
+        class="motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards motion-safe:delay-300 motion-safe:duration-500"
         tags={project.tags}
     />
 
     {/* Icons for URLs */}
     <div
-        class="mt-2 motion-safe:delay-400 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards"
+        class="motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards mt-2 motion-safe:delay-400 motion-safe:duration-500"
     >
         <ProjectURLsIcons urls={project.urls} loading="eager" />
     </div>
@@ -52,13 +54,15 @@ const project = toProject(Astro.props);
     {/* Actual project contents */}
     <section
         id="project"
-        class="mt-4 motion-safe:delay-500 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards"
+        class="motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-2 motion-safe:fill-mode-backwards mt-4 motion-safe:delay-500 motion-safe:duration-500"
     >
         <slot />
     </section>
 </MainLayout>
 
 <style is:global>
+    @import "@styles/global.css";
+
     /* Hero box specific styling */
     .text h1 {
         @apply pt-0 leading-normal;

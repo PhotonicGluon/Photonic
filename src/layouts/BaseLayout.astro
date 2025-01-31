@@ -1,11 +1,11 @@
 ---
 import seedrandom from "seedrandom";
 
-import "@styles/global.css";
-
 import Footer from "@components/Footer.astro";
 import Header from "@components/header/Header.astro";
 import Shader from "@components/Shader.astro";
+
+import "@styles/global.css";
 
 const { title } = Astro.props;
 
@@ -15,7 +15,7 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
 ---
 
 <!doctype html>
-<html lang="en">
+<html class="bg-gray-950 font-sans text-white" lang="en">
     <head>
         {/* Metadata */}
         {/* TODO: Add more */}
@@ -41,7 +41,7 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         </script>
         <slot name="head-scripts" />
     </head>
-    <body class="relative min-h-screen">
+    <body class="relative m-0 min-h-screen">
         <div class="pb-36">
             <Header />
             <Shader
@@ -57,16 +57,9 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
 </html>
 
 <style is:global>
+    @import "@styles/global.css";
+
     /* Page content normalization */
-    html,
-    body {
-        @apply m-0 font-sans text-white;
-    }
-
-    html {
-        @apply bg-gray-950;
-    }
-
     section {
         @apply mx-auto my-0 max-w-screen-xl px-10;
     }
