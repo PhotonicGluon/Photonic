@@ -39,7 +39,7 @@ const NAV_ITEMS: { text: string; href: string }[] = [
             id="slideover"
         >
             <div
-                class="toggle-slideover absolute right-0 top-0 mr-8 mt-8 flex h-12 w-12 cursor-pointer items-center justify-center text-gray-400 hover:text-gray-300 focus:text-gray-300 md:hidden"
+                class="toggle-slideover absolute top-0 right-0 mt-8 mr-8 flex h-12 w-12 cursor-pointer items-center justify-center text-gray-400 hover:text-gray-300 focus:text-gray-300 md:hidden"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -53,12 +53,12 @@ const NAV_ITEMS: { text: string; href: string }[] = [
                 </svg>
             </div>
             <div
-                class="mr-11 mt-24 grid grid-cols-1 place-items-end gap-4 md:mr-0 md:mt-0 md:flex md:h-12 md:w-auto md:items-center md:gap-8"
+                class="mt-24 mr-11 grid grid-cols-1 place-items-end gap-4 md:mt-0 md:mr-0 md:flex md:h-12 md:w-auto md:items-center md:gap-8"
             >
                 {
                     NAV_ITEMS.map(({ text, href }) => (
                         <a
-                            class="w-min font-mono text-2xl uppercase text-gray-400 no-underline transition-all duration-200 visited:text-gray-400 hover:text-gray-300 visited:hover:text-gray-300 focus:text-gray-300 md:inline-block md:py-0 md:text-xl md:last:px-0 xl:text-2xl"
+                            class="w-min font-mono text-2xl text-gray-400 uppercase no-underline transition-all duration-200 visited:text-gray-400 hover:text-gray-300 visited:hover:text-gray-300 focus:text-gray-300 md:inline-block md:py-0 md:text-xl md:last:px-0 xl:text-2xl"
                             href={href}
                         >
                             {text}

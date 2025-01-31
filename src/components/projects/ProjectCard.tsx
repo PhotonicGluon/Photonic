@@ -58,8 +58,7 @@ export default class ProjectFilters extends Component<Props, State> {
         const cardBack = (
             <div>
                 <span class="text-2xl font-bold">{project.name}</span>
-
-                <p class="mt-4 text-center">{project.summary}</p>
+                <p class="mt-4 !text-center">{project.summary}</p>
             </div>
         );
 
@@ -70,10 +69,10 @@ export default class ProjectFilters extends Component<Props, State> {
                     class="card-content group relative mx-auto my-0 h-full w-11/12 cursor-pointer rounded-lg bg-gradient-to-tr from-gray-900 via-slate-700 via-75% to-gray-800 p-3 text-center transition-transform duration-500 motion-reduce:*:transition-opacity motion-reduce:*:duration-300"
                     onClick={this.onClick(props.id)}
                 >
-                    <div class="card-front absolute bottom-0 left-0 right-0 top-0 flex flex-col items-center justify-center p-8 motion-reduce:opacity-100 motion-reduce:group-hover:opacity-0">
+                    <div class="card-front absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center p-8 motion-reduce:opacity-100 motion-reduce:group-hover:opacity-0">
                         {cardFront}
                     </div>
-                    <div class="card-back absolute bottom-0 left-0 right-0 top-0 flex flex-col items-center justify-center p-8 motion-reduce:opacity-0 motion-reduce:group-hover:opacity-100">
+                    <div class="card-back absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center p-8 motion-reduce:opacity-0 motion-reduce:group-hover:opacity-100">
                         {cardBack}
                     </div>
                 </div>

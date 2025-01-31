@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+@plugin "tailwindcss-animate";
+@plugin "tailwindcss-intersect";
+
+@theme {
+    --font-sans: "DM Sans", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif";
+    --font-mono: "JetBrains Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Courier New", "monospace";
+
+    --breakpoint-sm: 30rem;
+    --breakpoint-md: 48rem;
+    --breakpoint-lg: 64rem;
+    --breakpoint-xl: 90rem;
+}
