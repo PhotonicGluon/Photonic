@@ -11,9 +11,9 @@ const NAV_ITEMS: { text: string; href: string }[] = [
 ---
 
 {/* Hamburger icon */}
-<div class="toggle-slideover float-right h-12 w-12 cursor-pointer md:hidden">
+<div class="toggle-slideover float-right size-12 cursor-pointer md:hidden">
     <Image
-        class="relative top-1/2 ml-auto h-10 w-auto -translate-y-1/2"
+        class="relative top-1/2 ml-auto size-6 -translate-y-1/2"
         src={hamburgerIcon}
         alt="Open Menu"
         loading="eager"
@@ -24,7 +24,7 @@ const NAV_ITEMS: { text: string; href: string }[] = [
 <div class="mx-auto my-0">
     <a href="/">
         <Image
-            class="float-left h-12 w-auto rounded-xl md:h-14 xl:h-16 xl:rounded-2xl"
+            class="float-left size-12 rounded-xl md:size-14 xl:size-16 xl:rounded-2xl"
             src={logoImage}
             alt="Photonic Logo"
             loading="eager"
@@ -39,15 +39,16 @@ const NAV_ITEMS: { text: string; href: string }[] = [
             id="slideover"
         >
             <div
-                class="toggle-slideover absolute top-0 right-0 mt-8 mr-8 flex h-12 w-12 cursor-pointer items-center justify-center text-gray-400 hover:text-gray-300 focus:text-gray-300 md:hidden"
+                class="toggle-slideover absolute top-0 right-0 mt-8 mr-8 flex size-12 cursor-pointer items-center justify-center text-gray-400 hover:text-gray-300 focus:text-gray-300 md:hidden"
             >
+                {/* Hamburger icon */}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class="size-10"
+                    class="size-6"
                 >
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
                 </svg>
