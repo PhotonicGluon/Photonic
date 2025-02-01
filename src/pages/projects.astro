@@ -16,18 +16,20 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 ---
 
 <MainLayout title="Projects">
-    <section class="grid grid-cols-5 divide-x-2 divide-solid divide-gray-500">
+    <section
+        class="grid -translate-y-16 grid-cols-1 divide-y-2 divide-solid divide-gray-500 lg:translate-y-0 lg:grid-cols-5 lg:divide-x-2 lg:divide-y-0"
+    >
         {/* Project search/filters */}
         <div class="h-full">
             <div
-                class="sticky top-3 col-span-1 col-start-1 self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-left-4"
+                class="sticky top-3 col-span-1 col-start-1 self-start pb-4 motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-left-4 lg:pb-0"
             >
                 <ProjectFilters ids={projectIDs} projects={projects} client:load />
             </div>
         </div>
 
         {/* Project list */}
-        <div class="col-span-4 col-start-2">
+        <div class="pt-4 lg:col-span-4 lg:col-start-2 lg:pt-0">
             <ProjectList
                 class="motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-right-4"
                 client:load
