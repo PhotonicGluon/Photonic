@@ -96,7 +96,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
 
                         return (
                             <div
-                                class="intersect-once intersect-half sticky top-40 h-96 motion-safe:delay-0 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 lg:top-28 motion-safe:intersect:running"
+                                class="intersect-once intersect-half sticky top-40 h-104 motion-safe:delay-0 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 md:top-28 md:h-96 motion-safe:intersect:running"
                                 style={{
                                     "--scale-to": CARD_MIN_SCALE + (1 - CARD_MIN_SCALE) * nextPercent,
                                     "--start-range": `${currPercent * 100}%`,
@@ -104,30 +104,35 @@ const CARD_TOP_PADDING = 0.75; // In rem
                                     "padding-top": `${(index + 1) * CARD_TOP_PADDING}rem`,
                                 }}
                             >
-                                <div class="card-content flex h-full w-full origin-[50%_0%] flex-col items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform lg:flex-row">
+                                <div class="card-content flex h-full w-full origin-[50%_0%] flex-col items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform md:flex-row">
                                     {/* Details area */}
-                                    <div class="order-2 max-h-[50%] w-full py-2 lg:order-1 lg:h-full lg:max-h-full lg:w-1/2 lg:py-8">
-                                        <div class="grid w-full place-self-center text-left lg:w-4/5 lg:gap-2">
+                                    <div class="order-2 flex max-h-[60%] w-full py-2 md:order-1 md:h-full md:max-h-full md:w-1/2 md:py-8">
+                                        <div class="mx-auto grid w-full place-self-center text-left md:w-4/5 md:gap-2">
+                                            {/* Name, Tags and URLs */}
                                             <div class="flex flex-col gap-y-2 lg:flex-row lg:gap-y-0">
                                                 <div class="grow">
-                                                    <h2 class="hidden text-center text-3xl font-bold tracking-tight text-white md:inline lg:text-start">
+                                                    <h2 class="hidden text-center text-3xl font-bold tracking-tight text-white lg:inline lg:text-start">
                                                         {project.name}
                                                     </h2>
                                                     <ProjectTags
-                                                        class="!flex !justify-center lg:w-min"
+                                                        class="!flex !justify-center md:w-min"
                                                         tags={project.tags}
                                                     />
                                                 </div>
-                                                <div class="flex items-center justify-center lg:justify-normal">
+                                                <div class="flex items-center justify-center md:justify-normal">
                                                     <ProjectURLsIcons urls={project.urls} loading="lazy" />
                                                 </div>
                                             </div>
-                                            <p class="p-0 px-4 font-normal text-gray-400 lg:mt-2 lg:px-0">
+
+                                            {/* Summary */}
+                                            <p class="p-0 px-4 text-sm leading-tight font-normal text-gray-400 md:mt-2 md:px-0 md:text-base md:leading-normal">
                                                 {project.summary}
                                             </p>
-                                            <div class="mx-auto lg:mx-0 lg:mt-2">
+
+                                            {/* Read more */}
+                                            <div class="mx-auto md:mx-0 md:mt-2">
                                                 <ButtonLink
-                                                    class="bg-sky-700 hover:bg-sky-800"
+                                                    class="bg-sky-700 !px-3 !py-1.5 text-sm hover:bg-sky-800 md:text-base lg:!px-5 lg:!py-2.5"
                                                     href={"/projects/" + rawProject.id}
                                                 >
                                                     Read More
@@ -137,9 +142,9 @@ const CARD_TOP_PADDING = 0.75; // In rem
                                     </div>
 
                                     {/* Banner area */}
-                                    <div class="order-1 flex max-h-[50%] w-full lg:order-2 lg:h-full lg:max-h-full lg:w-1/2">
+                                    <div class="order-1 flex max-h-[40%] w-full md:order-2 md:h-full md:max-h-full md:w-1/2">
                                         <ProjectBanner
-                                            class="mx-auto h-min max-h-full w-min max-w-full rounded-none rounded-t-lg object-contain lg:my-auto lg:mr-0 lg:ml-auto lg:rounded-r-lg"
+                                            class="mx-auto h-min max-h-full w-min max-w-full rounded-none rounded-t-lg object-contain md:my-auto md:mr-0 md:ml-auto md:rounded-tl-none md:rounded-r-lg"
                                             src={project.banner!}
                                             alt={project.name + " Banner"}
                                         />
