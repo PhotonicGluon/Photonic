@@ -2,7 +2,6 @@
 import { Image } from "astro:assets";
 
 import logoImage from "@images/Icon.jpg";
-import hamburgerIcon from "@images/icons/hamburger-menu.svg";
 
 const NAV_ITEMS: { text: string; href: string }[] = [
     { text: "Projects", href: "/projects" },
@@ -11,13 +10,18 @@ const NAV_ITEMS: { text: string; href: string }[] = [
 ---
 
 {/* Hamburger icon */}
-<div class="toggle-slideover float-right size-12 cursor-pointer md:hidden">
-    <Image
+<div class="toggle-slideover float-right size-12 cursor-pointer text-gray-400 md:hidden">
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
         class="relative top-1/2 ml-auto size-6 -translate-y-1/2"
-        src={hamburgerIcon}
-        alt="Open Menu"
-        loading="eager"
-    />
+    >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+        ></path>
+    </svg>
 </div>
 
 {/* Main navigation */}
