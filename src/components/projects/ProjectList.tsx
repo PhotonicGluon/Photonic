@@ -22,6 +22,14 @@ export default class ProjectList extends Component<Props, State> {
         const listItems = $projectStore.displayed.map((projectInstance) => {
             return <ProjectCard id={projectInstance.id} project={projectInstance.project} />;
         });
-        return <div class={"grid grid-cols-3 justify-items-center gap-4" + ` ${props.class}`}>{listItems}</div>;
+        return (
+            <div
+                class={
+                    "grid grid-cols-1 justify-items-center gap-4 md:grid-cols-2 xl:grid-cols-3" + ` ${props.class}`
+                }
+            >
+                {listItems}
+            </div>
+        );
     }
 }

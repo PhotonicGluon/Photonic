@@ -20,18 +20,18 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
         class="grid -translate-y-16 grid-cols-1 divide-y-2 divide-solid divide-gray-500 lg:translate-y-0 lg:grid-cols-5 lg:divide-x-2 lg:divide-y-0"
     >
         {/* Project search/filters */}
-        <div class="h-full">
+        <div class="h-full pb-4 lg:pr-3 lg:pb-0">
             <div
-                class="sticky top-3 col-span-1 col-start-1 self-start pb-4 motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-left-4 lg:pb-0"
+                class="sticky top-3 col-span-1 col-start-1 self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:lg:slide-in-from-left-4"
             >
                 <ProjectFilters ids={projectIDs} projects={projects} client:load />
             </div>
         </div>
 
         {/* Project list */}
-        <div class="pt-4 lg:col-span-4 lg:col-start-2 lg:pt-0">
+        <div class="pt-4 lg:col-span-4 lg:col-start-2 lg:pt-0 lg:pl-3">
             <ProjectList
-                class="motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-right-4"
+                class="motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:lg:slide-in-from-right-4"
                 client:load
             />
         </div>

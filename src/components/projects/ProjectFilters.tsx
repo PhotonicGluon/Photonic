@@ -169,7 +169,7 @@ export default class ProjectFilters extends Component<Props, State> {
     render(props: Props, state: State) {
         const $projectStore = useStore(projectStore);
         return (
-            <div class="w-full pr-3">
+            <div class="w-full">
                 <span class="block font-bold">Search</span>
                 <div id="search">
                     <label for="search-project" class="sr-only">
@@ -212,7 +212,7 @@ export default class ProjectFilters extends Component<Props, State> {
                     </label>
                     <select
                         id="sort-date"
-                        class="mb-2 block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:outline-none focus:ring-0"
+                        class="mb-2 block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:ring-0 focus:outline-none"
                         onChange={this.onFiltersChange(props.ids, props.projects)}
                     >
                         <option value={SortDate.START}>Start Date</option>
@@ -225,7 +225,7 @@ export default class ProjectFilters extends Component<Props, State> {
                     </label>
                     <select
                         id="sort-order"
-                        class="block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:outline-none focus:ring-0"
+                        class="block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:ring-0 focus:outline-none"
                         onChange={this.onFiltersChange(props.ids, props.projects)}
                     >
                         <option value={SortOrder.CHRONOLOGICAL}>Chronological</option>
