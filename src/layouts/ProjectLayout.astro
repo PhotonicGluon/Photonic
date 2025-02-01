@@ -10,8 +10,6 @@ import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
-import "@styles/global.css";
-
 // Get the project
 type Props = CollectionEntry<"projects">["data"];
 const project = toProject(Astro.props);

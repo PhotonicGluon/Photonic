@@ -1,7 +1,8 @@
 @import "tailwindcss";
+
+@import "tailwindcss-intersect";
 @plugin "@tailwindcss/forms";
 @plugin "tailwindcss-animate";
-@plugin "tailwindcss-intersect";
 
 @theme {
     --font-sans: "DM Sans", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif";
