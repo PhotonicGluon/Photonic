@@ -21,7 +21,7 @@ export default class ProjectTag extends Component<Props, State> {
     render(props: Props, state: State) {
         return (
             <span
-                class="w-min rounded-lg border border-solid border-(--baseColour) bg-(--backgroundColour) px-3 text-base"
+                class="w-min rounded-lg border border-solid border-(--baseColour) bg-(--backgroundColour) px-3 text-sm lg:text-base"
                 style={{
                     "--baseColour": formatRGBA(hexToRGBA(props.colour)),
                     "--backgroundColour": formatRGBA(hexToRGBA(props.colour, props.alpha)),

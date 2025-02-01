@@ -23,7 +23,7 @@ export default class ProjectTags extends Component<Props, State> {
         return (
             <div
                 class={
-                    "mt-1 grid grid-flow-row grid-cols-1 justify-items-center gap-1 lg:flex lg:justify-center" +
+                    "mt-1 grid grid-flow-row grid-cols-1 justify-items-center gap-1 md:flex md:justify-center" +
                     ` ${props.class}`
                 }
             >
