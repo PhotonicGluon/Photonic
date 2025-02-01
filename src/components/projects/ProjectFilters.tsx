@@ -169,23 +169,23 @@ export default class ProjectFilters extends Component<Props, State> {
     render(props: Props, state: State) {
         const $projectStore = useStore(projectStore);
         return (
-            <div class="w-full">
-                <span class="block font-bold">Search</span>
-                <div id="search">
+            <div class="grid w-full grid-cols-2 gap-x-2 lg:block">
+                <span class="hidden font-bold lg:block">Search</span>
+                <div class="col-span-2 pt-3 lg:pt-0" id="search">
                     <label for="search-project" class="sr-only">
                         Search
                     </label>
                     <input
                         type="text"
                         id="search-project"
-                        class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-2.5 text-sm text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                        class="block w-full rounded-lg border border-gray-600 bg-gray-700 p-1.5 text-xs text-white placeholder-gray-400 focus:border-blue-500 focus:ring-blue-500 md:p-2.5 md:text-sm"
                         placeholder="Search for a project..."
                         onInput={this.onFiltersChange(props.ids, props.projects)}
                         required
                     />
                 </div>
-                <span class="block pt-3 font-bold">Tags</span>
-                <div id="tags">
+                <span class="hidden pt-3 font-bold lg:block">Tags</span>
+                <div class="flex flex-col gap-1 pt-3 lg:gap-0 lg:pt-0" id="tags">
                     {tagNames.map((tagName) => {
                         const checkboxID = "filter-tag-" + tagName.toLowerCase();
                         return (
@@ -198,21 +198,21 @@ export default class ProjectFilters extends Component<Props, State> {
                                     onChange={this.onFiltersChange(props.ids, props.projects)}
                                     checked={$projectStore.tags.has(tagName)}
                                 />
-                                <label for={checkboxID} class="ms-2 text-sm font-medium">
+                                <label for={checkboxID} class="ms-2 text-xs font-medium md:text-sm">
                                     {tagName}
                                 </label>
                             </div>
                         );
                     })}
                 </div>
-                <span class="block pt-3 font-bold">Sorting</span>
-                <div id="sorting">
+                <span class="hidden pt-3 font-bold lg:block">Sorting</span>
+                <div class="pt-3 lg:pt-0" id="sorting">
                     <label for="sort-date" class="sr-only">
                         Date
                     </label>
                     <select
                         id="sort-date"
-                        class="mb-2 block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:ring-0 focus:outline-none"
+                        class="mb:py-2.5 mb-2 block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-1.5 text-xs text-gray-400 focus:border-gray-200 focus:ring-0 focus:outline-none md:text-sm"
                         onChange={this.onFiltersChange(props.ids, props.projects)}
                     >
                         <option value={SortDate.START}>Start Date</option>
@@ -225,7 +225,7 @@ export default class ProjectFilters extends Component<Props, State> {
                     </label>
                     <select
                         id="sort-order"
-                        class="block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-2.5 text-sm text-gray-400 focus:border-gray-200 focus:ring-0 focus:outline-none"
+                        class="mb:py-2.5 block w-full appearance-none border-0 border-b-2 border-gray-700 bg-transparent px-0 py-1.5 text-xs text-gray-400 focus:border-gray-200 focus:ring-0 focus:outline-none md:text-sm"
                         onChange={this.onFiltersChange(props.ids, props.projects)}
                     >
                         <option value={SortOrder.CHRONOLOGICAL}>Chronological</option>
