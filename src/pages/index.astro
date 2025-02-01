@@ -43,7 +43,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
                 <Fragment slot="shader">
                     <Shader id="hero-shader" basePath="lib/shaders/frag/swirl" />
                     <div
-                        class="motion-safe:animate-out motion-safe:fade-out motion-safe:fill-mode-forwards absolute top-0 h-[inherit] w-full bg-black motion-safe:delay-500 motion-safe:duration-1000 motion-reduce:opacity-0"
+                        class="absolute top-0 h-[inherit] w-full bg-black motion-safe:delay-500 motion-safe:duration-1000 motion-safe:animate-out motion-safe:fade-out motion-safe:fill-mode-forwards motion-reduce:opacity-0"
                     >
                     </div>
                     <div
@@ -56,7 +56,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
             {/* Add hint to scroll down */}
             <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
                 <div
-                    class="motion-safe:fill-mode-backwards text-gray-500 *:mx-auto *:block *:w-fit motion-safe:animate-bounce motion-safe:delay-1000"
+                    class="text-gray-500 *:mx-auto *:block *:w-fit motion-safe:animate-bounce motion-safe:delay-1000 motion-safe:fill-mode-backwards"
                 >
                     <span class="text-center text-sm italic xl:text-base">Scroll down to read more</span>
                     <span class="text-xs xl:text-sm">&#9660 {/* Downward caret */}</span>
@@ -75,7 +75,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
         <div class="h-auto">
             <div class="sticky top-16 mb-96">
                 <h1
-                    class="intersect-once intersect-full motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500"
+                    class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"
                 >
                     Featured Projects
                 </h1>
@@ -96,7 +96,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
 
                         return (
                             <div
-                                class="intersect-once intersect-half motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running sticky top-28 h-96 motion-safe:delay-0 motion-safe:duration-500"
+                                class="intersect-once intersect-half sticky top-40 h-96 motion-safe:delay-0 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 lg:top-28 motion-safe:intersect:running"
                                 style={{
                                     "--scale-to": CARD_MIN_SCALE + (1 - CARD_MIN_SCALE) * nextPercent,
                                     "--start-range": `${currPercent * 100}%`,
@@ -104,22 +104,28 @@ const CARD_TOP_PADDING = 0.75; // In rem
                                     "padding-top": `${(index + 1) * CARD_TOP_PADDING}rem`,
                                 }}
                             >
-                                <div class="card-content flex h-full w-full origin-[50%_0%] flex-row items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform">
-                                    <div class="w-1/2 py-8">
-                                        <div class="grid w-4/5 gap-2 place-self-center text-left">
-                                            <div class="flex">
+                                <div class="card-content flex h-full w-full origin-[50%_0%] flex-col items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform lg:flex-row">
+                                    {/* Details area */}
+                                    <div class="order-2 max-h-[50%] w-full py-2 lg:order-1 lg:h-full lg:max-h-full lg:w-1/2 lg:py-8">
+                                        <div class="grid w-full place-self-center text-left lg:w-4/5 lg:gap-2">
+                                            <div class="flex flex-col gap-y-2 lg:flex-row lg:gap-y-0">
                                                 <div class="grow">
-                                                    <h2 class="text-3xl font-bold tracking-tight text-white">
+                                                    <h2 class="hidden text-center text-3xl font-bold tracking-tight text-white md:inline lg:text-start">
                                                         {project.name}
                                                     </h2>
-                                                    <ProjectTags class="w-min text-white" tags={project.tags} />
+                                                    <ProjectTags
+                                                        class="!flex !justify-center lg:w-min"
+                                                        tags={project.tags}
+                                                    />
                                                 </div>
-                                                <div class="flex items-center">
+                                                <div class="flex items-center justify-center lg:justify-normal">
                                                     <ProjectURLsIcons urls={project.urls} loading="lazy" />
                                                 </div>
                                             </div>
-                                            <p class="mt-2 p-0 font-normal text-gray-400">{project.summary}</p>
-                                            <div class="mt-2">
+                                            <p class="p-0 px-4 font-normal text-gray-400 lg:mt-2 lg:px-0">
+                                                {project.summary}
+                                            </p>
+                                            <div class="mx-auto lg:mx-0 lg:mt-2">
                                                 <ButtonLink
                                                     class="bg-sky-700 hover:bg-sky-800"
                                                     href={"/projects/" + rawProject.id}
@@ -130,9 +136,10 @@ const CARD_TOP_PADDING = 0.75; // In rem
                                         </div>
                                     </div>
 
-                                    <div class="flex h-full w-1/2">
+                                    {/* Banner area */}
+                                    <div class="order-1 flex max-h-[50%] w-full lg:order-2 lg:h-full lg:max-h-full lg:w-1/2">
                                         <ProjectBanner
-                                            class="my-auto ml-auto h-min max-h-full w-min max-w-full rounded-none rounded-r-lg object-contain"
+                                            class="mx-auto h-min max-h-full w-min max-w-full rounded-none rounded-t-lg object-contain lg:my-auto lg:mr-0 lg:ml-auto lg:rounded-r-lg"
                                             src={project.banner!}
                                             alt={project.name + " Banner"}
                                         />
@@ -164,12 +171,12 @@ const CARD_TOP_PADDING = 0.75; // In rem
     {/* whoami */}
     <section class="pt-8">
         <h1
-            class="intersect-once intersect-full motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500"
+            class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"
         >
             Who am I?
         </h1>
         <div
-            class="intersect-once intersect-full motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:paused motion-safe:fill-mode-backwards motion-safe:intersect:running motion-safe:delay-100 motion-safe:duration-500"
+            class="intersect-once intersect-half md:intersect-full motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"
         >
             <p>Hello! Welcome to my little corner of the internet! I hope you like it!</p>
             <p>
