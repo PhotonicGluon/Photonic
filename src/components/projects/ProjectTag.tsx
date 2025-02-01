@@ -1,8 +1,6 @@
 import { formatRGBA, hexToRGBA } from "@lib/misc/colours";
 import { Component } from "preact";
 
-import "./ProjectTag.css";
-
 interface Props {
     /** Name of the tag */
     name: string;
@@ -23,7 +21,7 @@ export default class ProjectTag extends Component<Props, State> {
     render(props: Props, state: State) {
         return (
             <span
-                class="tag rounded-lg border border-solid px-3 text-base"
+                class="w-min rounded-lg border border-solid border-(--baseColour) bg-(--backgroundColour) px-3 text-base"
                 style={{
                     "--baseColour": formatRGBA(hexToRGBA(props.colour)),
                     "--backgroundColour": formatRGBA(hexToRGBA(props.colour, props.alpha)),

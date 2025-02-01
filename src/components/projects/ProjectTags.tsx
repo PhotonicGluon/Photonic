@@ -21,7 +21,12 @@ export default class ProjectTags extends Component<Props, State> {
     // Lifecycle methods
     render(props: Props, state: State) {
         return (
-            <div class={"mt-1 grid grid-flow-row grid-cols-1 justify-center gap-1 lg:flex" + ` ${props.class}`}>
+            <div
+                class={
+                    "mt-1 grid grid-flow-row grid-cols-1 justify-items-center gap-1 lg:flex lg:justify-center" +
+                    ` ${props.class}`
+                }
+            >
                 {props.tags.map((tag: ProjectTagType) => (
                     <ProjectTag name={tag.name} colour={tag.colour} alpha={tag.alpha} />
                 ))}
