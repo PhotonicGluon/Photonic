@@ -45,7 +45,7 @@ const NAV_ITEMS: { text: string; href: string }[] = [
             <div
                 class="toggle-slideover absolute top-0 right-0 mt-8 mr-8 flex size-12 cursor-pointer items-center justify-center text-gray-400 hover:text-gray-300 focus:text-gray-300 md:hidden"
             >
-                {/* Hamburger icon */}
+                {/* Close icon */}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -65,6 +65,7 @@ const NAV_ITEMS: { text: string; href: string }[] = [
                         <a
                             class="w-min font-mono text-2xl !text-gray-400 uppercase no-underline transition-all duration-200 visited:!text-gray-400 hover:!text-gray-300 visited:hover:!text-gray-300 focus:text-gray-300 md:inline-block md:py-0 md:text-xl md:last:px-0 xl:text-2xl"
                             href={href}
+                            aria-label={text}
                         >
                             {text}
                         </a>
