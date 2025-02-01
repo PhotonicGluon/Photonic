@@ -18,7 +18,7 @@ export interface Props {
 const { urls, loading } = Astro.props;
 ---
 
-<ul class="flex justify-center gap-5 p-0">
+<ul class="flex justify-center gap-8 p-0 md:gap-6.5 lg:gap-5">
     {urls.github && <IconLink platform="GitHub" url={urls.github} icon={githubLogo} loading={loading} />}
     {urls.bandcamp && <IconLink platform="Bandcamp" url={urls.bandcamp} icon={bandcampLogo} loading={loading} />}
     {urls.website && <IconLink platform="Website" url={urls.website} icon={webLogo} loading={loading} />}
