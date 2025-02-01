@@ -5,8 +5,6 @@ import ProjectTags from "@components/projects/ProjectTags";
 import type { Project } from "@lib/projects/project";
 import { toDateString } from "@lib/misc/dates";
 
-import "./ProjectCard.css";
-
 interface Props {
     /** ID of the project */
     id: string;
@@ -63,16 +61,16 @@ export default class ProjectFilters extends Component<Props, State> {
         );
 
         return (
-            <div class="card h-96 w-full max-w-96">
+            <div class="group h-96 w-full max-w-96 motion-safe:perspective-distant">
                 <div
                     id={`project-${props.id}`}
-                    class="card-content group relative mx-auto my-0 h-full w-11/12 cursor-pointer rounded-lg bg-gradient-to-tr from-gray-900 via-slate-700 via-75% to-gray-800 p-3 text-center transition-transform duration-500 motion-reduce:*:transition-opacity motion-reduce:*:duration-300"
+                    class="card-content group relative mx-auto my-0 h-full w-11/12 cursor-pointer rounded-lg bg-gradient-to-tr from-gray-900 via-slate-700 via-75% to-gray-800 p-3 text-center transition-transform duration-500 motion-safe:transform-3d motion-safe:group-hover:rotate-y-180 motion-reduce:*:transition-opacity motion-reduce:*:duration-300"
                     onClick={this.onClick(props.id)}
                 >
-                    <div class="card-front absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center p-8 motion-reduce:opacity-100 motion-reduce:group-hover:opacity-0">
+                    <div class="absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center p-8 motion-safe:rotate-x-0 motion-safe:backface-hidden motion-reduce:opacity-100 motion-reduce:group-hover:opacity-0">
                         {cardFront}
                     </div>
-                    <div class="card-back absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center p-8 motion-reduce:opacity-0 motion-reduce:group-hover:opacity-100">
+                    <div class="absolute top-0 right-0 bottom-0 left-0 flex flex-col items-center justify-center p-8 motion-safe:rotate-x-0 motion-safe:rotate-y-180 motion-safe:backface-hidden motion-reduce:opacity-0 motion-reduce:group-hover:opacity-100">
                         {cardBack}
                     </div>
                 </div>
