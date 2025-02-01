@@ -3,10 +3,10 @@
     "type": "module",
     "version": "0.0.1",
     "scripts": {
-        "dev": "astro dev",
-        "build": "astro build && find dist -wholename **/info.json -delete",
+        "dev": "astro dev --host",
+        "build": "/bin/sh -c '/bin/bash ./scripts/build.sh'",
         "update": "npx npm-check-updates -u && npm install",
-        "preview": "astro preview",
+        "preview": "astro preview --host",
         "astro": "astro"
     },
     "dependencies": {
