@@ -8,6 +8,8 @@ export interface Props {
     class?: string;
     /** Title of the tab; defaults to the `title` with the website name */
     tabTitle?: string;
+    /** Padding to apply for the footer */
+    footerPadding?: string;
 
     // Hero box
     /** Optional class(es) to apply to the hero box element */
@@ -31,6 +33,7 @@ export interface Props {
 const {
     class: className,
     tabTitle,
+    footerPadding,
     heroBoxClass,
     title = "Untitled",
     titleClass,
@@ -42,7 +45,7 @@ const {
 } = Astro.props;
 ---
 
-<BaseLayout title={tabTitle ? tabTitle : `${title} - Photonic`}>
+<BaseLayout title={tabTitle ? tabTitle : `${title} - Photonic`} footerPadding={footerPadding}>
     <slot name="head-fonts" slot="head-fonts" />
     <slot name="head-scripts" slot="head-scripts" />
 

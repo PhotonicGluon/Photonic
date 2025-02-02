@@ -7,7 +7,14 @@ import Shader from "@components/Shader.astro";
 
 import "@styles/global.css";
 
-const { title } = Astro.props;
+export interface Props {
+    /** Title of the page */
+    title: string;
+    /** Padding to apply for the footer */
+    footerPadding?: string;
+}
+
+const { title, footerPadding = "calc(var(--spacing) * 36)" } = Astro.props;
 
 // Define pseudo-random time offset for contour noise
 const random = seedrandom(title);
@@ -42,7 +49,7 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         <slot name="head-scripts" />
     </head>
     <body class="relative m-0 min-h-screen">
-        <div class="pb-36">
+        <div class="pb-(--footer-padding)" style={{ "--footer-padding": footerPadding }}>
             <Header />
             <Shader
                 class="fixed top-0 -z-10 h-screen w-screen"
@@ -52,7 +59,7 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
             />
             <slot />
         </div>
-        <Footer class="h-36" />
+        <Footer class="h-24" />
     </body>
 
     <style is:global>
