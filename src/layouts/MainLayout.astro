@@ -3,8 +3,15 @@ import HeroBox from "@components/HeroBox.astro";
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 export interface Props {
+    // General
     /** Optional class(es) to apply to the main element */
     class?: string;
+    /** Title of the tab; defaults to the `title` with the website name */
+    tabTitle?: string;
+
+    // Hero box
+    /** Optional class(es) to apply to the hero box element */
+    heroBoxClass?: string;
     /** Title of the page */
     title?: string;
     /** Optional CSS class(es) to apply to the title text */
@@ -17,21 +24,20 @@ export interface Props {
     subtitleClass?: string;
     /** Optional CSS inline styles to apply to the subtitle text */
     subtitleStyle?: string;
-    /** Title of the tab; defaults to the `title` with the website name */
-    tabTitle?: string;
     /** Optional specification string for the height of the hero box */
     heroBoxHeight?: string;
 }
 
 const {
     class: className,
+    tabTitle,
+    heroBoxClass,
     title = "Untitled",
     titleClass,
     titleStyle,
     subtitle,
     subtitleClass,
     subtitleStyle,
-    tabTitle,
     heroBoxHeight,
 } = Astro.props;
 ---
@@ -42,6 +48,7 @@ const {
 
     <slot name="hero-box">
         <HeroBox
+            class={heroBoxClass}
             title={title}
             titleClass={titleClass}
             titleStyle={titleStyle}

@@ -15,21 +15,24 @@ const projectIDs = rawProjects.map((rawProject) => rawProject.id);
 const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 ---
 
-<MainLayout title="Projects">
+<MainLayout title="Projects" heroBoxClass="opacity-0 lg:opacity-100 h-20 md:h-24 lg:h-(--height)">
+    {/* Main stuff */}
     <section
-        class="grid -translate-y-24 grid-cols-1 divide-y-2 divide-solid divide-gray-500 lg:translate-y-0 lg:grid-cols-5 lg:divide-x-2 lg:divide-y-0"
+        class="grid grid-cols-1 divide-y-2 divide-solid divide-gray-500 lg:grid-cols-5 lg:divide-x-2 lg:divide-y-0"
     >
         {/* Project search/filters */}
-        <div class="h-full pb-4 lg:pr-3 lg:pb-0">
+        <div class="h-36 pb-4 md:h-44 lg:h-full lg:pr-3 lg:pb-0">
             <div
-                class="sticky top-3 col-span-1 col-start-1 self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:lg:slide-in-from-left-4"
+                class="col-span-1 col-start-1 self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 motion-safe:lg:slide-in-from-left-4"
             >
                 <ProjectFilters ids={projectIDs} projects={projects} client:load />
             </div>
         </div>
 
         {/* Project list */}
-        <div class="pt-4 lg:col-span-4 lg:col-start-2 lg:pt-0 lg:pl-3">
+        <div
+            class="h-96 overflow-y-scroll pt-4 lg:col-span-4 lg:col-start-2 lg:h-auto lg:overflow-y-visible lg:pt-0 lg:pl-3"
+        >
             <ProjectList
                 class="motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:lg:slide-in-from-right-4"
                 client:load
