@@ -134,13 +134,11 @@ export default class ProjectFilters extends Component<Props, State> {
         projectStore.setKey("displayed", newDisplayedProjects);
 
         // Check if any projects are left
+        const noProjectsElement = $("#no-projects-message")[0];
         if (newDisplayedProjects.length == 0) {
-            // TODO: This is quite ugly... can we do better?
-            $("#projects").append(
-                `<div id="no-projects-message" class="text-center text-2xl font-bold col-span-full">No projects match your filters.</div>`,
-            );
-        } else {
-            $("#no-projects-message").remove();
+            noProjectsElement.classList.remove("hidden");
+        } else if (!noProjectsElement.classList.contains("hidden")) {
+            noProjectsElement.classList.add("hidden");
         }
     }
 

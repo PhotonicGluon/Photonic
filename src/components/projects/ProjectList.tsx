@@ -29,6 +29,9 @@ export default class ProjectList extends Component<Props, State> {
                 }
             >
                 {listItems}
+                <div id="no-projects-message" class="col-span-full hidden text-center text-2xl font-bold">
+                    No projects found.
+                </div>
             </div>
         );
     }
