@@ -15,11 +15,7 @@ const projectIDs = rawProjects.map((rawProject) => rawProject.id);
 const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 ---
 
-<MainLayout
-    title="Projects"
-    footerPadding="calc(var(--spacing)*28)"
-    heroBoxClass="opacity-0 lg:opacity-100 h-20 md:h-24 lg:h-(--height)"
->
+<MainLayout title="Projects" heroBoxClass="opacity-0 lg:opacity-100 h-20 md:h-24 lg:h-(--height)">
     {/* Main stuff */}
     <section
         class="grid grid-cols-1 divide-y-2 divide-solid divide-gray-500 lg:grid-cols-5 lg:divide-x-2 lg:divide-y-0"
@@ -34,9 +30,7 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
         </div>
 
         {/* Project list */}
-        <div
-            class="h-88 overflow-y-scroll pt-4 lg:col-span-4 lg:col-start-2 lg:h-auto lg:overflow-y-visible lg:pt-0 lg:pl-3"
-        >
+        <div class="pt-4 lg:col-span-4 lg:col-start-2 lg:pt-0 lg:pl-3">
             <ProjectList
                 class="motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:lg:slide-in-from-right-4"
                 client:load
