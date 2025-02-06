@@ -60,8 +60,9 @@ RUN python3 -m pip install -U \
 
 # === MAIN SETUP ===
 # Bump npm version
-RUN echo "Upgrading npm to 11.0.0" && \
-    npm install -g npm@11.0.0
+RUN echo "Upgrading npm to latest" && \
+    npm update -g npm && \ 
+    node -v && npm -v
 
 # Switch back to vscode user
 USER vscode
