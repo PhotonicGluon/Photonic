@@ -33,7 +33,7 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
         crossorigin="anonymous"
     />
 
-    <div class="text-[14pt]">
+    <div class="text-base">
         <p>
             <em>A Complete Introduction to Abstract Algebra</em> is a textbook on abstract algebra.
         </p>
@@ -79,11 +79,18 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
     </div>
 
     <hr class="my-4 border border-gray-700" />
-    <h2>Latest Release Notes (<span id="latest-release" class="text-2xl">Loading...</span>)</h2>
-    <div id="changelog"></div>
+    <h2 class="!text-2xl leading-none md:!text-3xl">
+        Latest Release Notes (<span id="latest-release" class="text-2xl md:text-3xl">Loading...</span>)
+    </h2>
+    <div
+        class="[&_h3]:!text-base md:[&_h3]:!text-xl [&_li]:!text-start [&_li]:!text-sm md:[&_li]:!text-justify md:[&_li]:!text-base [&_p]:!text-start [&_p]:!text-sm md:[&_p]:!text-justify md:[&_p]:!text-base"
+        id="changelog"
+    >
+        Loading...
+    </div>
 </ProjectLayout>
 
-{/* Fonts */}
+{/* Fonts' Styling */}
 <style>
     @font-face {
         font-family: "CMU Serif";
@@ -112,15 +119,13 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
         font-weight: 700;
         src: url("/fonts/cmun-bolditalic.ttf");
     }
-</style>
 
-{/* Main Styling */}
-<style>
     * {
         font-family: "CMU Serif", serif;
     }
 </style>
 
+{/* Download and Changelog Script */}
 <script>
     import $ from "jquery";
     import showdown from "showdown";

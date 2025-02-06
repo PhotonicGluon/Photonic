@@ -7,7 +7,7 @@ const { class: className, ...attributes } = Astro.props;
 ---
 
 <a
-    class={"mb-2 inline-block rounded-lg px-5 py-2.5 text-sm md:text-base !text-white transition-colors duration-100 visited:!text-white hover:!text-white visited:hover:!text-white focus:ring-4 focus:ring-sky-900 focus:outline-none" +
+    class={"mb-2 inline-block rounded-lg px-3 py-1.5 text-sm !text-white transition-colors duration-100 visited:!text-white hover:!text-white visited:hover:!text-white focus:ring-4 focus:ring-sky-900 focus:outline-none md:px-5 md:py-2.5 md:text-base" +
         ` ${className ? className : ""}`}
     {...attributes}
 >
