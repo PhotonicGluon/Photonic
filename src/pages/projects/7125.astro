@@ -14,15 +14,17 @@ const project = (await getEntry("projects", "7125"))!;
     </p>
     <p>
         This is my first 'real' attempt at making my own compositions in
-        <a href="https://musescore.org/">MuseScore</a>, a free and open-source notation application. Created
-        over 4 months, I am proud of how the five tracks turned out. They are experimental pieces as I try out
-        new music techniques and notation styles for the first time.
+        <a href="https://musescore.org/">MuseScore</a>, a free and open-source notation application. Created over 4
+        months, I am proud of how the five tracks turned out. They are experimental pieces as I try out new music
+        techniques and notation styles for the first time.
     </p>
     <p>
-        The final EP is available on <a href="https://melodicgluon.bandcamp.com/album/7125">Bandcamp</a>.
-        Sheet music and MuseScore links are listed below:
+        The final EP is available on <a href="https://melodicgluon.bandcamp.com/album/7125">Bandcamp</a>. Sheet
+        music and MuseScore links are listed below:
     </p>
-    <ol class="pb-4">
+    <ol
+        class="pb-4 [&_.musescore-button]:bg-indigo-700 [&_.musescore-button]:hover:bg-indigo-800 [&_.music-entry]:w-96 [&_.sheet-music-button]:bg-violet-700 [&_.sheet-music-button]:hover:bg-violet-800 [&_li]:mb-3 [&_li]:last:mb-0 [&_li_div]:inline-block [&_li_div]:font-bold"
+    >
         <li>
             <div class="music-entry">
                 <span class="music-title">Unorthodox Identity</span><span class="bracket"> [</span><span
@@ -79,11 +81,7 @@ const project = (await getEntry("projects", "7125"))!;
                 >
                     MuseScore
                 </ButtonLink>
-                <ButtonLink
-                    class="button sheet-music-button"
-                    href="/projects/7125/Hidden%20Secrets.pdf"
-                    download
-                >
+                <ButtonLink class="button sheet-music-button" href="/projects/7125/Hidden%20Secrets.pdf" download>
                     Sheet Music
                 </ButtonLink>
             </div>
@@ -102,11 +100,7 @@ const project = (await getEntry("projects", "7125"))!;
                 >
                     MuseScore
                 </ButtonLink>
-                <ButtonLink
-                    class="button sheet-music-button"
-                    href="/projects/7125/Melancholy%20Hope.pdf"
-                    download
-                >
+                <ButtonLink class="button sheet-music-button" href="/projects/7125/Melancholy%20Hope.pdf" download>
                     Sheet Music
                 </ButtonLink>
             </div>
@@ -157,29 +151,3 @@ const project = (await getEntry("projects", "7125"))!;
         </a>.
     </p>
 </ProjectLayout>
-
-<style>
-    @import "@styles/global.css";
-
-    /* General styling */
-    li {
-        @apply mb-3 last:mb-0;
-    }
-
-    li div {
-        @apply inline-block font-bold;
-    }
-
-    .musescore-button {
-        @apply bg-indigo-700 hover:bg-indigo-800;
-    }
-
-    .sheet-music-button {
-        @apply bg-violet-700 hover:bg-violet-800;
-    }
-
-    /* Music pieces' styling */
-    .music-entry {
-        @apply w-96;
-    }
-</style>
