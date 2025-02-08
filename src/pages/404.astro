@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets";
+
+import MainLayout from "@layouts/MainLayout.astro";
+
+// https://pixabay.com/illustrations/matrix-code-computer-pc-data-356024/
+import fourOhFourBanner from "@images/404-banner.jpg";
+---
+
+<MainLayout
+    class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
+    titleClass="hidden md:inline"
+    footerPadding="calc(var(--spacing) * 16)"
+    title="Page Not Found"
+>
+    {/* Spoofed header text for smaller devices */}
+    <section class="block md:hidden">
+        <h1 class="text-center text-4xl font-bold">Page Not Found</h1>
+    </section>
+
+    {/* 404 Banner */}
+    <section class="hidden md:block md:-translate-y-16">
+        <div>
+            <Image class="mx-auto w-full rounded-xl md:w-3/5 lg:w-1/2" src={fourOhFourBanner} alt="404 Banner" />
+        </div>
+    </section>
+</MainLayout>
