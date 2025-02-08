@@ -9,145 +9,185 @@ const project = (await getEntry("projects", "7125"))!;
 ---
 
 <ProjectLayout {...project.data}>
-    <p>
-        <em>7125</em> is an EP exploring themes of secrecy, identity, and revelations.
-    </p>
-    <p>
-        This is my first 'real' attempt at making my own compositions in
-        <a href="https://musescore.org/">MuseScore</a>, a free and open-source notation application. Created over 4
-        months, I am proud of how the five tracks turned out. They are experimental pieces as I try out new music
-        techniques and notation styles for the first time.
-    </p>
-    <p>
-        The final EP is available on <a href="https://melodicgluon.bandcamp.com/album/7125">Bandcamp</a>. Sheet
-        music and MuseScore links are listed below:
-    </p>
-    <ol
-        class="pb-4 [&_.musescore-button]:bg-indigo-700 [&_.musescore-button]:hover:bg-indigo-800 [&_.music-entry]:w-96 [&_.sheet-music-button]:bg-violet-700 [&_.sheet-music-button]:hover:bg-violet-800 [&_li]:mb-3 [&_li]:last:mb-0 [&_li_div]:inline-block [&_li_div]:font-bold"
-    >
-        <li>
-            <div class="music-entry">
-                <span class="music-title">Unorthodox Identity</span><span class="bracket"> [</span><span
-                    class="music-duration">03:33</span
-                ><span class="bracket">]:</span>
-            </div>
-            <div class="music-buttons">
-                <ButtonLink
-                    class="button musescore-button"
-                    href="https://musescore.com/user/23043611/scores/9860671/s/yMiWHZ"
-                    target="_blank"
+    {/* Introduction */}
+    <div>
+        <p>
+            <em>7125</em> is an EP exploring themes of secrecy, identity, and revelations.
+        </p>
+        <p>
+            This is my first 'real' attempt at making my own compositions in
+            <a href="https://musescore.org/">MuseScore</a>, a free and open-source notation application. Created
+            over 4 months, I am proud of how the five tracks turned out. They are experimental pieces as I try out
+            new music techniques and notation styles for the first time.
+        </p>
+    </div>
+
+    {/* Tracks */}
+    <div>
+        <p>
+            The final EP is available on <a href="https://melodicgluon.bandcamp.com/album/7125">Bandcamp</a>. Sheet
+            music and MuseScore links are listed below:
+        </p>
+
+        <div
+            class="[&_.button]:text-center [&_.musescore-button]:bg-indigo-700 [&_.musescore-button]:hover:bg-indigo-800 [&_.sheet-music-button]:bg-violet-700 [&_.sheet-music-button]:hover:bg-violet-800"
+        >
+            <ol
+                class="!list-none !pl-0 md:!list-decimal md:!pl-4 [&_.music-entry]:w-full [&_.music-entry]:text-center md:[&_.music-entry]:w-96 md:[&_.music-entry]:text-justify [&_li]:mb-3 [&_li]:last:mb-0 [&_li_div]:inline-block [&_li_div]:font-bold"
+            >
+                <div
+                    class="[&_.bracket]:hidden md:[&_.bracket]:inline [&_.music-buttons]:grid md:[&_.music-buttons]:inline-block [&_.music-duration]:font-normal [&_.music-duration]:text-gray-400 md:[&_.music-duration]:font-bold md:[&_.music-duration]:text-white [&_.music-title]:text-xl md:[&_.music-title]:text-base [&_.music-title,&_.music-duration]:block md:[&_.music-title,&_.music-duration]:inline-block"
                 >
-                    MuseScore
-                </ButtonLink>
-                <ButtonLink
-                    class="button sheet-music-button"
-                    href="/projects/7125/Unorthodox%20Identity.pdf"
-                    download
-                >
-                    Sheet Music
-                </ButtonLink>
-            </div>
-        </li>
-        <li>
-            <div class="music-entry">
-                <span class="music-title">Revealed</span><span class="bracket"> [</span><span
-                    class="music-duration">03:42</span
-                ><span class="bracket">]:</span>
-            </div>
-            <div class="music-buttons">
-                <ButtonLink
-                    class="button musescore-button"
-                    href="https://musescore.com/user/23043611/scores/9860719/s/AlMpBi"
-                    target="_blank"
-                >
-                    MuseScore
-                </ButtonLink>
-                <ButtonLink class="button sheet-music-button" href="/projects/7125/Revealed.pdf" download>
-                    Sheet Music
-                </ButtonLink>
-            </div>
-        </li>
-        <li>
-            <div class="music-entry">
-                <span class="music-title">Hidden Secrets</span><span class="bracket"> [</span><span
-                    class="music-duration">03:36</span
-                ><span class="bracket">]:</span>
-            </div>
-            <div class="music-buttons">
-                <ButtonLink
-                    class="button musescore-button"
-                    href="https://musescore.com/user/23043611/scores/9860737/s/4P4j7_"
-                    target="_blank"
-                >
-                    MuseScore
-                </ButtonLink>
-                <ButtonLink class="button sheet-music-button" href="/projects/7125/Hidden%20Secrets.pdf" download>
-                    Sheet Music
-                </ButtonLink>
-            </div>
-        </li>
-        <li>
-            <div class="music-entry">
-                <span class="music-title">Melancholy Hope</span><span class="bracket"> [</span><span
-                    class="music-duration">04:45</span
-                ><span class="bracket">]:</span>
-            </div>
-            <div class="music-buttons">
-                <ButtonLink
-                    class="button musescore-button"
-                    href="https://musescore.com/user/23043611/scores/9860752/s/8GU4ZZ"
-                    target="_blank"
-                >
-                    MuseScore
-                </ButtonLink>
-                <ButtonLink class="button sheet-music-button" href="/projects/7125/Melancholy%20Hope.pdf" download>
-                    Sheet Music
-                </ButtonLink>
-            </div>
-        </li>
-        <li>
-            <div class="music-entry">
-                <span class="music-title">Gout Nimoc</span><span class="bracket"> [</span><span
-                    class="music-duration">03:18</span
-                ><span class="bracket">]:</span>
-            </div>
-            <div class="music-buttons">
-                <ButtonLink
-                    class="button musescore-button"
-                    href="https://musescore.com/user/23043611/scores/9860764"
-                    target="_blank"
-                >
-                    MuseScore
-                </ButtonLink>
-                <ButtonLink class="button sheet-music-button" href="/projects/7125/Gout%20Nimoc.pdf" download>
-                    Sheet Music
-                </ButtonLink>
-            </div>
-        </li>
-        <li>
-            <div class="music-entry">
-                <span class="music-title">Unshackled (bonus)</span><span class="bracket"> [</span><span
-                    class="music-duration">01:29</span
-                ><span class="bracket">]:</span>
-            </div>
-            <div class="music-buttons">
-                <ButtonLink
-                    class="button musescore-button"
-                    href="https://musescore.com/user/23043611/scores/9980317"
-                    target="_blank"
-                >
-                    MuseScore
-                </ButtonLink>
-                <ButtonLink class="button sheet-music-button" href="/projects/7125/Unshackled.pdf" download>
-                    Sheet Music
-                </ButtonLink>
-            </div>
-        </li>
-    </ol>
-    <p>
-        This EP is released under a
-        <a href="https://creativecommons.org/licenses/by-nc/4.0/">
-            Creative Commons Attribution-NonCommercial 4.0 International Licence
-        </a>.
-    </p>
+                    <li>
+                        <div class="music-entry">
+                            <span class="music-title">Unorthodox Identity</span><span class="bracket">
+                                [</span
+                            ><span class="music-duration">03:33</span><span class="bracket">]:</span>
+                        </div>
+                        <div class="music-buttons">
+                            <ButtonLink
+                                class="button musescore-button"
+                                href="https://musescore.com/user/23043611/scores/9860671/s/yMiWHZ"
+                                target="_blank"
+                            >
+                                MuseScore
+                            </ButtonLink>
+                            <ButtonLink
+                                class="button sheet-music-button"
+                                href="/projects/7125/Unorthodox%20Identity.pdf"
+                                download
+                            >
+                                Sheet Music
+                            </ButtonLink>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="music-entry">
+                            <span class="music-title">Revealed</span><span class="bracket"> [</span><span
+                                class="music-duration">03:42</span
+                            ><span class="bracket">]:</span>
+                        </div>
+                        <div class="music-buttons">
+                            <ButtonLink
+                                class="button musescore-button"
+                                href="https://musescore.com/user/23043611/scores/9860719/s/AlMpBi"
+                                target="_blank"
+                            >
+                                MuseScore
+                            </ButtonLink>
+                            <ButtonLink
+                                class="button sheet-music-button"
+                                href="/projects/7125/Revealed.pdf"
+                                download
+                            >
+                                Sheet Music
+                            </ButtonLink>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="music-entry">
+                            <span class="music-title">Hidden Secrets</span><span class="bracket"> [</span><span
+                                class="music-duration">03:36</span
+                            ><span class="bracket">]:</span>
+                        </div>
+                        <div class="music-buttons">
+                            <ButtonLink
+                                class="button musescore-button"
+                                href="https://musescore.com/user/23043611/scores/9860737/s/4P4j7_"
+                                target="_blank"
+                            >
+                                MuseScore
+                            </ButtonLink>
+                            <ButtonLink
+                                class="button sheet-music-button"
+                                href="/projects/7125/Hidden%20Secrets.pdf"
+                                download
+                            >
+                                Sheet Music
+                            </ButtonLink>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="music-entry">
+                            <span class="music-title">Melancholy Hope</span><span class="bracket"> [</span><span
+                                class="music-duration">04:45</span
+                            ><span class="bracket">]:</span>
+                        </div>
+                        <div class="music-buttons">
+                            <ButtonLink
+                                class="button musescore-button"
+                                href="https://musescore.com/user/23043611/scores/9860752/s/8GU4ZZ"
+                                target="_blank"
+                            >
+                                MuseScore
+                            </ButtonLink>
+                            <ButtonLink
+                                class="button sheet-music-button"
+                                href="/projects/7125/Melancholy%20Hope.pdf"
+                                download
+                            >
+                                Sheet Music
+                            </ButtonLink>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="music-entry">
+                            <span class="music-title">Gout Nimoc</span><span class="bracket"> [</span><span
+                                class="music-duration">03:18</span
+                            ><span class="bracket">]:</span>
+                        </div>
+                        <div class="music-buttons">
+                            <ButtonLink
+                                class="button musescore-button"
+                                href="https://musescore.com/user/23043611/scores/9860764"
+                                target="_blank"
+                            >
+                                MuseScore
+                            </ButtonLink>
+                            <ButtonLink
+                                class="button sheet-music-button"
+                                href="/projects/7125/Gout%20Nimoc.pdf"
+                                download
+                            >
+                                Sheet Music
+                            </ButtonLink>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="music-entry">
+                            <span class="music-title">Unshackled (bonus)</span><span class="bracket"> [</span><span
+                                class="music-duration">01:29</span
+                            ><span class="bracket">]:</span>
+                        </div>
+                        <div class="music-buttons">
+                            <ButtonLink
+                                class="button musescore-button"
+                                href="https://musescore.com/user/23043611/scores/9980317"
+                                target="_blank"
+                            >
+                                MuseScore
+                            </ButtonLink>
+                            <ButtonLink
+                                class="button sheet-music-button"
+                                href="/projects/7125/Unshackled.pdf"
+                                download
+                            >
+                                Sheet Music
+                            </ButtonLink>
+                        </div>
+                    </li>
+                </div>
+            </ol>
+        </div>
+    </div>
+
+    {/* Final Notes */}
+    <div class="mt-4">
+        <p>
+            This EP is released under a
+            <a href="https://creativecommons.org/licenses/by-nc/4.0/">
+                Creative Commons Attribution-NonCommercial 4.0 International Licence
+            </a>.
+        </p>
+    </div>
 </ProjectLayout>
