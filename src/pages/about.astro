@@ -1,8 +1,14 @@
 ---
+import { Image } from "astro:assets";
+
+import ButtonLink from "@components/generic/ButtonLink.astro";
+
 import MainLayout from "@layouts/MainLayout.astro";
+
+import linkedinLogo from "@images/icons/LI-In-Bug.png";
 ---
 
-{/* TODO: Change contents */}
+{/* TODO: Perform an edit pass on the content*/}
 <MainLayout
     class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
     title="About Me"
@@ -124,16 +130,54 @@ import MainLayout from "@layouts/MainLayout.astro";
     </section>
 
     {/* Contact */}
+    {/* TODO: Change contact info */}
     <section>
         <h2>Contact</h2>
         <span>Questions? Comments? Reach me via:</span>
-        {/* TODO: Maybe use a nicer way to display contact info */}
-        {/* TODO: Also change contact info */}
-        {/* TODO: Also use actual buttons >:( */}
-        <ul class="list-inside list-disc">
-            <li>Email: <a href="mailto:contact@overwrite.site">contact@overwrite.site</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/kan-onn-kit">Onn Kit Kan</a></li>
+
+        {/* Contacts for mobile */}
+        <div class="my-2 flex place-content-center gap-6 md:hidden">
+            <a class="!text-white" href="mailto:contact@overwrite.site" aria-label="Email">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-10"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                    ></path>
+                </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/kan-onn-kit">
+                <Image class="h-10 w-auto" src={linkedinLogo} alt="LinkedIn Logo" />
+            </a>
+        </div>
+
+        {/* Contacts for desktop */}
+        <ul class="hidden list-inside list-disc md:block">
+            <li class="h-max">
+                <span>Email:</span>
+                <ButtonLink class="ml-2 bg-sky-700 hover:bg-sky-800" href="mailto:contact@overwrite.site">
+                    contact@overwrite.site
+                </ButtonLink>
+            </li>
+            <li>
+                <span>LinkedIn:</span>
+                <ButtonLink
+                    class="ml-2 bg-sky-700 hover:bg-sky-800"
+                    href="https://www.linkedin.com/in/kan-onn-kit"
+                >
+                    Onn Kit Kan
+                </ButtonLink>
+            </li>
         </ul>
+
+        <p>I will do my best to respond back. 😊</p>
     </section>
 </MainLayout>
 
