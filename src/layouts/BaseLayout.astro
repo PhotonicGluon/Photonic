@@ -6,6 +6,7 @@ import Header from "@components/header/Header.astro";
 import Shader from "@components/Shader.astro";
 
 import "@styles/global.css";
+import ScrollToTopButton from "@components/generic/ScrollToTopButton";
 
 export interface Props {
     /** Title of the page */
@@ -49,6 +50,7 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         <slot name="head-scripts" />
     </head>
     <body class="relative m-0 min-h-screen">
+        {/* Main page contents */}
         <div class="pb-(--footer-padding)" style={{ "--footer-padding": footerPadding }}>
             <Header />
             <Shader
@@ -59,27 +61,28 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
             />
             <slot />
         </div>
+        <ScrollToTopButton client:visible />
         <Footer class="h-24" />
     </body>
-
-    <style is:global>
-        @import "@styles/global.css";
-
-        /* Page content normalization */
-        section {
-            @apply mx-auto my-0 max-w-screen-xl px-10;
-        }
-
-        /* Text styling */
-        p,
-        ul,
-        ol {
-            @apply pb-3 text-justify;
-        }
-
-        /* Hyperlink styling */
-        a {
-            @apply text-blue-400 transition-all duration-200 visited:text-indigo-400 hover:text-blue-500 visited:hover:text-indigo-500;
-        }
-    </style>
 </html>
+
+<style is:global>
+    @import "@styles/global.css";
+
+    /* Page content normalization */
+    section {
+        @apply mx-auto my-0 max-w-screen-xl px-10;
+    }
+
+    /* Text styling */
+    p,
+    ul,
+    ol {
+        @apply pb-3 text-justify;
+    }
+
+    /* Hyperlink styling */
+    a {
+        @apply text-blue-400 transition-all duration-200 visited:text-indigo-400 hover:text-blue-500 visited:hover:text-indigo-500;
+    }
+</style>
