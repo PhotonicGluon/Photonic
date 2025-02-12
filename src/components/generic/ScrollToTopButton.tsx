@@ -1,3 +1,4 @@
+import $ from "jquery";
 import { Component } from "preact";
 
 interface Props {}
@@ -11,11 +12,12 @@ export default class ScrollToTopButton extends Component<Props, State> {
 
     // Operation methods
     onClick = () => () => {
-        console.log("TODO: ADD");
+        $("html, body").animate({ scrollTop: 0 }, "slow");
     };
 
     // Lifecycle methods
     render(props: Props, state: State) {
+        // TODO: Hide button if not scrolled far enough
         return (
             <div
                 class="fixed right-10 bottom-20 z-50 flex size-10 items-center justify-center rounded-full bg-cyan-800 shadow-xl transition-colors duration-100 hover:cursor-pointer hover:bg-cyan-900 md:size-12 lg:size-16 xl:right-20"
