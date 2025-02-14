@@ -3,11 +3,15 @@ import { Component } from "preact";
 
 interface Props {}
 
-interface State {}
+interface State {
+    /** Whether the button is showing or not */
+    showing: boolean;
+}
 
 export default class ScrollToTopButton extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
+        this.state = { showing: false };
     }
 
     // Operation methods
@@ -16,11 +20,25 @@ export default class ScrollToTopButton extends Component<Props, State> {
     };
 
     // Lifecycle methods
+    componentDidMount() {
+        $(window).on("scroll", () => {
+            const scrollTop = $(window).scrollTop()!;
+            if (scrollTop > $(window).innerHeight()!) {
+                this.setState({ showing: true });
+            } else {
+                this.setState({ showing: false });
+            }
+            console.log(this.state);
+        });
+    }
+
     render(props: Props, state: State) {
-        // TODO: Hide button if not scrolled far enough
         return (
             <div
-                class="fixed right-10 bottom-20 z-50 flex size-10 items-center justify-center rounded-full bg-cyan-800 shadow-xl transition-colors duration-100 hover:cursor-pointer hover:bg-cyan-900 md:size-12 lg:size-16 xl:right-20"
+                class={
+                    "fixed right-10 bottom-20 z-50 flex size-10 items-center justify-center rounded-full bg-cyan-800 shadow-xl transition-colors duration-100 hover:cursor-pointer hover:bg-cyan-900 md:size-12 lg:size-16 xl:right-20 " +
+                    (this.state.showing ? "opacity-100" : "opacity-0") // TODO: This way of hiding is cursed
+                }
                 onClick={this.onClick()}
             >
                 <svg
