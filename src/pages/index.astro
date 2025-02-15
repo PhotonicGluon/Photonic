@@ -163,13 +163,26 @@ const CARD_TOP_PADDING = 0.75; // In rem
                 }
 
                 @media (prefers-reduced-motion: no-preference) {
-                    .card-content {
+                    .card-content.with-timeline {
                         animation: linear scale forwards;
                         animation-timeline: --cards-element-scrolls-in-body;
                         animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
                     }
                 }
             </style>
+            <script>
+                function isAnimationTimelineSupported() {
+                    const el = document.createElement("div");
+                    el.style.setProperty("animation-timeline", "view()");
+                    return el.style.getPropertyValue("animation-timeline") === "view()";
+                }
+
+                if (isAnimationTimelineSupported()) {
+                    document.querySelectorAll(".card-content").forEach((element) => {
+                        element.classList.add("with-timeline");
+                    });
+                }
+            </script>
         </div>
     </section>
 
