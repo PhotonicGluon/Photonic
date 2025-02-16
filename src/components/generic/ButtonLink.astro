@@ -3,12 +3,26 @@ import type { HTMLAttributes } from "astro/types";
 
 type Props = HTMLAttributes<"a">;
 
-const { class: className, ...attributes } = Astro.props;
+const { class: className, download, ...attributes } = Astro.props;
+
+// Fix download file name
+let downloadName: string | undefined;
+if (typeof download === "boolean" && download) {
+    const fileName = decodeURI(attributes["href"]! as string)
+        .split("/")
+        .pop();
+    if (fileName) {
+        downloadName = fileName;
+    } else {
+        downloadName = "";
+    }
+}
 ---
 
 <a
     class={"mb-2 inline-block rounded-lg px-3 py-1.5 text-sm !text-white transition-colors duration-100 visited:!text-white hover:!text-white visited:hover:!text-white focus:ring-4 focus:ring-sky-900 focus:outline-none md:px-5 md:py-2.5 md:text-base" +
         ` ${className ? className : ""}`}
+    download={downloadName}
     {...attributes}
 >
     <slot />

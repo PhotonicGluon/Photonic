@@ -28,7 +28,6 @@ RUN mkdir $NVM_DIR
 RUN curl -k -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
 
 # Install node and npm
-# RUN echo "source $NVM_DIR/nvm.sh && nvm ls-remote" | bash
 RUN echo "source $NVM_DIR/nvm.sh && \
     nvm install $NODE_VERSION && \
     nvm alias default $NODE_VERSION && \
