@@ -17,7 +17,8 @@ export default class ScrollToTopButton extends Component<Props, State> {
 
     // Main methods
     /**
-     * Checks the scroll amount on the webpage, and updates the `showing` state if it
+     * Checks the scroll amount on the webpage, and updates the `showing` state if it passes the
+     * `SCROLL_SHOW_THRESHOLD`
      */
     checkScroll() {
         const windowElem = $(window);
