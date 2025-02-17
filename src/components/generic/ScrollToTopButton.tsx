@@ -1,8 +1,9 @@
 import $ from "jquery";
 import { Component } from "preact";
 
-interface Props {}
+const SCROLL_SHOW_THRESHOLD = 0.5; // Fraction of the view height to scroll down before the button shows up
 
+interface Props {}
 interface State {
     /** Whether the button is showing or not */
     showing: boolean;
@@ -14,6 +15,22 @@ export default class ScrollToTopButton extends Component<Props, State> {
         this.state = { showing: false };
     }
 
+    // Main methods
+    /**
+     * Checks the scroll amount on the webpage, and updates the `showing` state if it
+     */
+    checkScroll() {
+        const windowElem = $(window);
+        const scrollTop = windowElem.scrollTop()!;
+
+        // Show when scrolled half page height
+        if (scrollTop > windowElem.innerHeight()! * SCROLL_SHOW_THRESHOLD) {
+            this.setState({ showing: true });
+        } else {
+            this.setState({ showing: false });
+        }
+    }
+
     // Operation methods
     onClick = () => () => {
         if (!this.state.showing) return;
@@ -23,23 +40,16 @@ export default class ScrollToTopButton extends Component<Props, State> {
     // Lifecycle methods
     componentDidMount() {
         $(window).on("scroll", () => {
-            const scrollTop = $(window).scrollTop()!;
-
-            // Show when scrolled half page height
-            if (scrollTop > $(window).innerHeight()! / 2) {
-                this.setState({ showing: true });
-            } else {
-                this.setState({ showing: false });
-            }
-            console.log(this.state);
+            this.checkScroll();
         });
+        this.checkScroll();
     }
 
     render(props: Props, state: State) {
         return (
             <div
                 class={
-                    "fixed right-4 bottom-20 z-50 flex items-center justify-center rounded-full bg-cyan-800 shadow-xl transition-all duration-200 hover:bg-cyan-900 size-12 lg:size-14 xl:right-20 " +
+                    "fixed right-4 bottom-20 z-50 flex size-12 items-center justify-center rounded-full bg-cyan-800 shadow-xl transition-all duration-200 hover:bg-cyan-900 lg:size-14 xl:right-20 " +
                     (this.state.showing ? "opacity-100 hover:cursor-pointer" : "opacity-0")
                 }
                 onClick={this.onClick()}
