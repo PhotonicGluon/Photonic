@@ -1,0 +1,13 @@
+{
+    "name": "Photonic",
+    "tags": ["programming"],
+    "dates": {
+        "start": "2024-12-22"
+    },
+    "summary": "PhotonicGluon's current portfolio site.",
+    "urls": {
+        "github": "https://github.com/PhotonicGluon/Photonic",
+        "website": "https://photonic.dev/"
+    },
+    "indexPage": "index.md"
+}
