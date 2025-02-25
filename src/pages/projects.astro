@@ -25,7 +25,7 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
             <div
                 class="col-span-1 col-start-1 self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 motion-safe:lg:slide-in-from-left-4"
             >
-                <ProjectFilters ids={projectIDs} projects={projects} client:load />
+                <ProjectFilters ids={projectIDs} projects={projects} client:only="preact" />
             </div>
         </div>
 
