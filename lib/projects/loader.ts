@@ -1,5 +1,10 @@
 import type { Loader, LoaderContext } from "astro/loaders";
-import { createMarkdownProcessor, parseFrontmatter, type MarkdownHeading } from "@astrojs/markdown-remark";
+import {
+    createMarkdownProcessor,
+    parseFrontmatter,
+    type MarkdownHeading,
+    type MarkdownProcessor,
+} from "@astrojs/markdown-remark";
 import { readFileSync, readdirSync } from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
@@ -34,11 +39,12 @@ interface ProjectLoaderOptions {
  * Given a file path to a markdown file, this async function generates the rendered component.
  *
  * @param file Path to the markdown file.
+ * @param processor Markdown processor.
  * @returns Rendered component of the markdown file.
  * @throws {Error} If the file type is unsupported.
  */
 // Thanks to https://github.com/withastro/docs/issues/9543#issuecomment-2525573308
-async function renderMarkdown(file: string, context: LoaderContext): Promise<RenderedContent> {
+async function renderMarkdown(file: string, processor: MarkdownProcessor): Promise<RenderedContent> {
     // Read the file
     const extension = path.extname(file);
     if (extension !== ".md") {
@@ -50,7 +56,6 @@ async function renderMarkdown(file: string, context: LoaderContext): Promise<Ren
     // Parse markdown
     const parsedFrontmatter = parseFrontmatter(text);
     const frontmatter = parsedFrontmatter.frontmatter;
-    const processor = await createMarkdownProcessor(context.config.markdown);
     const rendered = await processor.render(parsedFrontmatter.content ?? "");
 
     // Return the content
@@ -68,13 +73,15 @@ async function renderMarkdown(file: string, context: LoaderContext): Promise<Ren
  *
  * @param projectIDs - An array of project IDs to be synchronized.
  * @param options - Contains options for the project loader.
+ * @param processor Markdown processor.
  * @param context - The loader context.
- * @param log - A boolean indicating whether to log the loading process; defaults to `true`.
+ * @param log - A boolean indicating whether to log the loading process.
  */
 
 async function syncProjects(
     projectIDs: string[],
     options: ProjectLoaderOptions,
+    processor: MarkdownProcessor,
     context: LoaderContext,
     log: boolean = true,
 ) {
@@ -94,7 +101,7 @@ async function syncProjects(
         let content: RenderedContent | null;
         if (data.indexPage !== undefined) {
             const indexPagePath = `${options.projectsRootPath}/${id}/${data.indexPage}`;
-            content = await renderMarkdown(indexPagePath, context);
+            content = await renderMarkdown(indexPagePath, processor);
         } else {
             content = null;
         }
@@ -144,12 +151,14 @@ export function projectsLoader(options: ProjectLoaderOptions): Loader {
             context.store.clear();
 
             // Sync all projects
+            const processor = await createMarkdownProcessor(context.config.markdown); // Do this to reuse Shiki instance
+
             const projectIDs = readdirSync(projectsRootPathAbsolute); // Directory names *are* the IDs
             if (projectIDs.includes(".DS_Store")) {
                 projectIDs.splice(projectIDs.indexOf(".DS_Store"), 1);
             }
 
-            await syncProjects(projectIDs, options, context);
+            await syncProjects(projectIDs, options, processor, context);
 
             // Watch for project file changes
             context.watcher?.on("change", async (changedPath: string) => {
@@ -163,8 +172,7 @@ export function projectsLoader(options: ProjectLoaderOptions): Loader {
                 let changedProjectID = changedPathRelative.split("/")[0];
 
                 // Resync
-                // context.store.delete(changedProjectID);
-                await syncProjects([changedProjectID], options, context, false);
+                await syncProjects([changedProjectID], options, processor, context, false);
                 context.logger.info(`Updated '${changedProjectID}'`);
             });
         },

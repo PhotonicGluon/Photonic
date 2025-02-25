@@ -1,7 +1,7 @@
 {
     "name": "photonic",
     "type": "module",
-    "version": "0.1.0-alpha.11",
+    "version": "0.1.0-alpha.12",
     "scripts": {
         "dev": "astro dev --host",
         "build": "/bin/sh -c '/bin/bash ./scripts/build.sh'",
