@@ -38,3 +38,13 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
         </div>
     </section>
 </MainLayout>
+
+<script>
+    import $ from "jquery";
+
+    $(() => {
+        $("#tags input[type=checkbox]:not(:checked)").each((_, checkbox) => {
+            checkbox.click(); // This is bad but this works
+        });
+    });
+</script>

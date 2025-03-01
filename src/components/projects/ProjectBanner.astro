@@ -1,5 +1,5 @@
 ---
-import sizeOf from "image-size";
+import { imageSizeFromFile } from "image-size/fromFile";
 
 import { Image, inferRemoteSize } from "astro:assets";
 import type { HTMLAttributes } from "astro/types";
@@ -21,7 +21,7 @@ let dimensions;
 if (src!.startsWith("http")) {
     dimensions = await inferRemoteSize(src!);
 } else {
-    dimensions = sizeOf(`public${src}`);
+    dimensions = await imageSizeFromFile(`public${src}`);
 }
 
 const width = dimensions.width!;

@@ -2,13 +2,13 @@
     "name": "Overwrite",
     "tags": ["programming"],
     "dates": {
-        "start": "2023-02-01"
+        "start": "2023-02-01",
+        "end": "2024-11-28"
     },
     "banner": "/projects/overwrite/banner-dark.png",
-    "summary": "PhotonicGluon's portfolio site. Overly obsessive projects by PhotonicGluon.",
+    "summary": "PhotonicGluon's former portfolio site.",
     "urls": {
-        "github": "https://github.com/PhotonicGluon/photonicgluon.github.io",
-        "website": "https://overwrite.site/"
+        "github": "https://github.com/PhotonicGluon/photonicgluon.github.io"
     },
     "indexPage": "index.md"
 }

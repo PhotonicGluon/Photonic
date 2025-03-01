@@ -144,7 +144,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
                                     {/* Banner area */}
                                     <div class="order-1 flex max-h-[40%] w-full md:order-2 md:h-full md:max-h-full md:w-1/2">
                                         <ProjectBanner
-                                            class="mx-auto h-min max-h-full w-min max-w-full rounded-none rounded-t-lg object-contain md:my-auto md:mr-0 md:ml-auto md:rounded-tl-none md:rounded-r-lg"
+                                            class="mx-auto h-min max-h-full w-auto max-w-full rounded-none rounded-t-lg object-contain md:my-auto md:mr-0 md:ml-auto md:rounded-tl-none md:rounded-r-lg"
                                             src={project.banner!}
                                             alt={project.name + " Banner"}
                                         />
@@ -163,17 +163,31 @@ const CARD_TOP_PADDING = 0.75; // In rem
                 }
 
                 @media (prefers-reduced-motion: no-preference) {
-                    .card-content {
+                    .card-content.with-timeline {
                         animation: linear scale forwards;
                         animation-timeline: --cards-element-scrolls-in-body;
                         animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
                     }
                 }
             </style>
+            <script>
+                function isAnimationTimelineSupported() {
+                    const el = document.createElement("div");
+                    el.style.setProperty("animation-timeline", "view()");
+                    return el.style.getPropertyValue("animation-timeline") === "view()";
+                }
+
+                if (isAnimationTimelineSupported()) {
+                    document.querySelectorAll(".card-content").forEach((element) => {
+                        element.classList.add("with-timeline");
+                    });
+                }
+            </script>
         </div>
     </section>
 
     {/* whoami */}
+    {/* TODO: Change contents */}
     <section class="pt-8">
         <h1
             class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"

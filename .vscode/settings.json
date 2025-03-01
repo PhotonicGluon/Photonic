@@ -24,6 +24,7 @@
         "octothorpe",
         "rgba",
         "seedrandom",
+        "Shiki",
         "smoothstep",
         "stylesheet",
         "tweakpane",
@@ -38,5 +39,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "tailwindCSS.includeLanguages": {
         "astro": "html"
+    },
+    "[markdown]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }

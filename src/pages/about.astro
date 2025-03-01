@@ -1,37 +1,185 @@
 ---
+import { Image } from "astro:assets";
+
+import ButtonLink from "@components/generic/ButtonLink.astro";
+
 import MainLayout from "@layouts/MainLayout.astro";
+
+import linkedinLogo from "@images/icons/LI-In-Bug.svg";
 ---
 
-{/* TODO: Change contents */}
 <MainLayout
-    class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-top-4 motion-safe:fill-mode-backwards"
+    class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
     title="About Me"
 >
     {/* About me */}
     <section>
-        <p>Hello! Welcome to my site! I hope you like it!</p>
+        <p>Hello! Welcome to my little corner of the internet! I hope you like it!</p>
         <p>
             I am <b>Kan Onn Kit</b> (Ryan Kan), a Singaporean. I am known as <code>PhotonicGluon</code> online. I am
             a programmer by trade and a hobbyist writer and music composer on the side.
         </p>
+    </section>
+
+    {/* Character */}
+    <section>
+        <h2>Character</h2>
         <p>
-            I studied at Nanyang Junior College (NYJC). My education there allowed me to foster teamwork and
-            collaboration skills, as well as develop a good work ethic. I am often described as a level-headed
-            person when making decisions. I consider the facts and evidence of the matter instead of relying
-            (solely) on emotion and feeling. I am sociable and love to work in a team. Challenges are appealing to
-            me, as they allow me to showcase my problem-solving skillset and come up with a solution.
+            I am often described as a level-headed person when making decisions. I consider the facts and evidence
+            of the matter instead of relying (solely) on emotion and feeling. I am sociable and love to work in a
+            team. Challenges appeal to me as they allow me to showcase my problem-solving skillset and develop
+            solutions. From a young age, I was inquisitive, seeking answers to my questions. Curiosity always leads
+            me to dig deeper into the reasoning and logic behind everything. That's why I am good at mathematics
+            and computing and not so good at the humanities.
+        </p>
+    </section>
+
+    {/* Learning & Education */}
+    <section>
+        <h2>Learning and Education</h2>
+        <p>
+            I studied at Nanyang Junior College (NYJC) and the School of Science and Technology (SST) before that.
+            My education there allowed me to foster teamwork and collaboration skills and develop a good work
+            ethic.
+        </p>
+        <p>
+            Learning is a lifelong skill I am grateful to have picked up early on. I am fortunate that I didn't
+            struggle in school that much. However, I'd be lying if I said that I've always been good at learning.
+            The youthful me did not care for a second about studying for the final exam that decided my secondary
+            school; I nearly flunked it. I was lucky that I had advanced placement in my secondary school, and it
+            continued to foster my curious mind.
+        </p>
+    </section>
+
+    {/* Programming and AI */}
+    <section>
+        <h2>Programming and AI</h2>
+        <p>
+            I feature many programming projects on this website. Programming allows me to automate menial tasks
+            that I need accomplished, sure. Still, the real reason behind them is that I can further work with
+            logical systems to accomplish great things, systems that can assist people in transcribing music,
+            systems that can play games, systems that perform video editing, etc. But my earliest public work was
+            on AI.
+        </p>
+        <p>
+            These projects were simple, mind you. They were not going to change the world or anything. However,
+            they allowed me to get a better appreciation of the new era of systems that are conducted by AI. Early
+            on, I released Sredictio, a stock prediction bot based on Advantage Actor-Critic (A2C). This was a
+            proof of concept, but it made me appreciate the complexity of AI systems silently dictating our world.
+        </p>
+    </section>
+
+    {/* Music, Art, and Expression */}
+    <section>
+        <h2>Music, Art, and Expression</h2>
+        <p>
+            My interest in music, specifically music composition, was recently developed, starting only in late
+            2021. It started out by just transcribing existing songs, but by late 2022 my interest in it blossomed
+            to creating my own compositions. <a href="/projects/7125"><em>7125</em></a> was released in early 2023 to
+            express what I felt in the months leading up to enlistment. Back then, I focused solely on using MuseScore
+            for compositions, but I slowly transitioned to using FL Studio for my later releases.
+        </p>
+        <p>
+            Both <a href="/projects/dreams"><em>Dreams</em></a> and <a href="/projects/spectra"><em>Spectra</em></a
+            > were albums whose songs were made in FL Studio. Though FL Studio is more targeted at EDM makers, I focused
+            on creating "contemporary classical" music. This challenge, in hindsight, allowed me to express myself more
+            freely using music.
+        </p>
+        <p>
+            Music is a form of art, but that doesn't speak the whole truth. Art is the result of expression, and it
+            is the output of a person trying to express their thoughts and feelings in a manner that others can
+            understand. Expression is the raw feelings, ideas, and thoughts that the person wants to convey; the
+            resulting art, be it literature, (literal) art, music, drama, movies, etc., is the best that one can do
+            to put these expressions concretely.
+        </p>
+    </section>
+
+    {/* Mathematics */}
+    <section>
+        <h2>Mathematics</h2>
+        <p>
+            It was during secondary school that I fell in love with mathematics. The way simple axioms and
+            statements can create systems and methods to help us describe our natural world appealed to me. Still,
+            the more significant reason I stuck with mathematics is its inherent beauty. That's why I continued to
+            pursue mathematics after my JC years and took 2 years to write a whole book on abstract algebra. There
+            is something about them that allows me to explore; they're a useful toolbelt for me to come up with new
+            ideas and theories, test them out, and have fun exploring the wide depth of mathematics.
+        </p>
+    </section>
+
+    {/* Secrets */}
+    <section>
+        <h2>Secrets</h2>
+        <p>
+            Of course, some things are only meant for certain people to find. Sometimes, not everyone is expected
+            (or desired by the artist) to find out or understand the true "meaning" behind each work of art.
+            Sometimes, the artist wants to hide the truth in plain sight. Double meaning, per se. Steganography and
+            ciphers litter my own works, for I don't want everyone to see the truth so plainly.
+        </p>
+        <p>
+            I have been interested in different forms of hiding secrets for as long as I can remember.
+            Steganography allows me to convey a deeper meaning to my work than what the surface level could entail.
+            It allows me to add a signature to whatever I do. Some messages are direct; others are targeted to only
+            a few people. The intended audience of my messages could infer their true meaning without any issues.
         </p>
     </section>
 
     {/* Contact */}
+    {/* TODO: Change contact info */}
     <section>
+        <h2>Contact</h2>
         <span>Questions? Comments? Reach me via:</span>
-        {/* TODO: Maybe use a nicer way to display contact info */}
-        {/* TODO: Also change contact info */}
-        {/* TODO: Also use actual buttons >:( */}
-        <ul class="list-inside list-disc">
-            <li>Email: <a href="mailto:contact@overwrite.site">contact@overwrite.site</a></li>
-            <li>LinkedIn: <a href="https://www.linkedin.com/in/kan-onn-kit">Onn Kit Kan</a></li>
+
+        {/* Contacts for mobile */}
+        <div class="my-2 flex place-content-center gap-6 md:hidden">
+            <a class="!text-white" href="mailto:contact@overwrite.site" aria-label="Email">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-10"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"
+                    ></path>
+                </svg>
+            </a>
+            <a href="https://www.linkedin.com/in/kan-onn-kit">
+                <Image class="h-10 w-auto" src={linkedinLogo} alt="LinkedIn Logo" />
+            </a>
+        </div>
+
+        {/* Contacts for desktop */}
+        <ul class="hidden list-inside list-disc md:block">
+            <li class="h-max">
+                <span>Email:</span>
+                <ButtonLink class="ml-2 bg-sky-700 hover:bg-sky-800" href="mailto:contact@overwrite.site">
+                    contact@overwrite.site
+                </ButtonLink>
+            </li>
+            <li>
+                <span>LinkedIn:</span>
+                <ButtonLink
+                    class="ml-2 bg-sky-700 hover:bg-sky-800"
+                    href="https://www.linkedin.com/in/kan-onn-kit"
+                >
+                    Onn Kit Kan
+                </ButtonLink>
+            </li>
         </ul>
+
+        <p>I will do my best to respond back. 😊</p>
     </section>
 </MainLayout>
+
+<style>
+    @import "@styles/global.css";
+
+    h2 {
+        @apply text-3xl font-bold;
+    }
+</style>
