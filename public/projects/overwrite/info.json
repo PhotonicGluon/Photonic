@@ -8,7 +8,7 @@
     "banner": "/projects/overwrite/banner-dark.png",
     "summary": "PhotonicGluon's former portfolio site.",
     "urls": {
-        "github": "https://github.com/PhotonicGluon/photonicgluon.github.io"
+        "github": "https://github.com/PhotonicGluon/Overwrite"
     },
     "indexPage": "index.md"
 }
