@@ -2,7 +2,7 @@
 
 # Install dependencies
 echo "===> Installing dependencies"
-npm install
+npm install --lock-only
 
 # Disable telemetry
 npx astro telemetry disable
