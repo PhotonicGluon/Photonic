@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "@astrojs/preact": "^4.0.5",
+        "@astrojs/sitemap": "^3.2.1",
         "@nanostores/preact": "^0.5.2",
         "@tailwindcss/vite": "^4.0.9",
         "astro": "^5.4.1",
