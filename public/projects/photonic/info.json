@@ -4,6 +4,7 @@
     "dates": {
         "start": "2024-12-22"
     },
+    "banner": "/projects/photonic/banner.png",
     "summary": "PhotonicGluon's current portfolio site.",
     "urls": {
         "github": "https://github.com/PhotonicGluon/Photonic",
