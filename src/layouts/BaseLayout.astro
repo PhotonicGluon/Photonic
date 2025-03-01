@@ -1,7 +1,9 @@
 ---
 import seedrandom from "seedrandom";
 
-import Metadata from "@components/Metadata.astro";
+import Analytics from "@components/top/Analytics.astro";
+import Metadata from "@components/top/Metadata.astro";
+
 import Footer from "@components/Footer.astro";
 import Header from "@components/header/Header.astro";
 import Shader from "@components/Shader.astro";
@@ -26,6 +28,8 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
 <!doctype html>
 <html class="bg-gray-950 font-sans text-white" lang="en">
     <head>
+        <Analytics />
+
         {/* Metadata */}
         <Metadata />
 
