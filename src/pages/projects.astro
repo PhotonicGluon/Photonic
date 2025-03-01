@@ -42,7 +42,10 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 <script>
     import $ from "jquery";
 
-    $(() => {
+    $(async () => {
+        // Wait for a bit to let the filters load
+        // FIXME: This is kinda bad but it works
+        await new Promise((r) => setTimeout(r, 250));
         $("#tags input[type=checkbox]:not(:checked)").each((_, checkbox) => {
             checkbox.click(); // This is bad but this works
         });
