@@ -134,11 +134,11 @@ export default class ProjectFilters extends Component<Props, State> {
         projectStore.setKey("displayed", newDisplayedProjects);
 
         // Check if any projects are left
-        const noProjectsElement = $("#no-projects-message")[0];
+        const noProjectsMessage = $("#no-projects-message")[0];
         if (newDisplayedProjects.length == 0) {
-            noProjectsElement.classList.remove("hidden");
-        } else if (!noProjectsElement.classList.contains("hidden")) {
-            noProjectsElement.classList.add("hidden");
+            noProjectsMessage.classList.remove("hidden");
+        } else if (!noProjectsMessage.classList.contains("hidden")) {
+            noProjectsMessage.classList.add("hidden");
         }
     }
 
