@@ -19,17 +19,20 @@ export default class ProjectList extends Component<Props, State> {
     // Lifecycle methods
     render(props: Props, state: State) {
         const $projectStore = useStore(projectStore);
-        const listItems = $projectStore.displayed.map((projectInstance) => {
-            return <ProjectCard id={projectInstance.id} project={projectInstance.project} />;
-        });
+        const listItems = $projectStore.displayed.map((projectInstance) => (
+            <ProjectCard id={projectInstance.id} project={projectInstance.project} />
+        ));
         return (
-            <div
-                class={
-                    "grid grid-cols-1 justify-items-center gap-4 md:grid-cols-2 xl:grid-cols-3" + ` ${props.class}`
-                }
-            >
-                {listItems}
-                <div id="no-projects-message" class="col-span-full hidden text-center text-2xl font-bold">
+            <div>
+                <div
+                    class={
+                        "grid grid-cols-1 justify-items-center gap-4 md:grid-cols-2 xl:grid-cols-3" +
+                        ` ${props.class}`
+                    }
+                >
+                    {listItems}
+                </div>
+                <div id="no-projects-message" class="hidden text-center text-2xl font-bold">
                     No projects found.
                 </div>
             </div>

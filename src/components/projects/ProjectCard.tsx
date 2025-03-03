@@ -41,10 +41,10 @@ export default class ProjectFilters extends Component<Props, State> {
             );
         }
         const cardFront = (
-            <>
+            <div>
                 <div class="flex h-full w-full flex-col items-center justify-center">
                     <div class="max-h-full">{topBlock}</div>
-                    <ProjectTags tags={project.tags}></ProjectTags>
+                    <ProjectTags tags={project.tags} />
                 </div>
 
                 <div class="mt-auto inline-block *:text-sm *:lg:text-base">
@@ -53,7 +53,7 @@ export default class ProjectFilters extends Component<Props, State> {
                     <span class="inline md:hidden">-</span>
                     <span> {project.dates.end ? toDateString(project.dates.end) : "Present"}</span>
                 </div>
-            </>
+            </div>
         );
 
         const cardBack = (
