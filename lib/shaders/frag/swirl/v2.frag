@@ -36,7 +36,7 @@ uniform sampler2D iChannel1;  // Input texture
 #define COLOUR_SHINE 5.0         // Shine factor, lower = more shine
 
 #define ANTIALIASING true         // Toggle for antialiasing
-#define ANTIALIASING_LEVEL 3.0   // Level of antialiasing to apply
+#define ANTIALIASING_LEVEL 2.0   // Level of antialiasing to apply
 #define ANTIALIASING_RADIUS 0.75  // Radius to sample points for antialiasing
 
 // CONSTANTS
