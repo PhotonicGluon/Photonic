@@ -1,14 +1,16 @@
 ---
 export interface Props {
+    /** Optional CSS classes to apply */
+    class?: string;
     /* Duration in milliseconds for the fade out of the dismissal of alert, defaults to 300 ms */
     fadeOut?: number;
 }
 
-const { fadeOut = 300 } = Astro.props;
+const { class: className = "", fadeOut = 300 } = Astro.props;
 ---
 
 <div
-    class="alert mb-4 flex items-center rounded-lg bg-gray-800 p-4 text-yellow-300 hover:cursor-pointer hover:bg-gray-700"
+    class=`alert flex items-center rounded-md bg-gray-800 p-4 hover:cursor-pointer hover:bg-gray-700 ${className}`
     role="alert"
     data-fade-out={fadeOut}
 >
