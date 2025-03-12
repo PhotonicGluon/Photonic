@@ -142,6 +142,9 @@ if (editableUniformsPath) {
                 const avgFrameRate = frameRateTotal / FRAME_RATE_BUFFER_LEN;
 
                 if (avgFrameRate < FRAME_RATE_THRESHOLD) {
+                    console.log(
+                        `Halting shader(s) due to too low FPS (${avgFrameRate} < ${FRAME_RATE_THRESHOLD})`,
+                    );
                     stop();
                 }
 
