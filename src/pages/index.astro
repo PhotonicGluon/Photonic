@@ -41,7 +41,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
             >
                 {/* Add the special swirl shader for the index page */}
                 <Fragment slot="shader">
-                    <Shader id="hero-shader" basePath="lib/shaders/frag/swirl" />
+                    <Shader class="blur-[2px]" id="hero-shader" basePath="lib/shaders/frag/swirl" />
                     <div
                         class="absolute top-0 h-[inherit] w-full bg-black motion-safe:delay-500 motion-safe:duration-1000 motion-safe:animate-out motion-safe:fade-out motion-safe:fill-mode-forwards motion-reduce:opacity-0"
                     >
