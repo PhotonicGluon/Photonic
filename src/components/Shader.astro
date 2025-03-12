@@ -63,6 +63,9 @@ if (editableUniformsPath) {
     import WATCHED_MEDIA from "@lib/options/media";
     import { MotionPreference } from "@lib/options/types";
 
+    const FRAME_RATE_THRESHOLD = 45.0; // Minimum frame rate for the shader to continue showing, else stop
+    const FRAME_RATE_BUFFER_LEN = 5; // Number of frame rates to keep track when calculating the moving average
+
     // Process each canvas
     document.querySelectorAll(".shader").forEach((element) => {
         // Cast the element as a canvas element
@@ -105,6 +108,12 @@ if (editableUniformsPath) {
         }
 
         // Set up shader
+        let lastTime: DOMHighResTimeStamp | undefined;
+        let prevFrameRates: number[] = [];
+        for (let i = 0; i < FRAME_RATE_BUFFER_LEN; i++) {
+            prevFrameRates.push(FRAME_RATE_THRESHOLD);
+        }
+
         const { start, stop } = setupShader({
             canvas,
             sources: { vertex: shaderVert, fragment: shaderFrag },
@@ -118,10 +127,31 @@ if (editableUniformsPath) {
                     uniforms[key] = value.value;
                 }
 
+                // Determine the moving average frame rate
+                const lastFrameDelta = lastTime === undefined ? 0 : time - lastTime; // In ms
+                const currFrameRate = 1e3 / lastFrameDelta;
+
+                // Halt if frame rate drops below threshold consistently
+                prevFrameRates.push(currFrameRate);
+                prevFrameRates = prevFrameRates.slice(1); // Remove oldest frame rate
+
+                let frameRateTotal = 0;
+                for (let i = 0; i < FRAME_RATE_BUFFER_LEN; i++) {
+                    frameRateTotal += prevFrameRates[i];
+                }
+                const avgFrameRate = frameRateTotal / FRAME_RATE_BUFFER_LEN;
+
+                if (avgFrameRate < FRAME_RATE_THRESHOLD) {
+                    stop();
+                }
+
                 // Handle reduced motion
                 if (options.get().motion === MotionPreference.REDUCE && time > 1) {
                     stop();
                 }
+
+                // Update timestamp
+                lastTime = time;
             },
             textures: undefined,
             onTexturesReady: () => {
