@@ -3,9 +3,11 @@ import Alert from "@components/generic/Alert.astro";
 import Shader from "@components/Shader.astro";
 ---
 
-<Alert class="text-yellow-300">Some text in the alert</Alert>
-<Alert class="text-red-300">Some text in the alert</Alert>
-<Alert class="text-blue-300">Some text in the alert</Alert>
+<Alert class="fixed top-16 left-1/2 -translate-x-1/2 border-red-800 text-red-300">
+    Oh no! Something bad happened! Some more text. Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
+    autem voluptate hic saepe vitae ipsam accusamus eius architecto quo impedit quia ex dolorem nihil perferendis
+    nostrum labore officia adipisci iste?
+</Alert>
 
 <Shader class="h-screen w-screen" id="body-shader" basePath="lib/shaders/frag/contour" />
 

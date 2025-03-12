@@ -10,7 +10,7 @@ const { class: className = "", fadeOut = 300 } = Astro.props;
 ---
 
 <div
-    class=`alert flex items-center rounded-md bg-gray-800 p-4 hover:cursor-pointer hover:bg-gray-700 ${className}`
+    class=`alert mx-auto flex w-max max-w-3/4 min-w-64 items-center rounded-md border bg-gray-800 p-4 hover:cursor-pointer hover:bg-gray-700 ${className}`
     role="alert"
     data-fade-out={fadeOut}
 >
