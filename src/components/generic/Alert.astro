@@ -1,6 +1,16 @@
+---
+export interface Props {
+    /* Duration in milliseconds for the fade out of the dismissal of alert, defaults to 300 ms */
+    fadeOut?: number;
+}
+
+const { fadeOut = 300 } = Astro.props;
+---
+
 <div
     class="alert mb-4 flex items-center rounded-lg bg-yellow-50 p-4 text-yellow-800 dark:bg-gray-800 dark:text-yellow-300"
     role="alert"
+    data-fade-out={fadeOut}
 >
     {/* Icon */}
     <svg
@@ -43,13 +53,23 @@
     import $ from "jquery";
 
     document.querySelectorAll(".alert").forEach((element) => {
+        const self = $(element);
+
+        // Get the fade out duration
+        const alertElem = element as HTMLElement;
+        const fadeOutDuration = parseFloat(alertElem.dataset.fadeOut!);
+
+        // Get the dismissal button
         const dismissButton = element.querySelector("button");
         if (!dismissButton) {
             throw Error("No dismiss button for alert");
         }
 
+        // Make button disappear on click
         dismissButton.onclick = () => {
-            $(element).hide(); // TODO: Make the alert fade to transparent before removing
+            self.fadeOut(fadeOutDuration, () => {
+                self.remove();
+            });
         };
     });
 </script>
