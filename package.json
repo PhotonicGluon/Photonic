@@ -1,7 +1,7 @@
 {
     "name": "photonic",
     "type": "module",
-    "version": "1.0.4-1",
+    "version": "1.0.4-2",
     "scripts": {
         "dev": "astro dev --host",
         "build": "/bin/sh -c '/bin/bash ./scripts/build.sh'",
@@ -10,6 +10,7 @@
         "preview": "astro preview --host",
         "astro": "astro",
         "gen-shader": "python3 scripts/gen_shader.py",
+        "bump-version": "python3 scripts/bump_version.py"
     },
     "dependencies": {
         "@astrojs/preact": "^4.0.5",
