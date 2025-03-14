@@ -16,6 +16,8 @@ uniform float uAspectRatioFix;      // Aspect ratio fix factor
 uniform vec2 uOffset;               // Initial UV offset vector
 uniform float uScale;               // UV scaling factor
 
+uniform float uTimeOffset;         // Initial offset for the time
+
 uniform bool uApplySwirl;           // Whether to apply the rotation effect
 uniform float uSwirlAmount;         // Amount of swirling
 uniform float uSwirlSpeed;          // Speed of rotation
@@ -41,7 +43,6 @@ uniform float uAntialiasingRadius;  // Radius to sample points for antialiasing
 
 // CONSTANTS
 #define IMAGE_SCALE 1.0
-#define TIME_OFFSET 64.0  // Initial offset for the time
 #define SPIN_EASE 0.5     // Easing factor for rotation
 
 // OUTPUT
@@ -92,7 +93,7 @@ vec2 applySwirl(vec2 uv) {
     float uvLen = length(uv);  // Length of UV
 
     // Calculate rotation angle based on time and user parameters
-    float time = (iTime * SPIN_EASE * -0.1f * uSwirlSpeed) + TIME_OFFSET;  // Make swirl anticlockwise
+    float time = (iTime * SPIN_EASE * -0.1f * uSwirlSpeed) + uTimeOffset;  // Make swirl anticlockwise
     float newPixelAngle = (atan(uv.y, uv.x)) + time - SPIN_EASE * 20.0f * (uSwirlAmount * uvLen + (1.0f - uSwirlAmount));
 
     // Calculate center point and apply swirl transformation
