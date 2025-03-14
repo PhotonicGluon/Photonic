@@ -16,7 +16,7 @@
         "@astrojs/preact": "^4.0.5",
         "@astrojs/sitemap": "^3.2.1",
         "@nanostores/preact": "^0.5.2",
-        "@tailwindcss/vite": "^4.0.13",
+        "@tailwindcss/vite": "^4.0.14",
         "astro": "^5.4.3",
         "astro-robots-txt": "^1.0.0",
         "image-size": "^2.0.0",
