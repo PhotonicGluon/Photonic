@@ -1,10 +1,13 @@
 ---
 import BlogPost from "@components/blog/BlogPost.astro";
 import ButtonLink from "@components/generic/ButtonLink.astro";
+
 import MainLayout from "@layouts/MainLayout.astro";
 
+import type { Post } from "@lib/blog/post";
+
 // Get all blog posts
-const allPosts = Object.values(import.meta.glob("@blog/*.md", { eager: true }));
+const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.md", { eager: true }));
 ---
 
 <MainLayout
@@ -13,9 +16,9 @@ const allPosts = Object.values(import.meta.glob("@blog/*.md", { eager: true }));
 >
     <section>
         {/* List of all posts */}
-        <ul class="list-outside list-disc pl-4">
-            {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
-        </ul>
+        <div class="grid gap-4 md:grid-cols-2 lg:gap-8">
+            {allPosts.map((post: Post) => <BlogPost post={post} />)}
+        </div>
 
         {/* TODO: Add page select */}
 

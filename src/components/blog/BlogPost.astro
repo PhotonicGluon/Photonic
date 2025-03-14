@@ -1,14 +1,44 @@
 ---
+import type { Post } from "@lib/blog/post";
+import { humanizeDate } from "@lib/misc/dates";
+import { Image } from "astro:assets";
+
 export interface Props {
-    /** URL to the blog post */
-    url: string;
-    /** Title of the blog post */
-    title: string;
+    /** Post object to display on the list of posts */
+    post: Post;
 }
 
-const { url, title } = Astro.props;
+// Get the needed items from the props
+const { post } = Astro.props;
+const frontmatter = post.frontmatter;
 ---
 
-<li>
-    <a href={url}>{title}</a>
-</li>
+<article
+    class="flex flex-col border border-gray-700 bg-gray-900 transition-transform duration-300 ease-out hover:scale-[1.05] hover:cursor-pointer"
+>
+    {/* Preamble */}
+    <div class="mx-2 mt-2 md:mx-4 md:mt-4">
+        {/* Publication date */}
+        <span class="font-mono text-sm">{humanizeDate(new Date(frontmatter.pubDate))}</span>
+
+        {/* TODO: Add tags */}
+    </div>
+
+    {/* Blog cover image */}
+    {
+        frontmatter.image && (
+            <Image class="mt-2 md:mt-4" src={frontmatter.image.url} alt={frontmatter.image.alt} inferSize={true} />
+        )
+    }
+
+    {/* Main post content */}
+    <div class="m-2 grid md:m-4 lg:grid-cols-2">
+        {/* Title */}
+        <h1 class="font-mono font-bold md:text-xl lg:text-2xl">{frontmatter.title}</h1>
+
+        {/* Summary */}
+        <p class="!p-0 text-gray-300">
+            {frontmatter.summary}
+        </p>
+    </div>
+</article>
