@@ -8,6 +8,8 @@ export const editableUniforms: SlidersOptionsMap = {
     uOffset: { type: "vec2", value: [0.0, 0.0], min: -0.5, max: 0.5, step: 1e-3 },
     uScale: { type: "float", value: 1.0, min: 0.01, max: 2.0, step: 1e-2 },
 
+    uTimeOffset: { type: "float", value: 75.0, min: 0.0, step: 1e-2 },
+
     uApplySwirl: { type: "boolean", value: true },
     uSwirlAmount: { type: "float", value: 1.25, min: 0.0, max: 2.0, step: 1e-3 },
     uSwirlSpeed: { type: "float", value: 1.0, min: 0.0, max: 5.0, step: 1e-2 },

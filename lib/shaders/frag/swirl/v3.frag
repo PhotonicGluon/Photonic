@@ -16,6 +16,8 @@ uniform sampler2D iChannel1;  // Input texture
 #define OFFSET vec2(0.0, 0.0)               // Initial UV offset vector
 #define SCALE 1.0               // UV scaling factor
 
+#define TIME_OFFSET 75.0         // Initial offset for the time
+
 #define APPLY_SWIRL true           // Whether to apply the rotation effect
 #define SWIRL_AMOUNT 1.25         // Amount of swirling
 #define SWIRL_SPEED 1.0          // Speed of rotation
@@ -41,7 +43,6 @@ uniform sampler2D iChannel1;  // Input texture
 
 // CONSTANTS
 #define IMAGE_SCALE 1.0
-#define TIME_OFFSET 64.0  // Initial offset for the time
 #define SPIN_EASE 0.5     // Easing factor for rotation
 
 // OUTPUT
