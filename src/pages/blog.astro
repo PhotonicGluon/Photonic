@@ -1,10 +1,15 @@
 ---
+import BlogPost from "@components/blog/BlogPost.astro";
 import MainLayout from "@layouts/MainLayout.astro";
+
+// Get all blog posts
+const allPosts = Object.values(import.meta.glob("@pages/blog/*.md", { eager: true }));
 ---
 
 <MainLayout
     class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
     title="Blog"
 >
-    <span>TODO: Add</span>
+    {/* List of all posts */}
+    {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
 </MainLayout>
