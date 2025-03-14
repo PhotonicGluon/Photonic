@@ -1,15 +1,43 @@
 ---
 import BlogPost from "@components/blog/BlogPost.astro";
+import ButtonLink from "@components/generic/ButtonLink.astro";
 import MainLayout from "@layouts/MainLayout.astro";
 
 // Get all blog posts
-const allPosts = Object.values(import.meta.glob("@pages/blog/*.md", { eager: true }));
+const allPosts = Object.values(import.meta.glob("@blog/*.md", { eager: true }));
 ---
 
 <MainLayout
-    class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
     title="Blog"
+    class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
 >
-    {/* List of all posts */}
-    {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
+    <section>
+        {/* List of all posts */}
+        <ul class="list-outside list-disc pl-4">
+            {allPosts.map((post: any) => <BlogPost url={post.url} title={post.frontmatter.title} />)}
+        </ul>
+
+        {/* TODO: Add page select */}
+
+        {/* RSS feed link */}
+        <ButtonLink class="ml-2 border hover:bg-white/15" href="/rss.xml">
+            <div class="inline-flex justify-center gap-2 align-middle">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12.75 19.5v-.75a7.5 7.5 0 0 0-7.5-7.5H4.5m0-6.75h.75c7.87 0 14.25 6.38 14.25 14.25v.75M6 18.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                    ></path>
+                </svg>
+                <span>Subscribe</span>
+            </div>
+        </ButtonLink>
+    </section>
 </MainLayout>

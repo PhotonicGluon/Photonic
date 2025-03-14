@@ -1,12 +1,11 @@
 ---
+import { humanizeDate } from "@lib/misc/dates";
+
 import MainLayout from "@layouts/MainLayout.astro";
 
 const { frontmatter } = Astro.props;
 ---
 
-<MainLayout title={frontmatter.title}>
-    <h1>{frontmatter.title}</h1>
-    <p>Published on: {frontmatter.pubDate.toString().slice(0, 10)}</p>
-    <p>Written by {frontmatter.author}</p>
+<MainLayout title={frontmatter.title} subtitle={humanizeDate(new Date(frontmatter.pubDate))}>
     <slot />
 </MainLayout>
