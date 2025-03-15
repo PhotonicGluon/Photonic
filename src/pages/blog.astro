@@ -1,5 +1,5 @@
 ---
-import BlogPost from "@components/blog/BlogPost";
+import BlogList from "@components/blog/BlogList";
 import ButtonLink from "@components/generic/ButtonLink.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
@@ -17,7 +17,7 @@ const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.md", { eager: t
     <section>
         {/* List of all posts */}
         <div class="grid gap-4 md:grid-cols-2 lg:gap-8">
-            {allPosts.map((post: Post) => <BlogPost post={post} />)}
+            <BlogList posts={allPosts} />
         </div>
 
         {/* Post-list content */}
