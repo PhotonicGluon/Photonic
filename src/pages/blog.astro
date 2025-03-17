@@ -1,5 +1,6 @@
 ---
 import BlogList from "@components/blog/BlogList";
+import BlogPagination from "@components/blog/BlogPagination";
 import ButtonLink from "@components/generic/ButtonLink.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
@@ -22,7 +23,8 @@ const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.md", { eager: t
 
         {/* Post-list content */}
         <div class="mt-8 w-full">
-            {/* TODO: Page select */}
+            {/* Pagination for blog posts */}
+            <BlogPagination />
 
             {/* RSS feed link */}
             <div class="float-end">

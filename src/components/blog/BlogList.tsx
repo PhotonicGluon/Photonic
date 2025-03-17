@@ -17,13 +17,13 @@ export default class BlogList extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        // Set displayed posts to be initial
-        postStore.setKey("displayed", props.allPosts.slice(0, postStore.get().numPerPage));
+        // Set all posts
+        postStore.setKey("posts", props.allPosts);
     }
 
     render(props: Props, state: State) {
-        const $projectStore = useStore(postStore);
-        const displayedPosts = $projectStore.displayed;
+        const $postStore = useStore(postStore);
+        const displayedPosts = $postStore.posts.slice(0, $postStore.numPerPage);
         return displayedPosts.map((post: Post) => <BlogPost post={post} />);
     }
 }

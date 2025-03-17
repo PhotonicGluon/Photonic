@@ -13,19 +13,20 @@ export interface PostStoreValue extends BaseDeepMap {
     // /** Parameters for the sorting */
     // sort: SortParameters;
 
+    /** All posts */
+    posts: Post[];
     /* Page number */
     page: number;
     /* Number of posts to show per page*/
     numPerPage: number;
-    /** List projects that are displayed */
-    displayed: Post[];
 }
 
 export const postStore = deepMap<PostStoreValue>({
     // search: "",
     // tags: new Set(tagNames),
     // sort: { date: SortDate.END, order: SortOrder.REVERSED },
+
+    posts: [],
     page: 1,
     numPerPage: 10,
-    displayed: [],
 });
