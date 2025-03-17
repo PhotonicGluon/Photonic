@@ -17,7 +17,7 @@ const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.md", { eager: t
     <section>
         {/* List of all posts */}
         <div class="grid gap-4 md:grid-cols-2 lg:gap-8">
-            <BlogList posts={allPosts} />
+            <BlogList allPosts={allPosts} />
         </div>
 
         {/* Post-list content */}
