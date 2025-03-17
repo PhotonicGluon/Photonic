@@ -1,5 +1,6 @@
 ---
 import IconLink from "@components/generic/IconLink.astro";
+import Version from "@components/versioning/Version.astro";
 
 export interface Props {
     /** Optional CSS class(es) to apply to the footer */
@@ -31,6 +32,9 @@ const year = new Date().getFullYear().toString();
         </span>
         <span class="block text-xs text-gray-400">
             Photonic's source code is available on <a href="https://github.com/PhotonicGluon/Photonic">GitHub</a>.
+        </span>
+        <span class="block text-2xs text-gray-500">
+            Version <span class="font-mono"><Version /></span>
         </span>
     </div>
 </footer>
