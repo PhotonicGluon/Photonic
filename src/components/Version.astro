@@ -1,0 +1,20 @@
+---
+import { readPackage } from "read-pkg";
+import git from "git-last-commit";
+
+// Get main package version
+const pkg = await readPackage();
+const version = pkg.version;
+
+// Get commit hash
+function getCurrentCommitHash(): Promise<string> {
+    return new Promise((resolve, _) =>
+        git.getLastCommit((_, commit) => {
+            resolve(commit.shortHash);
+        }),
+    );
+}
+const commit = await getCurrentCommitHash();
+---
+
+<span class="font-mono" title={commit}>{version}</span>
