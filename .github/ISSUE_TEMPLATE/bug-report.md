@@ -5,8 +5,6 @@ labels: bug
 assignees: ""
 ---
 
-# Bug Report
-
 ## Describe the Bug
 
 A clear and concise description of what the bug is.
@@ -32,6 +30,7 @@ What actually happens.
 
 ## Client Information
 
+- **Website Version**: [e.g. 1.2.3]
 - **OS**: [e.g. Windows]
 - **OS Version**: [e.g. 22H2]
 
