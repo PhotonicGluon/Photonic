@@ -17,7 +17,21 @@ import fourOhFourBanner from "@images/404-banner.jpg";
 >
     {/* SEO */}
     <Fragment slot="head-seo">
-        <SEO title="Page Not Found" />
+        <SEO
+            title="Page Not Found"
+            description="The requested page could not be found"
+            openGraph={{
+                title: "Page Not Found",
+                description: "The requested page could not be found",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
     </Fragment>
 
     {/* Spoofed header text for smaller devices */}

@@ -15,7 +15,21 @@ import linkedinLogo from "@images/icons/LI-In-Bug.svg";
 >
     {/* SEO */}
     <Fragment slot="head-seo">
-        <SEO title="About Me" />
+        <SEO
+            title="About Me"
+            description="A little bit about me, PhotonicGluon"
+            openGraph={{
+                title: "About Me",
+                description: "A little bit about me, PhotonicGluon",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
     </Fragment>
 
     {/* About me */}

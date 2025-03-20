@@ -25,7 +25,25 @@ const project = toProject(Astro.props);
 
     {/* SEO */}
     <Fragment slot="head-seo">
-        <SEO title={project.name} />
+        <SEO
+            title={project.name}
+            description={project.summary}
+            openGraph={{
+                title: project.name,
+                description: project.summary,
+                image: {
+                    url: project.banner
+                        ? project.banner
+                        : "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: project.banner ? `${project.name} Banner` : "Photonic Logo",
+                },
+                type: "article",
+                articleProps: {
+                    authors: ["PhotonicGluon"],
+                    tags: project.tags.map((tag) => tag.name),
+                },
+            }}
+        />
     </Fragment>
 
     {/* Banner image */}

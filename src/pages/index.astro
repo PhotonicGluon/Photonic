@@ -29,7 +29,22 @@ const CARD_TOP_PADDING = 0.75; // In rem
 <MainLayout tabTitle="Photonic">
     {/* SEO */}
     <Fragment slot="head-seo">
-        <SEO title="Photonic" tabTitle="Photonic" />
+        <SEO
+            title="Photonic"
+            tabTitle="Photonic"
+            description="Making cool things by PhotonicGluon"
+            openGraph={{
+                title: "Photonic - Making Cool Things",
+                description: "Making cool things by PhotonicGluon",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
     </Fragment>
 
     {/* Hero box */}
