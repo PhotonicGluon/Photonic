@@ -30,7 +30,8 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
     <head>
         <Analytics />
 
-        {/* Metadata */}
+        {/* SEO and Metadata */}
+        <slot name="head-seo" />
         <Metadata />
 
         {/* Fonts */}
@@ -48,9 +49,6 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
             Observer.start();
         </script>
         <slot name="head-scripts" />
-
-        {/* SEO */}
-        <slot name="head-seo" />
     </head>
     <body class="relative m-0 min-h-screen">
         {/* Main page contents */}

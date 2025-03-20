@@ -2,17 +2,107 @@
 import { SEO as AstroSEO } from "astro-seo";
 
 export interface Props {
+    // Standard metadata
     /* Page title */
     title: string;
     /** Title of the tab; defaults to the `title` with the website name */
     tabTitle?: string;
+    /** Concise description of what the page is about */
+    description: string;
+
+    // Open Graph metadata
+    openGraph?: {
+        /**
+         * Open Graph title.
+         *
+         * The title of your object as it should appear within the graph. In other words, it is
+         * like a 'heading' experience for the object.
+         */
+        title: string;
+        /** Description of the object */
+        description: string;
+        /** The [Open Graph type](https://ogp.me/#types) of the object. Defaults to `website` */
+        type?: string;
+        image: {
+            /** URL of the image that should be used in social media previews */
+            url: URL | string;
+            /** Alternative text for the image */
+            alt: string;
+            /* Image MIME type */
+            type?: string;
+            /* Image width */
+            width?: number;
+            /* Image height */
+            height?: number;
+        };
+        /** Optional additional properties for the OGP `article` type */
+        articleProps?: {
+            /** ISO 8601 date string of when the article was published */
+            publishedTime?: string;
+            /** ISO 8601 date string of when the article was modified */
+            modifiedTime?: string;
+            /** ISO 8601 date string of when the article will no longer be relevant */
+            expirationTime?: string;
+            /**
+             * The author(s) of the article.
+             *
+             * If it's only one, pass an array with one entry. If there are multiple, multiple tags
+             * with descending relevance will be created.
+             */
+            authors?: string[];
+            /** A high-level section name (e.g. `Technology`) */
+            section?: string;
+            /** Tag words associated with this article */
+            tags?: string[];
+        };
+    };
 }
 
+// Get proper title template, overriding with the specified tab title as necessary
 let titleTemplate = "%s - Photonic";
 if (Astro.props.tabTitle) {
     titleTemplate = Astro.props.tabTitle;
 }
+
+// Generate the OGP data
+let ogpData: any | undefined = undefined;
+if (Astro.props.openGraph) {
+    const ogpProps = Astro.props.openGraph;
+    ogpData = {
+        basic: {
+            title: ogpProps.title,
+            type: ogpProps.type ? ogpProps.type : "website",
+            image: ogpProps.image.url,
+            url: Astro.request.url,
+        },
+        optional: {
+            description: ogpProps.description,
+            locale: "en_SG",
+            localeAlternative: ["en_UK", "en_US"],
+            siteName: "Photonic",
+        },
+        image: {
+            type: ogpProps.image.type,
+            width: ogpProps.image.width,
+            height: ogpProps.image.height,
+            alt: ogpProps.image.alt,
+        },
+    };
+    if (ogpProps.articleProps) {
+        ogpData.article = ogpProps.articleProps;
+    }
+}
 ---
 
-{/* TODO: Add more */}
-<AstroSEO title={Astro.props.title} titleTemplate={titleTemplate} />
+{/* TODO: Add twitter? */}
+<AstroSEO
+    title={Astro.props.title}
+    titleTemplate={titleTemplate}
+    titleDefault="Untitled"
+    description={Astro.props.description}
+    canonical={Astro.url.href}
+    noindex={false}
+    nofollow={false}
+    charset="UTF-8"
+    openGraph={ogpData}
+/>
