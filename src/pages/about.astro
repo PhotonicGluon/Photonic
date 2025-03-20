@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 
 import ButtonLink from "@components/generic/ButtonLink.astro";
+import SEO from "@components/top/SEO.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
@@ -12,6 +13,25 @@ import linkedinLogo from "@images/icons/LI-In-Bug.svg";
     class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
     title="About Me"
 >
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO
+            title="About Me"
+            description="A little bit about me, PhotonicGluon"
+            openGraph={{
+                title: "About Me",
+                description: "A little bit about me, PhotonicGluon",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
+    </Fragment>
+
     {/* About me */}
     <section>
         <p>Hello! Welcome to my little corner of the internet! I hope you like it!</p>

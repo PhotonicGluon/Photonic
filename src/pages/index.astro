@@ -5,6 +5,7 @@ import ProjectBanner from "@components/projects/ProjectBanner.astro";
 import ProjectTags from "@components/projects/ProjectTags";
 import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 import Shader from "@components/Shader.astro";
+import SEO from "@components/top/SEO.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
@@ -26,6 +27,26 @@ const CARD_TOP_PADDING = 0.75; // In rem
 ---
 
 <MainLayout tabTitle="Photonic">
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO
+            title="Photonic"
+            tabTitle="Photonic"
+            description="Making cool things by PhotonicGluon"
+            openGraph={{
+                title: "Photonic - Making Cool Things",
+                description: "Making cool things by PhotonicGluon",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
+    </Fragment>
+
     {/* Hero box */}
     <Fragment slot="hero-box">
         <div class="relative">
@@ -135,7 +156,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
                                                     class="bg-sky-700 !px-3 !py-1.5 text-sm hover:bg-sky-800 lg:!px-5 lg:!py-2.5 lg:text-base"
                                                     href={"/projects/" + rawProject.id}
                                                 >
-                                                    Read More
+                                                    Learn more about {project.name}
                                                 </ButtonLink>
                                             </div>
                                         </div>
