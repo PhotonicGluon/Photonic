@@ -1,7 +1,7 @@
 {
     "name": "photonic",
     "type": "module",
-    "version": "1.0.6-0",
+    "version": "1.0.6-1",
     "scripts": {
         "dev": "astro dev --host",
         "build": "/bin/sh -c '/bin/bash ./scripts/build.sh'",
@@ -13,6 +13,7 @@
         "bump-version": "python3 scripts/bump_version.py"
     },
     "dependencies": {
+        "@astrojs/partytown": "^2.1.4",
         "@astrojs/preact": "^4.0.5",
         "@astrojs/sitemap": "^3.2.1",
         "@nanostores/preact": "^0.5.2",

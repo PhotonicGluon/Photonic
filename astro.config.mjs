@@ -4,6 +4,7 @@ import photonicTweakpane from "./lib/tweakpane/dev-tools/integration";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import robotsTxt from "astro-robots-txt";
+import partytown from "@astrojs/partytown";
 
 import glsl from "vite-plugin-glsl";
 import tailwindcss from "@tailwindcss/vite";
@@ -11,7 +12,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
     site: "https://photonic.dev",
-    integrations: [photonicTweakpane, preact(), sitemap(), robotsTxt()],
+    integrations: [photonicTweakpane, preact(), sitemap(), robotsTxt(), partytown()],
     vite: {
         plugins: [glsl(), tailwindcss()],
     },
