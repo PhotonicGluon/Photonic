@@ -1,0 +1,18 @@
+---
+import { SEO as AstroSEO } from "astro-seo";
+
+export interface Props {
+    /* Page title */
+    title: string;
+    /** Title of the tab; defaults to the `title` with the website name */
+    tabTitle?: string;
+}
+
+let titleTemplate = "%s - Photonic";
+if (Astro.props.tabTitle) {
+    titleTemplate = Astro.props.tabTitle;
+}
+---
+
+{/* TODO: Add more */}
+<AstroSEO title={Astro.props.title} titleTemplate={titleTemplate} />

@@ -5,6 +5,7 @@ import ProjectBanner from "@components/projects/ProjectBanner.astro";
 import ProjectTags from "@components/projects/ProjectTags";
 import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 import Shader from "@components/Shader.astro";
+import SEO from "@components/top/SEO.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
@@ -26,6 +27,11 @@ const CARD_TOP_PADDING = 0.75; // In rem
 ---
 
 <MainLayout tabTitle="Photonic">
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO title="Photonic" tabTitle="Photonic" />
+    </Fragment>
+
     {/* Hero box */}
     <Fragment slot="hero-box">
         <div class="relative">
