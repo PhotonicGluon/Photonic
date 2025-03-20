@@ -1,7 +1,7 @@
 {
     "name": "photonic",
     "type": "module",
-    "version": "1.0.6-0",
+    "version": "1.1.1-0",
     "scripts": {
         "dev": "astro dev --host",
         "build": "/bin/sh -c '/bin/bash ./scripts/build.sh'",
@@ -19,6 +19,7 @@
         "@tailwindcss/vite": "^4.0.14",
         "astro": "^5.5.2",
         "astro-robots-txt": "^1.0.0",
+        "astro-seo": "^0.8.4",
         "git-last-commit": "^1.0.1",
         "image-size": "^2.0.1",
         "jquery": "^3.7.1",
