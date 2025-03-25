@@ -1,6 +1,4 @@
 ---
-import { imageSizeFromFile } from "image-size/fromFile";
-
 import { Image, inferRemoteSize } from "astro:assets";
 import type { HTMLAttributes } from "astro/types";
 
@@ -16,17 +14,18 @@ type Props = Omit<HTMLAttributes<"img">, "width" | "height"> & RequiredProps;
 
 const { src, alt, ...attributes } = Astro.props;
 
+// Permit only remote images
+if (!src!.startsWith("http")) {
+    throw Error(`Project banners must be remote images (got "${src}")`);
+}
+
 // Determine dimensions
 let dimensions;
-if (src!.startsWith("http")) {
+try {
     dimensions = await inferRemoteSize(src!);
-} else {
-    // FIXME: Make this work with current banner locations
-    try {
-        dimensions = await imageSizeFromFile(`public${src}`);
-    } catch {
-        dimensions = { width: 1, height: 1 };
-    }
+} catch {
+    console.warn(`Cannot infer size of remote image "${src}" (does the image exist?)`);
+    dimensions = { width: 1, height: 1 }; // Fallback dimensions
 }
 
 const width = dimensions.width!;
