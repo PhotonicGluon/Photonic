@@ -21,7 +21,12 @@ let dimensions;
 if (src!.startsWith("http")) {
     dimensions = await inferRemoteSize(src!);
 } else {
-    dimensions = await imageSizeFromFile(`public${src}`);
+    // FIXME: Make this work with current banner locations
+    try {
+        dimensions = await imageSizeFromFile(`public${src}`);
+    } catch {
+        dimensions = { width: 1, height: 1 };
+    }
 }
 
 const width = dimensions.width!;
