@@ -1,6 +1,8 @@
 ---
 import { Image } from "astro:assets";
 
+import SEO from "@components/top/SEO.astro";
+
 import MainLayout from "@layouts/MainLayout.astro";
 
 // https://pixabay.com/illustrations/matrix-code-computer-pc-data-356024/
@@ -13,6 +15,25 @@ import fourOhFourBanner from "@images/404-banner.jpg";
     footerPadding="calc(var(--spacing) * 16)"
     title="Page Not Found"
 >
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO
+            title="Page Not Found"
+            description="The requested page could not be found"
+            openGraph={{
+                title: "Page Not Found",
+                description: "The requested page could not be found",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
+    </Fragment>
+
     {/* Spoofed header text for smaller devices */}
     <section class="block md:hidden">
         <h1 class="text-center text-4xl font-bold">Page Not Found</h1>

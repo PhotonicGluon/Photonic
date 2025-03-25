@@ -7,6 +7,7 @@ import { toDateString } from "@lib/misc/dates";
 import ProjectBanner from "@components/projects/ProjectBanner.astro";
 import ProjectTags from "@components/projects/ProjectTags";
 import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
+import SEO from "@components/top/SEO.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
@@ -21,6 +22,29 @@ const project = toProject(Astro.props);
 >
     <slot name="head-fonts" slot="head-fonts" />
     <slot name="head-scripts" slot="head-scripts" />
+
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO
+            title={project.name}
+            description={project.summary}
+            openGraph={{
+                title: project.name,
+                description: project.summary,
+                image: {
+                    url: project.banner
+                        ? project.banner
+                        : "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: project.banner ? `${project.name} Banner` : "Photonic Logo",
+                },
+                type: "article",
+                articleProps: {
+                    authors: ["PhotonicGluon"],
+                    tags: project.tags.map((tag) => tag.name),
+                },
+            }}
+        />
+    </Fragment>
 
     {/* Banner image */}
     {

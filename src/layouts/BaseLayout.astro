@@ -30,16 +30,25 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
     <head>
         <Analytics />
 
-        {/* Metadata */}
+        {/* SEO and Metadata */}
+        <slot name="head-seo" />
         <Metadata />
 
         {/* Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
+            rel="preload"
             href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-            rel="stylesheet"
+            as="style"
+            onload="this.onload=null;this.rel='stylesheet'"
         />
+        <noscript>
+            <link
+                href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+                rel="stylesheet"
+            />
+        </noscript>
         <slot name="head-fonts" />
 
         {/* Scripts */}
@@ -48,9 +57,6 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
             Observer.start();
         </script>
         <slot name="head-scripts" />
-
-        {/* Miscellaneous */}
-        <title>{title}</title>
     </head>
     <body class="relative m-0 min-h-screen">
         {/* Main page contents */}
