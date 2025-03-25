@@ -1,0 +1,14 @@
+{
+    "name": "Chess Clock Trivia",
+    "tags": ["programming"],
+    "dates": {
+        "start": "2021-08-13",
+        "end": "2021-09-15"
+    },
+    "banner": "https://raw.githubusercontent.com/PhotonicGluon/Chess-Clock-Trivia/main/others/Banner.webp",
+    "summary": "Chess Clock Trivia is a trivia game where teams answer questions within a certain time limit.",
+    "urls": {
+        "github": "https://github.com/PhotonicGluon/Chess-Clock-Trivia"
+    },
+    "indexPage": "index.md"
+}

@@ -12,6 +12,21 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
     site: "https://photonic.dev",
+    image: {
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "f4.bcbits.com",
+            },
+            {
+                hostname: "photonic.dev",
+            },
+            {
+                protocol: "https",
+                hostname: "raw.githubusercontent.com",
+            },
+        ],
+    },
     integrations: [photonicTweakpane, preact(), sitemap(), robotsTxt(), partytown()],
     vite: {
         plugins: [glsl(), tailwindcss()],

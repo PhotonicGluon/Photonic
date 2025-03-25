@@ -9,6 +9,7 @@
             "@components/*": ["src/components/*"],
             "@images/*": ["src/images/*"],
             "@layouts/*": ["src/layouts/*"],
+            "@projects/*": ["src/projects/*", "public/projects/*"],
             "@styles/*": ["src/styles/*"],
             "@public/*": ["public/*"]
         },

@@ -1,0 +1,13 @@
+{
+    "name": "Good Morning Image Finder",
+    "tags": ["programming"],
+    "dates": {
+        "start": "2021-01-18",
+        "end": "2021-01-21"
+    },
+    "summary": "A simple application that helps find \"Good Morning\" images automatically.",
+    "urls": {
+        "github": "https://github.com/PhotonicGluon/Good-Morning-Image-Finder"
+    },
+    "indexPage": "index.md"
+}
