@@ -15,7 +15,8 @@
                 "ms-python.python",
                 "raczzalan.webgl-glsl-editor",
                 "streetsidesoftware.code-spell-checker",
-                "yzhang.markdown-all-in-one"
+                "yzhang.markdown-all-in-one",
+                "github.vscode-github-actions"
             ]
         }
     }
