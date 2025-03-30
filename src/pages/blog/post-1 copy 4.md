@@ -4,7 +4,7 @@ title: "Blog Post 1"
 pubDate: 2020-01-02
 summary: "Blog post 1... some summary"
 image:
-    url: "https://docs.astro.build/assets/rose.webp"
+    url: "/public/no-image.png"
     alt: "The Astro logo on a dark background with a pink glow."
 tags: []
 ---
