@@ -8,7 +8,7 @@ Fixes # (issue)
 
 Please delete options that are not relevant.
 
-- [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] New feature (non-breaking change which adds functionality)
-- [ ] Performance improvement (enhancement of speed/memory use of the website)
-- [ ] Bug fix (non-breaking change which fixes an issue)
+- Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- New feature (non-breaking change which adds functionality)
+- Performance improvement (enhancement of speed/memory use of the website)
+- Bug fix (non-breaking change which fixes an issue)

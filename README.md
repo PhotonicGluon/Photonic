@@ -1,6 +1,6 @@
 # Photonic
 
-![Photonic Banner](public/projects/photonic/banner.png)
+![Photonic Banner](public/banner.png)
 
 Photonic website: making cool things.
 

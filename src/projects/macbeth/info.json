@@ -1,0 +1,14 @@
+{
+    "name": "MACBETh",
+    "tags": ["programming"],
+    "dates": {
+        "start": "2024-04-24",
+        "end": "2024-04-30"
+    },
+    "banner": "https://raw.githubusercontent.com/PhotonicGluon/MACBETh/main/img/banner.png",
+    "summary": "Analyses malware based on its attributes, and helps classify malware based on reports generated in VirusTotal.",
+    "urls": {
+        "github": "https://github.com/PhotonicGluon/MACBETh"
+    },
+    "indexPage": "index.md"
+}

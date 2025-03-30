@@ -1,0 +1,19 @@
+name: Push to live
+on:
+  push:
+    tags:
+      - v1.*.*
+
+jobs:
+  merge-live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          ref: main
+      - uses: devmasx/merge-branch@v1.4.0
+        with:
+          type: now
+          from_branch: main
+          target_branch: live
+          github_token: ${{ secrets.GITHUB_TOKEN }}

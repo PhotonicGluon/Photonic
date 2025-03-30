@@ -1,0 +1,14 @@
+{
+    "name": "Overwrite",
+    "tags": ["programming"],
+    "dates": {
+        "start": "2023-02-01",
+        "end": "2024-11-28"
+    },
+    "banner": "https://raw.githubusercontent.com/PhotonicGluon/Overwrite/refs/heads/main/assets/resources/img/banner-dark.webp",
+    "summary": "PhotonicGluon's former portfolio site.",
+    "urls": {
+        "github": "https://github.com/PhotonicGluon/Overwrite"
+    },
+    "indexPage": "index.md"
+}
