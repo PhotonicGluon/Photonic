@@ -18,7 +18,7 @@ updates:
         dependency-type: "development"
 
   # Enable version updates for devcontainers
-  - package-ecosystem: "devcontainers"
-    directory: "/"
+  - package-ecosystem: "docker"
+    directory: "/.devcontainer"
     schedule:
       interval: weekly
