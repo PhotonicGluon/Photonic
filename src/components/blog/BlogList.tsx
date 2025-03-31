@@ -23,7 +23,11 @@ export default class BlogList extends Component<Props, State> {
 
     render(props: Props, state: State) {
         const $postStore = useStore(postStore);
-        const displayedPosts = $postStore.posts.slice(0, $postStore.numPerPage);
+        const pageIndex = $postStore.page - 1;
+        const displayedPosts = $postStore.posts.slice(
+            pageIndex * $postStore.numPerPage,
+            (pageIndex + 1) * $postStore.numPerPage,
+        );
         return displayedPosts.map((post: Post) => <BlogPost post={post} />);
     }
 }

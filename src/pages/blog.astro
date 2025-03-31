@@ -18,13 +18,13 @@ const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.md", { eager: t
     <section>
         {/* List of all posts */}
         <div class="grid gap-4 md:grid-cols-2 lg:gap-8">
-            <BlogList allPosts={allPosts} />
+            <BlogList allPosts={allPosts} client:only />
         </div>
 
         {/* Post-list content */}
         <div class="mt-8 w-full">
             {/* Pagination for blog posts */}
-            <BlogPagination />
+            <BlogPagination client:only />
 
             {/* RSS feed link */}
             <div class="float-end">
@@ -51,3 +51,21 @@ const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.md", { eager: t
         </div>
     </section>
 </MainLayout>
+
+<script>
+    import { postStore } from "@components/blog/store";
+
+    function updatePageNum() {
+        const urlSearchParams = new URLSearchParams(window.location.search);
+        const pageParam = urlSearchParams.get("page");
+        const page = pageParam ? parseInt(pageParam) : 1;
+        postStore.setKey("page", page);
+    }
+
+    window.addEventListener("popstate", () => {
+        window.dispatchEvent(new Event("locationchange"));
+    });
+
+    window.addEventListener("locationchange", (_) => updatePageNum());
+    updatePageNum();
+</script>
