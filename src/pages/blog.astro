@@ -58,7 +58,7 @@ const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.md", { eager: t
     function updatePageNum() {
         const urlSearchParams = new URLSearchParams(window.location.search);
         const pageParam = urlSearchParams.get("page");
-        const page = pageParam ? parseInt(pageParam) : 1;
+        const page = pageParam ? parseInt(pageParam) - 1 : 0; // Index, so must subtract 1
         postStore.setKey("page", page);
     }
 

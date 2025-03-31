@@ -17,16 +17,17 @@ export default class BlogList extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        // Set all posts
+        const numPages = Math.ceil(props.allPosts.length / postStore.get().numPerPage);
+
+        postStore.setKey("numPages", numPages);
         postStore.setKey("posts", props.allPosts);
     }
 
     render(props: Props, state: State) {
         const $postStore = useStore(postStore);
-        const pageIndex = $postStore.page - 1;
         const displayedPosts = $postStore.posts.slice(
-            pageIndex * $postStore.numPerPage,
-            (pageIndex + 1) * $postStore.numPerPage,
+            $postStore.page * $postStore.numPerPage,
+            ($postStore.page + 1) * $postStore.numPerPage,
         );
         return displayedPosts.map((post: Post) => <BlogPost post={post} />);
     }

@@ -15,9 +15,11 @@ export interface PostStoreValue extends BaseDeepMap {
 
     /** All posts */
     posts: Post[];
-    /* Page number */
+    /** Number of pages */
+    numPages: number;
+    /** Page index */
     page: number;
-    /* Number of posts to show per page*/
+    /** Number of posts to show per page*/
     numPerPage: number;
 }
 
@@ -27,6 +29,7 @@ export const postStore = deepMap<PostStoreValue>({
     // sort: { date: SortDate.END, order: SortOrder.REVERSED },
 
     posts: [],
-    page: 1,
+    numPages: 1, // Will be updated during pagination count
+    page: 0,
     numPerPage: 10,
 });
