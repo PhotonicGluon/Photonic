@@ -28,8 +28,8 @@ export const postStore = deepMap<PostStoreValue>({
     // tags: new Set(tagNames),
     // sort: { date: SortDate.END, order: SortOrder.REVERSED },
 
+    page: 0,
     posts: [],
     numPages: 1, // Will be updated during pagination count
-    page: 0,
-    numPerPage: 10,
+    numPerPage: 1,
 });

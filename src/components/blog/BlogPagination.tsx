@@ -20,17 +20,9 @@ export default class BlogPagination extends Component<Props, State> {
      * @returns Button element.
      */
     pageButton(text: string, href: string, className?: string, disabled: boolean = false) {
-        function click(e: MouseEvent) {
-            e.preventDefault();
-            if (disabled) return;
-            window.history.pushState({}, "", href);
-            window.dispatchEvent(new Event("locationchange"));
-        }
-
         return (
             <li>
                 <a
-                    onClick={click}
                     href={!disabled ? href : undefined}
                     class={
                         "ms-0 flex h-8 items-center justify-center border border-gray-700 px-3 leading-tight " +

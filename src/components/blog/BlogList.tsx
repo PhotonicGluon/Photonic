@@ -9,6 +9,10 @@ import type { Post } from "@lib/blog/post";
 interface Props {
     /** List of all posts */
     allPosts: Post[];
+    /** Number of pages */
+    numPages: number;
+    /** Maximum number of posts to show per page */
+    numPerPage: number;
 }
 
 interface State {}
@@ -17,10 +21,9 @@ export default class BlogList extends Component<Props, State> {
     constructor(props: Props) {
         super(props);
 
-        const numPages = Math.ceil(props.allPosts.length / postStore.get().numPerPage);
-
-        postStore.setKey("numPages", numPages);
         postStore.setKey("posts", props.allPosts);
+        postStore.setKey("numPages", props.numPages);
+        postStore.setKey("numPerPage", props.numPerPage);
     }
 
     render(props: Props, state: State) {
