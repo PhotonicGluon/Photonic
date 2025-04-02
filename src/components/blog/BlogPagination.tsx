@@ -13,29 +13,52 @@ export default class BlogPagination extends Component<Props, State> {
     /**
      * Creates a page button.
      *
-     * @param text Text to display.
+     * @param content Button content.
+     * @param label Button's aria label.
      * @param href URL to link to.
      * @param className Additional classes to add to the button.
-     * @param disabled Whether the button should be disabled or not.
+     * @param nonDisabledClassName Additional classes to add to the button if it is not disabled.
+     * @param options Whether to disable the button, and whether to hide the button if disabled.
      * @returns Button element.
      */
-    pageButton(text: string, href: string, className?: string, disabled: boolean = false) {
+    pageButton(
+        content: preact.JSX.Element,
+        label: string,
+        href: string,
+        className: string,
+        nonDisabledClassName: string,
+        options: {
+            disabled?: boolean;
+            hide_too?: boolean;
+        } = { disabled: false, hide_too: false },
+    ) {
         return (
-            <li>
-                <a
-                    href={!disabled ? href : undefined}
-                    class={
-                        "ms-0 flex size-12 items-center justify-center border border-gray-700 px-3 leading-tight " +
-                        (disabled
-                            ? "bg-gray-900 !text-gray-400 hover:!cursor-default"
-                            : "bg-gray-800 !text-gray-300 hover:bg-gray-700 hover:!text-white") +
-                        " " +
-                        `${className ? className : ""}`
-                    }
-                >
-                    {text}
-                </a>
-            </li>
+            <div class="*:ms-0 *:flex *:size-12 *:items-center *:justify-center *:px-3 *:leading-tight">
+                {!options.disabled && (
+                    <a
+                        href={href}
+                        class={
+                            "!text-gray-300 " +
+                            `${className ? className : ""} ${nonDisabledClassName ? nonDisabledClassName : ""}`
+                        }
+                        aria-label={label}
+                    >
+                        {content}
+                    </a>
+                )}
+                {options.disabled && (
+                    <div
+                        class={
+                            "bg-gray-900 text-gray-400 " +
+                            (options.hide_too ? "opacity-0" : "") +
+                            " " +
+                            `${className ? className : ""}`
+                        }
+                    >
+                        {content}
+                    </div>
+                )}
+            </div>
         );
     }
 
@@ -51,26 +74,68 @@ export default class BlogPagination extends Component<Props, State> {
 
         return (
             <nav class="w-min" aria-label="Page navigation">
-                <ul class="inline-flex -space-x-px !pb-0 text-sm">
-                    {this.pageButton("Prev", this.makePageQuery(currPage - 1), "rounded-s-lg", currPage < 1)}
+                <div class="inline-flex gap-2 -space-x-px !pb-0">
+                    {/* Previous page button */}
+                    {this.pageButton(
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="size-6"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                            />
+                        </svg>,
+                        "Previous Page",
+                        this.makePageQuery(currPage - 1),
+                        "rounded-full",
+                        "hover:!text-white",
+                        { disabled: currPage < 1, hide_too: true },
+                    )}
+
+                    {/* Standard page buttons */}
                     {
-                        /*TODO: There should be a better way of doing this... with ellipses as well...*/
+                        /* TODO: There should be a better way of doing this... with ellipses as well... */
                         range(numPages).map((pageIdx) => {
                             return this.pageButton(
-                                (pageIdx + 1).toString(),
+                                <span>{(pageIdx + 1).toString()}</span>,
+                                `Page ${pageIdx + 1}`,
                                 this.makePageQuery(pageIdx),
-                                "",
-                                pageIdx == currPage,
+                                "border border-gray-700 rounded-lg bg-gray-800 ",
+                                "hover:bg-gray-700 hover:!text-white",
+                                { disabled: pageIdx == currPage },
                             );
                         })
                     }
+
+                    {/* Next page button */}
                     {this.pageButton(
-                        "Next",
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="size-6"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                            />
+                        </svg>,
+                        "Next Page",
                         this.makePageQuery(currPage + 1),
-                        "rounded-e-lg",
-                        currPage >= numPages - 1,
+                        "rounded-full",
+                        "hover:!text-white",
+                        { disabled: currPage >= numPages - 1, hide_too: true },
                     )}
-                </ul>
+                </div>
             </nav>
         );
     }
