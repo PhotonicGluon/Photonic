@@ -36,13 +36,17 @@ const numPages = Math.ceil(allPosts.length / NUM_PER_PAGE);
         </div>
 
         {/* Post-list content */}
-        <div class="mt-8 w-full">
+        <div class="relative mt-8 w-full">
             {/* Pagination for blog posts */}
-            <BlogPagination client:only />
+            <div class="inline-block w-full">
+                <div class="flex justify-center">
+                    <BlogPagination client:only />
+                </div>
+            </div>
 
             {/* RSS feed link */}
-            <div class="float-end">
-                <ButtonLink class="border hover:bg-white/15" href="/rss.xml">
+            <div class="absolute top-0 right-0">
+                <ButtonLink class="h-12 border hover:bg-white/15" href="/rss.xml">
                     <div class="inline-flex justify-center gap-2 align-middle">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -66,6 +70,7 @@ const numPages = Math.ceil(allPosts.length / NUM_PER_PAGE);
     </section>
 </MainLayout>
 
+{/* Get page number from GET params */}
 <script>
     import { postStore } from "@components/blog/store";
 

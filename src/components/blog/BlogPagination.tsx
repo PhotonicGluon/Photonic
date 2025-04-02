@@ -25,7 +25,7 @@ export default class BlogPagination extends Component<Props, State> {
                 <a
                     href={!disabled ? href : undefined}
                     class={
-                        "ms-0 flex h-8 items-center justify-center border border-gray-700 px-3 leading-tight " +
+                        "ms-0 flex size-12 items-center justify-center border border-gray-700 px-3 leading-tight " +
                         (disabled
                             ? "bg-gray-900 !text-gray-400 hover:!cursor-default"
                             : "bg-gray-800 !text-gray-300 hover:bg-gray-700 hover:!text-white") +
@@ -50,9 +50,9 @@ export default class BlogPagination extends Component<Props, State> {
         const currPage = $postStore.page;
 
         return (
-            <nav aria-label="Page navigation">
-                <ul class="inline-flex -space-x-px text-sm">
-                    {this.pageButton("Previous", this.makePageQuery(currPage - 1), "rounded-s-lg", currPage < 1)}
+            <nav class="w-min" aria-label="Page navigation">
+                <ul class="inline-flex -space-x-px !pb-0 text-sm">
+                    {this.pageButton("Prev", this.makePageQuery(currPage - 1), "rounded-s-lg", currPage < 1)}
                     {
                         /*TODO: There should be a better way of doing this... with ellipses as well...*/
                         range(numPages).map((pageIdx) => {
