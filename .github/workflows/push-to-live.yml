@@ -7,11 +7,16 @@ on:
 jobs:
   merge-live:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4.2.2
         with:
           ref: main
-      - uses: devmasx/merge-branch@v1.4.0
+      - name: Merge development -> staging
+        uses: devmasx/merge-branch@v1.4.0
         with:
           type: now
           from_branch: main
