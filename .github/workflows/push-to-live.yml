@@ -3,6 +3,7 @@ on:
   push:
     tags:
       - v1.*.*
+      - v1.*.*-*
 
 jobs:
   merge-live:
@@ -16,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4.2.2
         with:
           ref: main
-      - name: Merge main branch into master
+      - name: Merge main branch into live
         run: |
           git fetch --unshallow
           git checkout live
