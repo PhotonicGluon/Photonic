@@ -1,4 +1,4 @@
-name: Push to live
+name: Push release to live
 on:
   push:
     tags:
