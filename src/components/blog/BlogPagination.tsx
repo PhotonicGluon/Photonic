@@ -11,6 +11,17 @@ interface State {}
 export default class BlogPagination extends Component<Props, State> {
     // Helper methods
     /**
+     * Constructs a query string for pagination.
+     *
+     * @param page The current page index (0-based).
+     * @returns A query string with the page number incremented by 1.
+     */
+    makePageQuery(page: number): string {
+        return `?page=${page + 1}`;
+    }
+
+    // Component methods
+    /**
      * Creates a page button.
      *
      * @param content Button content.
@@ -31,7 +42,7 @@ export default class BlogPagination extends Component<Props, State> {
             disabled?: boolean;
             hide_too?: boolean;
         } = { disabled: false, hide_too: false },
-    ) {
+    ): preact.JSX.Element {
         return (
             <div class="*:ms-0 *:flex *:size-12 *:items-center *:justify-center *:px-3 *:leading-tight">
                 {!options.disabled && (
@@ -62,8 +73,65 @@ export default class BlogPagination extends Component<Props, State> {
         );
     }
 
-    makePageQuery(page: number) {
-        return `?page=${page + 1}`;
+    /**
+     * Creates a page number button for pagination.
+     *
+     * @param pageIdx The index of the page (0-based).
+     * @param currPage The index of the currently active page.
+     * @returns A page button element with the page number, linking to the respective page.
+     */
+    pageNumberButton(pageIdx: number, currPage: number): preact.JSX.Element {
+        return this.pageButton(
+            <span>{(pageIdx + 1).toString()}</span>,
+            `Page ${pageIdx + 1}`,
+            this.makePageQuery(pageIdx),
+            "border border-gray-700 rounded-lg bg-gray-800 ",
+            "hover:bg-gray-700 hover:!text-white",
+            { disabled: pageIdx == currPage },
+        );
+    }
+
+    /**
+     * Generates a list of pagination buttons for navigating between pages.
+     *
+     * This method determines which page numbers should be displayed as buttons
+     * and includes ellipses for skipped page ranges. It ensures that the first,
+     * last, current, and surrounding page numbers are always shown.
+     *
+     * @param numPages The total number of pages available for pagination.
+     * @param currPage The index of the currently active page (0-based).
+     * @returns An array of JSX elements representing the pagination buttons.
+     */
+    standardPageButtons(numPages: number, currPage: number): preact.JSX.Element[] {
+        // Determine which page numbers are to be shown
+        const pagesIncluded: Set<number> = new Set([
+            0,
+            currPage > 0 ? currPage - 1 : 2,
+            currPage,
+            currPage < numPages - 1 ? currPage + 1 : numPages - 3,
+            numPages - 1,
+        ]);
+
+        // Create page buttons
+        const pageButtons: preact.JSX.Element[] = [];
+        let ellipsesAdded = false;
+        for (let i = 0; i < numPages; i++) {
+            if (!pagesIncluded.has(i)) {
+                if (!ellipsesAdded) {
+                    pageButtons.push(
+                        this.pageButton(<span>...</span>, "Ellipses", "No HREF", "text-2xl !bg-black/0", "", {
+                            disabled: true,
+                        }),
+                    );
+                    ellipsesAdded = true;
+                }
+                continue;
+            }
+            pageButtons.push(this.pageNumberButton(i, currPage));
+            ellipsesAdded = false;
+        }
+
+        return pageButtons;
     }
 
     // Lifecycle methods
@@ -99,19 +167,7 @@ export default class BlogPagination extends Component<Props, State> {
                     )}
 
                     {/* Standard page buttons */}
-                    {
-                        /* TODO: There should be a better way of doing this... with ellipses as well... */
-                        range(numPages).map((pageIdx) => {
-                            return this.pageButton(
-                                <span>{(pageIdx + 1).toString()}</span>,
-                                `Page ${pageIdx + 1}`,
-                                this.makePageQuery(pageIdx),
-                                "border border-gray-700 rounded-lg bg-gray-800 ",
-                                "hover:bg-gray-700 hover:!text-white",
-                                { disabled: pageIdx == currPage },
-                            );
-                        })
-                    }
+                    {this.standardPageButtons(numPages, currPage)}
 
                     {/* Next page button */}
                     {this.pageButton(
