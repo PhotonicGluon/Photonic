@@ -6,6 +6,7 @@ on:
 
 jobs:
   merge-live:
+    timeout-minutes: 2
     runs-on: ubuntu-latest
 
     permissions:
@@ -15,10 +16,10 @@ jobs:
       - uses: actions/checkout@v4.2.2
         with:
           ref: main
-      - name: Merge development -> staging
-        uses: devmasx/merge-branch@v1.4.0
-        with:
-          type: now
-          from_branch: main
-          target_branch: live
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Merge main branch into master
+        run: |
+          git fetch --unshallow
+          git checkout live
+          git pull
+          git merge master --no-commit --no-ff
+          git push
