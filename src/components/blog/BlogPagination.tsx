@@ -141,8 +141,8 @@ export default class BlogPagination extends Component<Props, State> {
         const currPage = $postStore.page;
 
         return (
-            <nav class="w-min" aria-label="Page navigation">
-                <div class="inline-flex gap-2 -space-x-px !pb-0">
+            <nav aria-label="Page navigation">
+                <div class="inline-flex gap-4 !pb-0 *:gap-4 *:!pb-0 md:gap-2 md:*:gap-2">
                     {/* Previous page button */}
                     {this.pageButton(
                         <svg
@@ -161,13 +161,16 @@ export default class BlogPagination extends Component<Props, State> {
                         </svg>,
                         "Previous Page",
                         this.makePageQuery(currPage - 1),
-                        "rounded-full",
+                        "border rounded-full md:border-0 ",
                         "hover:!text-white",
                         { disabled: currPage < 1, hide_too: true },
                     )}
 
-                    {/* Standard page buttons */}
-                    {this.standardPageButtons(numPages, currPage)}
+                    {/* Standard page stuff */}
+                    <div class="hidden md:inline-flex">{this.standardPageButtons(numPages, currPage)}</div>
+                    <p class="inline-flex flex-wrap content-center md:hidden">
+                        Page {currPage + 1} of {numPages}
+                    </p>
 
                     {/* Next page button */}
                     {this.pageButton(
@@ -187,7 +190,7 @@ export default class BlogPagination extends Component<Props, State> {
                         </svg>,
                         "Next Page",
                         this.makePageQuery(currPage + 1),
-                        "rounded-full",
+                        "border rounded-full md:border-0",
                         "hover:!text-white",
                         { disabled: currPage >= numPages - 1, hide_too: true },
                     )}
