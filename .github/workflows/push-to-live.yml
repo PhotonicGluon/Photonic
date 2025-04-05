@@ -6,14 +6,24 @@ on:
 
 jobs:
   merge-live:
+    timeout-minutes: 2
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
     steps:
       - uses: actions/checkout@v4.2.2
         with:
           ref: main
-      - uses: devmasx/merge-branch@v1.4.0
-        with:
-          type: now
-          from_branch: main
-          target_branch: live
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set Git config
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Merge main branch into live
+        run: |
+          git fetch --unshallow
+          git checkout live
+          git pull
+          git merge main --ff
+          git push
