@@ -26,5 +26,5 @@ jobs:
           git fetch --unshallow
           git checkout live
           git pull
-          git merge main --no-commit --no-ff
+          git merge main --ff
           git push
