@@ -1,0 +1,101 @@
+---
+import SEO from "@components/top/SEO.astro";
+
+import MainLayout from "@layouts/MainLayout.astro";
+---
+
+<MainLayout
+    class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
+    title="Credits"
+>
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO
+            title="Credits"
+            description="Credits for the resources used to make the Photonic website"
+            openGraph={{
+                title: "Credits",
+                description: "Credits for the resources used to make the Photonic website",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
+    </Fragment>
+
+    {/* Main stuff */}
+    <section>
+        <h2>Main Stuff</h2>
+        <ul>
+            <li>Website generation: <a href="https://astro.build">Astro</a></li>
+            <li>Design: <a href="https://tailwindcss.com">Tailwind CSS</a></li>
+        </ul>
+    </section>
+
+    {/* Icons and Logos */}
+    <section class="pt-4">
+        <h2>Icons and Logos</h2>
+        <ul>
+            <li>
+                Photonic Icon/Logo/Banner: own work, released under the
+                <a href="https://github.com/PhotonicGluon/Photonic/blob/main/LICENSE">MIT license</a>
+            </li>
+            <li>
+                Company/Product icons:
+                <ul>
+                    <li>
+                        GitHub: from its <a href="https://github.com/logos">official logos</a> (Invertocat logo)
+                    </li>
+                    <li>
+                        Bandcamp: from its <a href="https://bandcamp.com/buttons">official buttons</a> (B/W on transparent)
+                    </li>
+                    <li>
+                        LinkedIn: from
+                        <a href="https://commons.wikimedia.org/wiki/File:LinkedIn_icon.svg">this Wikimedia entry</a
+                        >, with some modification to be white on black and conforming to the
+                        <a href="https: brand.linkedin.com downloads">official downloads</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                "Globe"/"Internet" icon: by
+                <a href="https://www.svgrepo.com/svg/197996/internet">SVG Repo</a>
+                under the CC0 license
+            </li>
+            <li>All other icons: <a href="https://heroicons.com/">Heroicons</a></li>
+        </ul>
+    </section>
+
+    {/* Images */}
+    <section class="pt-4">
+        <h2>Images</h2>
+        <ul>
+            <li>
+                404 page banner: on
+                <a href="https://pixabay.com/illustrations/matrix-code-computer-pc-data-356024/">Pixabay</a>
+                and released under the
+                <a href="https://pixabay.com/service/license-summary/">Pixabay Content License</a>
+            </li>
+            <li>
+                All other images are my own work and released under the
+                <a href="https://github.com/PhotonicGluon/Photonic/blob/main/LICENSE">MIT license</a>
+            </li>
+        </ul>
+    </section>
+</MainLayout>
+
+<style>
+    @import "@styles/global.css";
+
+    h2 {
+        @apply text-3xl font-bold;
+    }
+
+    ul {
+        @apply list-outside list-disc pb-0 pl-4;
+    }
+</style>

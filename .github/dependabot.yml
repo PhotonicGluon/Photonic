@@ -12,13 +12,12 @@ updates:
     schedule:
       interval: weekly
     groups:
-      production-dependencies:
-        dependency-type: "production"
-      development-dependencies:
-        dependency-type: "development"
+      dependencies:
+        patterns:
+          - "*"
 
   # Enable version updates for devcontainers
-  - package-ecosystem: "devcontainers"
-    directory: "/"
+  - package-ecosystem: "docker"
+    directory: "/.devcontainer"
     schedule:
       interval: weekly
