@@ -1,4 +1,4 @@
-name: Push release to live
+name: Push to live
 on:
   push:
     tags:
@@ -22,5 +22,5 @@ jobs:
           git fetch --unshallow
           git checkout live
           git pull
-          git merge master --no-commit --no-ff
+          git merge main --no-commit --no-ff
           git push
