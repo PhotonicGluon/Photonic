@@ -2,6 +2,7 @@
 import BlogList from "@components/blog/BlogList";
 import BlogPagination from "@components/blog/BlogPagination";
 import ButtonLink from "@components/generic/ButtonLink.astro";
+import SEO from "@components/top/SEO.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
@@ -29,6 +30,26 @@ const numPages = Math.ceil(allPosts.length / NUM_PER_PAGE);
     title="Blog"
     class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
 >
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO
+            title="Blog"
+            description="The Photonic Blog"
+            openGraph={{
+                title: "Blog",
+                description: "The Photonic Blog",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
+    </Fragment>
+
+    {/* Blog posts */}
     <section>
         {/* List of all posts */}
         <div class="grid gap-4 md:grid-cols-2 lg:gap-8">
