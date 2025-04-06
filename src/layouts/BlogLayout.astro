@@ -1,11 +1,63 @@
 ---
 import { humanizeDate } from "@lib/misc/dates";
 
+import SEO from "@components/top/SEO.astro";
+
 import MainLayout from "@layouts/MainLayout.astro";
 
 const { frontmatter } = Astro.props;
+
+// Generate OGP data for SEO
+const ogpData: any = {
+    title: frontmatter.title,
+    description: frontmatter.description,
+};
+if (frontmatter.image !== undefined) {
+    ogpData.image = {
+        url: frontmatter.image.url,
+        alt: frontmatter.image.alt,
+    };
+} else {
+    // Use the "no image" image
+    ogpData.image = {
+        url: Astro.site + "no-image.png",
+        alt: "No image provided",
+        type: "image/png",
+    };
+}
 ---
 
 <MainLayout title={frontmatter.title} subtitle={humanizeDate(new Date(frontmatter.pubDate))}>
-    <slot />
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO title={frontmatter.title} description={frontmatter.description} openGraph={ogpData} />
+    </Fragment>
+
+    {/* Main stuff */}
+    <section
+        class="flex flex-col gap-4 divide-y-2 divide-solid divide-gray-500/25 lg:flex-row lg:gap-2 lg:divide-none"
+    >
+        {/* Contents */}
+        <aside
+            class="pb-4 motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:order-2 lg:pb-0 lg:pl-2 motion-safe:lg:slide-in-from-right-4"
+        >
+            <div class="sticky top-3">
+                <span class="block text-lg font-bold">Contents</span>
+                <span class="block">TODO: Something goes here...</span>
+            </div>
+        </aside>
+
+        {/* Blog post */}
+        <article
+            class="mx-auto max-w-screen-md self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4"
+        >
+            <slot />
+        </article>
+    </section>
 </MainLayout>
+
+{/* Blog page styling */}
+<style>
+    @import "@styles/global.css";
+    /* TODO: ADD */
+</style>
