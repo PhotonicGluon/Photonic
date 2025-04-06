@@ -9,22 +9,15 @@ import MainLayout from "@layouts/MainLayout.astro";
 import type { Post } from "@lib/blog/post";
 
 // Constants
-const NUM_PER_PAGE = 6; // TODO: Increase to 10 later
+const NUM_PER_PAGE = 10;
 
 // Get all blog posts
-// TODO: Fix sorting
-const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.mdx", { eager: true }));
+const unsortedPosts: Post[] = Object.values(import.meta.glob("@blog/*.mdx", { eager: true }));
+const posts: Post[] = unsortedPosts.sort((a: Post, b: Post) => {
+    return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
+});
 
-// TODO: REMOVE
-// const posts: Post[] = Object.values(import.meta.glob("@blog/*.mdx", { eager: true }));
-// const allPosts: Post[] = [];
-// for (let k in posts) {
-//     for (let i = 0; i < 9; i++) {
-//         allPosts.push(posts[k]);
-//     }
-// }
-
-const numPages = Math.ceil(allPosts.length / NUM_PER_PAGE);
+const numPages = Math.ceil(posts.length / NUM_PER_PAGE);
 ---
 
 <MainLayout
@@ -54,7 +47,7 @@ const numPages = Math.ceil(allPosts.length / NUM_PER_PAGE);
     <section>
         {/* List of all posts */}
         <div class="grid gap-4 md:grid-cols-2 lg:gap-8">
-            <BlogList allPosts={allPosts} numPages={numPages} numPerPage={NUM_PER_PAGE} client:only />
+            <BlogList allPosts={posts} numPages={numPages} numPerPage={NUM_PER_PAGE} client:only />
         </div>
 
         {/* Post-list content */}
