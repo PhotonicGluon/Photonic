@@ -13,6 +13,7 @@
         "bump-version": "python3 scripts/bump_version.py"
     },
     "dependencies": {
+        "@astrojs/mdx": "^4.2.3",
         "@astrojs/partytown": "^2.1.4",
         "@astrojs/preact": "^4.0.8",
         "@astrojs/rss": "^4.0.11",

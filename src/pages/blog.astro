@@ -12,16 +12,17 @@ import type { Post } from "@lib/blog/post";
 const NUM_PER_PAGE = 6; // TODO: Increase to 10 later
 
 // Get all blog posts
-// const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.md", { eager: true }));
+// TODO: Fix sorting
+const allPosts: Post[] = Object.values(import.meta.glob("@blog/*.mdx", { eager: true }));
 
 // TODO: REMOVE
-const posts: Post[] = Object.values(import.meta.glob("@blog/*.md", { eager: true }));
-const allPosts: Post[] = [];
-for (let k in posts) {
-    for (let i = 0; i < 9; i++) {
-        allPosts.push(posts[k]);
-    }
-}
+// const posts: Post[] = Object.values(import.meta.glob("@blog/*.mdx", { eager: true }));
+// const allPosts: Post[] = [];
+// for (let k in posts) {
+//     for (let i = 0; i < 9; i++) {
+//         allPosts.push(posts[k]);
+//     }
+// }
 
 const numPages = Math.ceil(allPosts.length / NUM_PER_PAGE);
 ---

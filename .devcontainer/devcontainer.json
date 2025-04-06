@@ -16,7 +16,8 @@
                 "raczzalan.webgl-glsl-editor",
                 "streetsidesoftware.code-spell-checker",
                 "yzhang.markdown-all-in-one",
-                "github.vscode-github-actions"
+                "github.vscode-github-actions",
+                "unifiedjs.vscode-mdx"
             ]
         }
     }
