@@ -13,7 +13,6 @@ interface State {}
 export default class BlogPost extends Component<Props, State> {
     render(props: Props, state: State) {
         const post = props.post;
-        const frontmatter = post.frontmatter;
 
         return (
             <a href={post.url} class="h-min *:text-white">
@@ -21,29 +20,24 @@ export default class BlogPost extends Component<Props, State> {
                     {/* Preamble */}
                     <div class="mx-2 mt-2 md:mx-4 md:mt-4">
                         {/* Publication date */}
-                        <span class="font-mono text-sm">{humanizeDate(new Date(frontmatter.pubDate))}</span>
+                        <span class="font-mono text-sm">{humanizeDate(new Date(post.pubDate))}</span>
 
                         {/* TODO: Add tags */}
                     </div>
 
                     {/* Blog cover image */}
                     {/* TODO: Can we use Astro's Image component? */}
-                    {frontmatter.image && (
-                        <img
-                            class="mt-2 md:mt-4"
-                            src={frontmatter.image.url}
-                            alt={frontmatter.image.alt}
-                            loading="eager"
-                        />
+                    {post.image && (
+                        <img class="mt-2 md:mt-4" src={post.image.url} alt={post.image.alt} loading="eager" />
                     )}
 
                     {/* Main post content */}
                     <div class="m-2 grid md:m-4 lg:grid-cols-2">
                         {/* Title */}
-                        <h1 class="font-mono font-bold md:text-xl lg:text-2xl">{frontmatter.title}</h1>
+                        <h1 class="font-mono font-bold md:text-xl lg:text-2xl">{post.title}</h1>
 
                         {/* Summary */}
-                        <p class="!p-0 text-gray-300">{frontmatter.summary}</p>
+                        <p class="!p-0 text-gray-300">{post.summary}</p>
                     </div>
                 </article>
             </a>

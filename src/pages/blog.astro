@@ -1,4 +1,8 @@
 ---
+import { getCollection } from "astro:content";
+
+import { toPost } from "@lib/blog/post";
+
 import BlogList from "@components/blog/BlogList";
 import BlogPagination from "@components/blog/BlogPagination";
 import ButtonLink from "@components/generic/ButtonLink.astro";
@@ -12,9 +16,10 @@ import type { Post } from "@lib/blog/post";
 const NUM_PER_PAGE = 10;
 
 // Get all blog posts
-const unsortedPosts: Post[] = Object.values(import.meta.glob("@blog/*.mdx", { eager: true }));
-const posts: Post[] = unsortedPosts.sort((a: Post, b: Post) => {
-    return new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime();
+const rawPosts = await getCollection("blog");
+const unsortedPosts = rawPosts.map((rawPost) => toPost(rawPost.data));
+const posts = unsortedPosts.sort((a: Post, b: Post) => {
+    return b.pubDate.getTime() - a.pubDate.getTime();
 });
 
 const numPages = Math.ceil(posts.length / NUM_PER_PAGE);

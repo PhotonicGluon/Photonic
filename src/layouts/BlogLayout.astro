@@ -1,21 +1,26 @@
 ---
+import type { CollectionEntry } from "astro:content";
+
+import { toPost } from "@lib/blog/post";
 import { humanizeDate } from "@lib/misc/dates";
 
 import SEO from "@components/top/SEO.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
-const { frontmatter } = Astro.props;
+// Get the post
+type Props = CollectionEntry<"blog">["data"];
+const post = toPost(Astro.props);
 
 // Generate OGP data for SEO
 const ogpData: any = {
-    title: frontmatter.title,
-    description: frontmatter.description,
+    title: post.title,
+    description: post.summary,
 };
-if (frontmatter.image !== undefined) {
+if (post.image !== undefined) {
     ogpData.image = {
-        url: frontmatter.image.url,
-        alt: frontmatter.image.alt,
+        url: post.image.url,
+        alt: post.image.alt,
     };
 } else {
     // Use the "no image" image
@@ -27,10 +32,10 @@ if (frontmatter.image !== undefined) {
 }
 ---
 
-<MainLayout title={frontmatter.title} subtitle={humanizeDate(new Date(frontmatter.pubDate))}>
+<MainLayout title={post.title} subtitle={humanizeDate(new Date(post.pubDate))}>
     {/* SEO */}
     <Fragment slot="head-seo">
-        <SEO title={frontmatter.title} description={frontmatter.description} openGraph={ogpData} />
+        <SEO title={post.title} description={post.summary} openGraph={ogpData} />
     </Fragment>
 
     {/* Main stuff */}
