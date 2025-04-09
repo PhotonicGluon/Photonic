@@ -33,27 +33,8 @@ export type PostZod = z.infer<typeof POST_SCHEMA>;
 /**
  * Type that encapsulates blog post information.
  */
-export type Post = PostZod & { id: string; url: string };
+export type Post = PostZod & { id: string; slug: string };
 
-/**
- * Given a blog post, returns the ID of the post.
- *
- * @param post The blog post
- * @returns The ID of the post
- */
-export function getPostID(post: PostZod): string {
-    return slugify(post.title, { lower: true });
-}
-
-/**
- * Given a blog post, returns the URL that should be used to access the post.
- *
- * @param post The blog post
- * @returns The URL of the post
- */
-export function getPostURL(post: PostZod): string {
-    return `/blog/${getPostID(post)}`; // TODO: Add a date YYYY-MM-DD
-}
 /**
  * Converts a blog post from the Zod schema representation to the actual type.
  *
@@ -61,5 +42,10 @@ export function getPostURL(post: PostZod): string {
  * @returns Blog post data as expressed in the correct type.
  */
 export function toPost(post: PostZod): Post {
-    return { ...post, id: getPostID(post), url: getPostURL(post) };
+    const id = slugify(post.title, { lower: true });
+
+    const dateSlug = post.pubDate.toISOString().split("T")[0]; // Get pubDate as YYYY-MM-DD
+    const slug = `${dateSlug}/${id}`;
+
+    return { ...post, id: id, slug: slug };
 }

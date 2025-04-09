@@ -10,7 +10,7 @@ export async function getStaticPaths() {
     return rawPosts.map((rawPost) => {
         const post = toPost(rawPost.data);
         return {
-            params: { id: post.id },
+            params: { slug: post.slug },
             props: { rawPost },
         };
     });
