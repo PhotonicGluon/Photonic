@@ -72,6 +72,7 @@ if (post.image !== undefined) {
         {/* Blog post */}
         <article
             class="mx-auto max-w-screen-md self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4"
+            id="blog-post"
         >
             <slot />
         </article>
@@ -82,9 +83,84 @@ if (post.image !== undefined) {
 <style is:global>
     @import "@styles/global.css";
 
+    /* Headings */
+    #blog-post h1 {
+        @apply mt-2 mb-0.5 text-4xl font-extrabold;
+    }
+
+    #blog-post h2 {
+        @apply mt-2 mb-0.5 text-3xl font-bold;
+    }
+
+    #blog-post h3 {
+        @apply mt-1.5 mb-0.5 text-2xl font-bold;
+    }
+
+    #blog-post h4 {
+        @apply mt-1.5 text-xl font-bold;
+    }
+
+    #blog-post h5 {
+        @apply mt-1 text-lg font-bold;
+    }
+
+    #blog-post h6 {
+        @apply mt-1 text-base font-bold;
+    }
+
+    /* Lists */
+    #blog-post ul {
+        @apply list-outside list-disc pl-4;
+    }
+
+    #blog-post ol {
+        @apply list-outside list-decimal pl-4;
+    }
+
+    /* Tables */
+    #blog-post table {
+        @apply mb-2 w-full text-left text-base text-gray-400 rtl:text-right;
+    }
+
+    #blog-post table thead {
+        @apply bg-gray-700 text-sm text-gray-400 uppercase;
+    }
+
+    #blog-post table thead tr th {
+        @apply px-4 py-1.5;
+    }
+
+    #blog-post table tbody tr {
+        @apply border-b border-gray-700 bg-gray-900;
+    }
+
+    #blog-post table tbody tr th {
+        @apply px-4 py-2 font-medium whitespace-nowrap text-gray-50;
+    }
+
+    #blog-post table tbody tr td {
+        @apply px-4 py-2;
+    }
+
+    /* Code and code blocks */
+    #blog-post :not(pre) > code {
+        @apply rounded-lg bg-gray-800 px-1 py-0.5 text-gray-100;
+    }
+
+    #blog-post .astro-code {
+        @apply my-2 rounded-lg !bg-gray-800 p-4 text-sm leading-tight;
+    }
+
+    /* Alerts */
+    /* TODO: Add */
+
+    /* Miscellaneous */
+    #blog-post hr {
+        @apply border-1 text-gray-700;
+    }
+
     /* Footnote section treatment */
-    section .footnotes {
+    #blog-post section .footnotes {
         @apply p-0;
     }
-    /* TODO: ADD */
 </style>
