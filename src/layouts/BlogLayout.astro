@@ -1,4 +1,5 @@
 ---
+import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
 
 import { toPost } from "@lib/blog/post";
@@ -8,9 +9,15 @@ import SEO from "@components/top/SEO.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
-// Get the post
-type Props = CollectionEntry<"blog">["data"];
-const post = toPost(Astro.props);
+export interface Props {
+    /** Main blog post data */
+    post: CollectionEntry<"blog">["data"];
+    /** List of headings in the blog */
+    headings: MarkdownHeading[];
+}
+
+const { post: rawPost, headings } = Astro.props;
+const post = toPost(rawPost);
 
 // Generate OGP data for SEO
 const ogpData: any = {
@@ -47,8 +54,18 @@ if (post.image !== undefined) {
             class="pb-4 motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:order-2 lg:pb-0 lg:pl-2 motion-safe:lg:slide-in-from-right-4"
         >
             <div class="sticky top-3">
-                <span class="block text-lg font-bold">Contents</span>
-                <span class="block">TODO: Something goes here...</span>
+                <span class="block text-2xl font-bold lg:text-lg">Contents</span>
+                <ul class="block space-y-2 text-base lg:space-y-0 lg:text-sm">
+                    {
+                        headings.map((heading) => (
+                            <li class="pl-(--depth)" style={{ "--depth": (heading.depth - 1) * 0.75 + "em" }}>
+                                <a class="!text-gray-300 hover:!text-gray-400" href={`#${heading.slug}`}>
+                                    {heading.text}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
             </div>
         </aside>
 
@@ -62,7 +79,12 @@ if (post.image !== undefined) {
 </MainLayout>
 
 {/* Blog page styling */}
-<style>
+<style is:global>
     @import "@styles/global.css";
+
+    /* Footnote section treatment */
+    section .footnotes {
+        @apply p-0;
+    }
     /* TODO: ADD */
 </style>
