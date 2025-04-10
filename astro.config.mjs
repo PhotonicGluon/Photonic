@@ -1,6 +1,5 @@
 import { defineConfig } from "astro/config";
 
-import remarkEmoji from "remark-emoji";
 import { remarkAlert } from "remark-github-blockquote-alert";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
@@ -40,9 +39,13 @@ export default defineConfig({
         sitemap(),
         robotsTxt(),
         mdx({
-            remarkPlugins: [remarkEmoji, remarkAlert, remarkMath],
+            remarkPlugins: [remarkAlert, remarkMath],
             rehypePlugins: [rehypeKatex, rehypePresetMinify],
-            remarkRehype: { footnoteLabelTagName: "h1", footnoteLabel: "Footnotes", footnoteLabelProperties: { className: [] } },
+            remarkRehype: {
+                footnoteLabelTagName: "h1",
+                footnoteLabel: "Footnotes",
+                footnoteLabelProperties: { className: [] },
+            },
         }),
         partytown(),
     ],
