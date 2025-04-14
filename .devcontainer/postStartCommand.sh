@@ -2,6 +2,6 @@
 
 # Install dependencies
 echo "===> Installing dependencies"
-npm install --package-lock-only
+npm install
 
 echo "===> Done!"
