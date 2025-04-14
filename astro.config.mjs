@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import { remarkAlert } from "remark-github-blockquote-alert";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
+import rehypeWrapAll from "rehype-wrap-all";
 import rehypePresetMinify from "rehype-preset-minify";
 
 import photonicTweakpane from "./lib/tweakpane/dev-tools/integration";
@@ -40,7 +41,11 @@ export default defineConfig({
         robotsTxt(),
         mdx({
             remarkPlugins: [remarkAlert, remarkMath],
-            rehypePlugins: [rehypeKatex, rehypePresetMinify],
+            rehypePlugins: [
+                rehypeKatex,
+                [rehypeWrapAll, { selector: "table", wrapper: "div.table-wrapper" }], // Wrap all tables with wrapper
+                rehypePresetMinify,
+            ],
             remarkRehype: {
                 footnoteLabelTagName: "h1",
                 footnoteLabel: "Footnotes",

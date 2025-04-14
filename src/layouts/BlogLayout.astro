@@ -136,8 +136,12 @@ if (post.image !== undefined) {
     }
 
     /* Tables */
+    #blog-post .table-wrapper {
+        @apply mb-2 overflow-x-auto rounded-lg;
+    }
+
     #blog-post table {
-        @apply mb-2 w-full text-left text-base text-gray-400 rtl:text-right;
+        @apply w-full text-left text-base text-gray-400 rtl:text-right;
     }
 
     #blog-post table thead {
