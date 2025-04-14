@@ -83,38 +83,56 @@ if (post.image !== undefined) {
 <style is:global>
     @import "@styles/global.css";
 
+    /* General */
+    #blog-post p {
+        @apply leading-snug md:leading-normal;
+    }
+
     /* Headings */
     #blog-post h1 {
-        @apply mt-2 mb-0.5 text-4xl font-extrabold;
+        @apply mt-2 mb-0.5 text-3xl font-extrabold md:text-4xl;
     }
 
     #blog-post h2 {
-        @apply mt-2 mb-0.5 text-3xl font-bold;
+        @apply mt-2 mb-0.5 text-2xl font-bold md:text-3xl;
     }
 
     #blog-post h3 {
-        @apply mt-1.5 mb-0.5 text-2xl font-bold;
+        @apply mt-1.5 mb-0.5 text-xl font-bold md:text-2xl;
     }
 
     #blog-post h4 {
-        @apply mt-1.5 text-xl font-bold;
+        @apply mt-1.5 text-lg font-bold md:text-xl;
     }
 
     #blog-post h5 {
-        @apply mt-1 text-lg font-bold;
+        @apply mt-1 text-base font-bold md:text-lg;
     }
 
     #blog-post h6 {
-        @apply mt-1 text-base font-bold;
+        @apply mt-1 text-base italic underline md:font-bold md:not-italic md:no-underline;
     }
 
     /* Lists */
+    #blog-post ul,
+    #blog-post ol {
+        @apply list-outside space-y-2 pl-4;
+    }
     #blog-post ul {
-        @apply list-outside list-disc pl-4;
+        @apply list-disc;
     }
 
     #blog-post ol {
-        @apply list-outside list-decimal pl-4;
+        @apply list-decimal;
+    }
+
+    #blog-post li * {
+        @apply pb-0;
+    }
+
+    #blog-post li > ul,
+    #blog-post li > ol {
+        @apply space-y-1;
     }
 
     /* Blockquotes */
@@ -132,20 +150,20 @@ if (post.image !== undefined) {
     }
 
     #blog-post .astro-code {
-        @apply my-2 rounded-lg !bg-gray-800 p-4 text-sm leading-tight;
+        @apply my-2 rounded-lg !bg-gray-800 p-4 text-xs leading-tight lg:text-sm;
     }
 
     /* Tables */
-    #blog-post .table-wrapper {
-        @apply mb-2 overflow-x-auto rounded-lg;
+    #blog-post .markdown-table {
+        @apply mb-4 overflow-x-auto rounded-sm md:rounded-none;
     }
 
     #blog-post table {
-        @apply w-full text-left text-base text-gray-400 rtl:text-right;
+        @apply w-full table-auto text-left text-xs text-gray-400 md:mx-auto md:w-max md:text-sm;
     }
 
     #blog-post table thead {
-        @apply bg-gray-700 text-sm text-gray-400 uppercase;
+        @apply bg-gray-700 text-gray-400 uppercase;
     }
 
     #blog-post table thead tr th {
@@ -166,7 +184,7 @@ if (post.image !== undefined) {
 
     /* Alerts */
     #blog-post .markdown-alert {
-        @apply mb-2 rounded-2xl border border-gray-800 p-6;
+        @apply mb-2 rounded-2xl border border-gray-800 px-6 py-4 md:py-6;
     }
 
     #blog-post .markdown-alert > :last-child {
@@ -174,7 +192,7 @@ if (post.image !== undefined) {
     }
 
     #blog-post .markdown-alert-title {
-        @apply mb-1 flex w-max items-center rounded px-2 py-1 align-middle text-base font-bold;
+        @apply mb-1 flex w-max items-center rounded px-2 py-1 align-middle text-sm font-bold md:text-base;
     }
 
     #blog-post .markdown-alert-title svg {
@@ -221,17 +239,22 @@ if (post.image !== undefined) {
         @apply bg-linear-to-tr from-rose-700 to-pink-700;
     }
 
-    /* Miscellaneous */
-    #blog-post hr {
-        @apply border-1 text-gray-700;
-    }
-
+    /* Math */
     #blog-post .katex-html {
         @apply hidden;
     }
 
-    /* Footnote section treatment */
+    #blog-post .katex-display {
+        @apply text-xl lg:text-2xl;
+    }
+
+    /* Footnote section */
     #blog-post .footnotes {
         @apply p-0;
+    }
+
+    /* Miscellaneous */
+    #blog-post hr {
+        @apply border-1 text-gray-700;
     }
 </style>

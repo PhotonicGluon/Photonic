@@ -43,7 +43,7 @@ export default defineConfig({
             remarkPlugins: [remarkAlert, remarkMath],
             rehypePlugins: [
                 rehypeKatex,
-                [rehypeWrapAll, { selector: "table", wrapper: "div.table-wrapper" }], // Wrap all tables with wrapper
+                [rehypeWrapAll, { selector: "table", wrapper: "div.markdown-table" }], // Wrap all tables with wrapper
                 rehypePresetMinify,
             ],
             remarkRehype: {
