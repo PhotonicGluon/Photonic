@@ -117,6 +117,24 @@ if (post.image !== undefined) {
         @apply list-outside list-decimal pl-4;
     }
 
+    /* Blockquotes */
+    #blog-post blockquote {
+        @apply my-4 border-s-4 border-gray-600 bg-gray-800/50 p-4;
+    }
+
+    #blog-post blockquote p {
+        @apply pb-0;
+    }
+
+    /* Code and code blocks */
+    #blog-post :not(pre) > code {
+        @apply rounded-lg bg-gray-800 px-1 py-0.5 text-gray-100;
+    }
+
+    #blog-post .astro-code {
+        @apply my-2 rounded-lg !bg-gray-800 p-4 text-sm leading-tight;
+    }
+
     /* Tables */
     #blog-post table {
         @apply mb-2 w-full text-left text-base text-gray-400 rtl:text-right;
@@ -140,15 +158,6 @@ if (post.image !== undefined) {
 
     #blog-post table tbody tr td {
         @apply px-4 py-2;
-    }
-
-    /* Code and code blocks */
-    #blog-post :not(pre) > code {
-        @apply rounded-lg bg-gray-800 px-1 py-0.5 text-gray-100;
-    }
-
-    #blog-post .astro-code {
-        @apply my-2 rounded-lg !bg-gray-800 p-4 text-sm leading-tight;
     }
 
     /* Alerts */
