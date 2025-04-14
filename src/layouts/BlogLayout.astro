@@ -71,7 +71,7 @@ if (post.image !== undefined) {
 
         {/* Blog post */}
         <article
-            class="mx-auto max-w-screen-md self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4"
+            class="mx-auto w-full max-w-screen-md self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4"
             id="blog-post"
         >
             <slot />
@@ -127,7 +127,7 @@ if (post.image !== undefined) {
     }
 
     /* Code and code blocks */
-    #blog-post :not(pre) > code {
+    #blog-post :not(.astro-code) > code {
         @apply rounded-lg bg-gray-800 px-1 py-0.5 text-gray-100;
     }
 
