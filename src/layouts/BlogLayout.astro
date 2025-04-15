@@ -69,6 +69,17 @@ if (post.image !== undefined) {
             </div>
         </aside>
 
+        {/* Reading progress bar */}
+        {/* TODO: Style this better; possibly move to another spot */}
+        <div
+            class="fixed top-0 left-0 h-4 w-full origin-[0_50%] transform-[scaleX(0)] bg-red-500"
+            id="progress"
+            style={{
+                "--start-range": "100%", // Default is to not show the progress bar
+            }}
+        >
+        </div>
+
         {/* Blog post */}
         <article
             class="mx-auto w-full max-w-screen-md self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4"
@@ -76,6 +87,51 @@ if (post.image !== undefined) {
         >
             <slot />
         </article>
+
+        {/* Progress bar styling and scripting */}
+        <style>
+            html {
+                scroll-timeline: --page-scroll block;
+            }
+
+            @keyframes grow-progress {
+                from {
+                    transform: scaleX(0);
+                }
+                to {
+                    transform: scaleX(1);
+                }
+            }
+
+            #progress.with-timeline {
+                animation: grow-progress auto linear;
+                animation-timeline: --page-scroll;
+                animation-range: entry-crossing var(--start-range) exit-crossing 100%;
+            }
+        </style>
+
+        <script>
+            import $ from "jquery";
+            import { isAnimationTimelineSupported } from "@lib/misc/checks";
+
+            if (isAnimationTimelineSupported()) {
+                $("#progress").addClass("with-timeline");
+            }
+
+            /**
+             * Set the progress bar start range
+             */
+            function setProgressBarStartRange() {
+                const blogPostY = $("#blog-post")!.offset()!.top;
+                const fullHeight = $(document).height()!;
+
+                $("#progress").css("--start-range", `${(blogPostY / fullHeight) * 100}%`);
+            }
+
+            // Trigger on window resize or document load
+            $(setProgressBarStartRange);
+            $(window).on("resize", setProgressBarStartRange);
+        </script>
     </section>
 </MainLayout>
 
