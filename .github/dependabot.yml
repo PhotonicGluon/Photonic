@@ -6,18 +6,14 @@
 
 version: 2
 updates:
-  # Enable version updates for npm
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: weekly
+      day: saturday
+      time: 12:00
+      timezone: Asia/Singapore
     groups:
       dependencies:
         patterns:
           - "*"
-
-  # Enable version updates for devcontainers
-  - package-ecosystem: "docker"
-    directory: "/.devcontainer"
-    schedule:
-      interval: weekly
