@@ -49,16 +49,23 @@ if (post.image !== undefined) {
     <section
         class="flex flex-col gap-4 divide-y-2 divide-solid divide-gray-500/25 lg:flex-row lg:gap-2 lg:divide-none"
     >
-        {/* Contents */}
+        {/* List of contents */}
         <aside
             class="pb-4 motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:order-2 lg:pb-0 lg:pl-2 motion-safe:lg:slide-in-from-right-4"
+            id="list-of-contents"
+            data-headings={JSON.stringify(headings)}
         >
             <div class="sticky top-3">
+                {/* Actual list */}
                 <span class="block text-2xl font-bold lg:text-lg">Contents</span>
-                <ul class="block space-y-2 text-base lg:space-y-0 lg:text-sm">
+                <ul class="block space-y-2 text-base lg:w-64 lg:space-y-0 lg:text-sm">
                     {
                         headings.map((heading) => (
-                            <li class="pl-(--depth)" style={{ "--depth": (heading.depth - 1) * 0.75 + "em" }}>
+                            <li
+                                class="loc-entry pl-(--depth) text-left"
+                                style={{ "--depth": (heading.depth - 1) * 0.75 + "em" }}
+                                id={`loc-${heading.slug}`}
+                            >
                                 <a class="!text-gray-300 hover:!text-gray-400" href={`#${heading.slug}`}>
                                     {heading.text}
                                 </a>
@@ -66,13 +73,22 @@ if (post.image !== undefined) {
                         ))
                     }
                 </ul>
+
+                {/* Active heading styling */}
+                <style>
+                    @import "@styles/global.css";
+
+                    .loc-entry.active {
+                        @apply font-bold;
+                    }
+                </style>
             </div>
         </aside>
 
-        {/* Reading progress bar */}
+        {/* Reading progress bar for mobile */}
         {/* TODO: Style this better; possibly move to another spot */}
         <div
-            class="fixed top-0 left-0 h-4 w-full origin-[0_50%] transform-[scaleX(0)] bg-red-500"
+            class="fixed top-0 left-0 block h-4 w-full origin-[0_50%] transform-[scaleX(0)] bg-red-500 lg:hidden"
             id="progress"
             style={{
                 "--start-range": "100%", // Default is to not show the progress bar
@@ -109,7 +125,6 @@ if (post.image !== undefined) {
                 animation-range: entry-crossing var(--start-range) exit-crossing 100%;
             }
         </style>
-
         <script>
             import $ from "jquery";
             import { isAnimationTimelineSupported } from "@lib/misc/checks";
@@ -134,6 +149,52 @@ if (post.image !== undefined) {
         </script>
     </section>
 </MainLayout>
+
+{/* Script to handle active heading */}
+<script>
+    import type { MarkdownHeading } from "astro";
+    import $ from "jquery";
+
+    // Get headings
+    const headings = $("#list-of-contents").data("headings")! as MarkdownHeading[];
+    delete $("#list-of-contents")[0].dataset.headings; // No need to keep it now that we have it
+
+    // TODO: Update for mobile
+    let headingIndex: number = -1;
+    $(() => {
+        // Get the offset from top for each heading
+        const headingPositions = headings.map((heading) => {
+            return $(`#${heading.slug}`).offset()!.top;
+        });
+        if (headingPositions.length === 0) {
+            return;
+        }
+
+        // Detect the current scroll height
+        $(window).on("scroll", () => {
+            // Calculate the current 'viewer' y position
+            // (We take the middle of the page as this)
+            const viewY = window.scrollY + window.innerHeight / 2;
+
+            // Find nearest heading
+            // TODO: Optimize using binary search?
+            const newHeadingIndex = headingPositions.findIndex((headingPosition) => headingPosition > viewY) - 1; // -1 because we want the previous heading
+            if (newHeadingIndex === headingIndex) {
+                return;
+            }
+
+            // Remove active class from all headings
+            $(".loc-entry").removeClass("active");
+
+            // Add active class to nearest heading
+            if (newHeadingIndex !== -1) {
+                $(`#loc-${headings[newHeadingIndex].slug}`).addClass("active");
+            }
+
+            headingIndex = newHeadingIndex;
+        });
+    });
+</script>
 
 {/* Blog page styling */}
 <style is:global>
