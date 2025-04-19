@@ -20,7 +20,11 @@ import linkedinLogo from "@images/icons/LI-In-Bug.svg";
 const year = new Date().getFullYear().toString();
 ---
 
-<footer class={"absolute bottom-0 w-full" + ` ${className ? className : ""}`} style={style} role="contentinfo">
+<footer
+    class={"absolute bottom-0 w-full print:hidden" + ` ${className ? className : ""}`}
+    style={style}
+    role="contentinfo"
+>
     <div class="mx-0 mt-2 mb-0 pb-2 text-center">
         <ul class="flex justify-center gap-5 p-0 md:mb-1 lg:mb-2">
             <IconLink platform="GitHub" url="https://github.com/PhotonicGluon" icon={githubLogo} />
