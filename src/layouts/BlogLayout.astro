@@ -155,6 +155,8 @@ if (post.image !== undefined) {
     import type { MarkdownHeading } from "astro";
     import $ from "jquery";
 
+    import { searchSorted } from "@lib/misc/iterables";
+
     // Get headings
     const headings = $("#list-of-contents").data("headings")! as MarkdownHeading[];
     delete $("#list-of-contents")[0].dataset.headings; // No need to keep it now that we have it
@@ -183,9 +185,7 @@ if (post.image !== undefined) {
         const viewY = window.scrollY + window.innerHeight / 2;
 
         // Find nearest heading
-        // TODO: Optimize using binary search?
-        // FIXME: If `viewY` is too much, then `newHeadingIndex` will be -2, causing an error
-        const newHeadingIndex = headingPositions.findIndex((headingPosition) => headingPosition > viewY) - 1; // -1 because we want the previous heading
+        const newHeadingIndex = searchSorted(headingPositions, viewY) - 1; // -1 because we want the previous heading
         if (newHeadingIndex === headingIndex) {
             return;
         }
