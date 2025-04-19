@@ -6,6 +6,7 @@ import { toPost } from "@lib/blog/post";
 import { humanizeDate } from "@lib/misc/dates";
 
 import SEO from "@components/top/SEO.astro";
+import TailwindBreakpointChecker from "@components/misc/TailwindBreakpointChecker.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
@@ -39,6 +40,10 @@ if (post.image !== undefined) {
 }
 ---
 
+{/* Handles obtaining the tailwind breakpoint */}
+<TailwindBreakpointChecker />
+
+{/* Main content */}
 <MainLayout title={post.title} subtitle={humanizeDate(new Date(post.pubDate))}>
     {/* SEO */}
     <Fragment slot="head-seo">
@@ -79,22 +84,11 @@ if (post.image !== undefined) {
                     @import "@styles/global.css";
 
                     .loc-entry.active {
-                        @apply font-bold;
+                        @apply lg:font-bold;
                     }
                 </style>
             </div>
         </aside>
-
-        {/* Reading progress bar for mobile */}
-        {/* TODO: Style this better; possibly move to another spot */}
-        <div
-            class="fixed top-0 left-0 block h-4 w-full origin-[0_50%] transform-[scaleX(0)] bg-red-500 lg:hidden"
-            id="progress"
-            style={{
-                "--start-range": "100%", // Default is to not show the progress bar
-            }}
-        >
-        </div>
 
         {/* Blog post */}
         <article
@@ -103,6 +97,29 @@ if (post.image !== undefined) {
         >
             <slot />
         </article>
+    </section>
+
+    {/* Reading progress indication for mobile */}
+    {/* TODO: Style this better; possibly move to another spot */}
+    <div
+        class="fixed top-0 left-0 block w-full -translate-y-full bg-gradient-to-tr from-gray-950 via-slate-800 via-75% to-gray-900 transition-all duration-500 ease-out lg:hidden [&.showing]:translate-y-0"
+        id="progress-container"
+    >
+        {/* Main stuff */}
+        <div class="h-16 w-full" id="progress-indicator">
+            <div class="flex h-12 items-center">
+                <span class="pl-4 font-bold" id="progress-heading"></span>
+            </div>
+
+            <div
+                class="h-4 w-full origin-[0_50%] transform-[scaleX(0)] bg-gradient-to-r from-indigo-600 to-blue-400"
+                id="progress-bar"
+                style={{
+                    "--start-range": "100%", // Default is to not show the progress bar
+                }}
+            >
+            </div>
+        </div>
 
         {/* Progress bar styling and scripting */}
         <style>
@@ -119,7 +136,7 @@ if (post.image !== undefined) {
                 }
             }
 
-            #progress.with-timeline {
+            #progress-bar.with-timeline {
                 animation: grow-progress auto linear;
                 animation-timeline: --page-scroll;
                 animation-range: entry-crossing var(--start-range) exit-crossing 100%;
@@ -130,7 +147,7 @@ if (post.image !== undefined) {
             import { isAnimationTimelineSupported } from "@lib/misc/checks";
 
             if (isAnimationTimelineSupported()) {
-                $("#progress").addClass("with-timeline");
+                $("#progress-bar").addClass("with-timeline");
             }
 
             /**
@@ -140,14 +157,14 @@ if (post.image !== undefined) {
                 const blogPostY = $("#blog-post")!.offset()!.top;
                 const fullHeight = $(document).height()!;
 
-                $("#progress").css("--start-range", `${(blogPostY / fullHeight) * 100}%`);
+                $("#progress-bar").css("--start-range", `${(blogPostY / fullHeight) * 100}%`);
             }
 
             // Trigger on window resize or document load
             $(setProgressBarStartRange);
             $(window).on("resize", setProgressBarStartRange);
         </script>
-    </section>
+    </div>
 </MainLayout>
 
 {/* Script to handle active heading */}
@@ -157,32 +174,52 @@ if (post.image !== undefined) {
 
     import { searchSorted } from "@lib/misc/iterables";
 
-    // Get headings
-    const headings = $("#list-of-contents").data("headings")! as MarkdownHeading[];
-    delete $("#list-of-contents")[0].dataset.headings; // No need to keep it now that we have it
+    // Get elements
+    const progressContainer = $("#progress-container")!;
+    const listOfContents = $("#list-of-contents")!;
 
-    let headingPositions: number[] = [];
+    // Get headings
+    const headings = listOfContents.data("headings")! as MarkdownHeading[];
+    delete listOfContents[0].dataset.headings; // No need to keep it now that we have it
 
     // Update heading positions on window load or resize
-    function onWindowUpdate() {
-        console.log("Window update");
+    let headingPositions: number[] = [];
+    function updateHeadingPositions() {
         headingPositions = headings.map((heading) => {
             return $(`#${heading.slug}`).offset()!.top;
         });
     }
-    $(onWindowUpdate);
-    $(window).on("resize", onWindowUpdate);
+
+    $(updateHeadingPositions);
+    $(window).on("resize", () => {
+        updateHeadingPositions();
+    });
 
     // Handle active heading
     let headingIndex: number = -1;
-    $(window).on("scroll", () => {
+    function updateActiveHeading() {
         if (headingPositions.length === 0) {
             return;
         }
 
         // Calculate the current 'viewer' y position
-        // (We take the middle of the page as this)
-        const viewY = window.scrollY + window.innerHeight / 2;
+        // @ts-ignore
+        const tailwindBreakpoint: string = window.tailwindBreakpoint; // From the tailwind breakpoint checker
+        let viewY;
+        if (tailwindBreakpoint === "xs" || tailwindBreakpoint === "sm" || tailwindBreakpoint === "md") {
+            // Take bottom of the progress container, plus a bit
+            viewY = window.scrollY + progressContainer.height()! + 16;
+        } else {
+            // Take middle of screen
+            viewY = window.scrollY + window.innerHeight / 2;
+        }
+
+        // Show/hide the progress indicator for mobile
+        if (viewY > headingPositions[0]) {
+            progressContainer.addClass("showing");
+        } else {
+            progressContainer.removeClass("showing");
+        }
 
         // Find nearest heading
         const newHeadingIndex = searchSorted(headingPositions, viewY) - 1; // -1 because we want the previous heading
@@ -191,17 +228,26 @@ if (post.image !== undefined) {
         }
 
         // Update active heading
+        let activeHeading: MarkdownHeading | null = null;
         if (headingIndex !== -1) {
             $(`#loc-${headings[headingIndex].slug}`).removeClass("active");
         }
         if (newHeadingIndex !== -1) {
-            console.log(newHeadingIndex, headings[newHeadingIndex]);
-            $(`#loc-${headings[newHeadingIndex].slug}`).addClass("active");
+            activeHeading = headings[newHeadingIndex];
+            $(`#loc-${activeHeading.slug}`).addClass("active");
         }
 
-        // TODO: Update shown heading for mobile
-
         headingIndex = newHeadingIndex;
+
+        // Update shown heading for mobile
+        if (activeHeading) {
+            $("#progress-heading").text(activeHeading.text);
+        }
+    }
+
+    $(updateActiveHeading);
+    $(window).on("scroll", () => {
+        updateActiveHeading();
     });
 </script>
 
