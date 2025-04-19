@@ -159,40 +159,49 @@ if (post.image !== undefined) {
     const headings = $("#list-of-contents").data("headings")! as MarkdownHeading[];
     delete $("#list-of-contents")[0].dataset.headings; // No need to keep it now that we have it
 
-    // TODO: Update for mobile
-    let headingIndex: number = -1;
-    $(() => {
-        // Get the offset from top for each heading
-        const headingPositions = headings.map((heading) => {
+    let headingPositions: number[] = [];
+
+    // Update heading positions on window load or resize
+    function onWindowUpdate() {
+        console.log("Window update");
+        headingPositions = headings.map((heading) => {
             return $(`#${heading.slug}`).offset()!.top;
         });
+    }
+    $(onWindowUpdate);
+    $(window).on("resize", onWindowUpdate);
+
+    // Handle active heading
+    let headingIndex: number = -1;
+    $(window).on("scroll", () => {
         if (headingPositions.length === 0) {
             return;
         }
 
-        // Detect the current scroll height
-        $(window).on("scroll", () => {
-            // Calculate the current 'viewer' y position
-            // (We take the middle of the page as this)
-            const viewY = window.scrollY + window.innerHeight / 2;
+        // Calculate the current 'viewer' y position
+        // (We take the middle of the page as this)
+        const viewY = window.scrollY + window.innerHeight / 2;
 
-            // Find nearest heading
-            // TODO: Optimize using binary search?
-            const newHeadingIndex = headingPositions.findIndex((headingPosition) => headingPosition > viewY) - 1; // -1 because we want the previous heading
-            if (newHeadingIndex === headingIndex) {
-                return;
-            }
+        // Find nearest heading
+        // TODO: Optimize using binary search?
+        // FIXME: If `viewY` is too much, then `newHeadingIndex` will be -2, causing an error
+        const newHeadingIndex = headingPositions.findIndex((headingPosition) => headingPosition > viewY) - 1; // -1 because we want the previous heading
+        if (newHeadingIndex === headingIndex) {
+            return;
+        }
 
-            // Remove active class from all headings
-            $(".loc-entry").removeClass("active");
+        // Update active heading
+        if (headingIndex !== -1) {
+            $(`#loc-${headings[headingIndex].slug}`).removeClass("active");
+        }
+        if (newHeadingIndex !== -1) {
+            console.log(newHeadingIndex, headings[newHeadingIndex]);
+            $(`#loc-${headings[newHeadingIndex].slug}`).addClass("active");
+        }
 
-            // Add active class to nearest heading
-            if (newHeadingIndex !== -1) {
-                $(`#loc-${headings[newHeadingIndex].slug}`).addClass("active");
-            }
+        // TODO: Update shown heading for mobile
 
-            headingIndex = newHeadingIndex;
-        });
+        headingIndex = newHeadingIndex;
     });
 </script>
 
