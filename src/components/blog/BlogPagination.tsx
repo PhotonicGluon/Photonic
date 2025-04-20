@@ -2,8 +2,6 @@ import { Component } from "preact";
 import { useStore } from "@nanostores/preact";
 import { postStore } from "./store";
 
-import { range } from "@lib/misc/iterables";
-
 interface Props {}
 
 interface State {}
@@ -49,7 +47,7 @@ export default class BlogPagination extends Component<Props, State> {
                     <a
                         href={href}
                         class={
-                            "!text-gray-300 " +
+                            "!text-gray-300 print:!text-black " +
                             `${className ? className : ""} ${nonDisabledClassName ? nonDisabledClassName : ""}`
                         }
                         aria-label={label}
@@ -60,7 +58,7 @@ export default class BlogPagination extends Component<Props, State> {
                 {options.disabled && (
                     <div
                         class={
-                            "bg-gray-900 text-gray-400 " +
+                            "bg-gray-900 text-gray-400 print:bg-white " +
                             (options.hide_too ? "opacity-0" : "") +
                             " " +
                             `${className ? className : ""}`
@@ -85,7 +83,7 @@ export default class BlogPagination extends Component<Props, State> {
             <span>{(pageIdx + 1).toString()}</span>,
             `Page ${pageIdx + 1}`,
             this.makePageQuery(pageIdx),
-            "border border-gray-700 rounded-lg bg-gray-800 ",
+            "border border-gray-700 rounded-lg bg-gray-800 print:bg-white",
             "hover:bg-gray-700 hover:!text-white",
             { disabled: pageIdx == currPage },
         );

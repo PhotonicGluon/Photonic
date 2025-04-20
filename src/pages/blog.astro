@@ -51,7 +51,7 @@ const numPages = Math.ceil(posts.length / NUM_PER_PAGE);
     {/* Blog posts */}
     <section>
         {/* List of all posts */}
-        <div class="grid gap-4 md:grid-cols-2 lg:gap-8">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:gap-8 print:grid-cols-2">
             <BlogList allPosts={posts} numPages={numPages} numPerPage={NUM_PER_PAGE} client:only />
         </div>
 
@@ -65,7 +65,7 @@ const numPages = Math.ceil(posts.length / NUM_PER_PAGE);
             </div>
 
             {/* RSS feed link */}
-            <div class="absolute top-0 right-0 hidden lg:block">
+            <div class="absolute top-0 right-0 hidden lg:block print:hidden">
                 <ButtonLink class="h-12 border hover:bg-white/15" href="/rss.xml">
                     <div class="inline-flex justify-center gap-2 align-middle">
                         <svg
