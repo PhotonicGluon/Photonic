@@ -30,7 +30,7 @@ const project = (await getEntry("projects", "spectra"))!;
     {/* Introduction */}
     <div>
         <iframe
-            class="hidden md:float-right md:ml-8 md:block md:h-44 md:w-44 md:border-none"
+            class="hidden md:float-right md:ml-8 md:w-44 md:border-none md:not-print:block md:not-print:h-44"
             src="https://bandcamp.com/EmbeddedPlayer/album=4146003043/size=large/bgcol=181a1b/linkcol=056cc4/minimal=true/transparent=true/"
             title="Spectra Bandcamp Embed"
             loading="lazy"
@@ -463,7 +463,7 @@ const project = (await getEntry("projects", "spectra"))!;
     }
 
     .button {
-        @apply mx-auto mt-1 mb-2 block w-full text-center md:w-min;
+        @apply mx-auto mt-1 mb-2 block w-full text-center md:w-min print:hidden;
     }
 
     .bandcamp-button {
@@ -477,6 +477,6 @@ const project = (await getEntry("projects", "spectra"))!;
     }
 
     .music-caption {
-        @apply text-center text-sm text-gray-300 italic;
+        @apply text-center text-sm text-gray-300 italic print:text-gray-700;
     }
 </style>
