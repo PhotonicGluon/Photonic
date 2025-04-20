@@ -1,0 +1,118 @@
+---
+import ButtonLink from "@components/generic/ButtonLink.astro";
+import ProjectBanner from "@components/projects/ProjectBanner.astro";
+import ProjectTags from "@components/projects/ProjectTags";
+import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
+
+import type { Project } from "@lib/projects/project";
+
+const CARD_MIN_SCALE = 0.65;
+const CARD_TOP_PADDING = 0.75; // In rem
+
+export interface Props {
+    /** ID of the project */
+    id: string;
+    /** Project data */
+    project: Project;
+    /** Number of featured projects */
+    numFeaturedProjects: number;
+    /** Index of the project in the list of all featured projects */
+    index: number;
+}
+
+const { id, project, numFeaturedProjects, index } = Astro.props;
+
+// Used to calculate the starting and stopping point of the scaling animation
+const currPercent = index / numFeaturedProjects;
+const nextPercent = (index + 1) / numFeaturedProjects;
+---
+
+{/* Card contents */}
+<div
+    class="sticky top-4 h-104 md:h-72 lg:top-28 lg:h-96"
+    style={{
+        "--scale-to": CARD_MIN_SCALE + (1 - CARD_MIN_SCALE) * nextPercent,
+        "--start-range": `${currPercent * 100}%`,
+        "--end-range": `${nextPercent * 100}%`,
+        "padding-top": `${(index + 1) * CARD_TOP_PADDING}rem`,
+    }}
+>
+    <div
+        class="card-content flex h-full w-full origin-[50%_0%] flex-col items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform md:flex-row"
+    >
+        {/* Details area */}
+        <div class="order-2 flex max-h-[60%] w-full py-2 md:order-1 md:h-full md:max-h-full md:w-1/2 md:py-8">
+            <div class="mx-auto grid w-full place-self-center text-left md:w-4/5 lg:gap-2">
+                {/* Name, Tags and URLs */}
+                <div class="flex flex-col gap-y-2 lg:flex-row lg:gap-y-0">
+                    <div class="grow">
+                        <h2
+                            class="hidden text-center text-3xl font-bold tracking-tight text-white lg:inline lg:text-start"
+                        >
+                            {project.name}
+                        </h2>
+                        <ProjectTags class="!flex !justify-center md:w-min" tags={project.tags} />
+                    </div>
+                    <div class="flex items-center justify-center md:justify-normal">
+                        <ProjectURLsIcons urls={project.urls} loading="lazy" />
+                    </div>
+                </div>
+
+                {/* Summary */}
+                <p
+                    class="p-0 px-4 text-sm leading-tight font-normal text-gray-400 md:mt-1 md:px-0 lg:mt-2 lg:text-base lg:leading-normal"
+                >
+                    {project.summary}
+                </p>
+
+                {/* Read more */}
+                <div class="mx-auto md:mx-0 md:mt-1 lg:mt-2">
+                    <ButtonLink
+                        class="bg-sky-700 !px-3 !py-1.5 text-sm hover:bg-sky-800 lg:!px-5 lg:!py-2.5 lg:text-base"
+                        href={"/projects/" + id}
+                    >
+                        Learn more about {project.name}
+                    </ButtonLink>
+                </div>
+            </div>
+        </div>
+
+        {/* Banner area */}
+        <div class="order-1 flex max-h-[40%] w-full md:order-2 md:h-full md:max-h-full md:w-1/2">
+            <ProjectBanner
+                class="mx-auto h-min max-h-full w-auto max-w-full rounded-none rounded-t-lg object-contain md:my-auto md:mr-0 md:ml-auto md:rounded-tl-none md:rounded-r-lg"
+                src={project.banner!}
+                alt={project.name + " Banner"}
+                loading="lazy"
+            />
+        </div>
+    </div>
+</div>
+
+{/* Card animation */}
+<style>
+    @keyframes scale {
+        to {
+            transform: scale(var(--scale-to));
+        }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .card-content.with-timeline {
+            animation: linear scale forwards;
+            animation-timeline: --cards-element-scrolls-in-body;
+            animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+        }
+    }
+</style>
+
+{/* Animation toggling based on browser support */}
+<script>
+    import { isAnimationTimelineSupported } from "@lib/misc/checks";
+
+    if (isAnimationTimelineSupported()) {
+        document.querySelectorAll(".card-content").forEach((element) => {
+            element.classList.add("with-timeline");
+        });
+    }
+</script>
