@@ -21,11 +21,11 @@ const year = new Date().getFullYear().toString();
 ---
 
 <footer
-    class={"absolute bottom-0 w-full print:pt-32" + ` ${className ? className : ""}`}
+    class={"absolute bottom-0 w-full print:relative" + ` ${className ? className : ""}`}
     style={style}
     role="contentinfo"
 >
-    <div class="mx-0 mt-2 mb-0 pb-2 text-center print:pt-16">
+    <div class="mx-0 mt-2 mb-0 pb-2 text-center">
         <ul class="flex justify-center gap-5 p-0 md:mb-1 lg:mb-2 print:hidden">
             <IconLink platform="GitHub" url="https://github.com/PhotonicGluon" icon={githubLogo} />
             <IconLink platform="Bandcamp" url="https://melodicgluon.bandcamp.com/" icon={bandcampLogo} />
