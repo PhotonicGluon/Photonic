@@ -16,3 +16,11 @@
     --text-2xs: 0.55rem;
     --text-2xs--line-height: calc(0.75 / 0.55);
 }
+
+@layer base {
+    @media print {
+        @page {
+            size: portrait;
+        }
+    }
+}

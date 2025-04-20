@@ -1,9 +1,7 @@
 ---
 import ButtonLink from "@components/generic/ButtonLink.astro";
 import HeroBox from "@components/HeroBox.astro";
-import ProjectBanner from "@components/projects/ProjectBanner.astro";
-import ProjectTags from "@components/projects/ProjectTags";
-import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
+import FeaturedProjectCard from "@components/projects/FeaturedProjectCard.astro";
 import Shader from "@components/Shader.astro";
 import SEO from "@components/top/SEO.astro";
 
@@ -22,8 +20,6 @@ const featuredProjects = await getFeaturedProjects([
     "chess-clock-trivia",
     "the-challenge",
 ]);
-const CARD_MIN_SCALE = 0.65;
-const CARD_TOP_PADDING = 0.75; // In rem
 ---
 
 <MainLayout tabTitle="Photonic">
@@ -53,7 +49,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
             {/* Main hero box content */}
             <HeroBox
                 title="Photonic"
-                titleClass="-mt-8 !text-6xl leading-none md:!text-7xl xl:mt-0 xl:!text-8xl"
+                titleClass="-mt-8 !text-6xl leading-none md:!text-7xl xl:mt-0 xl:!text-8xl print:mt-16"
                 titleAnimation="motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:repeat-1 motion-safe:slide-in-from-top-4"
                 subtitle="Making cool things."
                 subtitleClass="!text-base md:!text-lg xl:!text-xl"
@@ -64,20 +60,20 @@ const CARD_TOP_PADDING = 0.75; // In rem
                 <Fragment slot="shader">
                     <Shader class="blur-[2px]" id="hero-shader" basePath="lib/shaders/frag/swirl" />
                     <div
-                        class="absolute top-0 h-[inherit] w-full bg-black motion-safe:delay-500 motion-safe:duration-1000 motion-safe:animate-out motion-safe:fade-out motion-safe:fill-mode-forwards motion-reduce:opacity-0"
+                        class="motion-safe:animate-out motion-safe:fade-out motion-safe:fill-mode-forwards absolute top-0 h-[inherit] w-full bg-black motion-safe:delay-500 motion-safe:duration-1000 motion-reduce:opacity-0 print:opacity-0"
                     >
                     </div>
                     <div
-                        class="absolute top-0 h-[inherit] w-full bg-gradient-to-b from-transparent via-gray-950/40 via-70% to-gray-950"
+                        class="absolute top-0 h-[inherit] w-full bg-gradient-to-b from-transparent via-gray-950/40 via-70% to-gray-950 print:bg-none"
                     >
                     </div>
                 </Fragment>
             </HeroBox>
 
             {/* Add hint to scroll down */}
-            <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 print:hidden">
                 <div
-                    class="text-gray-500 *:mx-auto *:block *:w-fit motion-safe:animate-bounce motion-safe:delay-1000 motion-safe:fill-mode-backwards"
+                    class="motion-safe:fill-mode-backwards text-gray-500 *:mx-auto *:block *:w-fit motion-safe:animate-bounce motion-safe:delay-1000"
                 >
                     <span class="text-center text-sm italic xl:text-base">Scroll down to read more</span>
                     <span class="text-xs xl:text-sm">&#9660 {/* Downward caret */}</span>
@@ -87,120 +83,38 @@ const CARD_TOP_PADDING = 0.75; // In rem
     </Fragment>
 
     <div
-        class="absolute top-[100vh] z-10 h-32 w-full bg-gradient-to-b from-gray-950 via-gray-950/40 via-30% to-transparent"
+        class="absolute top-[100vh] z-10 h-32 w-full bg-gradient-to-b from-gray-950 via-gray-950/40 via-30% to-transparent print:bg-none"
     >
     </div>
 
     {/* Featured projects */}
     <section class="pt-32">
         <div class="h-auto">
-            <div class="mb-96 lg:sticky lg:top-16">
+            <div class="mb-96 lg:sticky lg:top-16 print:relative">
                 <h1
-                    class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"
+                    class="intersect-once intersect-full motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500"
                 >
                     Featured Projects
                 </h1>
             </div>
             <div
-                class="mx-auto -mt-96 grid h-auto max-w-4xl grid-cols-1 grid-rows-[repeat(var(--num-projects),minmax(0,1fr))] gap-8"
+                class="print:-mt-92 print:lg:-mt-76 mx-auto -mt-96 grid h-auto max-w-4xl grid-cols-1 grid-rows-[repeat(var(--num-projects),minmax(0,1fr))] gap-8 print:flex print:flex-col"
                 style={{
                     "--num-projects": featuredProjects.length,
                     "view-timeline-name": "--cards-element-scrolls-in-body",
                 }}
             >
                 {
-                    featuredProjects.map((rawProject, index) => {
-                        const project = toProject(rawProject.data);
-
-                        const currPercent = index / featuredProjects.length;
-                        const nextPercent = (index + 1) / featuredProjects.length;
-
-                        return (
-                            <div
-                                class="sticky top-4 h-104 md:h-72 lg:top-28 lg:h-96"
-                                style={{
-                                    "--scale-to": CARD_MIN_SCALE + (1 - CARD_MIN_SCALE) * nextPercent,
-                                    "--start-range": `${currPercent * 100}%`,
-                                    "--end-range": `${nextPercent * 100}%`,
-                                    "padding-top": `${(index + 1) * CARD_TOP_PADDING}rem`,
-                                }}
-                            >
-                                <div class="card-content flex h-full w-full origin-[50%_0%] flex-col items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform md:flex-row">
-                                    {/* Details area */}
-                                    <div class="order-2 flex max-h-[60%] w-full py-2 md:order-1 md:h-full md:max-h-full md:w-1/2 md:py-8">
-                                        <div class="mx-auto grid w-full place-self-center text-left md:w-4/5 lg:gap-2">
-                                            {/* Name, Tags and URLs */}
-                                            <div class="flex flex-col gap-y-2 lg:flex-row lg:gap-y-0">
-                                                <div class="grow">
-                                                    <h2 class="hidden text-center text-3xl font-bold tracking-tight text-white lg:inline lg:text-start">
-                                                        {project.name}
-                                                    </h2>
-                                                    <ProjectTags
-                                                        class="!flex !justify-center md:w-min"
-                                                        tags={project.tags}
-                                                    />
-                                                </div>
-                                                <div class="flex items-center justify-center md:justify-normal">
-                                                    <ProjectURLsIcons urls={project.urls} loading="lazy" />
-                                                </div>
-                                            </div>
-
-                                            {/* Summary */}
-                                            <p class="p-0 px-4 text-sm leading-tight font-normal text-gray-400 md:mt-1 md:px-0 lg:mt-2 lg:text-base lg:leading-normal">
-                                                {project.summary}
-                                            </p>
-
-                                            {/* Read more */}
-                                            <div class="mx-auto md:mx-0 md:mt-1 lg:mt-2">
-                                                <ButtonLink
-                                                    class="bg-sky-700 !px-3 !py-1.5 text-sm hover:bg-sky-800 lg:!px-5 lg:!py-2.5 lg:text-base"
-                                                    href={"/projects/" + rawProject.id}
-                                                >
-                                                    Learn more about {project.name}
-                                                </ButtonLink>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Banner area */}
-                                    <div class="order-1 flex max-h-[40%] w-full md:order-2 md:h-full md:max-h-full md:w-1/2">
-                                        <ProjectBanner
-                                            class="mx-auto h-min max-h-full w-auto max-w-full rounded-none rounded-t-lg object-contain md:my-auto md:mr-0 md:ml-auto md:rounded-tl-none md:rounded-r-lg"
-                                            src={project.banner!}
-                                            alt={project.name + " Banner"}
-                                            loading="lazy"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })
+                    featuredProjects.map((rawProject, index) => (
+                        <FeaturedProjectCard
+                            id={rawProject.id}
+                            project={toProject(rawProject.data)}
+                            numFeaturedProjects={featuredProjects.length}
+                            index={index}
+                        />
+                    ))
                 }
             </div>
-            <style>
-                @keyframes scale {
-                    to {
-                        transform: scale(var(--scale-to));
-                    }
-                }
-
-                @media (prefers-reduced-motion: no-preference) {
-                    .card-content.with-timeline {
-                        animation: linear scale forwards;
-                        animation-timeline: --cards-element-scrolls-in-body;
-                        animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
-                    }
-                }
-            </style>
-            <script>
-                import { isAnimationTimelineSupported } from "@lib/misc/checks";
-
-                if (isAnimationTimelineSupported()) {
-                    document.querySelectorAll(".card-content").forEach((element) => {
-                        element.classList.add("with-timeline");
-                    });
-                }
-            </script>
         </div>
     </section>
 
@@ -208,12 +122,12 @@ const CARD_TOP_PADDING = 0.75; // In rem
     {/* TODO: Change contents */}
     <section class="pt-8">
         <h1
-            class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"
+            class="intersect-once intersect-full motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500"
         >
             Who am I?
         </h1>
         <div
-            class="intersect-once intersect-half md:intersect-full motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"
+            class="intersect-once intersect-half md:intersect-full motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running motion-safe:delay-100 motion-safe:duration-500"
         >
             <p>Hello! Welcome to my little corner of the internet! I hope you like it!</p>
             <p>

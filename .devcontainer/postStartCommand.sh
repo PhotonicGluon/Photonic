@@ -2,6 +2,6 @@
 
 # Install dependencies
 echo "===> Installing dependencies"
-npm install
+npm install --loglevel info
 
 echo "===> Done!"

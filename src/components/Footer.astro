@@ -20,9 +20,13 @@ import linkedinLogo from "@images/icons/LI-In-Bug.svg";
 const year = new Date().getFullYear().toString();
 ---
 
-<footer class={"absolute bottom-0 w-full" + ` ${className ? className : ""}`} style={style} role="contentinfo">
+<footer
+    class={"absolute bottom-0 w-full print:relative" + ` ${className ? className : ""}`}
+    style={style}
+    role="contentinfo"
+>
     <div class="mx-0 mt-2 mb-0 pb-2 text-center">
-        <ul class="flex justify-center gap-5 p-0 md:mb-1 lg:mb-2">
+        <ul class="flex justify-center gap-5 p-0 md:mb-1 lg:mb-2 print:hidden">
             <IconLink platform="GitHub" url="https://github.com/PhotonicGluon" icon={githubLogo} />
             <IconLink platform="Bandcamp" url="https://melodicgluon.bandcamp.com/" icon={bandcampLogo} />
             <IconLink platform="LinkedIn" url="https://www.linkedin.com/in/kan-onn-kit" icon={linkedinLogo} />
@@ -30,11 +34,22 @@ const year = new Date().getFullYear().toString();
         <span class="block text-sm">
             Copyright &copy; {year} PhotonicGluon
         </span>
-        <span class="block text-xs text-gray-400">
+        <span class="block text-xs text-gray-400 print:hidden">
             Photonic's source code is available on <a href="https://github.com/PhotonicGluon/Photonic">GitHub</a>.
         </span>
-        <span class="block text-2xs text-gray-400/90">
+        <span class="block text-2xs text-gray-400/90 print:text-xs print:text-gray-700">
             Version <Version />
+        </span>
+        <span class="hidden text-2xs text-gray-700 print:block">
+            Printed on <span class="font-mono" id="print-timestamp">TIMESTAMP</span>
         </span>
     </div>
 </footer>
+
+{/* Add timestamp when printing */}
+<script>
+    window.onbeforeprint = () => {
+        const timestamp = document.getElementById("print-timestamp")!;
+        timestamp.textContent = new Date().toISOString();
+    };
+</script>
