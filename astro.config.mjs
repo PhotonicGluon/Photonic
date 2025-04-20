@@ -4,6 +4,7 @@ import { remarkAlert } from "remark-github-blockquote-alert";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeWrapAll from "rehype-wrap-all";
+import rehypePrettyCode from "rehype-pretty-code";
 import rehypePresetMinify from "rehype-preset-minify";
 
 import photonicTweakpane from "./lib/tweakpane/dev-tools/integration";
@@ -40,10 +41,12 @@ export default defineConfig({
         sitemap(),
         robotsTxt(),
         mdx({
+            syntaxHighlight: false,
             remarkPlugins: [remarkAlert, remarkMath],
             rehypePlugins: [
                 rehypeKatex,
                 [rehypeWrapAll, { selector: "table", wrapper: "div.markdown-table" }], // Wrap all tables with wrapper
+                [rehypePrettyCode, { defaultLang: "plaintext" }],
                 rehypePresetMinify,
             ],
             remarkRehype: {

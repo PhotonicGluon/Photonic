@@ -317,12 +317,34 @@ if (post.image !== undefined) {
     }
 
     /* Code and code blocks */
-    #blog-post :not(.astro-code) > code {
+    #blog-post span[data-rehype-pretty-code-figure] > code {
         @apply rounded-lg bg-gray-800 px-1 py-0.5 text-gray-100;
     }
 
-    #blog-post .astro-code {
-        @apply my-2 rounded-lg !bg-gray-800 p-4 text-xs leading-tight lg:text-sm;
+    #blog-post figure[data-rehype-pretty-code-figure] > pre {
+        @apply my-2 overflow-x-auto rounded-lg !bg-gray-800 py-4 text-xs lg:text-sm;
+    }
+
+    #blog-post figure[data-rehype-pretty-code-figure] > pre code {
+        @apply leading-snug;
+    }
+
+    #blog-post figure[data-rehype-pretty-code-figure] > pre [data-line] {
+        @apply px-4;
+    }
+
+    #blog-post figure[data-rehype-pretty-code-figure] > pre code[data-line-numbers] {
+        counter-reset: line;
+    }
+
+    #blog-post figure[data-rehype-pretty-code-figure] > pre code[data-line-numbers] > [data-line]::before {
+        counter-increment: line;
+        content: counter(line);
+        @apply mr-4 inline-block w-4 text-right text-gray-500;
+    }
+
+    #blog-post span[data-highlighted-line] {
+        @apply bg-gray-700;
     }
 
     /* Tables */
