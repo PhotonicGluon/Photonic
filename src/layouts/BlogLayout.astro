@@ -192,7 +192,6 @@ if (post.image !== undefined) {
         });
     }
 
-    $(updateHeadingPositions);
     $(window).on("resize", () => {
         updateHeadingPositions();
     });
@@ -247,8 +246,13 @@ if (post.image !== undefined) {
         }
     }
 
-    $(updateActiveHeading);
     $(window).on("scroll", () => {
+        updateActiveHeading();
+    });
+
+    // Handle initial load
+    $(() => {
+        updateHeadingPositions();
         updateActiveHeading();
     });
 </script>
