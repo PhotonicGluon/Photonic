@@ -20,7 +20,7 @@ if (typeof download === "boolean" && download) {
 ---
 
 <a
-    class={"mb-2 inline-block rounded-lg px-3 py-1.5 text-sm !text-white transition-colors duration-100 visited:!text-white hover:!text-white visited:hover:!text-white focus:ring-4 focus:ring-sky-900 focus:outline-none md:px-5 md:py-2.5 md:text-base" +
+    class={"mb-2 inline-block rounded-lg px-3 py-1.5 text-sm transition-colors duration-100 not-print:!text-white not-print:visited:!text-white hover:!text-white visited:hover:!text-white focus:ring-4 focus:ring-sky-900 focus:outline-none md:px-5 md:py-2.5 md:text-base print:!bg-white print:px-0" +
         ` ${className ? className : ""}`}
     download={downloadName}
     {...attributes}

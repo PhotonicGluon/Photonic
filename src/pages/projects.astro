@@ -16,7 +16,11 @@ const projectIDs = rawProjects.map((rawProject) => rawProject.id);
 const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 ---
 
-<MainLayout title="Projects" class="pt-20 md:pt-24 lg:pt-0" heroBoxClass="hidden lg:block h-(--height)">
+<MainLayout
+    title="Projects"
+    class="pt-20 md:pt-24 lg:not-print:pt-0"
+    heroBoxClass="hidden h-(--height) lg:block print:block print:h-16"
+>
     {/* SEO */}
     <Fragment slot="head-seo">
         <SEO
@@ -38,10 +42,10 @@ const projects = rawProjects.map((rawProject) => toProject(rawProject.data));
 
     {/* Main stuff */}
     <section
-        class="grid grid-cols-1 divide-y-2 divide-solid divide-gray-500 lg:grid-cols-5 lg:divide-x-2 lg:divide-y-0"
+        class="grid grid-cols-1 divide-y-2 divide-solid divide-gray-500 lg:grid-cols-5 lg:divide-x-2 lg:divide-y-0 print:block"
     >
         {/* Project search/filters */}
-        <div class="h-36 pb-4 md:h-44 lg:h-full lg:pr-3 lg:pb-0">
+        <div class="h-36 pb-4 md:h-44 lg:h-full lg:pr-3 lg:pb-0 print:hidden">
             <div
                 class="col-span-1 col-start-1 self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 motion-safe:lg:slide-in-from-left-4"
             >

@@ -29,7 +29,7 @@ const project = (await getEntry("projects", "7125"))!;
             music and MuseScore links are listed below:
         </p>
 
-        <ol class="!list-none !pl-0 md:!list-decimal md:!pl-4">
+        <ol class="!list-none !pl-0 md:!list-decimal md:!pl-4 print:!list-decimal print:!pl-4">
             <li>
                 <div class="music-entry">
                     <span class="music-title">Unorthodox Identity</span><span class="bracket"> [</span><span
@@ -160,7 +160,7 @@ const project = (await getEntry("projects", "7125"))!;
     </div>
 
     {/* Final Notes */}
-    <div class="mt-4">
+    <div class="mt-4 print:mt-0">
         <p>
             This EP is released under a
             <a href="https://creativecommons.org/licenses/by-nc/4.0/">
@@ -175,7 +175,7 @@ const project = (await getEntry("projects", "7125"))!;
 
     /* General styling */
     .button {
-        @apply text-center font-normal;
+        @apply text-center font-normal print:py-0;
     }
 
     .musescore-button {
@@ -188,27 +188,27 @@ const project = (await getEntry("projects", "7125"))!;
 
     /* Music pieces' styling */
     .music-entry {
-        @apply inline-block w-full text-center font-bold md:w-96 md:text-justify;
+        @apply inline-block w-full text-center font-bold md:w-96 md:text-justify print:w-auto print:text-justify;
     }
 
     .bracket {
-        @apply hidden md:inline;
+        @apply hidden md:inline print:inline;
     }
 
     .music-buttons {
-        @apply grid font-bold md:inline-block;
+        @apply grid font-bold md:inline-block print:ml-8 print:inline-flex print:gap-4;
     }
 
     .music-title,
     .music-duration {
-        @apply block md:inline-block;
+        @apply block md:inline-block print:inline-block;
     }
 
     .music-title {
-        @apply text-xl md:text-base;
+        @apply text-xl md:text-base print:text-base;
     }
 
     .music-duration {
-        @apply font-normal text-gray-400 md:font-bold md:text-white;
+        @apply font-normal text-gray-400 md:font-bold md:text-white print:font-bold print:text-inherit;
     }
 </style>

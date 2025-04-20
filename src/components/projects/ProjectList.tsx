@@ -26,7 +26,7 @@ export default class ProjectList extends Component<Props, State> {
             <div>
                 <div
                     class={
-                        "grid grid-cols-1 justify-items-center gap-4 md:grid-cols-2 xl:grid-cols-3" +
+                        "grid grid-cols-1 justify-items-center gap-4 md:grid-cols-2 xl:grid-cols-3 print:flex print:flex-col" +
                         ` ${props.class}`
                     }
                 >

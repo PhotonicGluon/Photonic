@@ -33,6 +33,7 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
         crossorigin="anonymous"
     />
 
+    {/* Main description */}
     <div class="text-base">
         <p>
             <em>A Complete Introduction to Abstract Algebra</em> is a textbook on abstract algebra.
@@ -67,7 +68,9 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
             >.
         </p>
     </div>
-    <div class="block w-full text-center">
+
+    {/* Book download and changelog */}
+    <div class="block w-full text-center print:hidden">
         <div class="inline-block">
             <Image class="mb-3 h-auto w-9/10 max-w-64 rounded-3xl" src={bookCoverMockup} alt="Cover Mockup" />
             <div>
@@ -78,7 +81,7 @@ const project = (await getEntry("projects", "abstract-algebra"))!;
         </div>
     </div>
 
-    <hr class="my-4 border border-gray-700" />
+    <hr class="my-4 border border-gray-700 print:hidden" />
     <h2 class="!text-2xl leading-none md:!text-3xl">
         Latest Release Notes (<span id="latest-release" class="text-2xl md:text-3xl">Loading...</span>)
     </h2>
