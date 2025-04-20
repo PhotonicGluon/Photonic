@@ -3,6 +3,7 @@
 @import "tailwindcss-intersect";
 @plugin "@tailwindcss/forms";
 @plugin "tailwindcss-animate";
+@plugin "tailwind-scrollbar";
 
 @theme {
     --font-sans: "DM Sans", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif";

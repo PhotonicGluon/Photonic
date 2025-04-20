@@ -53,6 +53,7 @@
         "prettier-plugin-tailwindcss": "^0.6.11",
         "tailwindcss-animate": "^1.0.7",
         "tailwindcss-intersect": "^2.2.0",
+        "tailwind-scrollbar": "^4.0.2",
         "tweakpane": "^4.0.5",
         "vite-plugin-glsl": "^1.4.0"
     },
