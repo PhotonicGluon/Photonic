@@ -26,7 +26,7 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
 ---
 
 <!doctype html>
-<html class="bg-gray-950 font-sans text-white" lang="en">
+<html class="bg-gray-950 font-sans text-white print:bg-white print:text-black" lang="en">
     <head>
         <Analytics />
 
@@ -92,6 +92,6 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
 
     /* Hyperlink styling */
     a {
-        @apply text-blue-400 transition-all duration-200 visited:text-indigo-400 hover:text-blue-500 visited:hover:text-indigo-500;
+        @apply text-blue-400 transition-all duration-200 visited:text-indigo-400 hover:text-blue-500 visited:hover:text-indigo-500 print:text-blue-600;
     }
 </style>

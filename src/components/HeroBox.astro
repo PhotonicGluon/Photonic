@@ -54,7 +54,7 @@ const {
         style={{ "--height": height }}
     >
         <h1
-            class={"m-0 font-bold leading-none md:leading-tight text-white text-4xl md:text-5xl xl:text-6xl" +
+            class={"m-0 font-bold leading-none md:leading-tight text-white text-4xl md:text-5xl xl:text-6xl print:text-black" +
                 ` ${titleClass ? titleClass : ""} ${titleAnimation ? titleAnimation : ""}`}
             style={titleStyle}
         >
@@ -64,7 +64,7 @@ const {
             subtitle && (
                 <h2
                     class={
-                        "m-0 pt-2 text-sm text-white md:pt-0 xl:text-base" +
+                        "m-0 pt-2 text-sm text-white md:pt-0 xl:text-base print:text-black" +
                         ` ${subtitleClass ? subtitleClass : ""} ${subtitleAnimation ? subtitleAnimation : ""}`
                     }
                     style={subtitleStyle}
