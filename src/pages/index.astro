@@ -193,11 +193,7 @@ const CARD_TOP_PADDING = 0.75; // In rem
                 }
             </style>
             <script>
-                function isAnimationTimelineSupported() {
-                    const el = document.createElement("div");
-                    el.style.setProperty("animation-timeline", "view()");
-                    return el.style.getPropertyValue("animation-timeline") === "view()";
-                }
+                import { isAnimationTimelineSupported } from "@lib/misc/checks";
 
                 if (isAnimationTimelineSupported()) {
                     document.querySelectorAll(".card-content").forEach((element) => {
