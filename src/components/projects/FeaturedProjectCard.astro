@@ -29,7 +29,7 @@ const nextPercent = (index + 1) / numFeaturedProjects;
 
 {/* Card contents */}
 <div
-    class="sticky top-4 h-104 md:h-72 lg:top-28 lg:h-96"
+    class="sticky top-4 h-104 md:h-72 lg:top-28 lg:h-96 print:static print:h-min print:!pt-0"
     style={{
         "--scale-to": CARD_MIN_SCALE + (1 - CARD_MIN_SCALE) * nextPercent,
         "--start-range": `${currPercent * 100}%`,
@@ -38,7 +38,7 @@ const nextPercent = (index + 1) / numFeaturedProjects;
     }}
 >
     <div
-        class="card-content flex h-full w-full origin-[50%_0%] flex-col items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform md:flex-row"
+        class="card-content flex h-full w-full origin-[50%_0%] flex-col items-center self-center rounded-lg border border-gray-700 bg-gray-800 will-change-transform md:flex-row print:h-auto print:bg-white"
     >
         {/* Details area */}
         <div class="order-2 flex max-h-[60%] w-full py-2 md:order-1 md:h-full md:max-h-full md:w-1/2 md:py-8">
@@ -47,11 +47,14 @@ const nextPercent = (index + 1) / numFeaturedProjects;
                 <div class="flex flex-col gap-y-2 lg:flex-row lg:gap-y-0">
                     <div class="grow">
                         <h2
-                            class="hidden text-center text-3xl font-bold tracking-tight text-white lg:inline lg:text-start"
+                            class="hidden text-center text-3xl font-bold tracking-tight text-white lg:inline lg:text-start print:text-black"
                         >
                             {project.name}
                         </h2>
-                        <ProjectTags class="!flex !justify-center md:w-min" tags={project.tags} />
+                        <ProjectTags
+                            class="not-print:!flex not-print:!justify-center md:w-min"
+                            tags={project.tags}
+                        />
                     </div>
                     <div class="flex items-center justify-center md:justify-normal">
                         <ProjectURLsIcons urls={project.urls} loading="lazy" />
@@ -60,13 +63,13 @@ const nextPercent = (index + 1) / numFeaturedProjects;
 
                 {/* Summary */}
                 <p
-                    class="p-0 px-4 text-sm leading-tight font-normal text-gray-400 md:mt-1 md:px-0 lg:mt-2 lg:text-base lg:leading-normal"
+                    class="p-0 px-4 text-sm leading-tight font-normal text-gray-400 md:mt-1 md:px-0 lg:mt-2 lg:text-base lg:leading-normal print:text-gray-700"
                 >
                     {project.summary}
                 </p>
 
                 {/* Read more */}
-                <div class="mx-auto md:mx-0 md:mt-1 lg:mt-2">
+                <div class="mx-auto md:mx-0 md:mt-1 lg:mt-2 print:hidden">
                     <ButtonLink
                         class="bg-sky-700 !px-3 !py-1.5 text-sm hover:bg-sky-800 lg:!px-5 lg:!py-2.5 lg:text-base"
                         href={"/projects/" + id}
@@ -80,7 +83,7 @@ const nextPercent = (index + 1) / numFeaturedProjects;
         {/* Banner area */}
         <div class="order-1 flex max-h-[40%] w-full md:order-2 md:h-full md:max-h-full md:w-1/2">
             <ProjectBanner
-                class="mx-auto h-min max-h-full w-auto max-w-full rounded-none rounded-t-lg object-contain md:my-auto md:mr-0 md:ml-auto md:rounded-tl-none md:rounded-r-lg"
+                class="mx-auto h-min max-h-full w-auto max-w-full rounded-none rounded-t-lg object-contain md:my-auto md:mr-0 md:ml-auto md:rounded-tl-none md:rounded-r-lg print:max-h-56"
                 src={project.banner!}
                 alt={project.name + " Banner"}
                 loading="lazy"
@@ -102,6 +105,12 @@ const nextPercent = (index + 1) / numFeaturedProjects;
             animation: linear scale forwards;
             animation-timeline: --cards-element-scrolls-in-body;
             animation-range: exit-crossing var(--start-range) exit-crossing var(--end-range);
+        }
+    }
+
+    @media print {
+        .card-content.with-timeline {
+            animation: none;
         }
     }
 </style>

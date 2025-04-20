@@ -17,6 +17,11 @@ const { platform, url, icon, loading } = Astro.props;
 
 <li>
     <a href={url} title={platform}>
-        <Image class="h-7 w-auto md:h-8 lg:h-10" src={icon} alt=`${platform} Logo` loading={loading} />
+        <Image
+            class="h-7 w-auto md:h-8 lg:h-10 print:invert"
+            src={icon}
+            alt=`${platform} Logo`
+            loading={loading}
+        />
     </a>
 </li>
