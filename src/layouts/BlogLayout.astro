@@ -52,18 +52,18 @@ if (post.image !== undefined) {
 
     {/* Main stuff */}
     <section
-        class="flex flex-col gap-4 divide-y-2 divide-solid divide-gray-500/25 lg:flex-row lg:gap-2 lg:divide-none"
+        class="flex flex-col gap-4 divide-y-2 divide-solid divide-gray-500/25 *:max-w-screen-md lg:not-print:flex-row lg:not-print:gap-2 lg:not-print:divide-none print:gap-1 print:divide-gray-800"
     >
         {/* List of contents */}
         <aside
-            class="pb-4 motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:order-2 lg:pb-0 lg:pl-2 motion-safe:lg:slide-in-from-right-4"
+            class="pb-4 motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:not-print:order-2 lg:not-print:w-64 lg:not-print:pb-0 lg:not-print:pl-2 motion-safe:lg:slide-in-from-right-4 print:mx-auto print:w-full"
             id="list-of-contents"
             data-headings={JSON.stringify(headings)}
         >
-            <div class="sticky top-3">
+            <div class="not-print:sticky not-print:top-3">
                 {/* Actual list */}
-                <span class="block text-2xl font-bold lg:text-lg">Contents</span>
-                <ul class="block space-y-2 text-base lg:w-64 lg:space-y-0 lg:text-sm">
+                <span class="block text-2xl font-bold lg:not-print:text-lg">Contents</span>
+                <ul class="block text-base not-print:space-y-2 lg:not-print:text-sm/4 print:!p-0">
                     {
                         headings.map((heading) => (
                             <li
@@ -71,7 +71,10 @@ if (post.image !== undefined) {
                                 style={{ "--depth": (heading.depth - 1) * 0.75 + "em" }}
                                 id={`loc-${heading.slug}`}
                             >
-                                <a class="!text-gray-300 hover:!text-gray-400" href={`#${heading.slug}`}>
+                                <a
+                                    class="!text-gray-300 hover:!text-gray-400 print:!text-black"
+                                    href={`#${heading.slug}`}
+                                >
                                     {heading.text}
                                 </a>
                             </li>
@@ -84,7 +87,7 @@ if (post.image !== undefined) {
                     @import "@styles/global.css";
 
                     .loc-entry.active {
-                        @apply lg:font-bold;
+                        @apply lg:not-print:font-bold;
                     }
                 </style>
             </div>
@@ -92,7 +95,7 @@ if (post.image !== undefined) {
 
         {/* Blog post */}
         <article
-            class="mx-auto w-full max-w-screen-md self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4"
+            class="mx-auto w-full self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4 print:order-2"
             id="blog-post"
         >
             <slot />
@@ -100,9 +103,8 @@ if (post.image !== undefined) {
     </section>
 
     {/* Reading progress indication for mobile */}
-    {/* TODO: Style this better; possibly move to another spot */}
     <div
-        class="fixed top-0 left-0 block w-full -translate-y-full bg-gradient-to-tr from-gray-950 via-slate-800 via-75% to-gray-900 transition-all duration-500 ease-out lg:hidden [&.showing]:translate-y-0"
+        class="fixed top-0 left-0 block w-full -translate-y-full bg-gradient-to-tr from-gray-950 via-slate-800 via-75% to-gray-900 transition-all duration-500 ease-out lg:hidden print:hidden [&.showing]:translate-y-0"
         id="progress-container"
     >
         {/* Main stuff */}
@@ -309,7 +311,7 @@ if (post.image !== undefined) {
 
     /* Blockquotes */
     #blog-post blockquote {
-        @apply my-4 border-s-4 border-gray-600 bg-gray-800/50 p-4;
+        @apply my-4 border-s-4 border-gray-600 bg-gray-800/50 p-4 print:bg-transparent;
     }
 
     #blog-post blockquote p {
@@ -318,11 +320,11 @@ if (post.image !== undefined) {
 
     /* Code and code blocks */
     #blog-post span[data-rehype-pretty-code-figure] > code {
-        @apply rounded-lg bg-gray-800 px-1 py-0.5 text-gray-100;
+        @apply rounded-lg !bg-gray-800 px-1 py-0.5 text-gray-100 print:!bg-transparent;
     }
 
     #blog-post figure[data-rehype-pretty-code-figure] > pre {
-        @apply my-2 overflow-x-auto rounded-lg !bg-gray-800 py-4 text-xs lg:text-sm;
+        @apply my-2 overflow-x-auto rounded-lg !bg-gray-800 py-4 text-xs lg:text-sm print:border print:border-gray-600 print:!bg-transparent print:whitespace-pre-wrap;
     }
 
     #blog-post figure[data-rehype-pretty-code-figure] > pre code {
@@ -331,6 +333,10 @@ if (post.image !== undefined) {
 
     #blog-post figure[data-rehype-pretty-code-figure] > pre [data-line] {
         @apply px-4;
+    }
+
+    #blog-post span[data-highlighted-line] {
+        @apply bg-gray-700;
     }
 
     #blog-post figure[data-rehype-pretty-code-figure] > pre code[data-line-numbers] {
@@ -343,8 +349,16 @@ if (post.image !== undefined) {
         @apply mr-4 inline-block w-4 text-right text-gray-500;
     }
 
-    #blog-post span[data-highlighted-line] {
-        @apply bg-gray-700;
+    @media print {
+        #blog-post figure[data-rehype-pretty-code-figure] > pre code {
+            counter-reset: line;
+        }
+
+        #blog-post figure[data-rehype-pretty-code-figure] > pre code > [data-line]::before {
+            counter-increment: line;
+            content: counter(line);
+            @apply mr-4 inline-block w-4 text-right text-gray-500;
+        }
     }
 
     /* Tables */
@@ -353,32 +367,28 @@ if (post.image !== undefined) {
     }
 
     #blog-post table {
-        @apply w-full table-auto text-left text-xs text-gray-400 md:mx-auto md:w-max md:text-sm;
+        @apply w-full table-auto text-left text-xs text-gray-400 md:mx-auto md:w-max md:text-sm print:border print:text-gray-700;
     }
 
     #blog-post table thead {
-        @apply bg-gray-700 text-gray-400 uppercase;
+        @apply bg-gray-700 text-gray-400 uppercase print:border-b print:border-gray-700 print:bg-transparent print:text-black;
     }
 
     #blog-post table thead tr th {
-        @apply px-4 py-1.5;
+        @apply px-4 py-1.5 print:border-e print:border-gray-700;
     }
 
     #blog-post table tbody tr {
-        @apply border-b border-gray-700 bg-gray-900;
-    }
-
-    #blog-post table tbody tr th {
-        @apply px-4 py-2 font-medium whitespace-nowrap text-gray-50;
+        @apply border-b border-gray-700 bg-gray-900 print:bg-transparent;
     }
 
     #blog-post table tbody tr td {
-        @apply px-4 py-2;
+        @apply px-4 py-2 print:border-e print:border-gray-700;
     }
 
     /* Alerts */
     #blog-post .markdown-alert {
-        @apply mb-2 rounded-2xl border border-gray-800 px-6 py-4 md:py-6;
+        @apply mb-2 rounded-2xl border border-gray-800 px-6 py-4 md:py-6 print:!bg-none;
     }
 
     #blog-post .markdown-alert > :last-child {
@@ -386,7 +396,7 @@ if (post.image !== undefined) {
     }
 
     #blog-post .markdown-alert-title {
-        @apply mb-1 flex w-max items-center rounded px-2 py-1 align-middle text-sm font-bold md:text-base;
+        @apply mb-1 flex w-max items-center rounded px-2 py-1 align-middle text-sm font-bold md:text-base print:border-2 print:border-gray-600 print:!bg-none;
     }
 
     #blog-post .markdown-alert-title svg {
