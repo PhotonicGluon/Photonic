@@ -18,6 +18,12 @@ export const POST_SCHEMA = z.object({
             alt: z.string(),
         })
         .optional(),
+    /**
+     * Whether the post contains math equations.
+     *
+     * This enables the loading of the KaTeX CSS stylesheet.
+     */
+    hasMath: z.boolean().default(false),
     /** Optional list of tags to attach to the post; TODO: Implement */
     tags: z.array(z.string()).optional(),
 });
