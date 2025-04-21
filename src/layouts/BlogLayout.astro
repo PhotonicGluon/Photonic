@@ -40,15 +40,15 @@ if (post.image !== undefined) {
 }
 ---
 
-{/* Handles obtaining the tailwind breakpoint */}
-<TailwindBreakpointChecker />
-
 {/* Main content */}
 <MainLayout title={post.title} subtitle={humanizeDate(new Date(post.pubDate))}>
     {/* SEO */}
     <Fragment slot="head-seo">
         <SEO title={post.title} description={post.summary} openGraph={ogpData} />
     </Fragment>
+
+    {/* Handles obtaining the TailwindCSS breakpoint */}
+    <TailwindBreakpointChecker />
 
     {/* Load KaTeX CSS if requested */}
     {
