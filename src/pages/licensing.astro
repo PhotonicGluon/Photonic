@@ -1,0 +1,56 @@
+---
+import { readFileSync } from "fs";
+
+import SEO from "@components/top/SEO.astro";
+
+import MainLayout from "@layouts/MainLayout.astro";
+
+// Read the `LICENSE` file
+const license = readFileSync("LICENSE", "utf-8").trimEnd();
+---
+
+<MainLayout
+    class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
+    title="Licensing"
+>
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO
+            title="Licensing"
+            description="Licensing information for Photonic's content."
+            openGraph={{
+                title: "Licensing",
+                description: "Licensing information for Photonic's content.",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
+    </Fragment>
+
+    {/* Source code */}
+    <section>
+        <h2>Source Code</h2>
+        <p>
+            The source code for Photonic is licensed under the <span class="font-bold">MIT License</span>, which is
+            reproduced below.
+        </p>
+        <pre><code>{license}</code></pre>
+    </section>
+</MainLayout>
+
+<style>
+    @import "@styles/global.css";
+
+    h2 {
+        @apply text-3xl font-bold;
+    }
+
+    pre {
+        @apply my-2 w-min max-w-full overflow-auto rounded-lg !bg-gray-800 p-6 text-sm print:w-full print:border print:border-gray-600 print:!bg-transparent print:text-xs print:whitespace-pre-wrap;
+    }
+</style>
