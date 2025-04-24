@@ -5,8 +5,9 @@ import SEO from "@components/top/SEO.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
 
-// Read the `LICENSE` file
-const license = readFileSync("LICENSE", "utf-8").trimEnd();
+// Read the license files
+const licenseMain = readFileSync("LICENSE", "utf-8").trimEnd();
+const licenseBlog = readFileSync("LICENSE-BLOG", "utf-8").trimEnd();
 ---
 
 <MainLayout
@@ -39,7 +40,30 @@ const license = readFileSync("LICENSE", "utf-8").trimEnd();
             The source code for Photonic is licensed under the <span class="font-bold">MIT License</span>, which is
             reproduced below.
         </p>
-        <pre><code>{license}</code></pre>
+        <div class="w-full">
+            <pre><code>{licenseMain}</code></pre>
+        </div>
+    </section>
+
+    {/* Blog posts */}
+    <section>
+        <h2>Blog Posts</h2>
+        <p>
+            The blog posts' assets (including but not limited to the textual content, images, source codes, etc.)
+            are released under the <span class="font-bold"
+                >Creative Commons Attribution 4.0 International License</span
+            >. You can <a href="https://creativecommons.org/licenses/by/4.0/">view the deed here</a>; the full
+            license text is reproduced below.
+        </p>
+        <div class="w-full">
+            <pre><code>{licenseBlog}</code></pre>
+        </div>
+    </section>
+
+    {/* Other content */}
+    <section>
+        <h2>Other Content</h2>
+        <p>All other content are released under the same license as the source code.</p>
     </section>
 </MainLayout>
 
@@ -51,6 +75,6 @@ const license = readFileSync("LICENSE", "utf-8").trimEnd();
     }
 
     pre {
-        @apply my-2 w-min max-w-full overflow-auto rounded-lg !bg-gray-800 p-6 text-sm print:w-full print:border print:border-gray-600 print:!bg-transparent print:text-xs print:whitespace-pre-wrap;
+        @apply mx-auto my-2 w-min max-w-full overflow-auto rounded-lg !bg-gray-800 p-6 text-sm print:w-full print:border print:border-gray-600 print:!bg-transparent print:text-xs print:whitespace-pre-wrap;
     }
 </style>

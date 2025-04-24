@@ -16,3 +16,11 @@ If you already have Visual Studio Code and Docker installed, you can click the b
 
 > [!IMPORTANT]
 > If you are setting up the devcontainer on a Windows machine, it is recommended to clone this project into WSL. Otherwise, file watching would not work as intended.
+
+## License
+
+The source code is released under the [MIT License](LICENSE).
+
+The blog posts' assets (including but not limited to the textual content, images, source codes, etc.) are released under the [Creative Commons Attribution 4.0 International License](LICENSE-BLOG).
+
+All other content are released under the same license as the source code.
