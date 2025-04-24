@@ -34,11 +34,15 @@ const year = new Date().getFullYear().toString();
         <span class="block text-sm">
             Copyright &copy; {year} PhotonicGluon
         </span>
-        <span class="block text-xs text-gray-400 print:hidden">
-            Photonic's source code is available on <a href="https://github.com/PhotonicGluon/Photonic">GitHub</a>.
-        </span>
-        <span class="block text-2xs text-gray-400/90 print:text-xs print:text-gray-700">
+        <span class="block text-xs text-gray-400/90 print:text-xs print:text-gray-700">
             Version <Version />
+        </span>
+        <span class="block text-xs print:hidden">
+            <div class="inline-flex gap-8">
+                <a href="https://github.com/PhotonicGluon/Photonic">Source Code</a>
+                <a href="/credits">Credits</a>
+                <a href="/licensing">Licensing</a>
+            </div>
         </span>
         <span class="hidden text-2xs text-gray-700 print:block">
             Printed on <span class="font-mono" id="print-timestamp">TIMESTAMP</span>
