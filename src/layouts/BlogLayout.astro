@@ -232,12 +232,13 @@ if (post.image !== undefined) {
     </a>
 </div>
 
-{/* Script to add links */}
+{/* Script to add permalinks for headings */}
 <script>
     import $ from "jquery";
 
-    const headings = $("h1,h2,h3,h4,h5,h6");
-    for (const heading of headings) {
+    const headingWrappers = $(".heading-wrapper");
+    for (const headingWrapper of headingWrappers) {
+        const heading = headingWrapper.querySelector("h1,h2,h3,h4,h5,h6")!;
         const slug = heading.id;
         const linkForHeading = $("#link-for-heading a")[0].cloneNode(true) as HTMLAnchorElement;
         linkForHeading.href = `#${slug}`;

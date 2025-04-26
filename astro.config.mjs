@@ -46,6 +46,7 @@ export default defineConfig({
             rehypePlugins: [
                 rehypeKatex,
                 [rehypeWrapAll, { selector: "table", wrapper: "div.markdown-table" }], // Wrap all tables with wrapper
+                [rehypeWrapAll, { selector: "h1,h2,h3,h4,h5,h6", wrapper: "div.heading-wrapper" }], // Wrap all headings with wrapper
                 [rehypePrettyCode, { defaultLang: "plaintext" }],
                 rehypePresetMinify,
             ],
