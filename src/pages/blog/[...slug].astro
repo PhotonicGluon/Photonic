@@ -21,6 +21,6 @@ const { rawPost } = Astro.props;
 const { Content, headings } = await render(rawPost);
 ---
 
-<BlogLayout post={rawPost.data} headings={headings}>
+<BlogLayout post={rawPost.data} filepath={rawPost.filePath} headings={headings}>
     <Content />
 </BlogLayout>
