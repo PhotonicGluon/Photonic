@@ -214,14 +214,14 @@ if (post.image !== undefined) {
 </MainLayout>
 
 <div class="hidden" id="link-for-heading">
-    <a class="pl-4 !text-gray-400 hover:!text-gray-500">
+    <a class="inline pl-4 !text-gray-400 hover:!text-gray-500 lg:hidden lg:group-hover:inline">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class="inline size-4"
+            class="inline size-4 group-[&_h1]:size-6 group-[&_h2]:size-5 md:group-[&_h1]:size-7 md:group-[&_h2]:size-6 md:group-[&_h3]:size-5"
         >
             <path
                 stroke-linecap="round"
@@ -238,6 +238,7 @@ if (post.image !== undefined) {
 
     const headingWrappers = $(".heading-wrapper");
     for (const headingWrapper of headingWrappers) {
+        headingWrapper.classList.add("group");
         const heading = headingWrapper.querySelector("h1,h2,h3,h4,h5,h6")!;
         const slug = heading.id;
         const linkForHeading = $("#link-for-heading a")[0].cloneNode(true) as HTMLAnchorElement;
@@ -370,7 +371,7 @@ if (post.image !== undefined) {
     }
 
     #blog-post h6 {
-        @apply mt-1 text-base italic underline md:font-bold md:not-italic md:no-underline;
+        @apply mt-1 text-base font-bold;
     }
 
     /* Lists */
