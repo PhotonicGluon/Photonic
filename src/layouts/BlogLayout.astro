@@ -343,6 +343,11 @@ if (post.image !== undefined) {
         @apply leading-snug md:leading-normal;
     }
 
+    :target::before {
+        /* Adjusts the position of the anchor to be above the mobile progress heading */
+        @apply -mt-16 block h-16 content-[""] lg:content-none;
+    }
+
     /* Headings */
     #blog-post h1 {
         @apply mt-2 mb-0.5 text-3xl font-extrabold md:text-4xl;
