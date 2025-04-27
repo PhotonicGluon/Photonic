@@ -1,26 +1,14 @@
 ---
-import { getCollection } from "astro:content";
-
-import { toPost } from "@lib/blog/post";
-
 import BlogList from "@components/blog/BlogList";
 import BlogPagination from "@components/blog/BlogPagination";
 import ButtonLink from "@components/generic/ButtonLink.astro";
 import SEO from "@components/top/SEO.astro";
 
+import { posts } from "@lib/blog";
+
 import MainLayout from "@layouts/MainLayout.astro";
 
-import type { Post } from "@lib/blog/post";
-
-// Constants
 const NUM_PER_PAGE = 10;
-
-// Get all blog posts
-const rawPosts = await getCollection("blog");
-const unsortedPosts = rawPosts.map((rawPost) => toPost(rawPost.data));
-const posts = unsortedPosts.sort((a: Post, b: Post) => {
-    return b.pubDate.getTime() - a.pubDate.getTime();
-});
 
 const numPages = Math.ceil(posts.length / NUM_PER_PAGE);
 ---

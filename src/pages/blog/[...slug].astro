@@ -1,26 +1,44 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render, type CollectionEntry } from "astro:content";
 
-import { toPost } from "@lib/blog/post";
+import { rawPosts, posts } from "@lib/blog";
+import type { Post } from "@lib/blog/post";
+
 import BlogLayout from "@layouts/BlogLayout.astro";
 
 // Generate a new path for every collection entry
 export async function getStaticPaths() {
-    const rawPosts = await getCollection("blog");
-    return rawPosts.map((rawPost) => {
-        const post = toPost(rawPost.data);
+    return rawPosts.map((rawPost, i) => {
         return {
-            params: { slug: post.slug },
-            props: { rawPost },
+            params: { slug: posts[i].slug },
+            props: {
+                rawPost: rawPost,
+                navigation: {
+                    prev: i < posts.length - 1 ? posts[i + 1] : undefined,
+                    next: i > 0 ? posts[i - 1] : undefined,
+                },
+            },
         };
     });
 }
 
 // Get the entry directly from the prop
-const { rawPost } = Astro.props;
+export interface Props {
+    /** The blog post */
+    rawPost: CollectionEntry<"blog">;
+    /** Navigation links */
+    navigation: {
+        /** Previous blog post, based on date */
+        prev?: Post;
+        /** Next blog post, based on date */
+        next?: Post;
+    };
+}
+
+const { rawPost, navigation } = Astro.props;
 const { Content, headings } = await render(rawPost);
 ---
 
-<BlogLayout post={rawPost.data} filepath={rawPost.filePath} headings={headings}>
+<BlogLayout post={rawPost.data} filepath={rawPost.filePath} navigation={navigation} headings={headings}>
     <Content />
 </BlogLayout>

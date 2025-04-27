@@ -2,7 +2,7 @@
 import type { MarkdownHeading } from "astro";
 import type { CollectionEntry } from "astro:content";
 
-import { toPost } from "@lib/blog/post";
+import { toPost, type Post } from "@lib/blog/post";
 import { humanizeDate } from "@lib/misc/dates";
 
 import SEO from "@components/top/SEO.astro";
@@ -18,11 +18,23 @@ export interface Props {
     post: CollectionEntry<"blog">["data"];
     /** Path to the blog source file */
     filepath?: string;
+    /** Navigation links */
+    navigation: {
+        /** Previous blog post, based on date */
+        prev?: Post;
+        /** Next blog post, based on date */
+        next?: Post;
+    };
     /** List of headings in the blog */
     headings: MarkdownHeading[];
 }
 
-const { post: rawPost, filepath, headings } = Astro.props;
+const {
+    post: rawPost,
+    filepath,
+    navigation: { prev: prevPost, next: nextPost },
+    headings,
+} = Astro.props;
 const post = toPost(rawPost);
 
 if (filepath === undefined) {
@@ -143,6 +155,60 @@ if (post.image !== undefined) {
                     <span>Licensing</span>
                 </a>
             </div>
+
+            {/* Previous/next links */}
+            <nav
+                class="*:group mt-4 grid w-full grid-cols-1 gap-4 *:flex *:flex-row *:items-center *:gap-4 *:rounded-2xl *:border-2 *:border-gray-700 *:bg-gray-800/30 *:p-4 *:!text-gray-300 *:hover:!text-gray-400 md:grid-cols-2"
+            >
+                {
+                    prevPost && (
+                        <a href={`/blog/${prevPost.slug}`}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-6"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                                />
+                            </svg>
+                            <div class="flex grow flex-col">
+                                <span class="text-base">Previous</span>
+                                <span class="text-xl">{prevPost.title}</span>
+                            </div>
+                        </a>
+                    )
+                }
+                {
+                    nextPost && (
+                        <a class="col-start-2" href={`/blog/${nextPost.slug}`}>
+                            <div class="flex grow flex-col">
+                                <span class="text-base">Next</span>
+                                <span class="text-xl">{nextPost.title}</span>
+                            </div>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-6"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                                />
+                            </svg>
+                        </a>
+                    )
+                }
+            </nav>
         </article>
     </section>
 
