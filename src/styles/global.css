@@ -1,8 +1,10 @@
 @import "tailwindcss";
-
 @import "tailwindcss-intersect";
+@import "flowbite/src/themes/default";
+
 @plugin "@tailwindcss/forms";
 @plugin "tailwindcss-animate";
+@plugin "flowbite/plugin";
 
 @theme {
     --font-sans: "DM Sans", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif";

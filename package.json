@@ -21,6 +21,7 @@
         "astro": "^5.7.5",
         "astro-robots-txt": "^1.0.0",
         "astro-seo": "^0.8.4",
+        "flowbite": "^3.1.2",
         "git-last-commit": "^1.0.1",
         "jquery": "^3.7.1",
         "nanostores": "^1.0.1",
