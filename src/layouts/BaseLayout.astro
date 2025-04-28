@@ -51,6 +51,9 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         </noscript>
         <slot name="head-fonts" />
 
+        {/* Stylesheets */}
+        <!-- <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" /> -->
+
         {/* Scripts */}
         <script>
             import { Observer } from "tailwindcss-intersect";
@@ -72,6 +75,8 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         </div>
         <ScrollToTopButton client:visible />
         <Footer class="h-24" />
+
+        <script src="@node_modules/flowbite/dist/flowbite.min.js"></script>
     </body>
 </html>
 
