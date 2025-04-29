@@ -331,18 +331,17 @@ if (post.image !== undefined) {
                 <div class="space-y-4 p-4 md:p-5">
                     <div>
                         <h4 class="text-lg font-semibold text-white">APA7</h4>
-                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                            Kan, O. K. ({citationDate(post.pubDate)}). <span class="italic">{post.title}</span>.
-                            Photonic. Retrieved {citationDate(new Date(), false)}, from <a href={Astro.url}
-                                >{Astro.url}</a
-                            >
+                        <p class="text-base leading-tight">
+                            Kan, O. K. ({citationDate(post.pubDate)}). <em class="italic">{post.title}</em>.
+                            Photonic. Retrieved {citationDate(new Date(), false)}, from
+                            <a href={Astro.url}>{Astro.url}</a>
                         </p>
                     </div>
                     <div>
                         <h4 class="text-lg font-semibold text-white">BibTeX</h4>
                         <pre
                             class="*:not-last:block"
-                            id="bibtex-citation"><code>{`@misc{Photonic_${post.pubDate.getFullYear()},`}</code><code>{`  title={${post.title}},`}</code><code>{`  url={${Astro.url}},`}</code><code>{"  journal={Photonic},"}</code><code>{"  author={Kan, Onn Kit},"}</code><code>{`  year={${post.pubDate.getFullYear()}},`}</code><code>{`  month={${strMonth(post.pubDate.getMonth()).substring(0, 3)}},`}</code><code>{"}"}</code></pre>
+                            id="bibtex-citation"><code>{`@misc{Photonic_${post.pubDate.getFullYear()},`}</code><code>{`  title={${post.title}},`}</code><code>{`  url={${Astro.url}},`}</code><code>{"  journal={Photonic},"}</code><code>{"  author={Kan, Onn Kit},"}</code><code>{`  year={${post.pubDate.getFullYear()}},`}</code><code>{`  month={${strMonth(post.pubDate.getMonth()).substring(0, 3)}},`}</code><code>{`  day={${post.pubDate.getDate()}}`}</code><code>{"}"}</code></pre>
                     </div>
                 </div>
             </div>
