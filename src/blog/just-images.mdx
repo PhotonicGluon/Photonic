@@ -1,0 +1,73 @@
+---
+title: "Just Images"
+pubDate: 2025-04-29
+summary: "Literally a blog post of images"
+image:
+    url: "/no-image.png"
+    alt: "The no image image"
+tags: []
+---
+
+# Inline Images
+
+## In `src`
+
+```md
+![Inline 1](src/images/logo.png)
+```
+
+![Inline 1](src/images/logo.png)
+
+## In `public`
+
+```md
+![Inline 2](/no-image.png)
+```
+
+![Inline 2](/no-image.png)
+
+## From Remote
+
+```md
+![Inline 3](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png)
+```
+
+![Inline 3](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png)
+
+# Footnote-style Images
+
+## In `src`
+
+```md
+![Footnote-style 1][ref-1]
+
+[ref-1]: src/images/logo.png
+```
+
+![Footnote-style 1][ref-1]
+
+[ref-1]: src/images/logo.png
+
+## In `public`
+
+```md
+![Footnote-style 2][ref-2]
+
+[ref-2]: /no-image.png
+```
+
+![Footnote-style 2][ref-2]
+
+[ref-2]: /no-image.png
+
+## From Remote
+
+```md
+![Footnote-style 3][ref-3]
+
+[ref-3]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png
+```
+
+![Footnote-style 3][ref-3]
+
+[ref-3]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png

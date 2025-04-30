@@ -76,7 +76,7 @@ if (post.image !== undefined) {
 
     {/* Main stuff */}
     <section
-        class="flex flex-col gap-4 divide-y-2 divide-solid divide-gray-500/25 *:max-w-screen-md lg:not-print:flex-row lg:not-print:gap-2 lg:not-print:divide-none print:gap-1 print:divide-gray-800"
+        class="relative flex flex-col gap-4 divide-y-2 divide-solid divide-gray-500/25 *:max-w-screen-md lg:not-print:flex-row lg:not-print:gap-2 lg:not-print:divide-none print:gap-1 print:divide-gray-800"
     >
         {/* List of contents */}
         <aside
@@ -119,9 +119,16 @@ if (post.image !== undefined) {
 
         {/* Blog post */}
         <article
-            class="mx-auto w-full self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4 print:order-2"
+            class="z-10 mx-auto w-full self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4 print:order-2"
             id="blog-post"
         >
+            {/* Blur overlay on image zoom */}
+            <div
+                class="fixed top-0 right-0 bottom-0 left-0 z-100 hidden h-full w-full bg-gray-900/90"
+                id="blur-overlay"
+            >
+            </div>
+
             {/* Main content */}
             <slot />
 
@@ -228,7 +235,7 @@ if (post.image !== undefined) {
 
     {/* Reading progress indication for mobile */}
     <div
-        class="fixed top-0 left-0 block w-full -translate-y-full bg-gradient-to-tr from-gray-950 via-slate-800 via-75% to-gray-900 transition-all duration-500 ease-out lg:hidden print:hidden [&.showing]:translate-y-0"
+        class="fixed top-0 left-0 z-10 block w-full -translate-y-full bg-gradient-to-tr from-gray-950 via-slate-800 via-75% to-gray-900 transition-all duration-500 ease-out lg:hidden print:hidden [&.showing]:translate-y-0"
         id="progress-container"
     >
         {/* Main stuff */}
@@ -294,10 +301,10 @@ if (post.image !== undefined) {
 
     {/* Citation modal */}
     <div
+        class="fixed top-0 right-0 left-0 z-60 hidden h-full w-full items-center justify-center overflow-x-hidden overflow-y-auto bg-gray-900/80 md:inset-0"
         id="citation-modal"
         tabindex="-1"
         aria-hidden="true"
-        class="fixed top-0 right-0 left-0 z-60 hidden h-full w-full items-center justify-center overflow-x-hidden overflow-y-auto bg-gray-900/80 md:inset-0"
     >
         <div class="relative max-h-full w-full max-w-2xl p-4">
             <div class="relative rounded-lg bg-gray-700 shadow-sm">

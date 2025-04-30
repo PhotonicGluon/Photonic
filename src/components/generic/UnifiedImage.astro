@@ -12,7 +12,7 @@ interface RequiredProps {
     alt: string;
 }
 
-type Props = Omit<HTMLAttributes<"img">, "width" | "height"> & RequiredProps;
+type Props = Omit<HTMLAttributes<"img">, "src" | "width" | "height"> & RequiredProps;
 
 const { src, alt, ...attributes } = Astro.props;
 

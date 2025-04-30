@@ -4,6 +4,8 @@ import { render, type CollectionEntry } from "astro:content";
 import { rawPosts, posts } from "@lib/blog";
 import type { Post } from "@lib/blog/post";
 
+import BlogImage from "@components/blog/BlogImage.astro";
+
 import BlogLayout from "@layouts/BlogLayout.astro";
 
 // Generate a new path for every collection entry
@@ -40,5 +42,5 @@ const { Content, headings } = await render(rawPost);
 ---
 
 <BlogLayout post={rawPost.data} filepath={rawPost.filePath} navigation={navigation} headings={headings}>
-    <Content />
+    <Content components={{ img: BlogImage }} />
 </BlogLayout>
