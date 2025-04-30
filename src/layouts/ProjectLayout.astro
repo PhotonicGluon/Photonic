@@ -4,12 +4,12 @@ import type { CollectionEntry } from "astro:content";
 import { toProject } from "@lib/projects/project";
 import { toDateString } from "@lib/misc/dates";
 
-import ProjectBanner from "@components/projects/ProjectBanner.astro";
 import ProjectTags from "@components/projects/ProjectTags";
 import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 import SEO from "@components/top/SEO.astro";
 
 import MainLayout from "@layouts/MainLayout.astro";
+import UnifiedImage from "@components/generic/UnifiedImage.astro";
 
 // Get the project
 type Props = CollectionEntry<"projects">["data"];
@@ -50,7 +50,7 @@ const project = toProject(Astro.props);
     {
         project.banner && (
             <div class="w-full max-w-screen motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4">
-                <ProjectBanner
+                <UnifiedImage
                     src={project.banner}
                     alt={`${project.name} Banner`}
                     class="mx-auto w-auto px-10 drop-shadow-lg md:max-w-screen-sm print:max-h-64"

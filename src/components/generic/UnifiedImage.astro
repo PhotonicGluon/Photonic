@@ -1,0 +1,40 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { inferRemoteSize, emitImageMetadata } from "astro/assets/utils";
+import type { HTMLAttributes } from "astro/types";
+
+// Define props
+interface RequiredProps {
+    /** Source of the image */
+    src: string | ImageMetadata;
+    /** Alternative text if the image cannot be displayed */
+    alt: string;
+}
+
+type Props = Omit<HTMLAttributes<"img">, "width" | "height"> & RequiredProps;
+
+const { src, alt, ...attributes } = Astro.props;
+
+if (alt === "") {
+    throw Error(`Image with src '${src}' should have a non-empty alt tag`);
+}
+
+// Determine metadata of remote image
+let metadata = null;
+if (typeof src === "string") {
+    if (src.startsWith("/")) {
+        metadata = (await emitImageMetadata(`public${src}`))!;
+    } else {
+        metadata = await inferRemoteSize(src);
+    }
+}
+---
+
+{
+    typeof src === "string" ? (
+        <Image src={src} alt={alt} width={metadata?.width!} height={metadata?.height!} {...attributes} />
+    ) : (
+        <Image src={src} alt={alt} {...attributes} />
+    )
+}
