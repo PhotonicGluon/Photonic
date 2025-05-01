@@ -16,10 +16,16 @@ const { src, alt } = Astro.props;
 {/* Actual figure */}
 <figure class="group image-wrapper flex flex-col items-center">
     <picture
-        class="flex h-auto translate-x-(--shift-x) translate-y-(--shift-y) flex-col items-center transition-transform duration-300 ease-in-out group-[&.clicked]:absolute group-[&.clicked]:z-110 hover:cursor-zoom-in group-[&.clicked]:hover:cursor-zoom-out"
+        class="flex translate-x-(--shift-x) translate-y-(--shift-y) flex-col items-center transition-transform duration-300 ease-in-out group-[&.clicked]:absolute group-[&.clicked]:z-110 group-[&.clicked]:px-10 hover:cursor-zoom-in group-[&.clicked]:hover:cursor-zoom-out focus:scale-105 focus:outline-none"
+        tabindex="0"
     >
-        {/* TODO: Actually calculate the zooming factor... */}
-        <UnifiedImage src={src} alt={alt} class="h-auto rounded-3xl transition-transform" />
+        <UnifiedImage
+            src={src}
+            alt={alt}
+            class="h-auto scale-(--scale-factor) rounded-3xl transition-transform duration-300 ease-in-out"
+            loading="lazy"
+        />
+        <div class="hidden h-[80vh] w-screen max-w-screen-md px-10"></div>
     </picture>
     <figcaption class="block text-base text-gray-500 group-[&.clicked]:hidden">
         {alt}
@@ -53,9 +59,15 @@ const { src, alt } = Astro.props;
     document.querySelectorAll(".image-wrapper").forEach((element) => {
         const wrapper = $(element);
         const picture = wrapper.children("picture");
+        const scaleReferenceElem = picture.children("div");
 
         const width = picture.width()!;
         const height = picture.height()!;
+
+        let scaleFactor = Math.min(scaleReferenceElem.width()! / width, scaleReferenceElem.height()! / height);
+        if (scaleFactor < 1) {
+            scaleFactor = 1;
+        }
 
         function handleZoom() {
             // Compute image's position relative to viewport edges
@@ -77,6 +89,7 @@ const { src, alt } = Astro.props;
             wrapper.addClass("clicked");
             picture.css("--shift-x", `${deltaX}px`);
             picture.css("--shift-y", `${deltaY}px`);
+            picture.css("--scale-factor", `${scaleFactor * 100}%`);
 
             // Apply blur
             blurOverlayElem.addClass("flex");
@@ -92,6 +105,7 @@ const { src, alt } = Astro.props;
             wrapper.removeClass("clicked");
             picture.css("--shift-x", "0");
             picture.css("--shift-y", "0");
+            picture.css("--scale-factor", "100%");
 
             // Undo blur
             blurOverlayElem.removeClass("flex");
