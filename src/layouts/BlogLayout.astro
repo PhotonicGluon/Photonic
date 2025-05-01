@@ -124,7 +124,7 @@ if (post.image !== undefined) {
         >
             {/* Blur overlay on image zoom */}
             <div
-                class="fixed top-0 right-0 bottom-0 left-0 z-100 hidden h-full w-full bg-gray-900/90"
+                class="fixed top-0 right-0 bottom-0 left-0 z-100 hidden h-full w-full bg-gray-900/90 print:hidden"
                 id="blur-overlay"
             >
             </div>
@@ -134,7 +134,7 @@ if (post.image !== undefined) {
 
             {/* Links */}
             <div
-                class="mx-auto mt-12 flex w-full flex-col items-center gap-4 md:mx-0 md:w-max md:flex-row md:gap-8 [&_a]:inline-flex [&_a]:items-center [&_a]:!text-gray-400 [&_a]:hover:!text-gray-500 [&_a_span]:pl-2 [&_a_span]:text-sm [&_a_svg]:size-6"
+                class="mx-auto mt-12 flex w-full flex-col items-center gap-4 md:mx-0 md:w-max md:flex-row md:gap-8 print:hidden [&_a]:inline-flex [&_a]:items-center [&_a]:!text-gray-400 [&_a]:hover:!text-gray-500 [&_a_span]:pl-2 [&_a_span]:text-sm [&_a_svg]:size-6"
             >
                 <a href={BLOG_PATH_BASE_URL + filepath}>
                     <svg
@@ -179,7 +179,7 @@ if (post.image !== undefined) {
 
             {/* Previous/next links */}
             <nav
-                class="*:group mt-4 grid w-full grid-cols-1 gap-4 *:flex *:flex-row *:items-center *:gap-4 *:rounded-2xl *:border-2 *:border-gray-700 *:bg-gray-800/30 *:p-4 *:!text-gray-300 *:hover:!text-gray-400 md:grid-cols-2"
+                class="*:group mt-4 grid w-full grid-cols-1 gap-4 *:flex *:flex-row *:items-center *:gap-4 *:rounded-2xl *:border-2 *:border-gray-700 *:bg-gray-800/30 *:p-4 *:!text-gray-300 *:hover:!text-gray-400 md:grid-cols-2 print:hidden"
             >
                 {
                     prevPost && (
@@ -357,7 +357,7 @@ if (post.image !== undefined) {
 </MainLayout>
 
 <div class="hidden" id="link-for-heading">
-    <a class="inline pl-4 !text-gray-400 hover:!text-gray-500 lg:hidden lg:group-hover:inline">
+    <a class="inline pl-4 !text-gray-400 hover:!text-gray-500 lg:hidden lg:group-hover:inline print:hidden">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
