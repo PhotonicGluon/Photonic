@@ -1,0 +1,697 @@
+---
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
+
+import { toPost, type Post } from "@lib/blog/post";
+import { citationDate, humanizeDate, strMonth } from "@lib/misc/dates";
+
+import SEO from "@components/top/SEO.astro";
+import KaTeXLoader from "@components/misc/KaTeXLoader.astro";
+import TailwindBreakpointChecker from "@components/misc/TailwindBreakpointChecker.astro";
+
+import MainLayout from "@layouts/MainLayout.astro";
+
+const BLOG_PATH_BASE_URL = "https://github.com/PhotonicGluon/Photonic/edit/main/";
+
+export interface Props {
+    /** Main blog post data */
+    post: CollectionEntry<"blog">["data"];
+    /** Path to the blog source file */
+    filepath?: string;
+    /** Navigation links */
+    navigation: {
+        /** Previous blog post, based on date */
+        prev?: Post;
+        /** Next blog post, based on date */
+        next?: Post;
+    };
+    /** List of headings in the blog */
+    headings: MarkdownHeading[];
+}
+
+const {
+    post: rawPost,
+    filepath,
+    navigation: { prev: prevPost, next: nextPost },
+    headings,
+} = Astro.props;
+const post = toPost(rawPost);
+
+if (filepath === undefined) {
+    throw new Error("Missing filepath");
+}
+
+// Generate OGP data for SEO
+const ogpData: any = {
+    title: post.title,
+    description: post.summary,
+};
+if (post.image !== undefined) {
+    ogpData.image = {
+        url: post.image.url,
+        alt: post.image.alt,
+    };
+} else {
+    // Use the "no image" image
+    ogpData.image = {
+        url: Astro.site + "no-image.png",
+        alt: "No image provided",
+        type: "image/png",
+    };
+}
+---
+
+{/* Main content */}
+<MainLayout title={post.title} subtitle={humanizeDate(new Date(post.pubDate))}>
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO title={post.title} description={post.summary} openGraph={ogpData} />
+    </Fragment>
+
+    {/* Handles obtaining the TailwindCSS breakpoint */}
+    <TailwindBreakpointChecker />
+
+    {/* Load KaTeX stuff if requested */}
+    {post.hasMath && <KaTeXLoader />}
+
+    {/* Main stuff */}
+    <section
+        class="relative flex flex-col gap-4 divide-y-2 divide-solid divide-gray-500/25 *:max-w-screen-md lg:not-print:flex-row lg:not-print:gap-2 lg:not-print:divide-none print:gap-1 print:divide-gray-800"
+    >
+        {/* List of contents */}
+        <aside
+            class="pb-4 motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:not-print:order-2 lg:not-print:w-64 lg:not-print:pb-0 lg:not-print:pl-2 motion-safe:lg:slide-in-from-right-4 print:mx-auto print:w-full"
+            id="list-of-contents"
+            data-headings={JSON.stringify(headings)}
+        >
+            <div class="not-print:sticky not-print:top-3">
+                {/* Actual list */}
+                <span class="block text-2xl font-bold lg:not-print:text-lg">Contents</span>
+                <ul class="block text-base not-print:space-y-2 lg:not-print:text-sm/4 print:!p-0">
+                    {
+                        headings.map((heading) => (
+                            <li
+                                class="loc-entry pl-(--depth) text-left"
+                                style={{ "--depth": (heading.depth - 1) * 0.75 + "em" }}
+                                id={`loc-${heading.slug}`}
+                            >
+                                <a
+                                    class="!text-gray-300 hover:!text-gray-400 print:!text-black"
+                                    href={`#${heading.slug}`}
+                                >
+                                    {heading.text}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+
+                {/* Active heading styling */}
+                <style>
+                    @import "@styles/global.css";
+
+                    .loc-entry.active {
+                        @apply lg:not-print:font-bold;
+                    }
+                </style>
+            </div>
+        </aside>
+
+        {/* Blog post */}
+        <article
+            class="z-10 mx-auto w-full self-start motion-safe:delay-200 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards lg:sticky lg:top-3 lg:order-1 motion-safe:lg:slide-in-from-left-4 print:order-2"
+            id="blog-post"
+        >
+            {/* Blur overlay on image zoom */}
+            <div
+                class="fixed top-0 right-0 bottom-0 left-0 z-100 hidden h-full w-full bg-gray-900/90 print:hidden"
+                id="blur-overlay"
+            >
+            </div>
+
+            {/* Main content */}
+            <slot />
+
+            {/* Links */}
+            <div
+                class="mx-auto mt-12 flex w-full flex-col items-center gap-4 md:mx-0 md:w-max md:flex-row md:gap-8 print:hidden [&_a]:inline-flex [&_a]:items-center [&_a]:!text-gray-400 [&_a]:hover:!text-gray-500 [&_a_span]:pl-2 [&_a_span]:text-sm [&_a_svg]:size-6"
+            >
+                <a href={BLOG_PATH_BASE_URL + filepath}>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                        ></path>
+                    </svg>
+                    <span>Suggest an edit</span>
+                </a>
+                <a href="/licensing#blog-posts">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            fill-rule="evenodd"
+                            d="M12 2.25a.75.75 0 0 1 .75.75v.756a49.106 49.106 0 0 1 9.152 1 .75.75 0 0 1-.152 1.485h-1.918l2.474 10.124a.75.75 0 0 1-.375.84A6.723 6.723 0 0 1 18.75 18a6.723 6.723 0 0 1-3.181-.795.75.75 0 0 1-.375-.84l2.474-10.124H12.75v13.28c1.293.076 2.534.343 3.697.776a.75.75 0 0 1-.262 1.453h-8.37a.75.75 0 0 1-.262-1.453c1.162-.433 2.404-.7 3.697-.775V6.24H6.332l2.474 10.124a.75.75 0 0 1-.375.84A6.723 6.723 0 0 1 5.25 18a6.723 6.723 0 0 1-3.181-.795.75.75 0 0 1-.375-.84L4.168 6.241H2.25a.75.75 0 0 1-.152-1.485 49.105 49.105 0 0 1 9.152-1V3a.75.75 0 0 1 .75-.75Zm4.878 13.543 1.872-7.662 1.872 7.662h-3.744Zm-9.756 0L5.25 8.131l-1.872 7.662h3.744Z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span>Licensing</span>
+                </a>
+                <a
+                    href="javascript:void(0);"
+                    data-modal-target="citation-modal"
+                    data-modal-toggle="citation-modal"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            fill-rule="evenodd"
+                            d="M4.125 3C3.089 3 2.25 3.84 2.25 4.875V18a3 3 0 0 0 3 3h15a3 3 0 0 1-3-3V4.875C17.25 3.839 16.41 3 15.375 3H4.125ZM12 9.75a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 0-1.5H12Zm-.75-2.25a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5H12a.75.75 0 0 1-.75-.75ZM6 12.75a.75.75 0 0 0 0 1.5h7.5a.75.75 0 0 0 0-1.5H6Zm-.75 3.75a.75.75 0 0 1 .75-.75h7.5a.75.75 0 0 1 0 1.5H6a.75.75 0 0 1-.75-.75ZM6 6.75a.75.75 0 0 0-.75.75v3c0 .414.336.75.75.75h3a.75.75 0 0 0 .75-.75v-3A.75.75 0 0 0 9 6.75H6Z"
+                            clip-rule="evenodd"></path>
+                        <path d="M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 0 1-3 0V6.75Z"></path>
+                    </svg>
+                    <span>Cite this post</span>
+                </a>
+            </div>
+
+            {/* Previous/next links */}
+            <nav
+                class="*:group mt-4 grid w-full grid-cols-1 gap-4 *:flex *:flex-row *:items-center *:gap-4 *:rounded-2xl *:border-2 *:border-gray-700 *:bg-gray-800/30 *:p-4 *:!text-gray-300 *:hover:!text-gray-400 md:grid-cols-2 print:hidden"
+            >
+                {
+                    prevPost && (
+                        <a href={`/blog/${prevPost.slug}`}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-6"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+                                />
+                            </svg>
+                            <div class="flex grow flex-col">
+                                <span class="text-base">Previous</span>
+                                <span class="text-xl">{prevPost.title}</span>
+                            </div>
+                        </a>
+                    )
+                }
+                {
+                    nextPost && (
+                        <a class="md:col-start-2" href={`/blog/${nextPost.slug}`}>
+                            <div class="flex grow flex-col">
+                                <span class="text-base">Next</span>
+                                <span class="text-xl">{nextPost.title}</span>
+                            </div>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-6"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                                />
+                            </svg>
+                        </a>
+                    )
+                }
+            </nav>
+        </article>
+    </section>
+
+    {/* Reading progress indication for mobile */}
+    <div
+        class="fixed top-0 left-0 z-10 block w-full -translate-y-full bg-gradient-to-tr from-gray-950 via-slate-800 via-75% to-gray-900 transition-all duration-500 ease-out lg:hidden print:hidden [&.showing]:translate-y-0"
+        id="progress-container"
+    >
+        {/* Main stuff */}
+        <div class="h-16 w-full" id="progress-indicator">
+            <div class="flex h-12 items-center">
+                <span class="pl-4 font-bold" id="progress-heading"></span>
+            </div>
+
+            <div
+                class="h-4 w-full origin-[0_50%] transform-[scaleX(0)] bg-gradient-to-r from-indigo-600 to-blue-400"
+                id="progress-bar"
+                style={{
+                    "--start-range": "100%", // Default is to not show the progress bar
+                }}
+            >
+            </div>
+        </div>
+
+        {/* Progress bar styling and scripting */}
+        <style>
+            html {
+                scroll-timeline: --page-scroll block;
+            }
+
+            @keyframes grow-progress {
+                from {
+                    transform: scaleX(0);
+                }
+                to {
+                    transform: scaleX(1);
+                }
+            }
+
+            #progress-bar.with-timeline {
+                animation: grow-progress auto linear;
+                animation-timeline: --page-scroll;
+                animation-range: entry-crossing var(--start-range) exit-crossing 100%;
+            }
+        </style>
+        <script>
+            import $ from "jquery";
+            import { isAnimationTimelineSupported } from "@lib/misc/checks";
+
+            if (isAnimationTimelineSupported()) {
+                $("#progress-bar").addClass("with-timeline");
+            }
+
+            /**
+             * Set the progress bar start range
+             */
+            function setProgressBarStartRange() {
+                const blogPostY = $("#blog-post")!.offset()!.top;
+                const fullHeight = $(document).height()!;
+
+                $("#progress-bar").css("--start-range", `${(blogPostY / fullHeight) * 100}%`);
+            }
+
+            // Trigger on window resize or document load
+            $(setProgressBarStartRange);
+            $(window).on("resize", setProgressBarStartRange);
+        </script>
+    </div>
+
+    {/* Citation modal */}
+    <div
+        class="fixed top-0 right-0 left-0 z-60 hidden h-full w-full items-center justify-center overflow-x-hidden overflow-y-auto bg-gray-900/80 md:inset-0"
+        id="citation-modal"
+        tabindex="-1"
+        aria-hidden="true"
+    >
+        <div class="relative max-h-full w-full max-w-2xl p-4">
+            <div class="relative rounded-lg bg-gray-700 shadow-sm">
+                {/* Header */}
+                <div class="flex items-center justify-between rounded-t border-b border-gray-600 p-4 md:p-5">
+                    <h3 class="text-xl font-bold text-white">Citing This Post</h3>
+                    <button
+                        type="button"
+                        class="ms-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-gray-400 transition-all duration-200 hover:cursor-pointer hover:text-gray-500"
+                        data-modal-hide="citation-modal"
+                    >
+                        <svg
+                            class="h-3 w-3"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 14"
+                        >
+                            <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"></path>
+                        </svg>
+                        <span class="sr-only">Close Modal</span>
+                    </button>
+                </div>
+
+                {/* Modal body */}
+                <div class="space-y-4 p-4 md:p-5">
+                    <div>
+                        <h4 class="text-lg font-semibold text-white">APA7</h4>
+                        <p class="text-base leading-tight">
+                            Kan, O. K. ({citationDate(post.pubDate)}). <em class="italic">{post.title}</em>.
+                            Photonic. Retrieved {citationDate(new Date(), false)}, from
+                            <a href={Astro.url}>{Astro.url}</a>
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-semibold text-white">BibTeX</h4>
+                        <pre
+                            class="*:not-last:block"
+                            id="bibtex-citation"><code>{`@misc{Photonic_${post.pubDate.getFullYear()},`}</code><code>{`  title={${post.title}},`}</code><code>{`  url={${Astro.url}},`}</code><code>{"  journal={Photonic},"}</code><code>{"  author={Kan, Onn Kit},"}</code><code>{`  year={${post.pubDate.getFullYear()}},`}</code><code>{`  month={${strMonth(post.pubDate.getMonth()).substring(0, 3)}},`}</code><code>{`  day={${post.pubDate.getDate()}}`}</code><code>{"}"}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</MainLayout>
+
+<div class="hidden" id="link-for-heading">
+    <a class="inline pl-4 !text-gray-400 hover:!text-gray-500 lg:hidden lg:group-hover:inline print:hidden">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="inline size-4 group-[&_h1]:size-6 group-[&_h2]:size-5 md:group-[&_h1]:size-7 md:group-[&_h2]:size-6 md:group-[&_h3]:size-5"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+            ></path>
+        </svg>
+    </a>
+</div>
+
+{/* Script to add permalinks for headings */}
+<script>
+    import $ from "jquery";
+
+    const headingWrappers = $(".heading-wrapper");
+    for (const headingWrapper of headingWrappers) {
+        headingWrapper.classList.add("group");
+        const heading = headingWrapper.querySelector("h1,h2,h3,h4,h5,h6")!;
+        const slug = heading.id;
+        const linkForHeading = $("#link-for-heading a")[0].cloneNode(true) as HTMLAnchorElement;
+        linkForHeading.href = `#${slug}`;
+        heading.append(linkForHeading);
+    }
+</script>
+
+{/* Script to handle active heading */}
+<script>
+    import type { MarkdownHeading } from "astro";
+    import $ from "jquery";
+
+    import { searchSorted } from "@lib/misc/iterables";
+
+    // Get elements
+    const progressContainer = $("#progress-container")!;
+    const listOfContents = $("#list-of-contents")!;
+
+    // Get headings
+    const headings = listOfContents.data("headings")! as MarkdownHeading[];
+    delete listOfContents[0].dataset.headings; // No need to keep it now that we have it
+
+    // Update heading positions on window load or resize
+    let headingPositions: number[] = [];
+    function updateHeadingPositions() {
+        headingPositions = headings.map((heading) => {
+            return $(`#${heading.slug}`).offset()!.top;
+        });
+    }
+
+    $(window).on("resize", () => {
+        updateHeadingPositions();
+    });
+
+    // Handle active heading
+    let headingIndex: number = -1;
+    function updateActiveHeading() {
+        if (headingPositions.length === 0) {
+            return;
+        }
+
+        // Calculate the current 'viewer' y position
+        // @ts-ignore
+        const tailwindBreakpoint: string = window.tailwindBreakpoint; // From the tailwind breakpoint checker
+        let viewY;
+        if (tailwindBreakpoint === "xs" || tailwindBreakpoint === "sm" || tailwindBreakpoint === "md") {
+            // Take bottom of the progress container, plus a bit
+            viewY = window.scrollY + progressContainer.height()! + 16;
+        } else {
+            // Take middle of screen
+            viewY = window.scrollY + window.innerHeight / 2;
+        }
+
+        // Show/hide the progress indicator for mobile
+        if (viewY > headingPositions[0]) {
+            progressContainer.addClass("showing");
+        } else {
+            progressContainer.removeClass("showing");
+        }
+
+        // Find nearest heading
+        const newHeadingIndex = searchSorted(headingPositions, viewY) - 1; // -1 because we want the previous heading
+        if (newHeadingIndex === headingIndex) {
+            return;
+        }
+
+        // Update active heading
+        let activeHeading: MarkdownHeading | null = null;
+        if (headingIndex !== -1) {
+            $(`#loc-${headings[headingIndex].slug}`).removeClass("active");
+        }
+        if (newHeadingIndex !== -1) {
+            activeHeading = headings[newHeadingIndex];
+            $(`#loc-${activeHeading.slug}`).addClass("active");
+        }
+
+        headingIndex = newHeadingIndex;
+
+        // Update shown heading for mobile
+        if (activeHeading) {
+            $("#progress-heading").text(activeHeading.text);
+        }
+    }
+
+    $(window).on("scroll", () => {
+        updateActiveHeading();
+    });
+
+    // Handle initial load
+    $(() => {
+        updateHeadingPositions();
+        updateActiveHeading();
+    });
+</script>
+
+{/* Blog page styling */}
+<style is:global>
+    @import "@styles/global.css";
+
+    /* General */
+    #blog-post p {
+        @apply leading-snug md:leading-normal;
+    }
+
+    :target::before {
+        /* Adjusts the position of the anchor to be above the mobile progress heading */
+        @apply -mt-16 block h-16 content-[""] lg:content-none;
+    }
+
+    /* Headings */
+    #blog-post h1 {
+        @apply mt-2 mb-0.5 text-3xl font-extrabold md:text-4xl;
+    }
+
+    #blog-post h2 {
+        @apply mt-2 mb-0.5 text-2xl font-bold md:text-3xl;
+    }
+
+    #blog-post h3 {
+        @apply mt-1.5 mb-0.5 text-xl font-bold md:text-2xl;
+    }
+
+    #blog-post h4 {
+        @apply mt-1.5 text-lg font-bold md:text-xl;
+    }
+
+    #blog-post h5 {
+        @apply mt-1 text-base font-bold md:text-lg;
+    }
+
+    #blog-post h6 {
+        @apply mt-1 text-base font-bold;
+    }
+
+    /* Lists */
+    #blog-post ul,
+    #blog-post ol {
+        @apply list-outside space-y-2 pl-4;
+    }
+    #blog-post ul {
+        @apply list-disc;
+    }
+
+    #blog-post ol {
+        @apply list-decimal;
+    }
+
+    #blog-post li * {
+        @apply pb-0 wrap-break-word;
+    }
+
+    #blog-post li > ul,
+    #blog-post li > ol {
+        @apply space-y-1;
+    }
+
+    /* Blockquotes */
+    #blog-post blockquote {
+        @apply my-4 border-s-4 border-gray-600 bg-gray-800/50 p-4 print:bg-transparent;
+    }
+
+    #blog-post blockquote p {
+        @apply pb-0;
+    }
+
+    /* Code and code blocks */
+    #blog-post span[data-rehype-pretty-code-figure] > code {
+        @apply rounded-lg !bg-gray-800 px-1 py-0.5 text-gray-100 print:!bg-transparent;
+    }
+
+    #blog-post figure[data-rehype-pretty-code-figure] > pre,
+    #bibtex-citation {
+        @apply my-2 scrollbar-thin overflow-auto rounded-lg !bg-gray-800 py-4 text-sm scrollbar-thumb-gray-600 lg:scrollbar print:border print:border-gray-600 print:!bg-transparent print:whitespace-pre-wrap;
+    }
+
+    #blog-post figure[data-rehype-pretty-code-figure] > pre code,
+    #bibtex-citation code {
+        @apply leading-snug;
+    }
+
+    #blog-post figure[data-rehype-pretty-code-figure] > pre [data-line],
+    #bibtex-citation code {
+        @apply px-4;
+    }
+
+    #blog-post span[data-highlighted-line] {
+        @apply bg-gray-700;
+    }
+
+    #blog-post figure[data-rehype-pretty-code-figure] > pre code[data-line-numbers] {
+        counter-reset: line;
+    }
+
+    #blog-post figure[data-rehype-pretty-code-figure] > pre code[data-line-numbers] > [data-line]::before {
+        counter-increment: line;
+        content: counter(line);
+        @apply mr-4 inline-block w-4 text-right text-gray-500;
+    }
+
+    @media print {
+        #blog-post figure[data-rehype-pretty-code-figure] > pre code {
+            counter-reset: line;
+        }
+
+        #blog-post figure[data-rehype-pretty-code-figure] > pre code > [data-line]::before {
+            counter-increment: line;
+            content: counter(line);
+            @apply mr-4 inline-block w-4 text-right text-gray-500;
+        }
+    }
+
+    /* Tables */
+    #blog-post .markdown-table {
+        @apply mb-4 overflow-x-auto rounded-sm md:rounded-none;
+    }
+
+    #blog-post table {
+        @apply w-full table-auto text-left text-xs text-gray-400 md:mx-auto md:w-max md:text-sm print:border print:text-gray-700;
+    }
+
+    #blog-post table thead {
+        @apply bg-gray-700 text-gray-400 uppercase print:border-b print:border-gray-700 print:bg-transparent print:text-black;
+    }
+
+    #blog-post table thead tr th {
+        @apply px-4 py-1.5 print:border-e print:border-gray-700;
+    }
+
+    #blog-post table tbody tr {
+        @apply border-b border-gray-700 bg-gray-900 print:bg-transparent;
+    }
+
+    #blog-post table tbody tr td {
+        @apply px-4 py-2 print:border-e print:border-gray-700;
+    }
+
+    /* Alerts */
+    #blog-post .markdown-alert {
+        @apply mb-2 rounded-2xl border border-gray-800 px-6 py-4 md:py-6 print:!bg-none;
+    }
+
+    #blog-post .markdown-alert > :last-child {
+        @apply !mb-0 pb-0;
+    }
+
+    #blog-post .markdown-alert-title {
+        @apply mb-1 flex w-max items-center rounded px-2 py-1 align-middle text-sm font-bold md:text-base print:border-2 print:border-gray-600 print:!bg-none;
+    }
+
+    #blog-post .markdown-alert-title svg {
+        @apply mr-2 size-4 fill-current;
+    }
+
+    #blog-post .markdown-alert-note {
+        @apply bg-linear-to-tr from-sky-700/25 to-indigo-700/25;
+    }
+
+    #blog-post .markdown-alert-note .markdown-alert-title {
+        @apply bg-linear-to-tr from-sky-700 to-indigo-700;
+    }
+
+    #blog-post .markdown-alert-tip {
+        @apply bg-linear-to-tr from-emerald-700/25 to-cyan-700/25;
+    }
+
+    #blog-post .markdown-alert-tip .markdown-alert-title {
+        @apply bg-linear-to-tr from-emerald-700 to-cyan-700;
+    }
+
+    #blog-post .markdown-alert-important {
+        @apply bg-linear-to-tr from-purple-700/25 to-indigo-700/25;
+    }
+
+    #blog-post .markdown-alert-important .markdown-alert-title {
+        @apply bg-linear-to-tr from-purple-700 to-indigo-700;
+    }
+
+    #blog-post .markdown-alert-warning {
+        @apply bg-linear-to-tr from-orange-700/25 to-amber-700/25;
+    }
+
+    #blog-post .markdown-alert-warning .markdown-alert-title {
+        @apply bg-linear-to-tr from-orange-700 to-amber-700;
+    }
+
+    #blog-post .markdown-alert-caution {
+        @apply bg-linear-to-tr from-rose-700/25 to-pink-700/25;
+    }
+
+    #blog-post .markdown-alert-caution .markdown-alert-title {
+        @apply bg-linear-to-tr from-rose-700 to-pink-700;
+    }
+
+    /* Math */
+    #blog-post .katex {
+        @apply text-lg;
+    }
+
+    #blog-post .katex-display .katex {
+        @apply my-0 overflow-x-auto overflow-y-hidden py-1 text-xl;
+    }
+
+    /* Footnote section */
+    #blog-post .footnotes {
+        @apply p-0;
+    }
+
+    /* Miscellaneous */
+    #blog-post hr {
+        @apply border-1 text-gray-700;
+    }
+</style>

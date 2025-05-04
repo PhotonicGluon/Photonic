@@ -1,0 +1,28 @@
+<div
+    class=`hidden text-[1px] sm:text-[2px] md:text-[3px] lg:text-[4px] xl:text-[5px]`
+    id="tailwind-breakpoint-checker"
+>
+</div>
+
+<script>
+    import $ from "jquery";
+
+    const ID_TO_BREAKPOINT: { [id: number]: string } = {
+        1: "xs",
+        2: "sm",
+        3: "md",
+        4: "lg",
+        5: "xl",
+    };
+
+    function main() {
+        const fontSize = $("#tailwind-breakpoint-checker").css("font-size");
+        const id = fontSize.substring(0, fontSize.length - 2); // Remove "px" suffix
+        const breakpoint = ID_TO_BREAKPOINT[parseInt(id)];
+        // @ts-ignore
+        window.tailwindBreakpoint = breakpoint;
+    }
+
+    $(main);
+    $(window).on("resize", main);
+</script>

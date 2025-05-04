@@ -5,10 +5,13 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
+            "@node_modules/*": ["node_modules/*"],
             "@lib/*": ["lib/*"],
             "@components/*": ["src/components/*"],
             "@images/*": ["src/images/*"],
             "@layouts/*": ["src/layouts/*"],
+            "@pages/*": ["src/pages/*"],
+            "@blog/*": ["src/blog/*"],
             "@projects/*": ["src/projects/*", "public/projects/*"],
             "@styles/*": ["src/styles/*"],
             "@public/*": ["public/*"]
