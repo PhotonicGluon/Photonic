@@ -13,7 +13,7 @@
         "bump-version": "python3 scripts/bump_version.py"
     },
     "dependencies": {
-        "@astrojs/mdx": "^4.2.3",
+        "@astrojs/mdx": "^4.2.6",
         "@astrojs/partytown": "^2.1.4",
         "@astrojs/preact": "^4.0.11",
         "@astrojs/rss": "^4.0.11",
@@ -38,7 +38,7 @@
         "seedrandom": "^3.0.5",
         "showdown": "^2.1.0",
         "slugify": "^1.6.6",
-        "tailwindcss": "^4.0.17",
+        "tailwindcss": "^4.1.5",
         "twgl.js": "^6.1.1",
         "vite": "^6.3.4"
     },
