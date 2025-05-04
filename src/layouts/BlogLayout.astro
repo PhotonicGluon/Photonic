@@ -677,8 +677,12 @@ if (post.image !== undefined) {
     }
 
     /* Math */
-    #blog-post .katex-display {
-        @apply my-0 overflow-x-auto overflow-y-hidden py-1 text-xl lg:text-2xl;
+    #blog-post .katex {
+        @apply text-lg;
+    }
+
+    #blog-post .katex-display .katex {
+        @apply my-0 overflow-x-auto overflow-y-hidden py-1 text-xl;
     }
 
     /* Footnote section */
