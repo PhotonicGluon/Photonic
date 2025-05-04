@@ -11,7 +11,7 @@
             "@images/*": ["src/images/*"],
             "@layouts/*": ["src/layouts/*"],
             "@pages/*": ["src/pages/*"],
-            "@blog/*": ["src/pages/blog/*"],
+            "@blog/*": ["src/blog/*"],
             "@projects/*": ["src/projects/*", "public/projects/*"],
             "@styles/*": ["src/styles/*"],
             "@public/*": ["public/*"]
