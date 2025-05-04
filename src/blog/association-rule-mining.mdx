@@ -1,0 +1,304 @@
+---
+title: "A Beginner's Guide to Association Rule Mining"
+pubDate: 2025-05-04
+summary: "An overview of the key concepts and processes involved in association rule mining."
+image:
+    url: "/src/images/blog/association-rule-mining/graph-5727061_1280.png"
+    alt: "A graph with interconnected colourful nodes on a blue background."
+tags: []
+hasMath: true
+---
+
+When you are shopping in the supermarket, do you ever notice how some items are placed next to each other? For example, do you notice that chips and soda are often placed next to each other? They are not placed there without reason -- they have cold, hard data to back up the association of buying chips and soda together. And one powerful technique used to determine this association is **Association Rule Mining (ARM)**.
+
+Association Rule Mining (also known as Association Rule Learning) is a key concept in data mining that uncovers interesting correlations and relationships within data. It is used in recommendations of products, analysis of customer behaviour, and anomaly detection. At its core, association rule mining helps find the likelihood that $B$ follows from $A$.
+
+In this post, we'll look at the key concepts involved in ARM, list out some algorithms used in ARM, and give an example of ARM using the `mlxtend` library.
+
+# Key Concepts
+
+Let us start with some basic definitions.
+
+## Items and Itemsets
+
+The most fundamental definition is for items.
+
+> An **item** is a binary attribute.
+
+For example, an item in a shopping cart is a product -- the shopping cart could either contain the item or not[^contains-vs-quantity]. But it doesn't have to be representing an actual product. As another example, if we think of the object as a book, an item could be whether the book is red, or blue, or green. Note that each of these colours _is a separate item_ -- we are just interested in the question "is the book red" or "is the book blue".
+
+[^contains-vs-quantity]: Of course, in real life a shopping cart could contain any quantity of product (like two or three bags of chips). Here we are just interested whether the shopping cart _has_ the product, not _how many_ of that product is in the shopping cart.
+
+Another important concept is a group of items.
+
+> An **itemset** is a collection of items. It is a subset of all the possible items.
+
+In the shopping cart example, the set $\{\text{Milk}, \text{Bread}, \text{Butter}\}$ is one itemset (representing that the shopping cart contains milk, bread, and butter). For the book example, one possible itemset is $\{\text{Red}, \text{Hardback}, \text{Trade}\}$ (which represents the idea that the book is a red, hardback book printed in US trade size).
+
+## Transactions and Rules
+
+> A **transaction** is an itemset together with a unique **transaction ID**. The full list of transactions that we are considering is called the **database**.
+
+For example, in the context of a supermarket, a transaction could be the products that the customer bought along with the invoice number. For the book example, the transaction could be the attributes of the book along with the International Standard Book Number (ISBN) of the book. In any case, the transaction should be _uniquely identifiable_ within the database.
+
+We can now define rules.
+
+> Suppose $X$ and $Y$ are disjoint itemsets (i.e., $X$ and $Y$ do not have a common item). An **association rule** denoted $X \implies Y$ means that if a transaction contains $X$, then the transaction also contains $Y$. The itemset $X$ is called the **antecedent** and $Y$ is called the **consequent**.
+
+For the shopping cart example, we could define the rule $\{\text{Milk}, \text{Bread} \}\implies \{\text{Cereal}\}$, which means that if a shopping cart contains both milk and bread, then it must contain cereal. Here the antecedent is that the shopping cart contains both milk and bread and the consequent is that the shopping cart also contains cereal.
+
+## Metrics
+
+To measure the usefulness of the created association rule, we have a few metrics. To aid in the description of these metrics, consider the following database of transactions taken from Wikipedia:
+
+| Transaction ID | Itemset                                                                   |
+| -------------- | ------------------------------------------------------------------------- |
+| 1              | $\{\text{Milk}, \text{Bread}, \text{Fruit}\}$                             |
+| 2              | $\{\text{Butter}, \text{Eggs}, \text{Fruit}\}$                            |
+| 3              | $\{\text{Beer}, \text{Diapers}\}$                                         |
+| 4              | $\{\text{Milk}, \text{Bread}, \text{Butter}, \text{Eggs}, \text{Fruit}\}$ |
+| 5              | $\{\text{Bread}\}$                                                        |
+
+Let $X$ and $Y$ be two disjoint itemsets, $X\implies Y$ be an association rule, and $T$ be the database above.
+
+### Support
+
+Support is an indication of the frequency of occurrence of either an itemset or an association rule within the database.
+
+> The **support** of an itemset is the number of transactions that contain all items in the itemset divided by the size of the database[^support-and-probability]. Formally, the support of an itemset $X$ is
+>
+> ```math
+> \mathrm{supp}(X)=\frac{\left|\left\{(i,t) \in T \;\vert\; X \subseteq t \right\}\right|}{|T|}
+> ```
+>
+> where $T$ is the database containing transactions $(i, t)$ (with $i$ being the transaction ID and $t$ being the transaction itemset).
+
+[^support-and-probability]: This is similar to how the probability of an event $A$, commonly denoted $P(A)$, occurring within a sample space of size $N$ is the count of $A$ within the sample space divided by $N$. In fact, some authors denote $\mathrm{supp}(X)$ by $P(X)$, but this is a bit confusing for my tastes.
+
+Consider the itemset $X = \{\text{Fruit}\}$. The number of transactions that contain $\text{Fruit}$ is 3 (transactions 1, 2, and 4), so its support is $\frac35$ (i.e., $\mathrm{supp}(\{\text{Milk}\}) = \frac35$). For the itemset $X = \{\text{Milk}, \text{Bread}\}$, only transactions 1 and 4 contain all items in $X$ and thus its support is $\frac25$. In general, the larger the itemset $X$, the smaller its support.
+
+What about the support of an association rule?
+
+> The **support** of an association rule $X \implies Y$ is the support of the itemset containing the union of items from $X$ and $Y$. Written another way,
+>
+> ```math
+> \mathrm{supp}(X \implies Y) = \mathrm{supp}(X \cup Y)
+> ```
+
+Think of the support of an association rule this way: for a rule to be 'supported', the items in the antecedent and consequent must be present in the itemset of the transaction. This is the same thing as saying that the transaction must contain the items in the union of both antecedent and consequent itemsets, hence the definition.
+
+For example, the support for the association rule $\{\text{Milk}\} \implies \{\text{Bread}\}$ is the support of $\{\text{Milk}, \text{Bread}\}$, which is $\frac25$ as we found earlier.
+
+### Confidence
+
+The confidence of an association rule $X \implies Y$ can be thought of as the likelihood that the association rule is actually true -- when we see $X$ in a transaction's itemset, how likely will $Y$ also be there?
+
+> The **confidence** of an association rule $X \implies Y$ is the proportion of transactions containing $X$ that also contain $Y$. Formally, the confidence of the association rule $X \implies Y$ is
+>
+> ```math
+> \mathrm{conf}(X \implies Y) = \frac{\mathrm{supp}(X \cup Y)}{\mathrm{supp}(X)} = \frac{\mathrm{supp}(X \implies Y)}{\mathrm{supp}(X)}
+> ```
+
+As an example, let's find $\mathrm{conf}(\{\text{Fruit}\} \implies \{\text{Bread}\})$. One can calculate that $\mathrm{supp}(\{\text{Fruit}\} \implies \{\text{Bread}\}) = \frac25$. Earlier, we also found that $\mathrm{supp}(\{\text{Fruit}\}) = \frac35$, which means that the confidence is $\frac{\frac25}{\frac35} = \frac23$. This suggests that whenever fruit is bought, bread is also bought $\frac23$ of the time. As another example, let's calculate $\mathrm{conf}(\{\text{Milk}\} \implies \{\text{Bread}\})$. We found earlier that $\mathrm{supp}(\{\text{Milk}\} \implies \{\text{Bread}\}) = \frac25$. One can also see that $\mathrm{supp}(\{\text{Milk}\}) = \frac25$, which means that the confidence is $\frac{\frac25}{\frac25} = 1$. This denotes the idea that every time a customer buys milk, they also buy bread.
+
+### Lift
+
+The lift of an association rule tells us how well such an association rule predicts the occurrence of the consequence given the antecedent as compared to a random model. This is defined formally below.
+
+> The **lift** of an association rule $X \implies Y$ is the ratio of the observed support to the expected support if the occurrence of $X$ and $Y$ are independent to each other. Symbolically,
+>
+> ```math
+> \mathrm{lift}(X \implies Y) = \frac{\mathrm{supp}(X \implies Y)}{\mathrm{supp}(X) \times \mathrm{supp}(Y)}
+> ```
+
+Let us consider the rule $\{\text{Fruit}\} \implies \{\text{Bread}\}$. Its support is $\frac25$ as found earlier, with $\mathrm{supp}(\{\text{Fruit}\}) = \frac35$ and $\mathrm{supp}(\{\text{Bread}\}) = \frac35$, so the lift of this rule is $\frac{\frac25}{\frac35 \times \frac35} = \frac{10}9$. A lift of more than 1 indicates that they are dependent on each other, so this rule is potentially useful. Consider instead the rule $\{\text{Butter}\} \implies \{\text{Bread}\}$. Here its support is $\frac15$ (since transaction 4 is the only transaction containing $\text{Butter}$ and $\text{Bread}$), with the support of $\text{Butter}$ and $\text{Bread}$ being $\frac25$ and $\frac35$ respectively. Hence the lift of the rule $\{\text{Butter}\} \implies \{\text{Bread}\}$ is $\frac{\frac15}{\frac25 \times \frac35} = \frac56$, which actually indicates that $\text{Butter}$ and $\text{Bread}$ are substitutes for each other since the presence of $\text{Butter}$ appears to have a negative impact on the presence of $\text{Bread}$.
+
+# A Summary of Algorithms
+
+Let's now look at a quick summary of the common association rule mining algorithms. We'll not go into too much detail about how they work, but we will highlight the main pros and cons of the algorithms.
+
+These algorithms are used to generate **frequent itemsets**, which are itemsets which have a support of at least a certain threshold. Another step is needed to convert these frequent itemsets to association rules. That's where the other two metrics come in -- if the association rule generated does not meet a certain confidence (or lift), it will be discarded. For example, in `mlxtend`, the `association_rules()` function helps convert the frequent itemsets into association rules[^assocation-rules-function].
+
+[^assocation-rules-function]: In particular, according to the [source code for `association_rules()`](https://github.com/rasbt/mlxtend/blob/29e2fc4ac70d95a9e65852434f979fac25aaeeea/mlxtend/frequent_patterns/association_rules.py#L268), it appears that it will generate all possible combinations of antecedents and consequents for a given frequent itemset, and keep only those whose metric exceeds a threshold value. Formally, for a given frequent itemset $X$, it finds all sets $A$ (the antecedent) and $X \setminus A$ (the consequent) such that the metric exceeds the threshold value.
+
+## Apriori
+
+One of the earliest association rule mining algorithms, Apriori was proposed by Agrawal and Srikant in 1994 for frequent item set identification, and named so as it uses prior knowledge (i.e., _a priori_) of frequent itemset properties.
+
+However, a big limitation is its poor performance when a large proportion of transactions in the database (>70%) contain a frequent itemset. When this occurs, its speed drops rapidly and will take a while longer to generate the frequent itemsets. The Apriori algorithm also needs to scan the database $k + 1$ times where $k$ is the size of the largest frequent itemset that still surpasses the support threshold.
+
+## ECLAT
+
+Due to the poor performance of the Apriori algorithm, several alternatives were developed. One of which, the Equivalence Class Clustering and Bottom-Up Lattice Traversal (ECLAT) algorithm by Zaki in 2000, is a backtracking algorithm that works on the frequent itemset lattice graph.
+
+Although ECLAT is faster than Apriori, it comes with reduced interpretability -- it does not include confidence or lift metrics. This is partly the reason why it is faster, but this does mean that the ability to interpret its results is reduced.
+
+## FP-Growth
+
+Frequent Pattern Growth (FP-Growth) was an algorithm introduced by Han, Pei, and Yin in 2000 and quickly emerged as a popular alternative to the Apriori algorithm since it is faster. In particular, FP-Growth forgoes candidate frequent itemset generation which makes it faster than Apriori. It also provides more metrics than ECLAT and is on par with ECLAT's speed.
+
+# An Example With `mlxtend`
+
+With the background on the key concepts of association rule mining and the main algorithms used, let's try our hand at actually finding these association rules in the database given above using the [`mlxtend` library](https://rasbt.github.io/mlxtend/).
+
+## Setting Up
+
+First install the `mlxtend` library. This will also install some useful data processing libraries like NumPy and Pandas.
+
+```bash
+pip install mlxtend~=0.23.4
+```
+
+> [!IMPORTANT]
+> Make sure that `pip` refers to the Python 3 `pip` command. Otherwise, use `pip3` instead.
+
+## Loading the Database
+
+Let's load our itemsets in the database so that we can use `mlxtend`'s association rule mining tools on it.
+
+```plaintext
+id,itemset
+1,"Milk,Bread,Fruit"
+2,"Butter,Eggs,Fruit"
+3,"Beer,Diapers"
+4,"Milk,Bread,Butter,Eggs,Fruit"
+5,"Bread"
+```
+
+Assuming that the database is named `database.csv`, we can load it in a Pandas dataframe by running the following code.
+
+```python
+import pandas as pd
+orig_df = pd.read_csv("database.csv", index_col="id")
+```
+
+But what we actually need is a list of itemsets, not a database! With some processing we can achieve this:
+
+```python
+rows = orig_df.values.tolist()
+dataset = [row[0].split(",") for row in rows]  # row[0] since each row has only one column
+```
+
+We can now use `dataset` to generate the frequent itemsets and then the association rules.
+
+## Generating Frequent Itemsets
+
+With our dataset created, we are almost ready to generate the frequent itemsets. However, we first need to encode the itemsets in the 'canonical' transaction form[^canonical-transaction-form]. We can do this using the `TransactionEncoder(){:python}` class provided in `mlxtend`:
+
+```python
+from mlxtend.preprocessing import TransactionEncoder
+te = TransactionEncoder()
+te_ary = te.fit(dataset).transform(dataset)
+df = pd.DataFrame(te_ary, columns=te.columns_)
+```
+
+[^canonical-transaction-form]: In the original formulation for transactions in association rule mining by Agrawal, Imieliński, and Swami in 1993, transactions were simply a pair $(i,t)$ where $i$ is the transaction ID and $t$ is an array of values where $t[j] = 1$ if the $j$th item (in a list of all items) is present and $t[j] = 0$ otherwise. However we opt to let $t$ be an itemset to avoid confusion.
+
+We can now use `mlxtend`'s `frequent_patterns` module on `df` to generate the frequent itemsets. Let's use the `fpgrowth(){:python}` function, specifying a minimum support value of `0.4` and saying that we want the column names to appear in the itemsets (instead of the column indices).
+
+```python
+from mlxtend.frequent_patterns import fpgrowth
+frequent_itemsets = fpgrowth(df, min_support=0.4, use_colnames=True)
+```
+
+Let's take a look at what the `frequent_itemsets` dataframe contains:
+
+```python
+print(frequent_itemsets)
+```
+
+```plaintext
+    support               itemsets
+0       0.6                (Fruit)
+1       0.6                (Bread)
+2       0.4                 (Milk)
+3       0.4                 (Eggs)
+4       0.4               (Butter)
+5       0.4         (Fruit, Bread)
+6       0.4          (Milk, Bread)
+7       0.4          (Fruit, Milk)
+8       0.4   (Milk, Fruit, Bread)
+9       0.4          (Eggs, Fruit)
+10      0.4         (Butter, Eggs)
+11      0.4        (Butter, Fruit)
+12      0.4  (Butter, Fruit, Eggs)
+```
+
+## Generating Association Rules
+
+With the `frequent_itemsets` dataframe, we can now find the appropriate association rules. Luckily we don't have to manually write the brute force code ourselves -- `mlextend`'s `frequent_pattern` module also provides the `association_rules(){:python}` function to generate them for us. Here we specify that the association rules that are to be output should have a confidence of above `0.8`. We could of course use lift in place of confidence; we'll leave this as an exercise for the reader.
+
+```python
+from mlxtend.frequent_patterns import association_rules
+rules = association_rules(frequent_itemsets, metric="confidence", min_threshold=0.8)
+```
+
+Taking a look at the `rules` dataframe reveals some interesting rules (the output is truncated for brevity):
+
+```python
+print(rules)
+```
+
+```plaintext
+        antecedents      consequents  antecedent support  consequent support  support  confidence      lift
+0            (Milk)          (Bread)                 0.4                 0.6      0.4         1.0  1.666667
+1            (Milk)          (Fruit)                 0.4                 0.6      0.4         1.0  1.666667
+2     (Fruit, Milk)          (Bread)                 0.4                 0.6      0.4         1.0  1.666667
+3     (Bread, Milk)          (Fruit)                 0.4                 0.6      0.4         1.0  1.666667
+4    (Fruit, Bread)           (Milk)                 0.4                 0.4      0.4         1.0  2.500000
+5            (Milk)   (Fruit, Bread)                 0.4                 0.4      0.4         1.0  2.500000
+6            (Eggs)          (Fruit)                 0.4                 0.6      0.4         1.0  1.666667
+7          (Butter)           (Eggs)                 0.4                 0.4      0.4         1.0  2.500000
+8            (Eggs)         (Butter)                 0.4                 0.4      0.4         1.0  2.500000
+9          (Butter)          (Fruit)                 0.4                 0.6      0.4         1.0  1.666667
+10  (Butter, Fruit)           (Eggs)                 0.4                 0.4      0.4         1.0  2.500000
+11   (Butter, Eggs)          (Fruit)                 0.4                 0.6      0.4         1.0  1.666667
+12    (Eggs, Fruit)         (Butter)                 0.4                 0.4      0.4         1.0  2.500000
+13         (Butter)    (Eggs, Fruit)                 0.4                 0.4      0.4         1.0  2.500000
+14           (Eggs)  (Butter, Fruit)                 0.4                 0.4      0.4         1.0  2.500000
+```
+
+From the generated rules, we can see that all of them have a confidence of `1.0`. Some of the rules' lift scores are also quite high -- the rule $\{\text{Butter}\} \implies \{\text{Eggs}\}$ for example has a lift value of `2.5`. Some of the rules are quite unexpected as well -- the rule $\{\text{Milk}\} \implies \{\text{Frut}\}$ for example has a confidence of `1` and lift value of `1.666667`.
+
+> [!NOTE]
+> The `rules` dataframe also includes other metrics, which we have omitted in the output above and will not explore here. Interested readers could go to [`mlxtend`'s official documentation](https://rasbt.github.io/mlxtend/user_guide/frequent_patterns/association_rules/) to find out more about these metrics.
+
+Filtering for certain rules comes down to manipulation of the `rules` dataframe. For example, to filter rules that have `Butter` as an antecedent, we can run:
+
+```python
+rules[rules["antecedents"] == {"Butter"}]
+```
+
+Also, if only the support metric data is needed (or if the other metrics cannot be calculated), we can set `support_only = True{:python}` when using the `association_rules(){:python}` function:
+
+```python
+frequent_itemsets = fpgrowth(df, min_support=0.4, use_colnames=True, support_only=True)
+```
+
+# Challenges of Association Rule Mining
+
+Although association rule mining only requires a few lines of code (as demonstrated earlier), there are a few challenges that needs to be addressed when dealing with real-world data.
+
+- **Sparse data**: If the itemsets in each transaction in the database only contain a few items, but there is a large variety of items, data processing and storage may become an issue when most of the data in `te_ary` and `df` (see above) is going to be empty.
+- **Thresholding**: The threshold values of `min_support = 0.4{:python}` and `min_threshold = 0.8{:python}` were not chosen at random -- they were chosen to ensure that we don't get too many or too few rules. For real data, these values would have to be adjusted so that the processing time doesn't become too long and that the rules generated are relevant.
+- **Meaningless, Trivial, or Repeated Rules**: One must be careful to watch out for rules that are meaningless in the context of the other generated rules. For example, in the `rules` dataframe above, notice that rule 0 says that $\{\text{Milk}\} \implies \{\text{Bread}\}$ but rule 2 says that $\{\text{Fruit}, \text{Milk}\} \implies \{\text{Bread}\}$. But clearly $\{\text{Milk}\}$ is a subset of $\{\text{Fruit}, \text{Milk}\}$, and thus rule 2 is unnecessary. One must be careful to filter out rules that are unhelpful.
+
+# Conclusion
+
+Association rule mining is an oft-forgotten type of unsupervised machine learning, but its applications to product recommendation, bioinformatics, anomaly detection, web usage mining, customer behaviour analysis etc. cannot be understated. I hope that this post managed to cover the basics of this wonderful approach to uncovering hidden relationships between variables in your datasets.
+
+Happy association rule mining!
+
+# Bibliography
+
+- Agrawal, R., Imieliński, T., & Swami, A. (1993). Mining Association Rules between Sets of Items in Large Databases. _ACM SIGMOD Record_, _22_(2), 207-216. https://doi.org/10.1145/170036.170072
+- Wikipedia contributors. (2025, January 25). Association rule learning. In _Wikipedia, The Free Encyclopedia_. Retrieved 10:20, May 2, 2025, from [https://en.wikipedia.org/w/index.php?title=Association_rule_learning&oldid=1271695648](https://en.wikipedia.org/w/index.php?title=Association_rule_learning&oldid=1271695648)
+- Agrawal, R., & Srikant, R. (1994, September). Fast Algorithms for Mining Association Rules. _Proceedings of the 20th International Conference on Very Large Data Bases_, _VLDB_, 487-499. https://www.vldb.org/conf/1994/P487.PDF
+- Zaki, M. J. (2000, May-June). Scalable Algorithms for Association Mining. _IEEE Transactions on Knowledge and Data Engineering_. **12**(3), 372-390. https://doi.org/10.1109/69.846291
+- Han, J., Pei, J., & Yin, Y. (2000, May 16). Mining Frequent Patterns without Candidate Generation. _Proceedings of the 2000 ACM SIGMOD international conference on Management of data (SIGMOD '00)_, 1-12. https://doi.org/10.1145/342009.335372
+- Heaton, J. (2017, January 30). Comparing Dataset Characteristics that Favor the Apriori, Eclat or FP-Growth Frequent Itemset Mining Algorithms. _arXiv_. https://arxiv.org/pdf/1701.09042
+- Raschka, S. (n.d.). association_rules: Association rules generation from frequent itemsets. Retrieved 14:30, May 3, 2025, from https://rasbt.github.io/mlxtend/user_guide/frequent_patterns/association_rules/
+
+# Image Credits
+
+Cover image by [Buzz](https://pixabay.com/users/buzcajun-7315165/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5727061) from [Pixabay](https://pixabay.com/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=5727061), cropped from [the original](https://pixabay.com/vectors/graph-chart-strings-connection-5727061/).
