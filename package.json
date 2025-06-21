@@ -20,7 +20,7 @@
         "@astrojs/sitemap": "^3.4.1",
         "@nanostores/preact": "^1.0.0",
         "@tailwindcss/vite": "^4.1.10",
-        "astro": "^5.9.3",
+        "astro": "^5.10.0",
         "astro-robots-txt": "^1.0.0",
         "astro-seo": "^0.8.4",
         "flowbite": "^3.1.2",
@@ -46,17 +46,17 @@
         "@tailwindcss/forms": "^0.5.10",
         "@tweakpane/core": "^2.0.5",
         "@types/jquery": "^3.5.32",
-        "@types/node": "^24.0.1",
+        "@types/node": "^24.0.3",
         "@types/seedrandom": "^3.0.8",
         "@types/showdown": "^2.0.6",
         "prettier": "^3.5.3",
         "prettier-plugin-astro": "^0.14.1",
-        "prettier-plugin-tailwindcss": "^0.6.12",
+        "prettier-plugin-tailwindcss": "^0.6.13",
         "tailwind-scrollbar": "^4.0.2",
         "tailwindcss-animate": "^1.0.7",
         "tailwindcss-intersect": "^2.2.0",
         "tweakpane": "^4.0.5",
-        "vite-plugin-glsl": "^1.4.2"
+        "vite-plugin-glsl": "^1.5.0"
     },
     "overrides": {
         "tailwindcss-animate": {
