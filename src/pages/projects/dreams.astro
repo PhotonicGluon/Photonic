@@ -49,6 +49,11 @@ const project = (await getEntry("projects", "dreams"))!;
             <a href="https://music.apple.com/sg/album/dreams/1704266760">Apple Music</a>, and
             <a href="https://www.deezer.com/en/album/480241645">Deezer</a>.
         </p>
+        <p>
+            In 2025, I released a reprised version of the final track of <em>Dreams</em>, namely
+            <a href="#awakening"><em>Awakening</em></a>.
+            {/* TODO: Add more details */}
+        </p>
     </div>
 
     {/* Tracks */}
@@ -353,13 +358,13 @@ const project = (await getEntry("projects", "dreams"))!;
             </div>
         </div>
 
-        <div>
+        <div id="awakening">
             <div>
                 <span class="music-title">Awakening</span>
                 <span class="music-duration">[08:31]</span>
             </div>
             <Image src={awakeningImg} alt="Banner" />
-            <div class="music-buttons">
+            <div class="music-buttons *:md:!flex *:md:!items-center">
                 <ButtonLink
                     class="button bandcamp-button"
                     href="https://melodicgluon.bandcamp.com/track/awakening"
@@ -370,10 +375,11 @@ const project = (await getEntry("projects", "dreams"))!;
                     href="https://musescore.com/user/23043611/scores/14917243"
                     target="_blank">MuseScore</ButtonLink
                 >
-                <ButtonLink
-                    class="button sheet-music-button text-nowrap"
-                    href="/projects/dreams/Awakening.pdf"
-                    download>Sheet Music</ButtonLink
+                <ButtonLink class="button sheet-music-button" href="/projects/dreams/Awakening.pdf" download
+                    >Sheet Music</ButtonLink
+                >
+                <ButtonLink class="button bandcamp-button" href="TODO: ADD" target="_blank"
+                    >Bandcamp (Reprise)</ButtonLink
                 >
             </div>
             <p class="music-caption">
@@ -407,10 +413,17 @@ const project = (await getEntry("projects", "dreams"))!;
                 </p>
                 <p>
                     <em>Awakening</em> was conceived very early on in the album's planning stages. I knew from the start
-                    that
-                    <em>Awakening</em> had to be the last song on the album, and so it was composed right after I experimented
-                    with <em>Truth</em>. Being the second song that I made in FL Studio, I am immensely proud of
-                    how the track sounds.
+                    that <em>Awakening</em> had to be the last song on the album, and so it was composed right after
+                    I experimented with <em>Truth</em>. Being the second song that I made in FL Studio, I am
+                    immensely proud of how the track sounds.
+                </p>
+                <p>
+                    The melody of <em>Awakening</em> became such an earworm that I couldn't stop remembering it. In
+                    2025, I made a reprised version of <em>Awakening</em>. This came after finishing
+                    <em>Remembrance</em> in <a href="/projects/spectra"><em>Spectra</em></a>, which took the fast
+                    half of <em>Awakening</em> and turned it into a more cheery marching band tune. Since then, I knew
+                    that I needed to revise the soundscape and percussion of <em>Awakening</em> to make it sound better.
+                    I hope that the reprised version of <em>Awakening</em> has accomplished that.
                 </p>
             </div>
         </div>
