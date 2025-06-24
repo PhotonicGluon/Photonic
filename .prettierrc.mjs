@@ -13,9 +13,9 @@ export default {
         {
             files: "*.yml",
             options: {
-                tabWidth: 2
-            }
-        }
+                tabWidth: 2,
+            },
+        },
     ],
     tailwindStylesheet: "./src/styles/global.css",
 };
