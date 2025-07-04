@@ -1,0 +1,194 @@
+---
+title: "Security over Insecurity: The Foundations of Authenticated Key Exchange Protocols"
+pubDate: 2025-07-04
+summary: "A tour of the wonderful world of authenticated key exchange."
+image:
+    url: "/blog/key-exchange/jj-ying-8bghKxNU1j0-unsplash.jpg"
+    alt: "A close-up, abstract shot of a cluster of fibre optic strands glowing with a vibrant blue light."
+tags: []
+hasMath: true
+---
+
+The fundamental challenge of modern cryptography is to establish a secure channel over an insecure one. The fact that this is possible is amazing. Two computers, separated by the vast, public, hostile internet, can create a channel that no one else can listen into. All this is possible using a family of authenticated key exchange protocols.
+
+# The Need for Key Exchange
+
+As with all cryptography analogies, let us introduce Alice and Bob. Alice wants to send a message to Bob, but doesn't want anyone else from reading it. Of course, Alice and just encrypt the message before sending it to Bob, but Bob would need the key[^sym-enc] to retrieve the original key. So, how do they share the key?
+
+[^sym-enc]: We are assuming that Alice and Bob are using symmetric encryption. This is because asymmetric encryption (i.e., public key encryption) is typically slower then symmetric encryption.
+
+In the time before computers, this could be done by physically sending a letter to the other party containing the key. For example, if Alice encrypted the message with the key `Secret`, she should send a letter to Bob containing this key. She could also just meet up with Bob and tell him the key herself. However, in cyberspace, these methods will not work, especially considering the huge number of communication occuring every day. We need an algorithm for Alice and Bob to agree on a symmetric key.
+
+# Diffie-Hellman Key Exchange (DHKE)
+
+The **Diffie-Hellman Key Exchange (DHKE)** protocol works on an incredibly simple observation regarding exponentiation within modular arithmetic. In normal arithmetic, if we know the base $g$ and the exponentiated number $g^x$, we can easily take the logarithm base $g$ to recover $x$. But what happens if we reduce $g^x$ by a modulus, say $m$? It turns out that the problem of recovering $x$ given $g$ and $g^x \mod{m}$ is quite hard [^discrete-log-hardness]. For example, if $g = 2$ and $g^x = 4$ (without any modulus), it is trivial to see that $x = 2$. But if instead it is known $g = 2$ and $g^x \mod m = 5$ where $m = 19$, it is not as easy to recover the $x$ value (which turns out to be 16, by the way).
+
+[^discrete-log-hardness]: The problem of recovering $x$ given a generator $g$, a modulus $m$, and the value $g^x \mod m$ is called the **discrete logarithm problem**. It is actually not known _how_ difficult it is to recover $x$; we only have empirical experiments showing that it is hard.
+
+The other critical observation underlying the foundation of Diffie-Hellman is the commutivity of exponentiation. In particular,
+
+```math
+(g^a)^b = g^{ab} = g^{ba} = (g^b)^a
+```
+
+These two observations allow us to define a scheme by which two parties can establish a shared (symmetric) key without anyone else knowing what the key.
+
+The textbook Diffie-Hellman Key Exchange (DHKE) relies on a publicly known prime $p$ and a generator $g$[^dhke-practical]. The key exchange protocol between two people, say Alice and Bob, proceeds as follows.
+
+1. Alice randomly chooses a positive integer $a$ (where $a$ is ideally more than $\log_g p$). Bob does the same, generating $b$.
+2. Alice computes $A = g^a \mod p$ and sends it to Bob over the public channel. Bob computes $B = g^b \mod p$ and sends it to Alice.
+3. Alice computes $s_A = B^a \mod p$; Bob computes $s_B = A^b \mod p$.
+
+[^dhke-practical]: In practice, there are additional safeguards needed for the parameters $p$ and $g$. In particular, the prime $p$ should be a large _safe prime_, where $p$ can be written as $2q + 1$ such that $q$ is also prime (called a Sophie Germain prime). The generator $g$ should also be a primitive root modulo $p$.
+
+Observe that
+
+```math
+\begin{align*}
+s_A &= B^a \mod p \\
+&= (g^b)^a \mod p \\
+&= (g^a)^b \mod p\\
+&= A^b \mod p\\
+&= s_B
+\end{align*}
+```
+
+which means that both Alice and Bob managed to share a common secret. Note that any eavesdropper only knows $A$ and $B$, not the private values $a$ and $b$. So any person listening into the key exchange would not be able to find out what the shared key is.
+
+# A Man-in-the-Middle
+
+Diffie-Hellman is an integral part of internet cryptography, helping secure communications for almost every single request of internet traffic. However, what Diffie-Hellman lacks is _authentication_.
+
+> **Authentication** is the ability of a system to confirm the identity of a sender.
+
+In standard DHKE, an eavesdropper is unable to construct the shared key between Alice and Bob given only the public values of $A$ and $B$. But what happens if a malicious attacker (say Mallory) intercepts the communication between Alice and Bob and acts as a man in the middle? Then Mallory will be able to inspect all communication between Alice and Bob.
+
+Let's explain how Mallory could do this concretely. Suppose we have the same setup as before, but Mallory places herself in between Alice and Bob:
+
+```math
+\text{Alice} \rightarrow \textbf{Mallory} \rightarrow \text{Bob}
+```
+
+The key idea that Mallory would exploit would be to set up two 'sessions': one between Alice and Mallory and one between Mallory and Bob. The Diffie-Hellman key exchange would proceed as follows:
+
+1. Alice and Bob chooses $a$ and $b$ as before. However since the key exchange attempt is known, Mallory would also choose an $m$.
+2. Alice computes $A = g^a \mod p$ and sends it over the public channel. Mallory intercepts this, computing $M = g^m \mod p$ and sending that to Alice (who Alice thinks is Bob).
+3. With $A$ and $M$ both Alice and Mallory establish a shared key $s_{A,M} = g^{am} \mod p$. This is the first session.
+4. At the same time, Mallory sends $M$ to Bob and Bob sends $B = g^b \mod p$ to Mallory (who he thinks is Alice).
+5. With $M$ and $B$ both Mallory and Bob establish another shared key $s_{M,B} = g^{mb} \mod p$. This is the second session.
+
+From this point onwards, any communication between Alice and Bob will be encrypted twice (once for each session), where any traffic between them can be inspected by Mallory.
+
+Obviously, leaving communication vulnerable to a man-in-the-middle is less than ideal. We need a way to perform key exchange while preventing a man-in-the-middle from inspecting traffic. One approach would be to authenticate the sender of the messages. The issue described before would then go away as we would be able to assert the identity of the senders.
+
+# Station to Station (STS)
+
+Introducing the **Station to Station (STS)** protocol. It provides a mechanism to confirm the identity of the sender of messages, using **certificates**. We will not go into the weeds of how certificates work, so treat them as a document's seal: only the sender has the seal and how this seal looks can be verified by anyone.
+
+We will use the same scenario as before, where Alice and Bob each have one of these certificates[^bilateral-auth]. The STS exchange would proceed as follows:
+
+1. Alice and Bob randomly chooses positive integers $a$ and $b$.
+2. Alice computes $A = g^a \mod p$ and sends it to Bob over the public channel, along with her certificate $c_A$[^sts-signature]. Bob computes $B = g^b \mod p$ and sends it to Alice, along with his certificate $c_B$.
+3. Upon receipt of Bob's public value $B$ and certificate $c_B$, Alice will use the certificate to verify the authenticity of the received $B$. Bob does the same for $A$.
+4. Both Alice and Bob can then calculate the shared secret as in regular DHKE.
+
+[^bilateral-auth]: The protocol described here is a _bilateral_ authenticated key exchange, which is not typically possible. In most uses, STS is used between a client (say, your phone) and a server (say, Google). It is costly to get a certificate for every device (although it is getting cheaper), so usually the client is the one verifying the identity of the server; the server does not typically need to verify the identity of the client at this stage. This is known as a _unilateral_ authenticated key exchange.
+
+[^sts-signature]: Actually the value of $A$ will be _signed_ using the certificate, creating a **digital signature**. This signature is actually what is sent over to Bob, not the certificate.
+
+So why does this make a man-in-the-middle impossible (or rather, infeasible)? Unless Mallory is able to forge both Alice's and Bob's certificates, she would have no way to prove that her messages are actually from Bob (or Alice, depending on the direction of the communication). This makes a man-in-the-middle impossible.
+
+# Trust the Authority?
+
+STS is not without its issues. The most relevant one here is trust in the certificates. We've just said that the seal can be verified by anyone. But how does this verification process work? In a nutshell, the certificate itself is 'signed off' by a higher authority, whose certificate is included within the original certificate[^cert-signature]. This higher authority is called a **certificate authority (CA)**. But this just kicks the problem down the road: how do we verify the CA's certificate? Why, by including an even higher authority's certificate -- a CA above the current CA.
+
+[^cert-signature]: Actually the digital signature of the original certificate is included, and this digital signature is signed by a higher authority.
+
+This upwards chain of verification continues until we reach what is known as a **Root CA**. These CA's certificates are assumed to be known by all (for example, being pre-installed on your smartphone). When we need to check one of these Root CA's certificates[^cert-signature], we just compare it with the ones known to all.
+
+This chain of trust is the bedrock of the modern public key infrastructure of the internet. However, this system is not without its issues. For example, what happens when a Root CA goes rogue? This has unfortunately happened [many times before](https://sslmate.com/resources/certificate_authority_failures) and is generally treated as a single source of failure. Nowadays the (frankly slow) adoption of certificate transparency can help address some issues with this system, but the core problem of swiftly detecting rogue CAs is yet to be resolved.
+
+# Secure Remote Password (SRP)
+
+Let us return to the original premise of this blog post. Alice and Bob want to establish a common key to encrypt communication between them. They also want to authenticate both parties, to confirm the identity of the person on the other end. If these are the only requirements, there is another authenticated key exchange protocol to consider -- Secure Remote Password (SRP).
+
+SRP is mostly applicable to client-server architectures, and includes three more values in addition to the standard parameters in DHKE: a 'password value' $x$[^srp-password], a verifier value $v = g^x \mod p$, and a multiplication constant $k$ (typically derived from the values of $g$ and $p$). Typically 'roles' are assigned to the communicating parties; let's say Alice is the client and Bob is the server. The client (Alice) keeps track of $x$ while the server (Bob) keeps $v$. Importantly, Bob is unable to recover the value of $x$ from $v$ given $g$ and $p$ by the hardness of the Discrete Logarithm problem[^discrete-log-hardness].
+
+[^srp-password]: In actuality this $x$ is a salted hash of the password. For our purposes, however, the method by which this $x$ is generated is not important.
+
+The key exchange and authentication process then proceeds as follows[^srp-safeguards].
+
+1. Alice will choose $a$ (as in DHKE). Alice sends $A = g^a \mod p$ to Bob.
+2. Bob receives $A$. He chooses a $b$ (as in DHKE) and computes $B = (kv + g^b) \mod p$. He sends $B$ to Alice.
+3. Alice receives $B$. Both Alice and Bob independently calculate $u = H(A || B)$ where $H(\cdot)$ is a cryptographic hash function (like SHA-256) and $||$ refers to concatenation.
+4. Alice computes her secret $S_A = (B - kg^x)^{a+ux} \mod p$ and Bob computes his secret $S_B = (Av^u)^b \mod p$.
+
+[^srp-safeguards]: In an actual implementation the following safeguards should also be implemented: (a) Bob should halt if he receives $A = 0$ in step 2, (b) Alice should halt if she receives $B = 0$ in step 3, (c) either party should halt if they compute $u = 0$ in step 3.
+
+Let us observe that
+
+```math
+\begin{align*}
+S_A &= (B - kg^x)^{a+ux} \mod p\\
+&= ((kv + g^b) - kg^x)^{a+ux} \mod p\\
+&= ((kg^x + g^b) - kg^x)^{a+ux} \mod p\\
+&= (g^b)^{a+ux} \mod p
+\end{align*}
+```
+
+and
+
+```math
+\begin{align*}
+S_B &= (Av^u)^b \mod p\\
+&= (g^av^u)^b \mod p\\
+&= (g^a(g^x)^u)^b \mod p\\
+&= (g^{a+ux})^b \mod p\\
+&= (g^b)^{a+ux} \mod p
+\end{align*}
+```
+
+which is the same as $S_A$ (note that the modulo operations have been omitted for brevity). This means that, assuming that both sides have the correct values, the shared secrets should be the same. This shared value can then be used to derive a shared key (for example, by using the hash $H(\cdot)$ in step 3 on the shared value).
+
+The final step needed is to verify that both sides computed the same shared secret (and hence key). This step is also to confirm that
+
+- Alice indeed is the bearer of the 'password value' $x$ that Bob verifies for; and
+- Bob indeed holds the verifier value $v$ for the 'password value' that Alice has.
+
+The process uses a cryptographic hash (say, $H(\cdot)$ in step 3 above). First, both sides compute their own $M_1$ values
+
+```math
+M_1 = H\left((H(p) \oplus H(g)) || A || B || H(S) \right)
+```
+
+where $\oplus$ refers to the exclusive OR (XOR) operation. Alice sends her $M_1$ to Bob; Bob computes the received $M_1$ with his value. If they do not match, Bob knows that the other party does not know the 'password value' $x$ and halts. Otherwise, both parties will continue by calculating their own $M_2$ values
+
+```math
+M_2 = H\left(A || M_1 || H(S)\right)
+```
+
+Bob then sends his $M_2$ to Alice. If Alice finds that the received $M_2$ does not match her own, she will halt communication as this implies that the other party does not have the correct verifier value $v$ corresponding to her 'password value' $x$. Otherwise, both parties can use the shared key derived for encrypting messages.
+
+# Initial Registration
+
+Like with the STS protocol, the SRP protocol is not perfect. In the textbook example of SRP we said that Bob has the verifier value $v$ for Alice's 'password value' $x$. But how did Bob receive $v$ in the first place? Since they haven't set up a secure channel for talking, they can't just send the $v$ in plaintext! That would mean that _anyone_ who has the $v$ can claim to be Bob via the SRP exchanges.
+
+The sharing of $v$ from Alice to Bob is called **initial registration**. The SRP protocol assumes that initial registration occurs securely so that the rest of the process can be performed without a hitch. But how this is done isn't specified in [the specification](https://datatracker.ietf.org/doc/html/rfc5054).
+
+There are a few typical ways to perform the initial registration process.
+
+- **In-person Registration**: if Alice and Bob know each other (and are willing to meet up) they can exchange the verifier $v$ in-person. This removes any issue with tampering of $v$ and, if done properly, also removes any chance of eavesdroppers knowing the verifier value.
+- **Using Physical Media**: it is possible to share the value of the verifier $v$ physically (for example, using a letter). Of course this is very vulnerable to interception during transit, which means that other people can also pretend to be the receiver.
+- **Using HTTPS**: in a typical client-server setup over the Hypertext Transfer Protocol (HTTP), the initial registration could be performed over HTTPS. This, however, relies on the security of the encryption in HTTPS, which uses the same public key infrastructure as described earlier. If a rogue CA provides the certificate used for HTTPS encryption, the verifier value could still be leaked.
+
+# So... Which to Use?
+
+Although SRP is a wonderful idea in theory, the practical issue of registering the verifier value with the other party is a very big limitation on how it can be used. As such, authenticated key exchange with Diffie-Hellman (such as the STS protocol) is the standard used for encrypted internet communication.
+
+So where is SRP used? One application is in password managers, such as [1Password](https://agilebits.github.io/security-design/). They use SRP for authentication and for securing end-to-end communication, but the underlying application data is still encrypted using another key. Thus, even if end-to-end encryption is broken, the underlying data is still secure. Other than this, SRP is (unfortunately) relegated to the realm of specialised uses.
+
+Regardless, authenticated key-exchange protocols are the backbone of the modern internet. I hope this post gave you a better insight of what they are and how they work.
+
+# Image Credits
+
+Cover image by Photo by [JJ Ying](https://unsplash.com/@jjying?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/purple-and-blue-light-digital-wallpaper-8bghKxNU1j0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash). Cropped and rotated from the original.
