@@ -15,7 +15,6 @@ const featuredProjects = await getFeaturedProjects([
     "photonic",
     "spectra",
     "dreams",
-    "7125",
     "auditranscribe",
     "chess-clock-trivia",
     "the-challenge",
@@ -60,7 +59,7 @@ const featuredProjects = await getFeaturedProjects([
                 <Fragment slot="shader">
                     <Shader class="blur-[2px]" id="hero-shader" basePath="lib/shaders/frag/swirl" />
                     <div
-                        class="motion-safe:animate-out motion-safe:fade-out motion-safe:fill-mode-forwards absolute top-0 h-[inherit] w-full bg-black motion-safe:delay-500 motion-safe:duration-1000 motion-reduce:opacity-0 print:opacity-0"
+                        class="absolute top-0 h-[inherit] w-full bg-black motion-safe:delay-500 motion-safe:duration-1000 motion-safe:animate-out motion-safe:fade-out motion-safe:fill-mode-forwards motion-reduce:opacity-0 print:opacity-0"
                     >
                     </div>
                     <div
@@ -73,7 +72,7 @@ const featuredProjects = await getFeaturedProjects([
             {/* Add hint to scroll down */}
             <div class="absolute bottom-8 left-1/2 -translate-x-1/2 print:hidden">
                 <div
-                    class="motion-safe:fill-mode-backwards text-gray-500 *:mx-auto *:block *:w-fit motion-safe:animate-bounce motion-safe:delay-1000"
+                    class="text-gray-500 *:mx-auto *:block *:w-fit motion-safe:animate-bounce motion-safe:delay-1000 motion-safe:fill-mode-backwards"
                 >
                     <span class="text-center text-sm italic xl:text-base">Scroll down to read more</span>
                     <span class="text-xs xl:text-sm">&#9660 {/* Downward caret */}</span>
@@ -92,13 +91,13 @@ const featuredProjects = await getFeaturedProjects([
         <div class="h-auto">
             <div class="mb-96 lg:sticky lg:top-16 print:relative">
                 <h1
-                    class="intersect-once intersect-full motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500"
+                    class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"
                 >
                     Featured Projects
                 </h1>
             </div>
             <div
-                class="print:-mt-92 print:lg:-mt-76 mx-auto -mt-96 grid h-auto max-w-4xl grid-cols-1 grid-rows-[repeat(var(--num-projects),minmax(0,1fr))] gap-8 print:flex print:flex-col"
+                class="mx-auto -mt-96 grid h-auto max-w-4xl grid-cols-1 grid-rows-[repeat(var(--num-projects),minmax(0,1fr))] gap-8 print:-mt-92 print:flex print:flex-col print:lg:-mt-76"
                 style={{
                     "--num-projects": featuredProjects.length,
                     "view-timeline-name": "--cards-element-scrolls-in-body",
@@ -122,12 +121,12 @@ const featuredProjects = await getFeaturedProjects([
     {/* TODO: Change contents */}
     <section class="pt-8">
         <h1
-            class="intersect-once intersect-full motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500"
+            class="intersect-once intersect-full relative z-20 text-center text-5xl font-bold motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"
         >
             Who am I?
         </h1>
         <div
-            class="intersect-once intersect-half md:intersect-full motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running motion-safe:delay-100 motion-safe:duration-500"
+            class="intersect-once intersect-half md:intersect-full motion-safe:delay-100 motion-safe:duration-500 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:paused motion-safe:slide-in-from-bottom-4 motion-safe:intersect:running"
         >
             <p>Hello! Welcome to my little corner of the internet! I hope you like it!</p>
             <p>
