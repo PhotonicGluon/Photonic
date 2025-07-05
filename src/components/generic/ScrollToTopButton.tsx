@@ -50,7 +50,7 @@ export default class ScrollToTopButton extends Component<Props, State> {
         return (
             <div
                 class={
-                    "fixed right-4 bottom-20 z-50 flex size-12 items-center justify-center rounded-full bg-cyan-800 shadow-xl transition-all duration-200 hover:bg-cyan-900 lg:size-14 xl:right-20 print:hidden " +
+                    "fixed right-4 bottom-20 z-50 flex size-12 items-center justify-center rounded-full bg-gradient-to-r from-indigo-800 to-blue-600 shadow-xl transition-all duration-200 hover:bg-cyan-900 lg:size-14 xl:right-20 print:hidden " +
                     (this.state.showing ? "opacity-100 hover:cursor-pointer" : "opacity-0")
                 }
                 onClick={this.onClick()}

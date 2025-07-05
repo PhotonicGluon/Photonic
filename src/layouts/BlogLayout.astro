@@ -62,7 +62,7 @@ if (post.image !== undefined) {
 ---
 
 {/* Main content */}
-<MainLayout title={post.title} subtitle={humanizeDate(new Date(post.pubDate))}>
+<MainLayout title={post.title} titleClass={"!leading-none"} subtitle={humanizeDate(new Date(post.pubDate))}>
     {/* SEO */}
     <Fragment slot="head-seo">
         <SEO title={post.title} description={post.summary} openGraph={ogpData} />

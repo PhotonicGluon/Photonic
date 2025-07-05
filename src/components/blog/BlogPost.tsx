@@ -35,7 +35,7 @@ export default class BlogPost extends Component<Props, State> {
                     )}
 
                     {/* Main post content */}
-                    <div class="m-2 grid md:m-4 lg:grid-cols-2">
+                    <div class="m-2 grid space-x-4 md:m-4 lg:grid-cols-2">
                         {/* Title */}
                         <h1 class="font-mono font-bold md:text-xl lg:text-2xl">{post.title}</h1>
 
