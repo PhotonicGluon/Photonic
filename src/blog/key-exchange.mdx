@@ -1,7 +1,7 @@
 ---
-title: "Security over Insecurity: The Foundations of Authenticated Key Exchange Protocols"
+title: "Security over Insecurity: The Foundations of Authenticated Key Exchange"
 pubDate: 2025-07-04
-summary: "A tour of the wonderful world of authenticated key exchange."
+summary: "A tour of the wonderful world of authenticated key exchange protocols."
 image:
     url: "/blog/key-exchange/jj-ying-8bghKxNU1j0-unsplash.jpg"
     alt: "A close-up, abstract shot of a cluster of fibre optic strands glowing with a vibrant blue light."
@@ -17,15 +17,15 @@ As with all cryptography analogies, let us introduce Alice and Bob. Alice wants 
 
 [^sym-enc]: We are assuming that Alice and Bob are using symmetric encryption. This is because asymmetric encryption (i.e., public key encryption) is typically slower then symmetric encryption.
 
-In the time before computers, this could be done by physically sending a letter to the other party containing the key. For example, if Alice encrypted the message with the key `Secret`, she should send a letter to Bob containing this key. She could also just meet up with Bob and tell him the key herself. However, in cyberspace, these methods will not work, especially considering the huge number of communication occuring every day. We need an algorithm for Alice and Bob to agree on a symmetric key.
+In the time before computers, this could be done by physically sending a letter to the other party containing the key. For example, if Alice encrypted the message with the key `Secret`, she should send a letter to Bob containing this key. She could also just meet up with Bob and tell him the key herself. However, in cyberspace, these methods will not work, especially considering the huge number of communication occurring every day. We need an algorithm for Alice and Bob to agree on a symmetric key.
 
 # Diffie-Hellman Key Exchange (DHKE)
 
-The **Diffie-Hellman Key Exchange (DHKE)** protocol works on an incredibly simple observation regarding exponentiation within modular arithmetic. In normal arithmetic, if we know the base $g$ and the exponentiated number $g^x$, we can easily take the logarithm base $g$ to recover $x$. But what happens if we reduce $g^x$ by a modulus, say $m$? It turns out that the problem of recovering $x$ given $g$ and $g^x \mod{m}$ is quite hard [^discrete-log-hardness]. For example, if $g = 2$ and $g^x = 4$ (without any modulus), it is trivial to see that $x = 2$. But if instead it is known $g = 2$ and $g^x \mod m = 5$ where $m = 19$, it is not as easy to recover the $x$ value (which turns out to be 16, by the way).
+The **Diffie-Hellman Key Exchange (DHKE)** protocol works on an incredibly simple observation regarding exponentiation within modular arithmetic. In normal arithmetic, if we know the base $g$ and the exponentiated number $g^x$, we can easily take the logarithm base $g$ to recover $x$. But what happens if we reduce $g^x$ by a modulus, say $m$? It turns out that the problem of recovering $x$ given $g$ and $g^x \mod{m}$ is quite hard[^discrete-log-hardness]. For example, if $g = 2$ and $g^x = 4$ (without any modulus), it is trivial to see that $x = 2$. But if instead it is known $g = 2$ and $g^x \mod m = 5$ where $m = 19$, it is not as easy to recover the $x$ value (which turns out to be 16, by the way).
 
 [^discrete-log-hardness]: The problem of recovering $x$ given a generator $g$, a modulus $m$, and the value $g^x \mod m$ is called the **discrete logarithm problem**. It is actually not known _how_ difficult it is to recover $x$; we only have empirical experiments showing that it is hard.
 
-The other critical observation underlying the foundation of Diffie-Hellman is the commutivity of exponentiation. In particular,
+The other critical observation underlying the foundation of Diffie-Hellman is the commutativity of exponentiation. In particular,
 
 ```math
 (g^a)^b = g^{ab} = g^{ba} = (g^b)^a
@@ -33,7 +33,7 @@ The other critical observation underlying the foundation of Diffie-Hellman is th
 
 These two observations allow us to define a scheme by which two parties can establish a shared (symmetric) key without anyone else knowing what the key.
 
-The textbook Diffie-Hellman Key Exchange (DHKE) relies on a publicly known prime $p$ and a generator $g$[^dhke-practical]. The key exchange protocol between two people, say Alice and Bob, proceeds as follows.
+The textbook Diffie-Hellman Key Exchange (DHKE) protocol relies on a publicly known prime $p$ and a generator $g$[^dhke-practical]. The key exchange protocol between two people, say Alice and Bob, proceeds as follows.
 
 1. Alice randomly chooses a positive integer $a$ (where $a$ is ideally more than $\log_g p$). Bob does the same, generating $b$.
 2. Alice computes $A = g^a \mod p$ and sends it to Bob over the public channel. Bob computes $B = g^b \mod p$ and sends it to Alice.
