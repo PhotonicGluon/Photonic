@@ -13,7 +13,7 @@ The fundamental challenge of modern cryptography is to establish a secure channe
 
 # The Need for Key Exchange
 
-As with all cryptography analogies, let us introduce Alice and Bob. Alice wants to send a message to Bob, but doesn't want anyone else from reading it. Of course, Alice and just encrypt the message before sending it to Bob, but Bob would need the key[^sym-enc] to retrieve the original key. So, how do they share the key?
+As with all cryptography analogies, let us introduce Alice and Bob. Alice wants to send a message to Bob, but doesn't want anyone else from reading it. Of course, Alice and just encrypt the message before sending it to Bob, but Bob would need the key[^sym-enc] to retrieve the original message. So, how do they share the key?
 
 [^sym-enc]: We are assuming that Alice and Bob are using symmetric encryption. This is because asymmetric encryption (i.e., public key encryption) is typically slower then symmetric encryption.
 
@@ -148,7 +148,7 @@ S_B &= (Av^u)^b \mod p\\
 \end{align*}
 ```
 
-which is the same as $S_A$ (note that the modulo operations have been omitted for brevity). This means that, assuming that both sides have the correct values, the shared secrets should be the same. This shared value can then be used to derive a shared key (for example, by using the hash $H(\cdot)$ in step 3 on the shared value).
+which is the same as $S_A$. This means that, assuming that both sides have the correct values, the shared secrets should be the same. This shared value can then be used to derive a shared key (for example, by using the hash $H(\cdot)$ in step 3 on the shared value).
 
 The final step needed is to verify that both sides computed the same shared secret (and hence key). This step is also to confirm that
 
@@ -161,7 +161,7 @@ The process uses a cryptographic hash (say, $H(\cdot)$ in step 3 above). First, 
 M_1 = H\left((H(p) \oplus H(g)) || A || B || H(S) \right)
 ```
 
-where $\oplus$ refers to the exclusive OR (XOR) operation. Alice sends her $M_1$ to Bob; Bob computes the received $M_1$ with his value. If they do not match, Bob knows that the other party does not know the 'password value' $x$ and halts. Otherwise, both parties will continue by calculating their own $M_2$ values
+where $\oplus$ refers to the exclusive OR (XOR) operation. Alice sends her $M_1$ to Bob; Bob compares the received $M_1$ with his value. If they do not match, Bob knows that the other party does not know the 'password value' $x$ and halts. Otherwise, both parties will continue by calculating their own $M_2$ values
 
 ```math
 M_2 = H\left(A || M_1 || H(S)\right)
