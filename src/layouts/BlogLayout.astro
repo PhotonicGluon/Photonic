@@ -337,10 +337,16 @@ if (post.image !== undefined) {
                 {/* Modal body */}
                 <div class="space-y-4 p-4 md:p-5">
                     <div>
-                        <h4 class="text-lg font-semibold text-white">APA7</h4>
+                        <h4
+                            class="text-lg font-semibold text-white"
+                            title="https://apastyle.apa.org/style-grammar-guidelines/references/examples/webpage-website-references#6"
+                        >
+                            APA7
+                        </h4>
                         <p class="text-base leading-tight">
                             Kan, O. K. ({citationDate(post.pubDate)}). <em class="italic">{post.title}</em>.
-                            Photonic. Retrieved {citationDate(new Date(), false)}, from
+                            Photonic. Retrieved
+                            <span id="citation-retrieval-date">{citationDate(new Date(), false)}</span>, from
                             <a href={Astro.url}>{Astro.url}</a>
                         </p>
                     </div>
@@ -476,6 +482,12 @@ if (post.image !== undefined) {
         updateHeadingPositions();
         updateActiveHeading();
     });
+</script>
+
+{/* Script to handle citation retrieval date updating */}
+<script>
+    import { citationDate } from "@lib/misc/dates";
+    document.getElementById("citation-retrieval-date")!.textContent = citationDate(new Date(), false);
 </script>
 
 {/* Blog page styling */}
