@@ -57,7 +57,13 @@ So, rotating a point $P(x,y)$ about the origin by $\alpha$ will result in the po
 
 [^angle-transformation]: Those familiar with linear algebra would recognise this transformation as the transformation by a [rotation matrix](https://en.wikipedia.org/wiki/Rotation_matrix) $\mathbf{R} = \begin{pmatrix}\cos\alpha&-\sin\alpha\\\sin\alpha&\cos\alpha\end{pmatrix}$ on the vector $\mathbf{v} = \begin{pmatrix}x\\y\end{pmatrix}$. That is, the resulting point is given by the vector $\mathbf{Rv}$.
 
-Back in our original problem, to 'move' from one point to another means to rotate that point by a multiple of $\frac{2\pi}n$. So, starting from a point $(x,y)$ on the regular $n$-gon, another point on that $n$-gon **must** be $\left(x\cos\left(\frac{2k\pi}n\right) - y\sin\left(\frac{2k\pi}n\right), x\sin\left(\frac{2k\pi}n\right) + y\cos\left(\frac{2k\pi}n\right)\right)$ where $k \in \{1,2,\dots,n-1\}$.
+Back in our original problem, to 'move' from one point to another means to rotate that point by a multiple of $\frac{2\pi}n$. So, starting from a point $(x,y)$ on the regular $n$-gon, another point on that $n$-gon **must** be
+
+```math
+\left(x\cos\left(\frac{2k\pi}n\right) - y\sin\left(\frac{2k\pi}n\right), x\sin\left(\frac{2k\pi}n\right) + y\cos\left(\frac{2k\pi}n\right)\right)
+```
+
+where $k \in \{1,2,\dots,n-1\}$.
 
 As we will soon see, this will lead to a problem if we want all points to have integer coordinates.
 
@@ -137,7 +143,13 @@ The proof is quite simple. Let $\alpha = \frac\pi2 - \theta$, so $0 \leq \alpha 
 
 # Consequences
 
-Returning to our problem, what does this theorem tell us? Recall that if a point $(x,y)$ lies on the $n$-gon, then $\left(x\cos\left(\frac{2k\pi}n\right) - y\sin\left(\frac{2k\pi}n\right), x\sin\left(\frac{2k\pi}n\right) + y\cos\left(\frac{2k\pi}n\right)\right)$ is another point on the $n$-gon. We also want all the points on the $n$-gon to be integers, which means that both $x\cos\left(\frac{2k\pi}n\right) - y\sin\left(\frac{2k\pi}n\right)$ and $x\sin\left(\frac{2k\pi}n\right) + y\cos\left(\frac{2k\pi}n\right)$ need to be integers. Let us just focus on $x\sin\left(\frac{2k\pi}n\right) + y\cos\left(\frac{2k\pi}n\right)$. We know two things.
+Returning to our problem, what does this theorem tell us? Recall that if a point $(x,y)$ lies on the $n$-gon, then
+
+```math
+\left(x\cos\left(\frac{2k\pi}n\right) - y\sin\left(\frac{2k\pi}n\right), x\sin\left(\frac{2k\pi}n\right) + y\cos\left(\frac{2k\pi}n\right)\right)
+```
+
+is another point on the $n$-gon. We also want all the points on the $n$-gon to be integers, which means that both $x\cos\left(\frac{2k\pi}n\right) - y\sin\left(\frac{2k\pi}n\right)$ and $x\sin\left(\frac{2k\pi}n\right) + y\cos\left(\frac{2k\pi}n\right)$ need to be integers. Let us just focus on $x\sin\left(\frac{2k\pi}n\right) + y\cos\left(\frac{2k\pi}n\right)$. We know two things.
 
 - By the above theorem, $\cos\left(\frac{2k\pi}n\right)$ can only be rational when $\frac{2k\pi}n = 0$ (which is impossible since $k \geq 1$), $\frac{2k\pi}n = \frac\pi3$, or $\frac{2k\pi}n = \frac\pi2$.
 - By the above corollary (Niven's Theorem), $\sin\left(\frac{2k\pi}n\right)$ can only be rational when $\frac{2k\pi}n = 0$ (again, impossible since $k \geq 1$), $\frac{2k\pi}n = \frac\pi6$, or $\frac{2k\pi}n = \frac\pi2$.
