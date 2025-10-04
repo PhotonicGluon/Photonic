@@ -1,0 +1,14 @@
+{
+    "name": "Excalibur",
+    "tags": ["programming"],
+    "dates": {
+        "start": "2025-05-20"
+    },
+    "banner": "https://raw.githubusercontent.com/AudiTranscribe/AudiTranscribe/main/Designs/banner/banner.webp?TODO:=ReplaceMe",
+    "summary": "A trustless, secure file management solution using military-grade encryption",
+    "urls": {
+        "github": "https://github.com/PhotonicGluon/Excalibur",
+        "website": "https://excalibur.photonic.dev/"
+    },
+    "indexPage": "index.md"
+}
