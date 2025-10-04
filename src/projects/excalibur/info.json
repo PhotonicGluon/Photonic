@@ -4,7 +4,7 @@
     "dates": {
         "start": "2025-05-20"
     },
-    "banner": "https://raw.githubusercontent.com/AudiTranscribe/AudiTranscribe/main/Designs/banner/banner.webp?TODO:=ReplaceMe",
+    "banner": "https://raw.githubusercontent.com/PhotonicGluon/Excalibur/main/assets/banner.png",
     "summary": "A trustless, secure file management solution using military-grade encryption",
     "urls": {
         "github": "https://github.com/PhotonicGluon/Excalibur",
