@@ -112,9 +112,9 @@ This chain of trust is the bedrock of the modern public key infrastructure of th
 
 Let us return to the original premise of this blog post. Alice and Bob want to establish a common key to encrypt communication between them. They also want to authenticate both parties, to confirm the identity of the person on the other end. If these are the only requirements, there is another authenticated key exchange protocol to consider -- Secure Remote Password (SRP).
 
-SRP is mostly applicable to client-server architectures, and includes three more values in addition to the standard parameters in DHKE: a 'password value' $x$[^srp-password], a verifier value $v = g^x \mod p$, and a multiplication constant $k$ (typically derived from the values of $g$ and $p$). Typically 'roles' are assigned to the communicating parties; let's say Alice is the client and Bob is the server. The client (Alice) keeps track of $x$ while the server (Bob) keeps $v$. Importantly, Bob is unable to recover the value of $x$ from $v$ given $g$ and $p$ by the hardness of the Discrete Logarithm problem[^discrete-log-hardness].
+SRP is mostly applicable to client-server architectures, and includes three more values in addition to the standard parameters in DHKE: a 'password value' $x$[^password-value], a verifier value $v = g^x \mod p$, and a multiplication constant $k$ (typically derived from the values of $g$ and $p$). Typically 'roles' are assigned to the communicating parties; let's say Alice is the client and Bob is the server. The client (Alice) keeps track of $x$ while the server (Bob) keeps $v$. Importantly, Bob is unable to recover the value of $x$ from $v$ given $g$ and $p$ by the hardness of the Discrete Logarithm problem[^discrete-log-hardness].
 
-[^srp-password]: In actuality this $x$ is a salted hash of the password. For our purposes, however, the method by which this $x$ is generated is not important.
+[^password-value]: In actuality this $x$ is a salted hash of the password. For our purposes, however, the method by which $x$ is generated is not important.
 
 The key exchange and authentication process then proceeds as follows[^srp-safeguards].
 
