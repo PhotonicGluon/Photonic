@@ -8,15 +8,15 @@ I have also written [a blog post](/blog/2025-10-04/designing-a-zero-trust-secure
 
 # Features
 
-- ✨ User-Friendly: Simple, intuitive interface that makes secure file storage effortless.
-- 🛡️ Military-Grade Security: State-of-the-art encryption algorithms protect your files at rest and in transit.
-- 🕵️ Zero-Trust By Default: Designed with zero-trust principles in mind. Trust no one but yourself.
-- 🔒 End-to-End Encryption: Data in transit are always encrypted using AES-GCM.
-- 🗝️ Zero-Knowledge Authentication: Your password never leaves your device.
-- 📱 Multi-Platform: Available as an Android app and a Progressive Web App (PWA).
-- 📦 Open Source: Fully transparent and auditable codebase for maximum trust.
-- 🗺️ Attestations: Everything has a publicly traceable provenance.
-- 🖥️ Self-Hostable: Deploy your own instance for complete control over your data.
+- ✨ **User-Friendly**: Simple, intuitive interface that makes secure file storage effortless.
+- 🛡️ **Military-Grade Security**: State-of-the-art encryption algorithms protect your files at rest and in transit.
+- 🕵️ **Zero-Trust By Default**: Designed with zero-trust principles in mind. Trust no one but yourself.
+- 🔒 **End-to-End Encryption**: Data in transit are always encrypted using AES-GCM.
+- 🗝️ **Zero-Knowledge Authentication**: Your password never leaves your device.
+- 📱 **Multi-Platform**: Available as an Android app and a Progressive Web App (PWA).
+- 📦 **Open Source**: Fully transparent and auditable codebase for maximum trust.
+- 🗺️ **Attestations**: Everything has a publicly traceable provenance.
+- 🖥️ **Self-Hostable**: Deploy your own instance for complete control over your data.
 
 # Screenshots
 
