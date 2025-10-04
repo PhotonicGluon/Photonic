@@ -1,0 +1,59 @@
+---
+title: "Designing a Zero-Trust, Secure File Manager"
+pubDate: 2025-10-05
+summary: "Look at the design decisions behind the design of Excalibur, a trustless, secure file manager."
+image:
+    url: "/blog/excalibur/banner.png"
+    alt: 'The excalibur logo. There is a dark blue background with a grid of blue dots on it. In front is a lock with a sword in it, encapsulated with a light blue shield. The word "Excalibur" is written below it.'
+tags: []
+hasMath: true
+---
+
+I recently publicly released [Excalibur](https://excalibur.photonic.dev), a trustless secure file management solution using military-grade encryption. In this blog post, I'll explain the design behind Excalibur and how it keeps your files safe.
+
+# Security Model
+
+The desire to create Excalibur stems from wanting to store files so that only the owner(s) have access to them. For most files, there are no concerns with storing them on cloud services such as Google Drive or Dropbox. However, sensitive files (e.g., passwords, bank transactions, employment contracts) need to be treated with more care. We should assume that cloud service providers are able to view, read, snoop, edit, modify, change, and alter the contents of any files that are stored on their system. After all, it is _their_ servers that we are storing _our_ files on. In fact, US cloud providers are legally required to [provide requested data stored on their servers when requested by the authorities](https://en.m.wikipedia.org/wiki/CLOUD_Act).
+
+This is the impetus for creating an encrypted file server, so that not even the cloud providers can see what is being stored on their system. To that end, the security model for Excalibur is as follows.
+
+- Assume that an attacker is able to sniff and modify any transmission between client and server[^https-not-really].
+- Assume that the server is able to read and modify any files on its system, and assume that all actions performed on the server are logged.
+- Assume that the client is free from malware (as otherwise the files can already be ready and modified by an attacker).
+
+[^https-not-really]: This assumption means, even if the connection is secured using HTTPS, that an attacker is able to decrypt and modify the transmission. This scenario is not unrealistic -- computers within a corporate network often need to accept the corporate proxy's certificate, which means that the corporation is able to monitor/modify transmissions.
+
+The entire design of Excalibur revolves around these three assumptions. Our goal is to design a system that is able to store files that only the user can read and modify[^modify]. It turns out that these assumptions are almost identical to those of password managers, just that instead of storing passwords we are storing files. To that end, I arbitrarily chose to follow 1Password's design because it has a [publicly accessible white paper](https://1passwordstatic.com/files/security/1password-white-paper.pdf) detailing how it keeps data secure.
+
+[^modify]: Technically the files could always be modified, but this condition is referring to the files being modified **without being detected**. That is, if the file was modified by someone other than the user, the system should be able to detect it.
+
+# Zero-Knowledge Authentication
+
+One of the key security features of Excalibur is that the client and server will perform mutual authentication. That means that not only will the client authenticate itself with the server, the server will also prove its identity to the client. The reason for this is simple: we don't want the client to mistakenly upload their files to an attacker that is pretending to be the trusted server. As such, the server also needs to prove its identity to the client.
+
+But there is an additional wrinkle to this. Since we are assuming that the server is able to read and modify any files on the system, if the client just uses a password to authenticate itself and the server uses a [salted hash](<https://en.wikipedia.org/wiki/Salt_(cryptography)#Web-application_implementations>) to handle the password authentication, any malicious process on the server could start cracking the password based on this hash. And providing this hash to the client definitely does _not_ mean that the server actually knows the password. We need a method for the server to prove to the client that it indeed knows the client's password (via some indirect manner).
+
+Both of these needs, having mutual authentication while preventing the server from having the password, can be solved by using the [Secure Remote Password](https://en.m.wikipedia.org/wiki/Secure_Remote_Password_protocol) protocol. I have already made [a blog post](/blog/2025-07-04/security-over-insecurity:-the-foundations-of-authenticated-key-exchange/#secure-remote-password-srp) detailing the mathematics behind SRP, but here's the gist: using the password hash $x$, a verifier value $v$ is generated using $g^x \mod N$ where $N$ is some prime. This prevents the server from directly knowing the password hash $x$; afterwords SRP engages in a key-exchange process that involves $x$ (or $v$). Since the key-exchange involves the password hash $x$, anyone who does not know the hash $x$ (or has the verifier $v$) cannot derive the shared password. Both client and server will then check if the other got the correct shared key before proceeding with encrypted communications.
+
+Critically, **no fragment of the password is ever sent over the insecure network**[^initial-reg]. What any eavesdropper ever sees will be two 'ephemeral values' (i.e., $A$ and $B$ in the SRP process) as well as the two 'check values' (i.e. $M_1$ and $M_2$), **never the password hash $x$ nor the verifier $v$**. And yet the client and server are able to authenticate each other via this mechanism. This thus can be considered as a "zero-knowledge" authentication[^continued-auth].
+
+[^initial-reg]: Astute readers might note that SRP does not cover the initial registration problem, that is, how to transmit the verifier $v$ from the client to the server. Anyone with $v$ can reasonably prove to the client with $x$ that they are the correct server, which means that $v$ needs to be secured. To do so, Excalibur initializes an "Account Creation Key" which will need to be entered on both client and server. This key be used to encrypt the communications between client and server during initial registration.
+
+[^continued-auth]: Note that this covers only the initial authentication between client and server. Continued authentication needs the client to prove to the server that it (still) knows the shared key derived using SRP. Excalibur uses a Proof-of-Possession (PoP) token that needs to be regenerated with every request. This prevents any replay attacks from being made.
+
+# The Software Stack
+
+My goal with Excalibur is to make a system that can be used anywhere. And since I am more familiar with web technologies than with native code, I searched for methods to create an app that works for both web and mobile. I eventually settled on [CapacitorJS](https://capacitorjs.com/) by [Ionic](https://ionic.io/), a JavaScript (and TypeScript) library that leverages web technologies to generate Progressive Web Applications (PWA) as well as native apps. This is perfect for my needs. [TailwindCSS](https://tailwindcss.com) was chosen as the primary method for styling the application as I was quite familiar with it (in fact, it was what I used to style this website!). Since the app was designed as a PWA first and foremost, the look of the app does not change between platforms.
+
+Apart from the Excalibur application, I also needed to code a server that handles all the requests from the app. After all, what use is the application if there is no server for it to talk to? I opted to use [FastAPI](https://fastapi.tiangolo.com/) to create the web API as it is fast, easy to use, and helps automatically generate nice looking documentation. The file management endpoints were not the big part of the server, that would have to go to the code for the authentication and encryption endpoints. After all, the selling point for Excalibur is that it is _encrypted_ &mdash; it has to properly handle the security aspects befitting of a zero-trust secure file server. Hence, the code base is heavily skewed towards handling these security operations. There is even an [entire specification on handling the authentication process](https://excalibur.photonic.dev/docs/dev/authentication#specification) that is handled by the server.
+
+# Conclusion
+
+After many months of work, I am proud to be able to finally release Excalibur to the public. You might notice that its first public release is version 0.2.0, since the 0.1.x series can be considered as minimum viable products (MVPs) for my own use. But the public release of Excalibur does not mean that the work stops here. In fact, there are still a few features that I want to implement:
+
+- Moving files/folders
+- Multi-file upload and download
+- Automatic token refreshing (so that we no longer have a countdown system)
+- File searching
+
+As of now, please try out [Excalibur](https://excalibur.photonic.dev) and let me know what you think 😊.
