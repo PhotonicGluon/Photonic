@@ -2,6 +2,6 @@
 
 # Install dependencies
 echo "===> Installing dependencies"
-npm install --loglevel info
+pnpm install
 
 echo "===> Done!"

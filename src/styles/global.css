@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tailwindcss-intersect";
-@import "flowbite/src/themes/default";
 
 @plugin "@tailwindcss/forms";
 @plugin "tailwindcss-animate";

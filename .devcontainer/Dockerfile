@@ -7,21 +7,12 @@ RUN apt-get update \
     && apt-get install -y curl \
     && apt-get -y autoclean
 
-# # Disable TLS
-# # TODO: Remove because dangerous
-# RUN git config --global http.sslVerify false
-
 # === NODE.JS AND NPM ===
 # Set up nvm environment variables
 ENV NVM_VERSION=0.40.1
 ENV NODE_VERSION=22.12.0
 ENV NVM_DIR=/usr/local/nvm
 RUN mkdir $NVM_DIR
-
-# # Disable TLS
-# # TODO: Remove because dangerous
-# ENV NODE_TLS_REJECT_UNAUTHORIZED=0
-# ENV NVM_NODEJS_ORG_MIRROR=http://nodejs.org/dist
 
 # Install nvm
 # https://github.com/creationix/nvm#install-script
@@ -40,14 +31,10 @@ ENV PATH=$NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 # Confirm installation
 RUN node -v && npm -v
 
-# === TYPESCRIPT ===
-# # Disable TLS
-# # TODO: Remove because dangerous
-# RUN npm config -g set strict-ssl false  
-
-# Install typescript
-ENV TYPESCRIPT_VERSION=latest
-RUN npm install -g typescript@$TYPESCRIPT_VERSION
+# Bump npm version
+RUN echo "Upgrading npm to latest" && \
+    npm update -g npm && \ 
+    node -v && npm -v
 
 # === PYTHON SETUP ===
 RUN apt-get install -y \
@@ -57,11 +44,9 @@ RUN python3 -m pip install -U \
     pip \
     setuptools
 
-# === MAIN SETUP ===
-# Bump npm version
-RUN echo "Upgrading npm to latest" && \
-    npm update -g npm && \ 
-    node -v && npm -v
+# === PNPM ===
+RUN npm install -g pnpm@10.26.2
 
+# === MISC ===
 # Switch back to vscode user
 USER vscode
