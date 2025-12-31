@@ -57,10 +57,5 @@
         "tailwindcss-intersect": "^2.2.0",
         "tweakpane": "^4.0.5",
         "vite-plugin-glsl": "^1.5.5"
-    },
-    "overrides": {
-        "tailwindcss-animate": {
-            "tailwindcss": "$tailwindcss"
-        }
     }
 }

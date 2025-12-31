@@ -1,3 +1,6 @@
 onlyBuiltDependencies:
   - esbuild
   - sharp
+
+overrides:
+  "tailwindcss-animate>tailwindcss": "$tailwindcss"
