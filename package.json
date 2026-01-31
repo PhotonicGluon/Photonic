@@ -25,7 +25,7 @@
         "astro-seo": "^1.1.0",
         "flowbite": "^4.0.1",
         "git-last-commit": "^1.0.1",
-        "jquery": "^4.0.0",
+        "jquery": "~3.7.1",
         "nanostores": "^1.1.0",
         "preact": "^10.28.2",
         "read-pkg": "^10.0.0",
