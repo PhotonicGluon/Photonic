@@ -2,7 +2,8 @@
     "name": "Keras-MatMulLess",
     "tags": ["programming"],
     "dates": {
-        "start": "2024-06-14"
+        "start": "2024-06-14",
+        "end": "2026-02-14"
     },
 
     "summary": "Keras layers without using matrix multiplications.",
