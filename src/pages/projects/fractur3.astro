@@ -1,0 +1,71 @@
+---
+import { Image } from "astro:assets";
+import { getEntry } from "astro:content";
+
+import ButtonLink from "@components/generic/ButtonLink.astro";
+import ProjectLayout from "@layouts/ProjectLayout.astro";
+
+// Get project
+const project = (await getEntry("projects", "fractur3"))!;
+---
+
+<ProjectLayout {...project.data}>
+    {/* Introduction */}
+    <div>
+        <iframe
+            class="hidden md:float-right md:ml-8 md:w-44 md:border-none md:not-print:block md:not-print:h-44"
+            src="https://bandcamp.com/EmbeddedPlayer/album=TODO:ADD/size=large/bgcol=181a1b/linkcol=056cc4/minimal=true/transparent=true/"
+            title="FRACTUR3 Bandcamp Embed"
+            loading="lazy"
+            seamless
+        >
+        </iframe>
+
+        <p>
+            <em>FRACTUR3</em> is an album exploring the rapidly fading line between what's genuine and what's fake. TODO:
+            ADD
+        </p>
+        <p>
+            The final album is primarily available on
+            <a href="https://melodicgluon.bandcamp.com/album/fractur3">Bandcamp</a>.
+        </p>
+    </div>
+
+    {/* Tracks */}
+    <div>
+        <h2>Tracks</h2>
+        <p>TODO:ADD</p>
+    </div>
+
+    {/* Conclusion */}
+    <div class="mt-4">
+        <p>TODO: ADD</p>
+    </div>
+</ProjectLayout>
+
+<style>
+    @import "@styles/global.css";
+
+    /* General styling */
+    img {
+        @apply m-auto max-h-full w-full max-w-full md:w-3/4 lg:w-1/2;
+    }
+
+    .button {
+        @apply mx-auto mt-1 mb-2 block w-full text-center md:w-min print:hidden;
+    }
+
+    .bandcamp-button {
+        @apply bg-cyan-700 hover:bg-cyan-800;
+    }
+
+    /* Music pieces' styling */
+    .music-title,
+    .music-duration {
+        @apply text-xl font-bold;
+    }
+
+    .music-caption {
+        @apply text-center text-sm text-gray-300 italic print:text-gray-700;
+    }
+</style>

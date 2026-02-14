@@ -80,8 +80,8 @@ export default class ProjectFilters extends Component<Props, State> {
                 bDate = bProj.dates.start.getTime();
             } else {
                 // END
-                aDate = aProj.dates.end ? aProj.dates.end.getTime() : Date.now();
-                bDate = bProj.dates.end ? bProj.dates.end.getTime() : Date.now();
+                aDate = aProj.dates.end ? aProj.dates.end.getTime() : 1e64;
+                bDate = bProj.dates.end ? bProj.dates.end.getTime() : 1e64;
             }
 
             const dateDelta = aDate - bDate;
