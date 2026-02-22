@@ -1,15 +1,14 @@
 {
     "name": "photonic",
     "type": "module",
-    "version": "1.2.15-rc.1",
+    "version": "1.2.15-rc.2",
     "scripts": {
         "dev": "astro dev --host",
         "build": "astro build",
         "prod": "python3 -m http.server -d dist",
         "preview": "astro preview --host",
         "astro": "astro",
-        "gen-shader": "python3 scripts/gen_shader.py",
-        "bump-version": "python3 scripts/bump_version.py"
+        "gen-shader": "python3 scripts/gen_shader.py"
     },
     "dependencies": {
         "@astrojs/markdown-remark": "^6.3.10",
