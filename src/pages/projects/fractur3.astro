@@ -1,8 +1,6 @@
 ---
-import { Image } from "astro:assets";
 import { getEntry } from "astro:content";
 
-import ButtonLink from "@components/generic/ButtonLink.astro";
 import ProjectLayout from "@layouts/ProjectLayout.astro";
 
 // Get project
@@ -14,7 +12,7 @@ const project = (await getEntry("projects", "fractur3"))!;
     <div>
         <iframe
             class="hidden md:float-right md:ml-8 md:w-44 md:border-none md:not-print:block md:not-print:h-44"
-            src="https://bandcamp.com/EmbeddedPlayer/album=TODO:ADD/size=large/bgcol=181a1b/linkcol=056cc4/minimal=true/transparent=true/"
+            src="https://bandcamp.com/EmbeddedPlayer/album=119335541/size=large/bgcol=181a1b/linkcol=056cc4/minimal=true/transparent=true/"
             title="FRACTUR3 Bandcamp Embed"
             loading="lazy"
             seamless
@@ -36,17 +34,6 @@ const project = (await getEntry("projects", "fractur3"))!;
             The final album is primarily available on
             <a href="https://melodicgluon.bandcamp.com/album/fractur3">Bandcamp</a>.
         </p>
-
-        {/* Tracks */}
-        <div>
-            <h2>Tracks</h2>
-            <p>TODO:ADD</p>
-        </div>
-
-        {/* Conclusion */}
-        <div class="mt-4">
-            <p>TODO: ADD</p>
-        </div>
     </div>
 
     <style>
