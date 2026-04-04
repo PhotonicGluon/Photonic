@@ -26,7 +26,7 @@
         "git-last-commit": "^1.0.1",
         "jquery": "~3.7.1",
         "nanostores": "^1.2.0",
-        "preact": "^10.29.0",
+        "preact": "^10.29.1",
         "read-pkg": "^10.1.0",
         "rehype-katex": "^7.0.1",
         "rehype-preset-minify": "^7.0.1",
@@ -37,7 +37,7 @@
         "seedrandom": "^3.0.5",
         "sharp": "^0.34.5",
         "showdown": "^2.1.0",
-        "slugify": "^1.6.8",
+        "slugify": "^1.6.9",
         "tailwindcss": "^4.2.2",
         "twgl.js": "^7.0.0",
         "typescript": "^6.0.2",
@@ -47,7 +47,7 @@
         "@tailwindcss/forms": "^0.5.11",
         "@tweakpane/core": "^2.0.5",
         "@types/jquery": "^3.5.34",
-        "@types/node": "^25.5.0",
+        "@types/node": "^25.5.2",
         "@types/seedrandom": "^3.0.8",
         "@types/showdown": "^2.0.6",
         "prettier": "^3.8.1",
@@ -57,6 +57,6 @@
         "tailwindcss-animate": "^1.0.7",
         "tailwindcss-intersect": "^2.2.0",
         "tweakpane": "^4.0.5",
-        "vite-plugin-glsl": "^1.5.6"
+        "vite-plugin-glsl": "^1.6.0"
     }
 }
