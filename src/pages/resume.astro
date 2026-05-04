@@ -1,6 +1,11 @@
 ---
 import SEO from "@components/top/SEO.astro";
+import OSCP from "@images/resume/credentials/OSCP+.png";
+import OSWP from "@images/resume/credentials/OSWP.png";
+import OSWA from "@images/resume/credentials/OSWA.png";
+import OSWE from "@images/resume/credentials/OSWE.png";
 import MainLayout from "@layouts/MainLayout.astro";
+import Image from "astro/components/Image.astro";
 ---
 
 <MainLayout
@@ -50,17 +55,17 @@ import MainLayout from "@layouts/MainLayout.astro";
             <div class="pt-2 *:block">
                 <span class="text-sm font-light uppercase print:text-xs">Feb 2024 - Apr 2026</span>
                 <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
-                    <span class="font-bold">Company Name</span> &mdash;{" "}
-                    <span class="italic">Position</span>
+                    <span class="font-bold">Ministry of Defence</span> &mdash;{" "}
+                    <span class="italic">Cyber Specialist</span>
                 </div>
                 <ul>
                     <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua.
+                        Used state-of-the-art techniques in binary code similarity detection to develop models that
+                        help generate the embedding of functions.
                     </li>
                     <li>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-                        ut labore et dolore magna aliqua.
+                        Designed, architected and implemented agentic workflows that can be used within a
+                        Generative AI decompiler plugin using LangChain, LangGraph, and related tools.
                     </li>
                 </ul>
             </div>
@@ -82,10 +87,42 @@ import MainLayout from "@layouts/MainLayout.astro";
         {/* Certifications */}
         <div>
             <h1>Certifications</h1>
-            <div class="pt-2 *:block">
-                <span class="text-sm font-light uppercase print:text-xs">Apr 2026</span>
-                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
-                    <span class="font-bold">Certification Name</span>
+            <div class="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2 lg:grid-cols-4 print:grid-cols-2">
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-center text-lg font-bold print:font-serif print:text-sm!">
+                        OffSec Certified Professional+ (OSCP+)
+                    </span>
+                    <a href="https://credentials.offsec.com/45e88e62-f0fc-4e92-83a9-2cdd0a26f12f" target="_blank"
+                        ><Image class="w-48 print:w-32" src={OSCP} alt="OSCP+" width={400} height={400} /></a
+                    >
+                    <span class="-mt-1 text-sm font-light uppercase print:text-xs">Mar 2026</span>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-center text-lg font-bold print:font-serif print:text-sm!">
+                        OffSec Web Expert (OSWE)
+                    </span>
+                    <a href="https://credentials.offsec.com/78d723dd-ee2c-4913-96f0-9941861e019f" target="_blank"
+                        ><Image class="w-48 print:w-32" src={OSWE} alt="OSWE" width={400} height={400} /></a
+                    >
+                    <span class="-mt-1 text-sm font-light uppercase print:text-xs">Dec 2025</span>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-center text-lg font-bold print:font-serif print:text-sm!">
+                        OffSec Web Assessor (OSWA)
+                    </span>
+                    <a href="https://credentials.offsec.com/8636cc6b-c0bd-47cc-89f9-8b2b53de5899" target="_blank"
+                        ><Image class="w-48 print:w-32" src={OSWA} alt="OSWA" width={400} height={400} /></a
+                    >
+                    <span class="-mt-1 text-sm font-light uppercase print:text-xs">Dec 2025</span>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-center text-lg font-bold print:font-serif print:text-sm!">
+                        OffSec Wireless Professional (OSWP)
+                    </span>
+                    <a href="https://credentials.offsec.com/46dc42ec-eab4-4bb2-8574-ad9afc0d81ed" target="_blank"
+                        ><Image class="w-48 print:w-32" src={OSWP} alt="OSWP" width={400} height={400} /></a
+                    >
+                    <span class="-mt-1 text-sm font-light uppercase print:text-xs">Mar 2026</span>
                 </div>
             </div>
         </div>
@@ -96,8 +133,8 @@ import MainLayout from "@layouts/MainLayout.astro";
             <div class="pt-2 *:block">
                 <span class="text-sm font-light uppercase print:text-xs">Aug 2023 - Present</span>
                 <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
-                    <span class="font-bold">Institution</span> &mdash;{" "}
-                    <span class="italic">Qualification</span>
+                    <span class="font-bold">National University of Singapore (NUS)</span> &mdash;{" "}
+                    <span class="italic">BCOMP, Information Security with Minor in Mathematics</span>
                 </div>
             </div>
         </div>
@@ -155,7 +192,7 @@ import MainLayout from "@layouts/MainLayout.astro";
 
     /* Apply correct A4 page margins */
     body {
-        @apply m-0!;
+        @apply m-0! print:min-h-0;
     }
 
     #resume {
