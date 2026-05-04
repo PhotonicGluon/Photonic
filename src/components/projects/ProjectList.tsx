@@ -1,8 +1,7 @@
-import { Component } from "preact";
-import { useStore } from "@nanostores/preact";
 import { projectStore } from "./store";
-
 import ProjectCard from "@components/projects/ProjectCard";
+import { useStore } from "@nanostores/preact";
+import { Component } from "preact";
 
 interface Props {
     /** Optional CSS class(es) to apply */

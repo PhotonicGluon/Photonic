@@ -1,8 +1,6 @@
-import { Component } from "preact";
-
 import ProjectTag from "@components/projects/ProjectTag";
-
 import type { ProjectTagType } from "@lib/projects/tag";
+import { Component } from "preact";
 
 interface Props {
     /** Optional CSS class(es) to apply */

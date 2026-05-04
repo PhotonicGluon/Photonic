@@ -1,10 +1,9 @@
+import { type ProjectInstance, SortDate, SortOrder, projectStore, tagNames } from "./store";
+import type { Project } from "@lib/projects/project";
+import type { ProjectTagType } from "@lib/projects/tag";
+import { useStore } from "@nanostores/preact";
 import $ from "jquery";
 import { Component } from "preact";
-import { useStore } from "@nanostores/preact";
-
-import type { ProjectTagType } from "@lib/projects/tag";
-import { projectStore, SortDate, SortOrder, tagNames, type ProjectInstance } from "./store";
-import type { Project } from "@lib/projects/project";
 
 interface Props {
     /** IDs of the projects */

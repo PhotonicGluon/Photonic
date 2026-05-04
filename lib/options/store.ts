@@ -1,6 +1,5 @@
-import { map } from "nanostores";
-
 import { MotionPreference } from "./types";
+import { map } from "nanostores";
 
 export interface Options {
     motion: MotionPreference;

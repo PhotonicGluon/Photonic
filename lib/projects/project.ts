@@ -1,7 +1,7 @@
-import { getCollection, z, type DataEntryMap } from "astro:content";
-
+import { ProjectTag, type ProjectTagType, getTags } from "./tag";
 import { toTitleCase } from "@lib/misc/strings";
-import { getTags, ProjectTag, type ProjectTagType } from "./tag";
+import { z } from "astro/zod";
+import { type DataEntryMap, getCollection } from "astro:content";
 
 /** Zod schema for project information */
 export const PROJECT_SCHEMA = z.object({

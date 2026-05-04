@@ -5,7 +5,13 @@
             "path": ".",
         },
     ],
-    "settings": {},
+    "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "always",
+            "source.fixAll": "explicit",
+        },
+    },
     "extensions": {
         "recommendations": [
             "astro-build.astro-vscode",

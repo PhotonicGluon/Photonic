@@ -1,6 +1,6 @@
 Jupyter Notebooks for teaching Competitive Programming simply.
 
-I largely adapted the content of the course from Steven and Felix Halim's excellent book "Competitive Programming 3". 
+I largely adapted the content of the course from Steven and Felix Halim's excellent book "Competitive Programming 3".
 I made this course in 2022 when I was training computer science club members in competitive programming. The course
 should be sufficient for one to learn the fundamentals of competitive programming, although more advanced topics like
 graph theory and mathematics are not taught here.

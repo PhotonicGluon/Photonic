@@ -1,4 +1,4 @@
-import { z } from "astro:content";
+import { z } from "astro/zod";
 import slugify from "slugify";
 
 /** Zod schema for blog post information */
