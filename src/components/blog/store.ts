@@ -1,5 +1,6 @@
 import type { Post } from "@lib/blog/post";
-import { deepMap, type BaseDeepMap } from "nanostores";
+import { deepMap } from "@nanostores/deepmap";
+import { type BaseDeepMap } from "nanostores";
 
 // TODO: Add
 // const tagsList = Object.values(ProjectTag);

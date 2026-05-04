@@ -1,6 +1,7 @@
 import type { Project } from "@lib/projects/project";
 import { ProjectTag } from "@lib/projects/tag";
-import { deepMap, type BaseDeepMap } from "nanostores";
+import { deepMap } from "@nanostores/deepmap";
+import type { BaseDeepMap } from "nanostores";
 
 const tagsList = Object.values(ProjectTag);
 export const tagNames = tagsList.map((tag) => tag.name);

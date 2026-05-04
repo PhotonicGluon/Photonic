@@ -1,8 +1,10 @@
 ---
 import type { ImageMetadata } from "astro";
-import { Image } from "astro:assets";
-import { inferRemoteSize, emitImageMetadata } from "astro/assets/utils";
+import { Image, inferRemoteSize } from "astro:assets";
+import { readFileSync } from "fs";
 import type { HTMLAttributes } from "astro/types";
+// @ts-ignore
+import { imageMetadata } from "astro/assets/utils";
 
 // Define props
 interface RequiredProps {
@@ -21,10 +23,12 @@ if (alt === "") {
 }
 
 // Determine metadata of remote image
-let metadata = null;
+let metadata: { width: number; height: number } | null = null;
+
 if (typeof src === "string") {
     if (src.startsWith("/")) {
-        metadata = (await emitImageMetadata(`public${src}`))!;
+        const buffer = readFileSync(`public${src}`);
+        metadata = await imageMetadata(buffer);
     } else {
         metadata = await inferRemoteSize(src);
     }

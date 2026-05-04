@@ -1,6 +1,6 @@
 /** @type {import("prettier").Config} */
 export default {
-    plugins: ["prettier-plugin-astro", "prettier-plugin-tailwindcss"],
+    plugins: ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-astro", "prettier-plugin-tailwindcss"],
     tabWidth: 4,
     printWidth: 115,
     overrides: [
@@ -18,4 +18,7 @@ export default {
         },
     ],
     tailwindStylesheet: "./src/styles/global.css",
+    // Import ordering
+    importOrderSeparation: true,
+    importOrderSortSpecifiers: true,
 };

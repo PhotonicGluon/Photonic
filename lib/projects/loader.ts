@@ -1,14 +1,14 @@
-import type { Loader, LoaderContext } from "astro/loaders";
+import { PROJECT_SCHEMA } from "./project";
 import {
-    createMarkdownProcessor,
-    parseFrontmatter,
     type MarkdownHeading,
     type MarkdownProcessor,
+    createMarkdownProcessor,
+    parseFrontmatter,
 } from "@astrojs/markdown-remark";
+import type { Loader, LoaderContext } from "astro/loaders";
 import { readFileSync, readdirSync } from "fs";
-import { fileURLToPath } from "url";
 import path from "path";
-import { PROJECT_SCHEMA } from "./project";
+import { fileURLToPath } from "url";
 
 // Copied from astro's `data-store.ts` file
 //     https://github.com/withastro/astro/blob/a6a4a66/packages/astro/src/content/data-store.ts#L4
@@ -176,6 +176,6 @@ export function projectsLoader(options: ProjectLoaderOptions): Loader {
                 context.logger.info(`Updated '${changedProjectID}'`);
             });
         },
-        schema: async () => PROJECT_SCHEMA,
+        schema: PROJECT_SCHEMA,
     };
 }
