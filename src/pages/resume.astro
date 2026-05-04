@@ -26,6 +26,178 @@ import MainLayout from "@layouts/MainLayout.astro";
         />
     </Fragment>
 
-    {/* Resume */}
-    <section>TODO: Add resume contents</section>
+    {/* Preamble */}
+    <section id="preamble">
+        {/* TODO: Make this a bit better */}
+        <p>Here you can find my latest resume. Feel free to print it.</p>
+    </section>
+
+    {/* Résumé */}
+    <section id="resume">
+        {/* Header (shown only on print) */}
+        <div class="hidden print:block">
+            <h1>Kan Onn Kit</h1>
+            <div class="*:block *:font-mono *:text-xs *:leading-4 *:font-bold">
+                <span>hello@photonic.dev</span>
+                <span>https://photonic.dev/</span>
+                <span>https://github.com/PhotonicGluon</span>
+            </div>
+        </div>
+
+        {/* Previous Employment */}
+        <div>
+            <h1>Previous Employment</h1>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Feb 2024 - Apr 2026</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">Company Name</span> &mdash;{" "}
+                    <span class="italic">Position</span>
+                </div>
+                <ul>
+                    <li>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua.
+                    </li>
+                    <li>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
+                        ut labore et dolore magna aliqua.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {/* Experiences */}
+        <div>
+            <h1>Experiences</h1>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Apr 2026</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">Place</span> &mdash;{" "}
+                    <span class="italic">Role</span>
+                </div>
+                <p>Some description here</p>
+            </div>
+        </div>
+
+        {/* Certifications */}
+        <div>
+            <h1>Certifications</h1>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Apr 2026</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">Certification Name</span>
+                </div>
+            </div>
+        </div>
+
+        {/* Education */}
+        <div>
+            <h1>Education</h1>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Aug 2023 - Present</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">Institution</span> &mdash;{" "}
+                    <span class="italic">Qualification</span>
+                </div>
+            </div>
+        </div>
+
+        {/* Skills and Competencies */}
+        <div>
+            <h1>Skills & Competencies</h1>
+            <ul>
+                <li>
+                    <b>Computer Skills</b>
+                    <ul>
+                        <li><b>Software</b>: LangChain, LangGraph</li>
+                        <li><b>Languages</b>: Python, TypeScript, JavaScript, CSS, HTML</li>
+                        <li><b>Experiences</b>: Image Processing, Machine Learning, Data Science</li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Presentation Skills</b>
+                    <ul>
+                        <li>Main Presenter for Nanyang JC's National Day video</li>
+                        <li>
+                            Lead Presenter and Facilitator for the School of Science and Technology's
+                            Cyber-Wellness Parents Outreach Programme
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        {/* Projects */}
+        <div>
+            <h1>Projects</h1>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Aug 2023 - Present</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">Project Name</span>
+                </div>
+                <p>Project description here</p>
+            </div>
+        </div>
+    </section>
 </MainLayout>
+
+{/* Page styling */}
+<style is:global>
+    @import "@styles/global.css";
+
+    /* Hide normal page elements on printing resume */
+    header,
+    footer,
+    #hero-box,
+    #preamble {
+        @apply print:hidden!;
+    }
+
+    /* Apply correct A4 page margins */
+    body {
+        @apply m-0!;
+    }
+
+    #resume {
+        @apply print:mx-[3.18cm] print:my-[1.9cm] print:px-0;
+    }
+
+    /* Resume styling */
+    #resume > div {
+        @apply pb-4;
+    }
+
+    #resume h1 {
+        @apply pb-1 text-2xl font-bold lg:text-3xl print:font-serif print:text-lg print:text-blue-400;
+    }
+
+    #resume p {
+        @apply print:text-xs!;
+    }
+
+    /* Lists */
+    #resume ul,
+    #resume ol {
+        @apply list-outside space-y-2 pl-8;
+    }
+    #resume ul {
+        @apply list-disc;
+    }
+
+    #resume ol {
+        @apply list-decimal;
+    }
+
+    #resume li {
+        @apply mb-0 print:text-xs!;
+    }
+
+    #resume li * {
+        @apply pb-0 wrap-break-word;
+    }
+
+    #resume li > ul,
+    #resume li > ol {
+        @apply space-y-1;
+    }
+</style>
