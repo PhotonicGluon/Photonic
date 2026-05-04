@@ -1,9 +1,9 @@
 ---
 import SEO from "@components/top/SEO.astro";
 import OSCP from "@images/resume/credentials/OSCP+.png";
-import OSWP from "@images/resume/credentials/OSWP.png";
 import OSWA from "@images/resume/credentials/OSWA.png";
 import OSWE from "@images/resume/credentials/OSWE.png";
+import OSWP from "@images/resume/credentials/OSWP.png";
 import MainLayout from "@layouts/MainLayout.astro";
 import Image from "astro/components/Image.astro";
 ---
@@ -192,11 +192,18 @@ import Image from "astro/components/Image.astro";
 
     /* Apply correct A4 page margins */
     body {
-        @apply m-0! print:min-h-0;
+        @apply m-0 print:min-h-0;
     }
 
     #resume {
-        @apply print:mx-[3.18cm] print:my-[1.9cm] print:px-0;
+        @apply print:px-0;
+    }
+
+    @layer base {
+        @page {
+            size: 210mm 297mm; /* A4 */
+            @apply mx-[3.18cm] my-[1.9cm];
+        }
     }
 
     /* Resume styling */
