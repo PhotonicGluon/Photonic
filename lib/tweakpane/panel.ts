@@ -1,6 +1,6 @@
-import { ButtonApi, type BladeApi, type FolderApi, type Pane } from "tweakpane";
 import type { SlidersOptionsMap } from "./options";
 import type { BladeState } from "@tweakpane/core";
+import { type BladeApi, ButtonApi, type FolderApi, type Pane } from "tweakpane";
 
 /**
  * Event data for the `sliders-initialised` event.

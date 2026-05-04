@@ -1,6 +1,6 @@
-import { Component } from "preact";
-import { useStore } from "@nanostores/preact";
 import { postStore } from "./store";
+import { useStore } from "@nanostores/preact";
+import { Component } from "preact";
 
 interface Props {}
 

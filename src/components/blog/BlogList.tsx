@@ -1,10 +1,8 @@
-import { Component } from "preact";
-import { useStore } from "@nanostores/preact";
 import { postStore } from "./store";
-
 import BlogPost from "@components/blog/BlogPost";
-
 import type { Post } from "@lib/blog/post";
+import { useStore } from "@nanostores/preact";
+import { Component } from "preact";
 
 interface Props {
     /** List of all posts */

@@ -1,5 +1,5 @@
-import { getCollection } from "astro:content";
 import { toPost } from "./post";
+import { getCollection } from "astro:content";
 
 // Load all blog posts, sorting them by date
 const rawUnsortedPosts = await getCollection("blog");

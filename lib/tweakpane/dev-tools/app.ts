@@ -1,24 +1,24 @@
 /**
  * Adapted from https://github.com/s-thom/website-2023/blob/26d8a1a/src/integrations/slidersDevTools.ts
  */
-
-import { type DevToolbarApp } from "astro";
-import { Pane } from "tweakpane";
-import { h } from "@lib/misc/h";
-import { tweakpaneCSS } from "./css";
 import {
+    type SlidersInitialisedEventData,
     addExportSettingsButton,
     addImportSettingsButton,
     addOptionsToPanel,
-    type SlidersInitialisedEventData,
 } from "../panel";
+import { tweakpaneCSS } from "./css";
+import { h } from "@lib/misc/h";
+import { type DevToolbarApp } from "astro";
+import { Pane } from "tweakpane";
 
 const tweakpaneDevTools: DevToolbarApp = {
     init(canvas, app) {
-        const container = h("astro-dev-overlay-window" as any, { style: { padding: "0px", borderRadius: "7px" } }, [
-            h("style", {}, tweakpaneCSS),
-            h("style", {}, `:host {z-index: 9999;}`),
-        ]);
+        const container = h(
+            "astro-dev-overlay-window" as any,
+            { style: { padding: "0px", borderRadius: "7px" } },
+            [h("style", {}, tweakpaneCSS), h("style", {}, `:host {z-index: 9999;}`)],
+        );
         canvas.appendChild(container);
 
         let pane: Pane;

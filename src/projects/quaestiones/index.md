@@ -1,4 +1,4 @@
-*Quaestiones* is an application that assists you in making a simple questions asking site.
+_Quaestiones_ is an application that assists you in making a simple questions asking site.
 
 # Features
 
@@ -25,6 +25,6 @@ As well as change how the input for **every question** is generated via an integ
 
 # History
 
-This is the second web-based project that I tried out. I was heavily inspired by the [*Advent of Code
-2020*](https://adventofcode.com/2020) by [Eric Wastl](http://was.tl/), and wanted to make a similar (if not heavily
-adapted) version of his project. *Quaestiones* (which means "questions" in latin) was the result of that decision.
+This is the second web-based project that I tried out. I was heavily inspired by the [_Advent of Code
+2020_](https://adventofcode.com/2020) by [Eric Wastl](http://was.tl/), and wanted to make a similar (if not heavily
+adapted) version of his project. _Quaestiones_ (which means "questions" in latin) was the result of that decision.

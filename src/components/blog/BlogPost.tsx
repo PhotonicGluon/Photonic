@@ -1,7 +1,6 @@
-import { Component } from "preact";
-
 import type { Post } from "@lib/blog/post";
 import { humanizeDate } from "@lib/misc/dates";
+import { Component } from "preact";
 
 interface Props {
     /** Post object to display on the list of posts */

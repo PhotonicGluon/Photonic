@@ -14,17 +14,20 @@ The spark for creating Photonic was born 2024, when I suddenly had inspiration t
 Development of the website primarily uses [`pnpm`](https://pnpm.io/).
 
 After opening the `Photonic.code-workspace` in an IDE of your choice, install the dependencies using:
+
 ```bash
 pnpm i
 ```
 
 > [!NOTE]
 > It is recommended to disable Astro telemetry using:
+>
 > ```bash
 > pnpm run astro telemetry disable
 > ```
 
 To start the development server, run:
+
 ```bash
 pnpm run dev
 ```

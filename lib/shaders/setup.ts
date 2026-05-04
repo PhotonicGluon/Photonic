@@ -4,7 +4,6 @@
  * Adapted from
  *  https://github.com/s-thom/website-2023/blob/26d8a1a/src/lib/shaders/setup.ts
  */
-
 import * as twgl from "twgl.js";
 
 /**

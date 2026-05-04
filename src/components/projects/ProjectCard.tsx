@@ -1,9 +1,7 @@
-import { Component } from "preact";
-
 import ProjectTags from "@components/projects/ProjectTags";
-
-import type { Project } from "@lib/projects/project";
 import { toDateString } from "@lib/misc/dates";
+import type { Project } from "@lib/projects/project";
+import { Component } from "preact";
 
 interface Props {
     /** ID of the project */

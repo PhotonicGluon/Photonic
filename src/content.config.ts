@@ -1,8 +1,7 @@
-import { defineCollection } from "astro:content";
-import { glob } from "astro/loaders";
-
-import { projectsLoader } from "@lib/projects/loader";
 import { POST_SCHEMA } from "@lib/blog/post";
+import { projectsLoader } from "@lib/projects/loader";
+import { glob } from "astro/loaders";
+import { defineCollection } from "astro:content";
 
 // Define collections
 const projects = defineCollection({
