@@ -1,0 +1,31 @@
+---
+import SEO from "@components/top/SEO.astro";
+import MainLayout from "@layouts/MainLayout.astro";
+---
+
+<MainLayout
+    class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
+    title="Résumé"
+>
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO
+            title="Résumé"
+            description="PhotonicGluon's résumé"
+            openGraph={{
+                title: "Résumé",
+                description: "PhotonicGluon's résumé",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
+    </Fragment>
+
+    {/* Resume */}
+    <section>TODO: Add resume contents</section>
+</MainLayout>

@@ -1,12 +1,9 @@
 ---
-import { Image } from "astro:assets";
-
 import ButtonLink from "@components/generic/ButtonLink.astro";
 import SEO from "@components/top/SEO.astro";
-
-import MainLayout from "@layouts/MainLayout.astro";
-
 import linkedinLogo from "@images/icons/LI-In-Bug.svg";
+import MainLayout from "@layouts/MainLayout.astro";
+import { Image } from "astro:assets";
 ---
 
 <MainLayout
@@ -150,7 +147,7 @@ import linkedinLogo from "@images/icons/LI-In-Bug.svg";
         <div>
             {/* Contacts for mobile */}
             <div class="my-2 flex place-content-center gap-6 md:hidden print:hidden">
-                <a class="!text-white" href="mailto:hello@photonic.dev" aria-label="Email">
+                <a class="text-white!" href="mailto:hello@photonic.dev" aria-label="Email">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
