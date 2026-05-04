@@ -1,0 +1,22 @@
+{
+    "folders": [
+        {
+            "name": "Photonic",
+            "path": ".",
+        },
+    ],
+    "settings": {},
+    "extensions": {
+        "recommendations": [
+            "astro-build.astro-vscode",
+            "bradlc.vscode-tailwindcss",
+            "esbenp.prettier-vscode",
+            "ms-python.python",
+            "raczzalan.webgl-glsl-editor",
+            "streetsidesoftware.code-spell-checker",
+            "yzhang.markdown-all-in-one",
+            "github.vscode-github-actions",
+            "unifiedjs.vscode-mdx",
+        ],
+    },
+}
