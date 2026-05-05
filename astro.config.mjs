@@ -48,6 +48,13 @@ export default defineConfig({
             weights: ["100 1000"],
             styles: ["normal", "italic"],
         },
+        {
+            provider: fontProviders.npm(),
+            name: "Playfair Display",
+            cssVariable: "--font-playfair-display",
+            weights: ["100 1000"],
+            styles: ["normal", "italic"],
+        },
     ],
     integrations: [
         photonicTweakpane,
