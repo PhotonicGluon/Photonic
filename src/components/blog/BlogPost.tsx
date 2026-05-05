@@ -10,7 +10,7 @@ interface Props {
 interface State {}
 
 export default class BlogPost extends Component<Props, State> {
-    render(props: Props, state: State) {
+    render(props: Props) {
         const post = props.post;
 
         return (
@@ -39,7 +39,7 @@ export default class BlogPost extends Component<Props, State> {
                         <h1 class="font-mono font-bold md:text-xl lg:text-2xl">{post.title}</h1>
 
                         {/* Summary */}
-                        <p class="!p-0 text-gray-300 print:text-gray-700">{post.summary}</p>
+                        <p class="p-0! text-gray-300 print:text-gray-700">{post.summary}</p>
                     </div>
                 </article>
             </a>

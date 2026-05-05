@@ -23,7 +23,7 @@ export default class ProjectFilters extends Component<Props, State> {
     };
 
     // Lifecycle methods
-    render(props: Props, state: State) {
+    render(props: Props) {
         const project = props.project;
 
         let topBlock = <span class="text-2xl font-bold">{project.name}</span>;
@@ -57,7 +57,7 @@ export default class ProjectFilters extends Component<Props, State> {
         const cardBack = (
             <div>
                 <span class="text-2xl font-bold">{project.name}</span>
-                <p class="mt-4 !text-center">{project.summary}</p>
+                <p class="mt-4 text-center!">{project.summary}</p>
             </div>
         );
 
@@ -65,7 +65,7 @@ export default class ProjectFilters extends Component<Props, State> {
             <div class="group h-80 w-full motion-safe:perspective-distant not-print:lg:h-96 not-print:lg:max-w-96 print:h-max">
                 <div
                     id={`project-${props.id}`}
-                    class="relative mx-auto my-0 h-full w-full cursor-pointer rounded-lg bg-gradient-to-tr from-gray-900 via-slate-700 via-75% to-gray-800 p-3 text-center transition-transform duration-500 *:flex *:flex-col *:items-center *:justify-center not-print:*:absolute not-print:*:top-0 not-print:*:right-0 not-print:*:bottom-0 not-print:*:left-0 *:not-print:p-4 motion-safe:transform-3d motion-safe:*:rotate-x-0 motion-safe:*:backface-hidden motion-reduce:*:transition-opacity motion-reduce:*:duration-300 md:not-print:motion-safe:group-hover:rotate-y-180 *:not-print:lg:p-8 print:flex print:flex-col print:justify-center print:border print:!bg-none"
+                    class="relative mx-auto my-0 h-full w-full cursor-pointer rounded-lg bg-linear-to-tr from-gray-900 via-slate-700 via-75% to-gray-800 p-3 text-center transition-transform duration-500 *:flex *:flex-col *:items-center *:justify-center not-print:*:absolute not-print:*:top-0 not-print:*:right-0 not-print:*:bottom-0 not-print:*:left-0 *:not-print:p-4 motion-safe:transform-3d motion-safe:*:rotate-x-0 motion-safe:*:backface-hidden motion-reduce:*:transition-opacity motion-reduce:*:duration-300 md:not-print:motion-safe:group-hover:rotate-y-180 *:not-print:lg:p-8 print:flex print:flex-col print:justify-center print:border print:bg-none!"
                     onClick={this.onClick(props.id)}
                 >
                     <div class="motion-reduce:opacity-100 motion-reduce:group-hover:opacity-0 print:order-2">
