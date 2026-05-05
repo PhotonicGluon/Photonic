@@ -2,6 +2,11 @@ onlyBuiltDependencies:
     - esbuild
     - sharp
 
+minimumReleaseAge: 7200 # 5 days, expressed in minutes
+minimumReleaseAgeExclude:
+    - astro@6.2.2
+    - yaml@2.8.4
+
 overrides:
     yaml@<2.8.3: ">=2.8.3"
     tailwindcss-animate>tailwindcss: $tailwindcss
