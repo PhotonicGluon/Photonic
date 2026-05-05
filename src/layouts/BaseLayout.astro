@@ -33,8 +33,8 @@ const contourNoiseTimeOffset = random() * 100 - 50; // So this range is [-50, 50
         <Metadata />
 
         {/* Fonts */}
-        <Font cssVariable="--font-dm-sans" />
-        <Font cssVariable="--font-jetbrains-mono" />
+        <Font cssVariable="--font-dm-sans" preload={[{ weight: "400" }, { weight: "700" }]} />
+        <Font cssVariable="--font-jetbrains-mono" preload={[{ weight: "400" }]} />
         <Font cssVariable="--font-playfair-display" />
         <slot name="head-fonts" />
 
