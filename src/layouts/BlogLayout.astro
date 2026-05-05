@@ -1,15 +1,12 @@
 ---
-import type { MarkdownHeading } from "astro";
-import type { CollectionEntry } from "astro:content";
-
-import { toPost, type Post } from "@lib/blog/post";
-import { citationDate, humanizeDate, strMonth } from "@lib/misc/dates";
-
-import SEO from "@components/top/SEO.astro";
 import KaTeXLoader from "@components/misc/KaTeXLoader.astro";
 import TailwindBreakpointChecker from "@components/misc/TailwindBreakpointChecker.astro";
-
+import SEO from "@components/top/SEO.astro";
 import MainLayout from "@layouts/MainLayout.astro";
+import { toPost, type Post } from "@lib/blog/post";
+import { citationDate, humanizeDate, strMonth } from "@lib/misc/dates";
+import type { MarkdownHeading } from "astro";
+import type { CollectionEntry } from "astro:content";
 
 const BLOG_PATH_BASE_URL = "https://github.com/PhotonicGluon/Photonic/edit/main/";
 
@@ -76,7 +73,7 @@ if (post.image !== undefined) {
 
     {/* Main stuff */}
     <section
-        class="relative flex flex-col gap-4 divide-y-2 divide-solid divide-gray-500/25 *:max-w-screen-md lg:not-print:flex-row lg:not-print:gap-2 lg:not-print:divide-none print:gap-1 print:divide-gray-800"
+        class="relative flex flex-col gap-4 divide-y-2 divide-solid divide-gray-500/25 *:max-w-3xl lg:not-print:flex-row lg:not-print:gap-2 lg:not-print:divide-none print:gap-1 print:divide-gray-800"
     >
         {/* List of contents */}
         <aside
@@ -87,7 +84,7 @@ if (post.image !== undefined) {
             <div class="not-print:sticky not-print:top-3">
                 {/* Actual list */}
                 <span class="block text-2xl font-bold lg:not-print:text-lg">Contents</span>
-                <ul class="block text-base not-print:space-y-2 lg:not-print:text-sm/4 print:!p-0">
+                <ul class="block text-base not-print:space-y-2 lg:not-print:text-sm/4 print:p-0!">
                     {
                         headings.map((heading) => (
                             <li
@@ -96,7 +93,7 @@ if (post.image !== undefined) {
                                 id={`loc-${heading.slug}`}
                             >
                                 <a
-                                    class="!text-gray-300 hover:!text-gray-400 print:!text-black"
+                                    class="text-gray-300! hover:text-gray-400! print:text-black!"
                                     href={`#${heading.slug}`}
                                 >
                                     {heading.text}
@@ -134,7 +131,7 @@ if (post.image !== undefined) {
 
             {/* Links */}
             <div
-                class="mx-auto mt-12 flex w-full flex-col items-center gap-4 md:mx-0 md:w-max md:flex-row md:gap-8 print:hidden [&_a]:inline-flex [&_a]:items-center [&_a]:!text-gray-400 [&_a]:hover:!text-gray-500 [&_a_span]:pl-2 [&_a_span]:text-sm [&_a_svg]:size-6"
+                class="mx-auto mt-12 flex w-full flex-col items-center gap-4 md:mx-0 md:w-max md:flex-row md:gap-8 print:hidden [&_a]:inline-flex [&_a]:items-center [&_a]:text-gray-400! [&_a]:hover:text-gray-500! [&_a_span]:pl-2 [&_a_span]:text-sm [&_a_svg]:size-6"
             >
                 <a href={BLOG_PATH_BASE_URL + filepath}>
                     <svg
@@ -179,7 +176,7 @@ if (post.image !== undefined) {
 
             {/* Previous/next links */}
             <nav
-                class="*:group mt-4 grid w-full grid-cols-1 gap-4 *:flex *:flex-row *:items-center *:gap-4 *:rounded-2xl *:border-2 *:border-gray-700 *:bg-gray-800/30 *:p-4 *:!text-gray-300 *:hover:!text-gray-400 md:grid-cols-2 print:hidden"
+                class="*:group mt-4 grid w-full grid-cols-1 gap-4 *:flex *:flex-row *:items-center *:gap-4 *:rounded-2xl *:border-2 *:border-gray-700 *:bg-gray-800/30 *:p-4 *:text-gray-300! *:hover:text-gray-400! md:grid-cols-2 print:hidden"
             >
                 {
                     prevPost && (
@@ -235,7 +232,7 @@ if (post.image !== undefined) {
 
     {/* Reading progress indication for mobile */}
     <div
-        class="fixed top-0 left-0 z-10 block w-full -translate-y-full bg-gradient-to-tr from-gray-950 via-slate-800 via-75% to-gray-900 transition-all duration-500 ease-out lg:hidden print:hidden [&.showing]:translate-y-0"
+        class="fixed top-0 left-0 z-10 block w-full -translate-y-full bg-linear-to-tr from-gray-950 via-slate-800 via-75% to-gray-900 transition-all duration-500 ease-out lg:hidden print:hidden [&.showing]:translate-y-0"
         id="progress-container"
     >
         {/* Main stuff */}
@@ -245,7 +242,7 @@ if (post.image !== undefined) {
             </div>
 
             <div
-                class="h-4 w-full origin-[0_50%] transform-[scaleX(0)] bg-gradient-to-r from-indigo-600 to-blue-400"
+                class="h-4 w-full origin-[0_50%] transform-[scaleX(0)] bg-linear-to-r from-indigo-600 to-blue-400"
                 id="progress-bar"
                 style={{
                     "--start-range": "100%", // Default is to not show the progress bar
@@ -276,8 +273,8 @@ if (post.image !== undefined) {
             }
         </style>
         <script>
-            import $ from "jquery";
             import { isAnimationTimelineSupported } from "@lib/misc/checks";
+            import $ from "jquery";
 
             if (isAnimationTimelineSupported()) {
                 $("#progress-bar").addClass("with-timeline");
@@ -363,7 +360,7 @@ if (post.image !== undefined) {
 </MainLayout>
 
 <div class="hidden" id="link-for-heading">
-    <a class="inline pl-4 !text-gray-400 hover:!text-gray-500 lg:hidden lg:group-hover:inline print:hidden">
+    <a class="inline pl-4 text-gray-400! hover:text-gray-500! lg:hidden lg:group-hover:inline print:hidden">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -398,10 +395,9 @@ if (post.image !== undefined) {
 
 {/* Script to handle active heading */}
 <script>
+    import { searchSorted } from "@lib/misc/iterables";
     import type { MarkdownHeading } from "astro";
     import $ from "jquery";
-
-    import { searchSorted } from "@lib/misc/iterables";
 
     // Get elements
     const progressContainer = $("#progress-container")!;
@@ -562,12 +558,12 @@ if (post.image !== undefined) {
 
     /* Code and code blocks */
     #blog-post span[data-rehype-pretty-code-figure] > code {
-        @apply rounded-lg !bg-gray-800 px-1 py-0.5 text-gray-100 print:!bg-transparent;
+        @apply rounded-lg bg-gray-800! px-1 py-0.5 text-gray-100 print:bg-transparent!;
     }
 
     #blog-post figure[data-rehype-pretty-code-figure] > pre,
     #bibtex-citation {
-        @apply my-2 scrollbar-thin overflow-auto rounded-lg !bg-gray-800 py-4 text-sm scrollbar-thumb-gray-600 lg:scrollbar print:border print:border-gray-600 print:!bg-transparent print:whitespace-pre-wrap;
+        @apply my-2 scrollbar-thin overflow-auto rounded-lg bg-gray-800! py-4 text-sm scrollbar-thumb-gray-600 lg:scrollbar print:border print:border-gray-600 print:bg-transparent! print:whitespace-pre-wrap;
     }
 
     #blog-post figure[data-rehype-pretty-code-figure] > pre code,
@@ -633,15 +629,15 @@ if (post.image !== undefined) {
 
     /* Alerts */
     #blog-post .markdown-alert {
-        @apply mb-2 rounded-2xl border border-gray-800 px-6 py-4 md:py-6 print:!bg-none;
+        @apply mb-2 rounded-2xl border border-gray-800 px-6 py-4 md:py-6 print:bg-none!;
     }
 
     #blog-post .markdown-alert > :last-child {
-        @apply !mb-0 pb-0;
+        @apply mb-0! pb-0;
     }
 
     #blog-post .markdown-alert-title {
-        @apply mb-1 flex w-max items-center rounded px-2 py-1 align-middle text-sm font-bold md:text-base print:border-2 print:border-gray-600 print:!bg-none;
+        @apply mb-1 flex w-max items-center rounded px-2 py-1 align-middle text-sm font-bold md:text-base print:border-2 print:border-gray-600 print:bg-none!;
     }
 
     #blog-post .markdown-alert-title svg {
@@ -704,6 +700,6 @@ if (post.image !== undefined) {
 
     /* Miscellaneous */
     #blog-post hr {
-        @apply border-1 text-gray-700;
+        @apply border text-gray-700;
     }
 </style>

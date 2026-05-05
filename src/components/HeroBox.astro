@@ -47,7 +47,7 @@ const {
 } = Astro.props;
 ---
 
-<div class={className ? className : ""} style={{ "--height": height }}>
+<div id="hero-box" class={className ? className : ""} style={{ "--height": height }}>
     <slot name="shader" />
     <div
         class="absolute top-[calc(var(--height)/2)] left-1/2 mx-0 my-auto mt-8 w-full max-w-screen-xl -translate-x-1/2 -translate-y-1/2 px-10 text-center xl:mt-0 print:top-16 print:mt-0"
