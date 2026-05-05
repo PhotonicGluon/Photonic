@@ -1,13 +1,18 @@
 ---
+import logoImage from "@images/logo.png";
 import { Image } from "astro:assets";
 
-import logoImage from "@images/logo.png";
-
-const NAV_ITEMS: { text: string; href: string }[] = [
+type NavItem = { text: string; href: string; children?: { text: string; href: string }[] };
+const NAV_ITEMS: NavItem[] = [
     { text: "Projects", href: "/projects" },
     { text: "Blog", href: "/blog" },
-    { text: "About", href: "/about" },
+    {
+        text: "About",
+        href: "/about",
+        children: [{ text: "Résumé", href: "/resume" }],
+    },
 ];
+const FLATTENED_NAV_ITEMS: NavItem[] = NAV_ITEMS.flatMap((item) => [item, ...(item.children || [])]);
 ---
 
 {/* Hamburger icon */}
@@ -67,14 +72,48 @@ const NAV_ITEMS: { text: string; href: string }[] = [
                 class="mt-24 mr-11 grid grid-cols-1 place-items-end gap-4 md:mt-0 md:mr-0 md:flex md:h-12 md:w-auto md:items-center md:gap-8"
             >
                 {
-                    NAV_ITEMS.map(({ text, href }) => (
-                        <a
-                            class="w-min font-mono text-2xl !text-gray-400 uppercase no-underline transition-all duration-200 visited:!text-gray-400 hover:!text-gray-300 visited:hover:!text-gray-300 focus:text-gray-300 md:inline-block md:py-0 md:text-xl md:last:px-0 xl:text-2xl"
-                            href={href}
-                            aria-label={text}
-                        >
-                            {text}
-                        </a>
+                    NAV_ITEMS.map(({ text, href, children }) => (
+                        <div class="group relative hidden md:block">
+                            <a
+                                class="nav-item w-min text-2xl md:inline-block md:py-0 md:text-xl md:last:px-0 xl:text-2xl"
+                                href={href}
+                                aria-label={text}
+                            >
+                                {text}
+                            </a>
+
+                            {children && (
+                                <>
+                                    {/* Dropdown for desktop */}
+                                    <div class="invisible absolute top-full left-0 mt-2 rounded-lg bg-gray-900 opacity-0 shadow-lg transition-all duration-200 *:rounded-lg group-hover:visible group-hover:opacity-100 md:block">
+                                        {children.map((child) => (
+                                            <a
+                                                class="nav-item block w-full px-4 py-2 text-sm hover:bg-gray-800"
+                                                href={child.href}
+                                                aria-label={child.text}
+                                            >
+                                                {child.text}
+                                            </a>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    ))
+                }
+
+                {/* Mobile flattened nav list */}
+                {
+                    FLATTENED_NAV_ITEMS.map(({ text, href }) => (
+                        <div class="group relative md:hidden">
+                            <a
+                                class="nav-item w-min text-2xl md:inline-block md:py-0 md:text-xl md:last:px-0 xl:text-2xl"
+                                href={href}
+                                aria-label={text}
+                            >
+                                {text}
+                            </a>
+                        </div>
                     ))
                 }
             </div>
@@ -92,3 +131,11 @@ const NAV_ITEMS: { text: string; href: string }[] = [
         });
     });
 </script>
+
+<style>
+    @import "@styles/global.css";
+
+    .nav-item {
+        @apply font-mono text-gray-400! uppercase no-underline transition-all duration-200 visited:text-gray-400! hover:text-gray-300! visited:hover:text-gray-300! focus:text-gray-300!;
+    }
+</style>

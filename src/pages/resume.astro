@@ -1,0 +1,354 @@
+---
+import ButtonLink from "@components/generic/ButtonLink.astro";
+import SEO from "@components/top/SEO.astro";
+import OSCP from "@images/resume/credentials/OSCP+.png";
+import OSWA from "@images/resume/credentials/OSWA.png";
+import OSWE from "@images/resume/credentials/OSWE.png";
+import OSWP from "@images/resume/credentials/OSWP.png";
+import MainLayout from "@layouts/MainLayout.astro";
+import Image from "astro/components/Image.astro";
+---
+
+<MainLayout
+    class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
+    title="Résumé"
+>
+    {/* SEO */}
+    <Fragment slot="head-seo">
+        <SEO
+            title="Résumé"
+            description="PhotonicGluon's résumé"
+            openGraph={{
+                title: "Résumé",
+                description: "PhotonicGluon's résumé",
+                image: {
+                    url: "https://raw.githubusercontent.com/PhotonicGluon/Photonic/4c2ae66/public/favicon.png",
+                    alt: "Photonic Logo",
+                    type: "image/png",
+                    width: 500,
+                    height: 500,
+                },
+            }}
+        />
+    </Fragment>
+
+    {/* Preamble */}
+    <section id="preamble">
+        <p>
+            Below is a summary of my professional journey and technical expertise. For a physical copy or PDF
+            version, this page has been formatted for optimal results when printed.
+        </p>
+        <div class="flex w-full justify-center">
+            <ButtonLink class="bg-linear-to-r from-indigo-800 to-blue-600" onclick="window.print()">
+                Print Resume
+            </ButtonLink>
+        </div>
+        <hr class="my-8" />
+    </section>
+
+    {/* Résumé */}
+    <section id="resume">
+        {/* Header (shown only on print) */}
+        <div class="hidden print:block">
+            <h1>Kan Onn Kit</h1>
+            <div class="*:block *:font-mono *:text-xs *:leading-4 *:font-bold">
+                <span>hello@photonic.dev</span>
+                <span>https://photonic.dev/</span>
+                <span>https://github.com/PhotonicGluon</span>
+            </div>
+        </div>
+
+        {/* Previous Employment */}
+        <div>
+            <h1>Previous Employment</h1>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Feb 2024 - Apr 2026</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">Ministry of Defence</span> &mdash;{" "}
+                    <span class="italic">Cyber Specialist</span>
+                </div>
+                <p>
+                    Under the Digital and Intelligence Service's (DIS) Defence Cyber Command (DCCOM), I worked with
+                    the Centre for Strategic Infocomm Technologies (CSIT) as a Cyber Security Researcher to develop
+                    efficient and optimised AI-powered solutions for automated malware reverse engineering.
+                </p>
+                <ul>
+                    <li>
+                        Co-led the development of the
+                        <a
+                            href="https://medium.com/csit-tech-blog/aether-ai-engine-to-help-engineers-reverse-csit-tech-blog-b721380bd1c3"
+                            target="_blank"
+                        >
+                            AI Engine to Help Engineers Reverse (AETHER)
+                        </a>
+                        . Specifically, I designed, architected and implemented the agentic <a
+                            href="https://medium.com/csit-tech-blog/struct-ured-reverse-engineering-in-ida-with-aether-757c87360f61"
+                            target="_blank"
+                        >
+                            struct creation system
+                        </a>
+                        present in AETHER using LangChain, LangGraph, and related tools.
+                    </li>
+                    <li>
+                        Led the research and development of malware analysis tools to enable and support malware
+                        analysts in their workflows.
+                    </li>
+                    <li>
+                        Used state-of-the-art techniques in binary code similarity detection to develop models that
+                        help generate the embedding of functions.
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {/* Experiences */}
+        <div>
+            <h1>Experiences</h1>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Apr 2026</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <a
+                        class="text-white! print:text-black!"
+                        href="https://www.youtube.com/watch?v=v25DiEUbkmg"
+                        target="_blank"
+                    >
+                        <span class="font-bold"> STACKx Cybersecurity 2026 </span>
+                        &mdash; <span class="italic">Speaker</span>
+                    </a>
+                </div>
+                <p>
+                    I was invited to speak at
+                    <a
+                        href="https://web.archive.org/web/20260420014414/https://www.developer.tech.gov.sg/communities/events/conferences/stackx-cybersecurity-2026/speakers"
+                        target="_blank"
+                    >
+                        STACKx Cybersecurity 2026
+                    </a>
+                    about the struct creation system present in AETHER.
+                </p>
+            </div>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Apr 2026</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <a class="text-white! print:text-black!" href="">
+                        <span class="font-bold"> DEF CON Singapore 1 </span>
+                        &mdash; <span class="italic">C517 Village Speaker</span>
+                    </a>
+                </div>
+                <p>
+                    I was also a
+                    <a
+                        href="https://web.archive.org/web/20260428100812/https://www.csit.gov.sg/events/c517-village-at-def-con-sg#daytwo"
+                        target="_blank"
+                    >
+                        speaker at the C517 Village
+                    </a>
+                    at DEF CON Singapore 1, again on the struct creation system in AETHER.
+                </p>
+            </div>
+        </div>
+
+        {/* Certifications */}
+        <div>
+            <h1>Certifications</h1>
+            <div
+                class="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2 lg:grid-cols-4 print:flex print:flex-wrap print:gap-x-0 print:*:w-1/2"
+            >
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-center text-lg font-bold print:font-serif print:text-sm!">
+                        OffSec Certified Professional+ (OSCP+)
+                    </span>
+                    <a href="https://credentials.offsec.com/45e88e62-f0fc-4e92-83a9-2cdd0a26f12f" target="_blank"
+                        ><Image class="w-48 print:w-24" src={OSCP} alt="OSCP+" width={400} height={400} /></a
+                    >
+                    <span class="-mt-1 text-sm font-light uppercase print:text-xs">Mar 2026</span>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-center text-lg font-bold print:font-serif print:text-sm!">
+                        OffSec Web Expert (OSWE)
+                    </span>
+                    <a href="https://credentials.offsec.com/78d723dd-ee2c-4913-96f0-9941861e019f" target="_blank"
+                        ><Image class="w-48 print:w-24" src={OSWE} alt="OSWE" width={400} height={400} /></a
+                    >
+                    <span class="-mt-1 text-sm font-light uppercase print:text-xs">Dec 2025</span>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-center text-lg font-bold print:font-serif print:text-sm!">
+                        OffSec Web Assessor (OSWA)
+                    </span>
+                    <a href="https://credentials.offsec.com/8636cc6b-c0bd-47cc-89f9-8b2b53de5899" target="_blank"
+                        ><Image class="w-48 print:w-24" src={OSWA} alt="OSWA" width={400} height={400} /></a
+                    >
+                    <span class="-mt-1 text-sm font-light uppercase print:text-xs">Dec 2025</span>
+                </div>
+                <div class="flex flex-col items-center justify-center">
+                    <span class="text-center text-lg font-bold print:font-serif print:text-sm!">
+                        OffSec Wireless Professional (OSWP)
+                    </span>
+                    <a href="https://credentials.offsec.com/46dc42ec-eab4-4bb2-8574-ad9afc0d81ed" target="_blank"
+                        ><Image class="w-48 print:w-24" src={OSWP} alt="OSWP" width={400} height={400} /></a
+                    >
+                    <span class="-mt-1 text-sm font-light uppercase print:text-xs">Mar 2026</span>
+                </div>
+            </div>
+        </div>
+        <div class="break-after-page"></div>
+
+        {/* Education */}
+        <div>
+            <h1>Education</h1>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Aug 2023 - Present</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">National University of Singapore (NUS)</span> &mdash;{" "}
+                    <span class="italic">BCOMP, Information Security with Minor in Mathematics</span>
+                </div>
+            </div>
+        </div>
+
+        {/* Skills and Competencies */}
+        <div>
+            <h1>Skills & Competencies</h1>
+            <ul>
+                <li>
+                    <b>Computer Skills</b>
+                    <ul>
+                        <li><b>Software</b>: LangChain, LangGraph, the Interactive Disassembler (IDA)</li>
+                        <li><b>Languages</b>: Python, TypeScript, JavaScript, CSS, HTML</li>
+                        <li><b>Experiences</b>: Designing Agentic Workflows, Machine Learning, Data Science</li>
+                    </ul>
+                </li>
+                <li>
+                    <b>Presentation Skills</b>
+                    <ul>
+                        <li>
+                            Presented AETHER's progress and features to multiple technical audiences, such as DIS'
+                            Defence Cyber Chief and Chief Executive CSIT
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        {/* Selected Projects */}
+        <div>
+            <h1>Projects</h1>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">May 2025 - Present</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">Excalibur</span>
+                </div>
+                <p>
+                    A trustless, secure file management solution using zero-trust security and military-grade
+                    encryption.
+                </p>
+            </div>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Dec 2024 - Present</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">Photonic</span>
+                </div>
+                <p>My current portfolio website.</p>
+            </div>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Jun 2024 - Feb 2026</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">Keras-MatMulLess</span>
+                </div>
+                <p>
+                    A Keras based implementation of some layers mentioned in the papers
+                    <a href="https://arxiv.org/pdf/2402.17764v1" target="_blank">
+                        The Era of 1-bit LLMs: All Large Language Models are in 1.58 Bits
+                    </a>
+                    and
+                    <a href="https://arxiv.org/pdf/2406.02528v5" target="_blank">
+                        Scalable MatMul-free Language Modeling
+                    </a>
+                    as an attempt to learn the intricacies behind the layers of many machine learning models.
+                </p>
+            </div>
+            <div class="pt-2 *:block">
+                <span class="text-sm font-light uppercase print:text-xs">Oct 2022 - Oct 2024</span>
+                <div class="-mt-1 *:text-lg *:print:font-serif *:print:text-base">
+                    <span class="font-bold">A Complete Introduction To Abstract Algebra (Book)</span>
+                </div>
+                <p>
+                    A free and open-source textbook on abstract algebra, complete with step-by-step explanations of
+                    the core results in that field.
+                </p>
+            </div>
+        </div>
+    </section>
+</MainLayout>
+
+{/* Page styling */}
+<style is:global>
+    @import "@styles/global.css";
+
+    /* Hide normal page elements on printing resume */
+    header,
+    footer,
+    #hero-box,
+    #preamble {
+        @apply print:hidden!;
+    }
+
+    /* Apply correct A4 page margins */
+    body {
+        @apply m-0 print:min-h-0;
+    }
+
+    #resume {
+        @apply print:px-0;
+    }
+
+    @layer base {
+        @page {
+            size: 210mm 297mm; /* A4 */
+            @apply mx-[3.18cm] my-[1.9cm];
+        }
+    }
+
+    /* Resume styling */
+    #resume > div {
+        @apply pb-4;
+    }
+
+    #resume h1 {
+        @apply pb-1 text-2xl font-bold lg:text-3xl print:font-serif print:text-lg print:text-blue-400;
+    }
+
+    #resume p {
+        @apply print:text-xs!;
+    }
+
+    #resume a {
+        @apply print:text-blue-600! print:visited:print:text-blue-600!;
+    }
+
+    /* Lists */
+    #resume ul,
+    #resume ol {
+        @apply list-outside space-y-2 pl-8;
+    }
+    #resume ul {
+        @apply list-disc;
+    }
+
+    #resume ol {
+        @apply list-decimal;
+    }
+
+    #resume li {
+        @apply mb-0 print:text-xs!;
+    }
+
+    #resume li * {
+        @apply pb-0 wrap-break-word;
+    }
+
+    #resume li > ul,
+    #resume li > ol {
+        @apply space-y-1;
+    }
+</style>

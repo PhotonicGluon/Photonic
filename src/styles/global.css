@@ -7,6 +7,8 @@
 @plugin "flowbite/plugin";
 
 @theme {
+    --font-serif: "Playfair Display", "Times New Roman", "serif";
+
     --breakpoint-sm: 30rem;
     --breakpoint-md: 48rem;
     --breakpoint-lg: 64rem;
