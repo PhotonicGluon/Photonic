@@ -16,7 +16,7 @@ export default class ProjectList extends Component<Props, State> {
     }
 
     // Lifecycle methods
-    render(props: Props, state: State) {
+    render(props: Props) {
         const $projectStore = useStore(projectStore);
         const listItems = $projectStore.displayed.map((projectInstance) => (
             <ProjectCard id={projectInstance.id} project={projectInstance.project} />

@@ -1,15 +1,12 @@
 ---
-import type { CollectionEntry } from "astro:content";
-
-import { toProject } from "@lib/projects/project";
-import { toDateString } from "@lib/misc/dates";
-
+import UnifiedImage from "@components/generic/UnifiedImage.astro";
 import ProjectTags from "@components/projects/ProjectTags";
 import ProjectURLsIcons from "@components/projects/ProjectURLsIcons.astro";
 import SEO from "@components/top/SEO.astro";
-
 import MainLayout from "@layouts/MainLayout.astro";
-import UnifiedImage from "@components/generic/UnifiedImage.astro";
+import { toDateString } from "@lib/misc/dates";
+import { toProject } from "@lib/projects/project";
+import type { CollectionEntry } from "astro:content";
 
 // Get the project
 type Props = CollectionEntry<"projects">["data"];
@@ -18,7 +15,7 @@ const project = toProject(Astro.props);
 
 <MainLayout
     title={project.name}
-    subtitle=`${toDateString(project.dates.start)} — ${project.dates.end ? toDateString(project.dates.end) : "Present"}`
+    subtitle={`${toDateString(project.dates.start)} — ${project.dates.end ? toDateString(project.dates.end) : "Present"}`}
 >
     <slot name="head-fonts" slot="head-fonts" />
     <slot name="head-scripts" slot="head-scripts" />

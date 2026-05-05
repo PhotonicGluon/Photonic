@@ -163,7 +163,7 @@ export default class ProjectFilters extends Component<Props, State> {
     };
 
     // Lifecycle methods
-    render(props: Props, state: State) {
+    render(props: Props) {
         const $projectStore = useStore(projectStore);
         return (
             <div class="grid w-full grid-cols-2 gap-x-2 lg:block">
