@@ -5,7 +5,7 @@ import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import robotsTxt from "astro-robots-txt";
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import rehypeKatex from "rehype-katex";
 import rehypePresetMinify from "rehype-preset-minify";
 import rehypePrettyCode from "rehype-pretty-code";
@@ -32,6 +32,23 @@ export default defineConfig({
             },
         ],
     },
+    fonts: [
+        {
+            provider: fontProviders.npm(),
+            name: "DM Sans Variable",
+            cssVariable: "--font-dm-sans",
+            weights: ["100 1000"],
+            styles: ["normal", "italic"],
+            options: { file: "opsz.css" },
+        },
+        {
+            provider: fontProviders.npm(),
+            name: "JetBrains Mono",
+            cssVariable: "--font-jetbrains-mono",
+            weights: ["100 1000"],
+            styles: ["normal", "italic"],
+        },
+    ],
     integrations: [
         photonicTweakpane,
         preact(),

@@ -7,9 +7,6 @@
 @plugin "flowbite/plugin";
 
 @theme {
-    --font-sans: "DM Sans", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif";
-    --font-mono: "JetBrains Mono", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Courier New", "monospace";
-
     --breakpoint-sm: 30rem;
     --breakpoint-md: 48rem;
     --breakpoint-lg: 64rem;
@@ -17,6 +14,11 @@
 
     --text-2xs: 0.55rem;
     --text-2xs--line-height: calc(0.75 / 0.55);
+}
+
+@theme inline {
+    --font-sans: var(--font-dm-sans);
+    --font-mono: var(--font-jetbrains-mono);
 }
 
 @layer base {

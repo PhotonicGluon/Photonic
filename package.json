@@ -18,6 +18,8 @@
         "@astrojs/preact": "^5.1.2",
         "@astrojs/rss": "^4.0.18",
         "@astrojs/sitemap": "^3.7.2",
+        "@fontsource-variable/dm-sans": "^5.2.8",
+        "@fontsource-variable/jetbrains-mono": "^5.2.8",
         "@nanostores/deepmap": "^0.0.1",
         "@nanostores/preact": "^1.1.0",
         "@tailwindcss/vite": "^4.2.4",
