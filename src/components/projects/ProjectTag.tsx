@@ -18,7 +18,7 @@ export default class ProjectTag extends Component<Props, State> {
     }
 
     // Lifecycle methods
-    render(props: Props, state: State) {
+    render(props: Props) {
         return (
             <span
                 class="w-min rounded-lg border border-solid border-(--baseColour) bg-(--backgroundColour) px-3 text-sm lg:text-base"

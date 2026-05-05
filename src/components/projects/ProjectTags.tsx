@@ -17,7 +17,7 @@ export default class ProjectTags extends Component<Props, State> {
     }
 
     // Lifecycle methods
-    render(props: Props, state: State) {
+    render(props: Props) {
         return (
             <div
                 class={

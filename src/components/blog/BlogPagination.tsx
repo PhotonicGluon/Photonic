@@ -47,7 +47,7 @@ export default class BlogPagination extends Component<Props, State> {
                     <a
                         href={href}
                         class={
-                            "!text-gray-300 print:!text-black " +
+                            "text-gray-300! print:text-black! " +
                             `${className ? className : ""} ${nonDisabledClassName ? nonDisabledClassName : ""}`
                         }
                         aria-label={label}
@@ -133,14 +133,14 @@ export default class BlogPagination extends Component<Props, State> {
     }
 
     // Lifecycle methods
-    render(props: Props, state: State) {
+    render() {
         const $postStore = useStore(postStore);
         const numPages = $postStore.numPages;
         const currPage = $postStore.page;
 
         return (
             <nav aria-label="Page navigation">
-                <div class="inline-flex gap-4 !pb-0 *:gap-4 *:!pb-0 md:gap-2 md:*:gap-2">
+                <div class="inline-flex gap-4 pb-0! *:gap-4 *:pb-0! md:gap-2 md:*:gap-2">
                     {/* Previous page button */}
                     {this.pageButton(
                         <svg

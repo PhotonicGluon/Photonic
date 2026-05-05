@@ -24,7 +24,7 @@ export default class BlogList extends Component<Props, State> {
         postStore.setKey("numPerPage", props.numPerPage);
     }
 
-    render(props: Props, state: State) {
+    render() {
         const $postStore = useStore(postStore);
         const displayedPosts = $postStore.posts.slice(
             $postStore.page * $postStore.numPerPage,

@@ -46,7 +46,7 @@ export default class ScrollToTopButton extends Component<Props, State> {
         this.checkScroll();
     }
 
-    render(props: Props, state: State) {
+    render() {
         return (
             <div
                 class={
