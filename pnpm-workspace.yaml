@@ -1,12 +1,15 @@
-onlyBuiltDependencies:
-    - esbuild
-    - sharp
+allowBuilds:
+    esbuild: true
+    sharp: true
 
 minimumReleaseAge: 7200 # 5 days, expressed in minutes
 minimumReleaseAgeExclude:
     - astro@6.2.2
     - yaml@2.8.4
+    - fast-uri@3.1.2
 
 overrides:
-    yaml@<2.8.3: ">=2.8.3"
+    fast-uri@<=3.1.1: ">=3.1.2"
+    fast-xml-builder@<=1.1.6: ">=1.1.7"
     tailwindcss-animate>tailwindcss: $tailwindcss
+    yaml@<2.8.3: ">=2.8.3"
