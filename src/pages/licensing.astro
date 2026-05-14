@@ -13,6 +13,7 @@ const licenseBlog = readFileSync("LICENSE-BLOG", "utf-8").trimEnd();
 <MainLayout
     class="motion-safe:delay-200 motion-safe:duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:fill-mode-backwards motion-safe:slide-in-from-top-4"
     title="Licensing"
+    subtitle="(Last updated 14 May 2026)"
 >
     {/* SEO */}
     <Fragment slot="head-seo">
@@ -43,6 +44,13 @@ const licenseBlog = readFileSync("LICENSE-BLOG", "utf-8").trimEnd();
         <div class="w-full">
             <pre><code>{licenseMain}</code></pre>
         </div>
+        <p>
+            Do note that the use of AI on the source code is expressly <b><em>allowed</em></b>.
+            <em>
+                This permission does <b>not</b> extend to the blog posts' assets.
+            </em>
+            Please read the section below for more information.
+        </p>
     </section>
 
     {/* Blog posts */}
@@ -50,11 +58,17 @@ const licenseBlog = readFileSync("LICENSE-BLOG", "utf-8").trimEnd();
         <h2>Blog Posts</h2>
         <p>
             Unless otherwise specified, the blog posts' assets (including but not limited to the textual content,
-            images, source codes, etc.) are released under the <span class="font-bold">
-                Creative Commons Attribution 4.0 International License
-            </span>. You can <a href="https://creativecommons.org/licenses/by/4.0/">view the deed here</a>; the
-            full license text is reproduced below.
+            images, source codes, etc.) are released under the
+            <span class="font-bold">Creative Commons Attribution 4.0 International License</span>, subject to
+            additional conditions as described below. You can
+            <a href="https://creativecommons.org/licenses/by/4.0/">view the main deed here</a>.
         </p>
+        <p>
+            For blog posts published on or after <b>14 May 2026</b>, some additional conditions apply to blog
+            posts' assets. In short, AI tools may not be used to process the blog posts' assets <em>except</em>
+            for accessibility purposes.
+        </p>
+        <p>The full license text is reproduced below for clarity and convenience.</p>
         <div class="w-full">
             <pre><code>{licenseBlog}</code></pre>
         </div>
@@ -63,18 +77,21 @@ const licenseBlog = readFileSync("LICENSE-BLOG", "utf-8").trimEnd();
     {/* Other content */}
     <section>
         <h2>Other Content</h2>
-        <p>All other content are released under the same license as the source code.</p>
+        <p>
+            All other content are released under the same license as the source code. The use of AI on those assets
+            is <b><em>allowed</em></b>.
+        </p>
     </section>
+
+    <style>
+        @import "@styles/global.css";
+
+        h2 {
+            @apply text-3xl font-bold;
+        }
+
+        pre {
+            @apply mx-auto my-2 w-min max-w-full overflow-auto rounded-lg !bg-gray-800 p-6 text-sm print:w-full print:border print:border-gray-600 print:!bg-transparent print:text-xs print:whitespace-pre-wrap;
+        }
+    </style>
 </MainLayout>
-
-<style>
-    @import "@styles/global.css";
-
-    h2 {
-        @apply text-3xl font-bold;
-    }
-
-    pre {
-        @apply mx-auto my-2 w-min max-w-full overflow-auto rounded-lg !bg-gray-800 p-6 text-sm print:w-full print:border print:border-gray-600 print:!bg-transparent print:text-xs print:whitespace-pre-wrap;
-    }
-</style>
