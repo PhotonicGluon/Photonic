@@ -43,14 +43,14 @@ export default defineConfig({
         },
         {
             provider: fontProviders.npm(),
-            name: "JetBrains Mono",
+            name: "JetBrains Mono Variable",
             cssVariable: "--font-jetbrains-mono",
             weights: ["100 1000"],
             styles: ["normal", "italic"],
         },
         {
             provider: fontProviders.npm(),
-            name: "Playfair Display",
+            name: "Playfair Display Variable",
             cssVariable: "--font-playfair-display",
             weights: ["100 1000"],
             styles: ["normal", "italic"],
