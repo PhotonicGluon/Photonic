@@ -1,7 +1,7 @@
 ---
-title: "OPAQUE Protocol (TODO: Change)"
+title: "OPAQUE-ly Securing Logins with a Modern aPAKE Protocol"
 pubDate: 2026-05-17
-summary: "TODO: Add"
+summary: "Explore how the OPAQUE protocol leverages 3DH and OPRF to create a state-of-the-art, secure password-based key exchange mechanism."
 image:
     url: "/blog/opaque-protocol/compare-fibre-tiSE_paTt0A-unsplash.jpg"
     alt: "Hacker binary attack code matrix screen on a MacBook Pro"
@@ -9,7 +9,7 @@ tags: []
 hasMath: true
 ---
 
-In a [previous blog post](/blog/2025-07-04/security-over-insecurity:-the-foundations-of-authenticated-key-exchange/), we took a look at several key exchange protocols, including the classic Diffie-Hellman Key Exchange protocol, the station-to-station protocol, and Secure Remote Password. These protocols are generally tried and tested across decades, but their age also means that improvements accrued across the decades are not included in these legacy protocols. Thus the need for a modern, Augmented Password-Authenticated Key Exchange (aPAKE) protocol was born. One of these state-of-the-art aPAKE protocols is OPAQUE, first introduced in 2018 and formally specified in [Request for Comments (RFC) 9807](https://datatracker.ietf.org/doc/html/rfc9807) in 2025. How does it work? Let's find out!
+In a [previous blog post](/blog/2025-07-04/security-over-insecurity:-the-foundations-of-authenticated-key-exchange/), we took a look at several key exchange protocols, including the classic Diffie-Hellman Key Exchange protocol, the station-to-station protocol, and Secure Remote Password. These protocols were generally tried and tested across decades, but their age also means that improvements accrued across the decades are not included in these legacy protocols. Thus the need for a modern, Augmented Password-Authenticated Key Exchange (aPAKE) protocol was born. One of these state-of-the-art aPAKE protocols is OPAQUE, first introduced in 2018 and formally specified in [Request for Comments (RFC) 9807](https://datatracker.ietf.org/doc/html/rfc9807) in 2025. How does it work? Let's find out!
 
 # A Look Back On Secure Remote Password (SRP)
 
@@ -19,25 +19,25 @@ These two desiderata were achieved by the SRP protocol, which was first introduc
 
 - **"Security Through Legacy"**: In short, we _assume_ that SRP is secure because we haven't found anything wrong with it. SRP was developed in a time before [Universal Composability](https://en.wikipedia.org/wiki/Universal_composability) became the norm, and so we haven't truly analysed it under adversarial network conditions.
 - **Vulnerability to Server Compromise**: Recall in SRP that a verifier value $v = g^x \mod p$ is stored on the server. In effect, this verifier value _still_ acts as a 'password' of sorts; an attacker that has precomputed all possible values of $g^x \mod p$ can still recover the secret key $x$.
-- **Flexibility**: SRP-6a is _heavily_ tied to modular operations on integers and cannot harness modern developments such as elliptic curve technologies. In fact, if the discrete logarithm problem is solved by a quantum computer, all Diffie-Hellman-related protocols (including SRP) would be trivially broken and no longer secure.
+- **Flexibility**: SRP-6a is _heavily_ tied to modular operations on integers and cannot harness modern developments such as elliptic curve technologies. In fact, if the Discrete Logarithm Problem (explained further below) is solved by a quantum computer, all Diffie-Hellman-related protocols (including SRP) would be trivially broken and no longer secure.
 
 What we want for a modern aPAKE protocol is to address all of these concerns &mdash; where the protocol's security has been rigorously examined and vetted, is resistant to attacks in case of a server compromise, and grants greater flexibility in its underlying operations in case a pivot to post-quantum cryptographic techniques is warranted.
 
 # Triple Diffie-Hellman (3DH)
 
-The first thing that needs to be replaced within SRP is the key exchange mechanism. As previously mentioned, the SRP key exchange mechanism is derived from Diffie-Hellman Key Exchange (DHKE). The fundamental principle that DHKE relied on is the observation that
+The first thing that needs replacing within SRP is the key exchange mechanism. As previously mentioned, the SRP key exchange mechanism is derived from Diffie-Hellman Key Exchange (DHKE). The fundamental principle that DHKE relied on is the observation that
 
 ```math
 (g^a)^b = g^{ab} = g^{ba} = (g^b)^a
 ```
 
-for certain structures, called **groups**. Traditional DHKE uses the [multiplicative group of integers modulo $p$](https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n) as the underlying group, where $p$ is a prime, but the principle of DHKE extends beyond just numbers. All we need is a **cyclic group**, which is a group where all the elements are simply 'exponents'[^group-exponentiation] of (at least) one element $g$, called a **generator**. To put it more formally, for a cyclic group $G$, there is an element $g$ such that for any element in $G$, say $x$, we are able to find a corresponding integer $n$ such that $x = g^n$. Crucially, trying to reverse this process, i.e. to find $n$ given the group and $x$, is difficult. This is called the **Discrete Logarithm Problem**[^discrete-log-hardness].
+for certain structures, called **groups**. Traditional DHKE uses the [multiplicative group of integers modulo $p$](https://en.wikipedia.org/wiki/Multiplicative_group_of_integers_modulo_n) as the underlying group, where $p$ is a prime, but the principle of DHKE extends beyond just numbers. All we need is a **cyclic group**, which is a group where all the elements are simply 'exponents'[^group-exponentiation] of (at least) one element $g$, called a **generator**. To put it more formally, for any cyclic group $G$, there is an element $g$ such that for any element in $G$, say $x$, we are able to find a corresponding integer $n$ such that $x = g^n$. Crucially, trying to reverse this process, i.e. to find $n$ given the group and $x$, is difficult. This is called the **Discrete Logarithm Problem**[^discrete-log-hardness].
 
 [^group-exponentiation]: To be a little clearer, 'exponentiation' by $n$ means that we apply the operation of a group on an element $n$ times. In the case of the multiplicative group of integers modulo $p$, that is the same as raising the power of an integer to $n$ before taking the remainder modulo $p$.
 
 [^discrete-log-hardness]: It is actually not known _how_ difficult it is to recover $n$; we only have empirical experiments showing that it is hard.
 
-Now let us recall how DHKE works. Suppose Alice and Bob wants to derive a shared key. They first agree, _publicly_, on a group to use and a generator $g$.
+Now let us recall how DHKE works. Suppose Alice and Bob wants to derive a shared key. They first agree, _publicly_, on a cyclic group to use and a generator $g$.
 
 1. Alice randomly chooses a positive integer $a$. Bob does the same, choosing $b$.
 2. Alice computes $A = g^a$ and sends it to Bob over the public channel. Bob computes $B = g^b$ and sends it to Alice.
@@ -47,19 +47,19 @@ Now let us recall how DHKE works. Suppose Alice and Bob wants to derive a shared
 
 Observe that both Alice and Bob derive the _same_ secret key $s$ at the end of the DHKE protocol. They can then use $s$ to encrypt messages between each other going forward. This is _almost_ perfect, if not for the fact that a malicious actor (say, Mallory) could perform a **man-in-the-middle (MiTM)** attack and read the messages.
 
-In this case, Mallory simply intercepts the key exchange messages of Alice and Bob and sets up two encrypted channels: one between Alice and Mallory and one from Mallory to Bob. To Alice and Bob, it would seem as though they are still communicating over an encrypted channel, but in reality their messages are being read by a third party.
+In this case, Mallory simply intercepts the key exchange messages of Alice and Bob and sets up two encrypted channels: one between Alice and Mallory and one between Mallory and Bob. To Alice and Bob, it would seem as though they are still communicating over an encrypted channel, but in reality their messages are being read by a third party.
 
 ![How a Man-in-the-Middle Attack in DHKE Could Occur](../images/blog/opaque-protocol/dhke-with-mallory.png)
 
 There are several solutions to this problem, such as the Station-to-Station protocol described in the previous blog post. Here we will use another solution &mdash; triple Diffie-Hellman (3DH). It is almost the same as regular DHKE, except that we introduce public keys into the mix: Alice has a private key $a$ and a public key $A = g^a$, and Bob has a private key $b$ with public key $B = g^b$. Let's ignore how Alice and Bob share their public keys with each other beforehand[^public-key-infrastructure]; how does the 3DH key exchange work?
 
-1. Alice and Bob chooses positive integers $x$ and $y$ respectively, called the **secret keyshares**.
+1. Alice and Bob choose positive integers $x$ and $y$ respectively, called the **secret keyshares**.
 2. Alice computes $X=g^x$ and sends it to Bob over the public channel. Bob computes $Y = g^y$ and sends it to Alice. The values $X$ and $Y$ are called the **public keyshares**.
-3. Alice and Bob compute the 'shared values':
+3. Alice and Bob then compute the 'shared values' as follows.
     - The first shared value $s_1$ is akin to the DHKE shared value. Alice computes $Y^x$ and Bob computes $X^y$.
     - The second shared value $s_2$ checks if Bob can successfully prove that he is, indeed, Bob. While Alice computes $B^x$ using Bob's public key, Bob has to use his private key $b$ to compute $X^b$. That way $B^x = (g^b)^x = g^{bx} = (g^x)^b = X^b$.
     - The third shared value $s_3$ is similar to the second, but now it's Alice who needs to prove who she is. Alice computes $Y^a$ while Bob computes $A^y$; both sides are the same because $Y^a = (g^y)^a = g^{ay} = (g^a)^y = A^y$.
-4. With the shared values obtained, a **Key Derivation Function (KDF)** is used to 'combine' $s_1$, $s_2$, and $s_3$ alongside all public values (i.e., $X$, $Y$, $A$, and $B$) into a single shared key[^types-of-kdf].
+4. With all the shared values obtained, a **Key Derivation Function (KDF)** is used to 'combine' $s_1$, $s_2$, and $s_3$ alongside all public values $X$, $Y$, $A$, and $B$ into a single shared key[^types-of-kdf], say $S$.
 
 [^public-key-infrastructure]: A typical approach may be to rely on Public Key Infrastructure (PKI) with the use of Certificate Authorities (CAs). In OPAQUE, however, we'll do something cleverer, as we will see.
 
@@ -67,7 +67,7 @@ There are several solutions to this problem, such as the Station-to-Station prot
 
 ![3DH Key Exchange, Illustrated](../images/blog/opaque-protocol/3dh.png)
 
-Let's walk through a simple demonstration of a 3DH key exchange in Python. Here we use the multiplicative group of integers modulo 23 (i.e. $p = 23$) with the generator being $g = 5$. Note that a function call like `pow(a, b, m)` means $a^b \mod m$, i.e. raise $a$ to the power of $b$ modulo $m$.
+Let's look at a simple demonstration of a 3DH key exchange in Python. Here we use the multiplicative group of integers modulo 23 (i.e. $p = 23$) with the generator being $g = 5$. Note that a function call like `pow(a, b, m)` means $a^b \mod m$, i.e. raise $a$ to the power of $b$ modulo $m$.
 
 <script src="https://asciinema.org/a/XEj9sYFNQZy13gdP.js" id="asciicast-XEj9sYFNQZy13gdP" async="true"></script>
 
@@ -77,7 +77,7 @@ In the end you can see that the `dh1`, `dh2`, and `dh3` values are the same for 
 
 Obviously, 3DH doesn't work with passwords. But what we want is a _Password_-Authenticated Key Exchange protocol! It's fine for the server to keep using a private/public key construction, but how do we get the client to generate the private and public keys to use in 3DH from a password?
 
-A fairly obvious approach would be just to take the user's password, pass it through a KDF[^salt-the-password] to generate the client's private (or secret) key $c$, and generate the public key $C = p^c$. We then send the public key to the server for use in 3DH. What's wrong with this? Well, since the client public key is (by definition) public, anyone can see what $C = g^c$ is. A malicious attacker could record down the value of $C$, precompute all possible public keys, and then seeing which password matches. This [**rainbow table attack**](https://en.wikipedia.org/wiki/Rainbow_table) means that anyone who obtains the public key of the client (which is _everyone_) could try and crack the client's password _without first breaching the server_.
+A fairly obvious approach would be just to take the user's password, pass it through a KDF[^salt-the-password] to generate the client's private key $c$, and generate the public key $C = p^c$. We then send the public key to the server for use in 3DH. What's wrong with this? Well, since the client public key is (by definition) public, anyone can see what $C = g^c$ is. A malicious attacker could record down the value of $C$, precompute all possible public keys, and then seeing which password matches. This [**rainbow table attack**](https://en.wikipedia.org/wiki/Rainbow_table) means that anyone who obtains the public key of the client (which is _everyone_) could try and crack the client's password _without first breaching the server_.
 
 [^salt-the-password]: This naive approach is _incredibly_ insecure. A [cryptographic salt](<https://en.wikipedia.org/wiki/Salt_(cryptography)>) is typically included as another input to the KDF to prevent trivial brute force attacks. In this hypothetical scenario, however, this doesn't matter.
 
@@ -87,7 +87,7 @@ What could we use to achieve this?
 
 # Oblivious Pseudorandom Functions (OPRFs)
 
-Introducing OPRFs! These functions help us solve the problem of trying to mix in a server secret into the password-based key derivation process.
+Introducing OPRFs! These functions help us solve the problem of trying to mix a server secret into the password-based key derivation process.
 
 Before we look into the "oblivious" part of OPRFs, what is a Pseudorandom Function (PRF)? Essentially, a PRF looks like a function that generates random outputs, except that the same input generates the same output. _Except_, it is also fed a secret key (or _seed_) so that the outputs of the PRF are the same for the same inputs.
 
@@ -99,11 +99,11 @@ In practice, encryption functions such as AES could be used as PRFs: just define
 
 Let's go back to our good friend: the cyclic groups. Due to the Discrete Logarithm Problem, we know that finding $n$ given $g^n$ is hard. Assuming that we choose $n$ uniformly randomly, then $g^n$ would also be uniformly random. Also, if we make the size of the cyclic group a prime, we can utilise the following interesting fact[^zp-is-a-field]:
 
-> Let $\mathbb{Z}_p$ denote the set of integers $\{0, 1, 2, 3, \dots, p - 1\}$. Then for any $n \in \mathbb{Z}_p$ with $n \neq 0$ there exists $k \in \mathbb{Z}_p$, known as the **multiplicative inverse of $n$**, such that $nk = 1 \mod p$. We may abuse notation and write $n^{-1}$ to denote the multiplicative inverse of $n$.
+> Let $\mathbb{Z}_p$ denote the set of integers $\{0, 1, 2, 3, \dots, p - 1\}$. Then for any non-zero $n \in \mathbb{Z}_p$ there exists $k \in \mathbb{Z}_p$, known as the **multiplicative inverse of $n$**, such that $nk = 1 \mod p$. We may abuse notation and write $n^{-1}$ to denote the multiplicative inverse of $n$.
 
 [^zp-is-a-field]: This fact is due to $\mathbb{Z}_p$ being a field, in which all non-zero elements in it must have a multiplicative inverse. Specifically, $\mathbb{Z}_p$ is the Galois Field of order $p$.
 
-This insight allows us to conceptually create an OPRF with seed $s$ and input $x$ in a cyclic group of prime size as follows:
+This insight allows us to conceptually create an OPRF with seed $s$ and input $x$ within a cyclic group of prime size as follows:
 
 1. Convert $x$ into a group element $X$.
 2. Randomly take a non-zero $b \in \mathbb{Z}_p$, called the **blind**.
@@ -113,7 +113,7 @@ This insight allows us to conceptually create an OPRF with seed $s$ and input $x
 
 ![How an OPRF works](../images/blog/opaque-protocol/oprf.png)
 
-Let's see an OPRF in action. Let's use the [group of integers under addition modulo 23](https://en.wikipedia.org/wiki/Cyclic_group#Integer_and_modular_addition). In such a group the standard notation like $X^b$ means $b \times X$ (i.e., $X$ multiplied by $b$). Let's again use Python for demonstration; note that
+Let's see an OPRF in action using the [group of integers under addition modulo 23](https://en.wikipedia.org/wiki/Cyclic_group#Integer_and_modular_addition). In such a group the standard notation like $X^b$ means $b \times X$ (i.e., $X$ multiplied by $b$). Let's again use Python for demonstration; note that
 
 - the expression `randint(1, p-1)` means to generate a random integer from 1 to $p-1$ inclusive;
 - an expression like `(b * x) % p` means $(b \times x) \mod p$; and
@@ -144,7 +144,7 @@ This is _almost_ everything that is in OPAQUE, except that we still have to solv
 - How does the server get the client's public key?
 - How does the client get the server's public key?
 
-The first problem is solvable if we send the client's public key during registration[^the-registration-problem], but the second isn't so simple. Remember, the throughout the entire process, the client and server are talking in an insecure channel. That means that if the server sends its public key to the client in the clear, a malicious actor could swap out that public key with their own. The solution is to use a **masking key** that allows the client and server to encrypt the server public key. This masking key is based off the OPRF output and is sent to the server during registration alongside the client's public key.
+The first problem is solvable if we send the client's public key during registration[^the-registration-problem], but the second isn't so simple. Remember, the throughout the entire authentication process, the client and server are talking in an insecure channel. That means that if the server sends its public key to the client in the clear, a malicious actor could swap out that public key with their own. The solution is to use a **masking key** that allows the client and server to encrypt the server public key. This masking key is based off the OPRF output and is sent to the server during registration alongside the client's public key.
 
 [^the-registration-problem]: Like with most PAKEs, the registration phase of the protocol is assumed to be performed in some secure channel. So sending the masking key during the registration phase is okay, but sending it during the login phase is not.
 
@@ -172,7 +172,7 @@ Steve is almost ready to send these values back to Carol, but he also needs to s
 
 [^what-encryption]: Although the word "encrypt" might make it seem like this is a computationally expensive process, what is actually used is a [one-time pad](https://en.wikipedia.org/wiki/One-time_pad) based on Carol's masking key and the masking nonce. In particular, the masking key and masking nonce is expanded using a KDF to the length of the message, and then used to XOR the message.
 
-So, at the end of all that, Steve bundles the evaluated blind $Z$, the masking nonce $n_m$, and the encrypted $S$ and envelope into a `CredentialResponse` structure, and packs the server nonce $n_s$, his public keyshare $Y$, and server MAC $m_s$ into a `AuthResponse` structure. These two structures are sent to Carol as the `KE2` message.
+So, at the end of all that, Steve bundles the evaluated blind $Z$, the masking nonce $n_m$, and the encrypted $S$ and envelope into a `CredentialResponse` structure, and packs the server nonce $n_s$, his public keyshare $Y$, and server MAC $m_s$ into a `AuthResponse` structure. These two structures are bundled together and sent to Carol as the `KE2` message.
 
 ## Client Proves Itself (Key Exchange Message 3)
 
@@ -202,7 +202,7 @@ Steve receives Carol's client MAC $m_c$ and compares it with his expected MAC $m
 
 Phew! That was a lot. As you can see, the OPAQUE protocol is quite dense. But understanding the two main aspects of OPAQUE, namely the key exchange mechanism and the inclusion of server secrets into the password-based key derivation process, it becomes more manageable and understandable as a whole.
 
-# OPAQUE's Modularity and Post-Quantum Cryptography
+# The Modularity of OPAQUE and Post-Quantum Cryptography
 
 An obvious surface-level improvement of OPAQUE is that it takes less **round trips** than SRP, as seen in the diagram below.
 
@@ -211,6 +211,10 @@ An obvious surface-level improvement of OPAQUE is that it takes less **round tri
 Another improvement that OPAQUE has over SRP is that it is very modular. OPAQUE is made up of two main components: the key exchange mechanism and the OPRF. In RFC9807, they specified 3DH as the key exchange mechanism and the cyclic group-based OPRF as the OPRF implementation. But these can be swapped out for others!
 
 An exciting opportunity is to implement a **post-quantum secure** OPAQUE protocol by swapping out the key exchange mechanism and the OPRF with ones that are post-quantum secure. So far, the National Institute of Standards and Technology (NIST) have [standardized several post-quantum cryptographic protocols](https://csrc.nist.gov/projects/post-quantum-cryptography), including a module lattice-based key encapsulation mechanism in [FIPS203](https://csrc.nist.gov/pubs/fips/203/final) which, when paired with the corresponding digital signature algorithm in [FIPS204](https://csrc.nist.gov/pubs/fips/204/final), could replace 3DH as a post-quantum secure key exchange mechanism. A post-quantum secure OPRF remains elusive, though. But the modularity of OPAQUE means that, when a post-quantum OPRF become provably secure, they can be swapped with the existing OPRF to make a fully post-quantum secure aPAKE protocol built upon OPAQUE.
+
+# Disclosure
+
+No artificial intelligence technologies or tools were used in the creation of this blog post.
 
 # Image Credits
 
