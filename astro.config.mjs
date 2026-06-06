@@ -1,4 +1,5 @@
 import photonicTweakpane from "./lib/tweakpane/dev-tools/integration";
+import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import preact from "@astrojs/preact";
@@ -56,13 +57,8 @@ export default defineConfig({
             styles: ["normal", "italic"],
         },
     ],
-    integrations: [
-        photonicTweakpane,
-        preact(),
-        sitemap(),
-        robotsTxt(),
-        mdx({
-            syntaxHighlight: false,
+    markdown: {
+        processor: unified({
             remarkPlugins: [remarkAlert, remarkMath],
             rehypePlugins: [
                 rehypeKatex,
@@ -82,6 +78,13 @@ export default defineConfig({
                 footnoteLabelProperties: { className: [] },
             },
         }),
+    },
+    integrations: [
+        photonicTweakpane,
+        preact(),
+        sitemap(),
+        robotsTxt(),
+        mdx({ syntaxHighlight: false }),
         partytown(),
     ],
     vite: {
