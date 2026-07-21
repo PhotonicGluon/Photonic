@@ -24,7 +24,7 @@
         "@nanostores/deepmap": "^1.0.0",
         "@nanostores/preact": "^1.1.0",
         "@tailwindcss/vite": "^4.3.3",
-        "astro": "^6.4.6",
+        "astro": "^7.1.0",
         "astro-robots-txt": "^1.0.0",
         "astro-seo": "^1.1.0",
         "flowbite": "^4.0.2",
