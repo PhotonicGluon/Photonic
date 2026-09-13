@@ -9,4 +9,4 @@ Now, as the 2-year anniversary of beginning this book approaches, I felt that it
 
 ## Manuscript
 
-You can obtain a copy of the unfinished manuscript [by clicking here](/projects/nzqrc/NZQRC.pdf).
+You can obtain a copy of the unfinished manuscript [by clicking here](https://github.com/PhotonicGluon/NZQRC-Book/releases/tag/public).
