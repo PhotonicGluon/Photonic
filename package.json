@@ -12,7 +12,7 @@
         "gen-shader": "python3 scripts/gen_shader.py"
     },
     "dependencies": {
-        "@astrojs/markdown-remark": "^7.3.4",
+        "@astrojs/markdown-remark": "^7.3.5",
         "@astrojs/mdx": "^6.0.3",
         "@astrojs/partytown": "^2.1.9",
         "@astrojs/preact": "^6.1.1",
@@ -31,7 +31,7 @@
         "git-last-commit": "^1.0.1",
         "jquery": "~3.7.1",
         "nanostores": "^1.5.5",
-        "preact": "^11.0.2",
+        "preact": "^11.1.1",
         "read-pkg": "^10.1.0",
         "rehype-katex": "^7.0.1",
         "rehype-preset-minify": "^7.0.1",
@@ -53,7 +53,7 @@
         "@trivago/prettier-plugin-sort-imports": "^6.0.2",
         "@tweakpane/core": "^2.0.5",
         "@types/jquery": "^3.5.34",
-        "@types/node": "^26.6.5",
+        "@types/node": "^26.6.6",
         "@types/seedrandom": "^3.0.8",
         "@types/showdown": "^2.0.6",
         "prettier": "^3.9.10",
