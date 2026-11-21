@@ -12,12 +12,12 @@
         "gen-shader": "python3 scripts/gen_shader.py"
     },
     "dependencies": {
-        "@astrojs/markdown-remark": "^7.3.6",
+        "@astrojs/markdown-remark": "^7.3.9",
         "@astrojs/mdx": "^6.0.3",
         "@astrojs/partytown": "^2.1.9",
-        "@astrojs/preact": "^6.1.2",
+        "@astrojs/preact": "^6.1.6",
         "@astrojs/rss": "^4.0.19",
-        "@astrojs/sitemap": "^3.7.4",
+        "@astrojs/sitemap": "^3.7.5",
         "@fontsource-variable/dm-sans": "^5.3.0",
         "@fontsource-variable/jetbrains-mono": "^5.3.0",
         "@fontsource-variable/playfair-display": "^5.3.0",
@@ -46,7 +46,7 @@
         "tailwindcss": "^4.3.5",
         "twgl.js": "^7.0.0",
         "typescript": "^7.0.2",
-        "vite": "^7.3.7"
+        "vite": "^7.3.8"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.11",
@@ -56,13 +56,13 @@
         "@types/node": "^26.6.6",
         "@types/seedrandom": "^3.0.8",
         "@types/showdown": "^2.0.6",
-        "prettier": "^3.9.10",
+        "prettier": "^3.10.1",
         "prettier-plugin-astro": "^1.1.2",
         "prettier-plugin-tailwindcss": "^0.8.1",
         "tailwind-scrollbar": "^4.0.2",
         "tailwindcss-animate": "^1.0.7",
         "tailwindcss-intersect": "^2.2.0",
         "tweakpane": "^4.0.5",
-        "vite-plugin-glsl": "^1.6.2"
+        "vite-plugin-glsl": "^1.6.3"
     }
 }
