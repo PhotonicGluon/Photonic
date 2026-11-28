@@ -5,9 +5,12 @@ allowBuilds:
 minimumReleaseAge: 7200 # 5 days, expressed in minutes
 minimumReleaseAgeExclude: []
 
+catalog:
+    tailwindcss: ^4.3.5
+
 overrides:
     katex@>=0.11.0 <0.18.2: ^0.18.2
     minimatch@>=7.0.0 <11.0.1: ^11.0.1
     postcss@<=8.5.22: ^8.5.23
-    tailwindcss-animate>tailwindcss: $tailwindcss
+    tailwindcss-animate>tailwindcss: "catalog:"
     zod@<4.6.6: ^4.6.6
