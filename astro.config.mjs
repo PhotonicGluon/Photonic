@@ -1,9 +1,10 @@
-import photonicTweakpane from "./lib/tweakpane/dev-tools/integration";
 import { unified } from "@astrojs/markdown-remark";
 import mdx from "@astrojs/mdx";
 import partytown from "@astrojs/partytown";
 import preact from "@astrojs/preact";
 import sitemap from "@astrojs/sitemap";
+import fontsourceVariants from "@lib/fonts/fontsource";
+import photonicTweakpane from "@lib/tweakpane/dev-tools/integration";
 import tailwindcss from "@tailwindcss/vite";
 import robotsTxt from "astro-robots-txt";
 import { defineConfig, fontProviders } from "astro/config";
@@ -35,26 +36,34 @@ export default defineConfig({
     },
     fonts: [
         {
-            provider: fontProviders.npm(),
+            provider: fontProviders.local(),
             name: "DM Sans Variable",
             cssVariable: "--font-dm-sans",
-            weights: ["100 1000"],
-            styles: ["normal", "italic"],
-            options: { file: "opsz.css" },
+            options: {
+                variants: fontsourceVariants("@fontsource-variable/dm-sans", ["opsz.css", "opsz-italic.css"]),
+            },
         },
         {
-            provider: fontProviders.npm(),
+            provider: fontProviders.local(),
             name: "JetBrains Mono Variable",
             cssVariable: "--font-jetbrains-mono",
-            weights: ["100 1000"],
-            styles: ["normal", "italic"],
+            options: {
+                variants: fontsourceVariants("@fontsource-variable/jetbrains-mono", [
+                    "wght.css",
+                    "wght-italic.css",
+                ]),
+            },
         },
         {
-            provider: fontProviders.npm(),
+            provider: fontProviders.local(),
             name: "Playfair Display Variable",
             cssVariable: "--font-playfair-display",
-            weights: ["100 1000"],
-            styles: ["normal", "italic"],
+            options: {
+                variants: fontsourceVariants("@fontsource-variable/playfair-display", [
+                    "wght.css",
+                    "wght-italic.css",
+                ]),
+            },
         },
     ],
     markdown: {
