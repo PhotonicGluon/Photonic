@@ -1,7 +1,7 @@
 {
     "name": "photonic",
     "type": "module",
-    "version": "1.4.0-alpha.1",
+    "version": "1.4.0-alpha.2",
     "scripts": {
         "dev": "astro dev --host",
         "build": "astro build",
@@ -25,7 +25,6 @@
         "@nanostores/preact": "^1.1.1",
         "@tailwindcss/vite": "^4.3.5",
         "astro": "7.4.13",
-        "astro-robots-txt": "^1.0.0",
         "astro-seo": "^1.2.0",
         "flowbite": "^4.0.2",
         "git-last-commit": "^1.0.1",

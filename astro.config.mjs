@@ -6,7 +6,6 @@ import sitemap from "@astrojs/sitemap";
 import fontsourceVariants from "@lib/fonts/fontsource";
 import photonicTweakpane from "@lib/tweakpane/dev-tools/integration";
 import tailwindcss from "@tailwindcss/vite";
-import robotsTxt from "astro-robots-txt";
 import { defineConfig, fontProviders } from "astro/config";
 import rehypeKatex from "rehype-katex";
 import rehypePresetMinify from "rehype-preset-minify";
@@ -88,14 +87,7 @@ export default defineConfig({
             },
         }),
     },
-    integrations: [
-        photonicTweakpane,
-        preact(),
-        sitemap(),
-        robotsTxt(),
-        mdx({ syntaxHighlight: false }),
-        partytown(),
-    ],
+    integrations: [photonicTweakpane, preact(), sitemap(), mdx({ syntaxHighlight: false }), partytown()],
     vite: {
         plugins: [glsl(), tailwindcss()],
     },
